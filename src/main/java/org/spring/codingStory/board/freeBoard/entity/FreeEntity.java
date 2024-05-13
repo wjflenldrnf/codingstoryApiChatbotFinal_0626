@@ -57,7 +57,7 @@ public class FreeEntity extends BaseTimeEntity {
     @OneToMany(mappedBy = "freeEntity"
             , fetch = FetchType.LAZY
             , cascade = CascadeType.REMOVE)
-    private List<FreeReplyEntity> freeReplyEntityList;
+     private List<FreeReplyEntity> freeReplyEntityList;
 
 
 
