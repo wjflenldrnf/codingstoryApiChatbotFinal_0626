@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>index</title>
+  <link rel="stylesheet" th:href="@{/css/member/join.css}">
+</head>
+<h1>회원가입</h1>
+<div class="join-form">
+
+
+<form th:action="@{/member/join}" method="POST">
+<ul>
+  <li>
+    이메일
+  <input type="text" id="userEmail" name="userEmail">
+  </li>
+  <li>
+    비밀번호
+  <input type="text" id="userPw" name="userPw">
+  </li>
+  <li>
+    이름
+  <input type="text" id="name" name="name">
+  </li>
+
+    <li>
+      부서
+  <input type="text" id="department" name="department">
+    </li>
+
+  <li>
+    직급
+  <input type="text" id="mRank" name="mRank">
+  </li>
+    <li>
+      주소
+  <input type="text" id="address" name="address">
+    </li>
+  <li>
+    번호
+  <input type="text" id="phoneNumber" name="phoneNumber">
+  </li>
+
+  <li>
+  <input type="file" value="파일">
+  </li>
+</ul>
+
+  <input type="submit" value="회원가입완료">
+</form>
+</div>
+
+
+
+
+<body>
+</body>
+</html>
