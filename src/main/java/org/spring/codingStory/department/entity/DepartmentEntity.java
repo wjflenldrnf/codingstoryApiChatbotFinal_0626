@@ -24,6 +24,8 @@ public class DepartmentEntity {
     @Column(nullable = false)
     private String dptName;
 
+
+
     @JsonIgnore // ajax시 순환참조 방지
     @OneToMany(mappedBy = "departmentEntity"
             , fetch = FetchType.LAZY
