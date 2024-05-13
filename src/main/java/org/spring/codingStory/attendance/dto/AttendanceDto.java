@@ -1,6 +1,7 @@
 package org.spring.codingStory.attendance.dto;
 
 import lombok.*;
+import org.spring.codingStory.attendance.entity.AttendanceEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
 
 import java.time.LocalDateTime;
@@ -23,3 +24,9 @@ public class AttendanceDto {
     private String attendanceType;
 
 }
+
+//public static AttendanceDto toInsertAttendanceDto(AttendanceEntity attendanceEntity){
+//
+//    return
+//}
+
