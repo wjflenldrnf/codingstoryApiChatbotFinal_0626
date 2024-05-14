@@ -7,6 +7,8 @@ import org.spring.codingStory.member.entity.MemberEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,13 +28,13 @@ public class AttendanceEntity  {
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
-//    @Column(nullable = false)
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private LocalDateTime checkInTime;
-//
-//    @Column(nullable = false)
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private LocalDateTime checkOutTime;
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date checkInTime;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date checkOutTime;
 
     @Column(nullable = false)
     private String attendanceType; // 정상 출근, 지각 등
