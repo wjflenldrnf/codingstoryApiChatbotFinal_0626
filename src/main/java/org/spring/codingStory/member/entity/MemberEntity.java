@@ -5,9 +5,11 @@ import lombok.*;
 import org.spring.codingStory.approval.entity.ApprovalEntity;
 import org.spring.codingStory.contraint.BaseTimeEntity;
 import org.spring.codingStory.department.entity.DepartmentEntity;
+import org.spring.codingStory.mRank.entity.RankEntity;
+import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
-import org.spring.codingStory.mRank.entity.RankEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
 @Entity
 @Table(name = "member")
 public class MemberEntity extends BaseTimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
@@ -86,4 +89,38 @@ public class MemberEntity extends BaseTimeEntity {
     @JoinColumn(name = "department_id")
     private DepartmentEntity departmentEntity;
 
+
+    public static MemberEntity toJoinMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
+        MemberEntity memberEntity=new MemberEntity();
+
+        memberEntity.setUserEmail(memberDto.getUserEmail());
+        memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
+        memberEntity.setName(memberDto.getName());
+        memberEntity.setDepartment(memberDto.getDepartment());
+        memberEntity.setMRank(memberDto.getMRank());
+        memberEntity.setAddress(memberDto.getAddress());
+        memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
+        memberEntity.setRole(Role.MEMBER);
+        memberEntity.setMemberAttachFile(0);
+
+        return memberEntity;
+
+    }
+
+    public static MemberEntity toJoinFileMember(MemberDto memberDto,PasswordEncoder passwordEncoder) {
+
+        MemberEntity memberEntity=new MemberEntity();
+
+        memberEntity.setUserEmail(memberDto.getUserEmail());
+        memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
+        memberEntity.setName(memberDto.getName());
+        memberEntity.setDepartment(memberDto.getDepartment());
+        memberEntity.setMRank(memberDto.getMRank());
+        memberEntity.setAddress(memberDto.getAddress());
+        memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
+        memberEntity.setRole(Role.MEMBER);
+        memberEntity.setMemberAttachFile(1);
+
+        return memberEntity;
+    }
 }
