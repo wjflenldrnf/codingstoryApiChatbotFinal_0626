@@ -17,7 +17,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "attendanceEntity")
-public class AttendanceEntity  {
+public class AttendanceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "attendance_id")
@@ -28,17 +28,22 @@ public class AttendanceEntity  {
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date checkInTime;
+//    @Column(nullable = false)
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date checkInTime;
+//
+//    @Column(nullable = false)
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date checkOutTime;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date checkOutTime;
+    private LocalDateTime checkInTime;
+
+    @Column(nullable = false)
+    private LocalDateTime checkOutTime;
 
     @Column(nullable = false)
     private String attendanceType; // 정상 출근, 지각 등
-
 
 
 }
