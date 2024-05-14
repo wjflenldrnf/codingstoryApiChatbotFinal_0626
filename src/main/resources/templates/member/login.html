@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>index</title>
+  <link rel="stylesheet" th:href="@{/css/member/login.css}">
+</head>
+<div class="container">
+  <div class="login">
+    <div class="login-con">
+      <form th:action="@{/member/login}" method="POST">
+        <ul>
+          <div class="loginInput">
+            <input type="text" id="userEmail" name="userEmail" placeholder="아이디">
+            <input type="text" id="userPw" name="userPw" placeholder="비밀번호">
+          </div>
+          <li>
+          </li>
+          <li>
+            <input type="submit" value="로그인">
+          </li>
+          <li>
+          <a th:href="@{/member/join}">회원가입</a>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<body>
+</body>
+</html>
