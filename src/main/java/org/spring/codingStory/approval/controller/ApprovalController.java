@@ -38,7 +38,7 @@ public class ApprovalController {
     public String insert(@ModelAttribute Model model,
                          MemberDto memberDto){
 
-        return "/index";
+        return "/apv/index";
     }
 
 
