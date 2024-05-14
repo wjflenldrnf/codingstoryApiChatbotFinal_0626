@@ -13,3 +13,13 @@ flex-direction:column;
 .join-form form input{
 
 }
+
+.radios{
+}
+.radios input[type=radio]{
+display:none;
+}
+.radios label{
+border:1px solid;
+gap:10px;
+}

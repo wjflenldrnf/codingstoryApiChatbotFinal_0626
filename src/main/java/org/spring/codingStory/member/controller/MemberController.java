@@ -1,8 +1,9 @@
-package org.spring.codingStory.member.member.controller;
+package org.spring.codingStory.member.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.repository.MemberRepository;
+import org.spring.codingStory.member.serviceImpl.MemberServiceImpl;
 import org.spring.codingStory.member.serviceImpl.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,14 +33,12 @@ public class MemberController {
     return "redirect:/member/login";
   }
 
-
-
   @GetMapping("/login")
   public String login(){
 
-
     return "member/login";
   }
+
 
 
 
