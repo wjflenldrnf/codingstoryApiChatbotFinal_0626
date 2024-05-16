@@ -34,7 +34,7 @@ public class WebSecurityConfig {
 
 
         http.authorizeRequests()
-                .antMatchers().permitAll()
+                .antMatchers("/js/**","/css/**").permitAll()
                 .antMatchers().authenticated()
                 .antMatchers().hasAnyRole()
                 .antMatchers().hasAnyRole()

@@ -9,6 +9,8 @@ import org.spring.codingStory.approval.repository.ApprovalFileRepository;
 import org.spring.codingStory.approval.repository.ApprovalRepository;
 import org.spring.codingStory.approval.serviceImpl.service.ApprovalService;
 import org.spring.codingStory.member.entity.MemberEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +30,7 @@ public class ApprovalServiceImpl implements ApprovalService {
     @Override
     public void apvWrite(ApprovalDto approvalDto) throws IOException {
 
-        if (approvalDto.getApvAttachFile()==0) {
+        if (approvalDto.getApvFile().isEmpty()) {
             approvalDto.setMemberEntity(MemberEntity.builder()
                 .id(approvalDto.getMemberId())
                 .build());
@@ -44,7 +46,7 @@ public class ApprovalServiceImpl implements ApprovalService {
             apvFile.transferTo(new File(filePath));
 
             approvalDto.setMemberEntity(MemberEntity.builder()
-                .id(approvalDto.getMemberEntity().getId())
+                .id(approvalDto.getMemberId())
                 .build());
             ApprovalEntity approvalEntity1 = ApprovalEntity.toWriteApv1(approvalDto);
             Long id = approvalRepository.save(approvalEntity1).getId();
@@ -63,8 +65,27 @@ public class ApprovalServiceImpl implements ApprovalService {
                 throw new IllegalArgumentException("없음!");
             }
         }
+    }
 
+    @Override
+    public Page<ApprovalDto> apvList(Pageable pageable, String subject, String search) {
+        Page<ApprovalEntity> approvalEntityPage = null;
 
+        if(subject==null || search==null){
+            approvalEntityPage = approvalRepository.findAll(pageable);
+        }else {
+            if (subject.equals("apvTitle")){
+                approvalEntityPage=approvalRepository.findByApvTitleContains(pageable,search);
+            } else if (subject.equals("apvContent")) {
+                approvalEntityPage=approvalRepository.findByApvContentContains(pageable,search);
+            }else {
+                approvalEntityPage= approvalRepository.findAll(pageable);
+            }
+        }
+
+        Page<ApprovalDto> approvalDtoPage = approvalEntityPage.map(ApprovalDto::toApvDto);
+
+        return approvalDtoPage;
     }
 }
 

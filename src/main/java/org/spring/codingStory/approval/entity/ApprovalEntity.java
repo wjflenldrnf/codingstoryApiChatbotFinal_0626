@@ -41,7 +41,7 @@ public class ApprovalEntity extends BaseTimeEntity {
 //    //결재 종류
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
@@ -65,9 +65,10 @@ public class ApprovalEntity extends BaseTimeEntity {
 
     //dto -> entity (파일 없을 때 보고서 작성)
     public static ApprovalEntity toWriteApv(ApprovalDto approvalDto) {
+
         ApprovalEntity approvalEntity = new ApprovalEntity();
 
-//        approvalEntity.setId(approvalDto.getId());
+        approvalEntity.setId(approvalDto.getId());
         approvalEntity.setApvTitle(approvalDto.getApvTitle());
         approvalEntity.setApvContent(approvalDto.getApvContent());
         approvalEntity.setApvAttachFile(0);
@@ -83,7 +84,7 @@ public class ApprovalEntity extends BaseTimeEntity {
     public static ApprovalEntity toWriteApv1(ApprovalDto approvalDto) {
         ApprovalEntity approvalEntity = new ApprovalEntity();
 
-//        approvalEntity.setId(approvalDto.getId());
+        approvalEntity.setId(approvalDto.getId());
         approvalEntity.setApvTitle(approvalDto.getApvTitle());
         approvalEntity.setApvContent(approvalDto.getApvContent());
         approvalEntity.setApvAttachFile(1);

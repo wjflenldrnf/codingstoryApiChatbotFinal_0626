@@ -2,6 +2,7 @@ package org.spring.codingStory.approval.dto;
 
 import lombok.*;
 import org.spring.codingStory.approval.entity.ApprovalDivEntity;
+import org.spring.codingStory.approval.entity.ApprovalEntity;
 import org.spring.codingStory.approval.entity.ApprovalFileEntity;
 import org.spring.codingStory.approval.entity.ApprovalStatusEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
@@ -42,5 +43,15 @@ public class ApprovalDto {
     private List<ApprovalFileEntity> approvalFileEntityList;
 
 
+    public static ApprovalDto toApvDto(ApprovalEntity approvalEntity) {
+        ApprovalDto approvalDto = new ApprovalDto();
 
+       Long id = getId(approvalEntity.getId());
+        approvalDto.getApvTitle(approvalEntity.getApvTitle());
+
+
+
+        return approvalDto;
+
+    }
 }
