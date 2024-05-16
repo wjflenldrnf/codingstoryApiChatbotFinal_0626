@@ -1,9 +1,8 @@
 package org.spring.codingStory;
 
 import org.junit.jupiter.api.Test;
-import org.spring.codingStory.attendance.AttendanceRepository;
+import org.spring.codingStory.attendance.repository.AttendanceRepository;
 import org.spring.codingStory.attendance.entity.AttendanceEntity;
-import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;

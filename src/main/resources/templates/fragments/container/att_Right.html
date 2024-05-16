@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="right" th:fragment="att_RightFragment">
+    <div class="right-con">
+        <div class="top">
+            <div class="gnb">
+                <ul>
+                    <th:block sec:authorize="isAnonymous()">
+                        <li><a th:href="@{/member/login}">로그인</a></li>
+                        <li><a th:href="@{/member/join}">회원가입</a></li>
+                    </th:block>
+                    <th:block sec:authorize="isAuthenticated()">
+                        로그인중
+                    </th:block>
+
+                    <li><a th:href="@{/member/detail/}" th:text="${ #authentication.principal.username }"></a></li>
+
+                    <li><a th:href="@{#}">HOME</a></li>
+                    <li><a th:href="@{#}">SHOPPING</a></li>
+                    <li><a th:href="@{#}">BOAD</a></li>
+                    <li><a th:href="@{#}">INFOMATION</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="admin-data">
+                data
+
+                <div class="index-con">
+
+                    <div class="write-form">
+                        <form th:action="@{/attendance}" method="post" enctype="multipart/form-data"
+                              th:object="${attendanceDto}">
+
+                            <ul>
+                                <li>
+                                    <label for="memberId">회원아이디</label>
+                                    <input type="text" name="memberId" id="memberId" th:value="${memberId}" readonly>
+                                </li>
+
+                                <li>
+                                    <label for="id">ID</label>
+                                    <input type="hidden" name="id" id="id" th:value="${id}" readonly>
+                                </li>
+                                <li>
+                                    <label for="checkInTime">checkInTime</label>
+<!--                                    <input type="datetime-local" id="checkInTime" th:field="*{checkInTime}">-->
+                                    <button id="checkInTime" onclick="checkInTime()">Check In</button>
+                                </li>
+
+                                <li>
+                                    <label for="checkOutTime">checkOutTime</label>
+<!--                                    <input type="datetime-local" id="checkOutTime" th:field="*{checkOutTime}">-->
+                                    <button id="checkOutTime" onclick="checkOutTime()">Check Out</button>
+                                </li>
+
+
+
+                                <script>
+                                    function checkInTime() {
+                                        // 출근 기록하는 로직 추가
+                                        alert("Checked in successfully!");
+                                    }
+
+                                    function checkOutTime() {
+                                        // 퇴근 기록하는 로직 추가
+                                        alert("Checked out successfully!");
+                                    }
+                                </script>
+
+
+
+                                <li>
+                                    <label for="attendanceType">attendanceType</label>
+                                    <input type="text" id="attendanceType" th:field="*{attendanceType}">
+                                </li>
+
+
+
+
+
+
+                                <li>
+                                    <input type="submit" value="확인">
+                                </li>
+
+                            </ul>
+                        </form>
+                    </div>
+
+
+                    <ul>
+
+
+
+
+                        <li><a th:href="@{/attendance/attDetail}">attDetail</a></li>
+                        <li><a th:href="@{/attendance/attList}">attList</a></li>
+
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</html>

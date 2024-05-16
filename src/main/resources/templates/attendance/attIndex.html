@@ -1,83 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>att index</title>
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout/att_Layout}" ><!-- 기본레이아웃  -->
+<!-- head layout 설정된  fragment -->
+<th:block layout:fragment="title">
+    <title>admin </title>
+</th:block>
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</th:block>
+<th:block layout:fragment="script">
+    <!--  <script th:src="${/js/자바스크립트.js}"></script>-->
+</th:block>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!--    <script th:src="@{/js/attendance/att.js}" defer></script>-->
 </head>
 <body>
-attendance
-
-<div class="index">
-    <div class="index-con">
-
-        <div class="write-form">
-            <form th:action="@{/attendance}" method="post" enctype="multipart/form-data" th:object="${attendanceDto}">
-
-                <ul>
-                    <li>
-                        <label for="memberId">회원아이디</label>
-                        <input type="text" name="memberId" id="memberId" th:value="${memberId}" readonly>
-                    </li>
-
-                    <li>
-                        <label for="id">ID</label>
-                        <input type="hidden" name="id" id="id" th:value="${id}" readonly>
-                    </li>
-                    <li>
-                        <label for="checkInTime">checkInTime</label>
-                        <input type="datetime-local"  id="checkInTime" th:field="*{checkInTime}">
-                    </li>
-
-                    <li>
-                        <label for="checkOutTime">checkOutTime</label>
-                        <input type="datetime-local"  id="checkOutTime" th:field="*{checkOutTime}">
-                    </li>
-
-                    <li>
-                        <label for="attendanceType">attendanceType</label>
-                        <input type="text"  id="attendanceType" th:field="*{attendanceType}">
-                    </li>
-
-
-                    <li>
-                        <input type="submit" value="확인">
-                    </li>
-
-                </ul>
-            </form>
-        </div>
-
-
-        <ul>
-
-<!--            <button onclick="checkIn()">Check In</button>-->
-<!--            <button onclick="checkOut()">Check Out</button>-->
-
-<!--            <script>-->
-<!--                function checkIn() {-->
-<!--                    // 출근 기록하는 로직 추가-->
-<!--                    alert("Checked in successfully!");-->
-<!--                }-->
-
-<!--                function checkOut() {-->
-<!--                    // 퇴근 기록하는 로직 추가-->
-<!--                    alert("Checked out successfully!");-->
-<!--                }-->
-<!--            </script>-->
-
-
-            <li><a th:href="@{/attendance/attDetail}">attDetail</a></li>
-            <li><a th:href="@{/attendance/attList}">attList</a></li>
-
-
-
-        </ul>
-
-    </div>
-</div>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-package org.spring.codingStory.attendance;
+package org.spring.codingStory.attendance.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.spring.codingStory.attendance.attendanceServiceImpl.AttendanceServiceImpl;

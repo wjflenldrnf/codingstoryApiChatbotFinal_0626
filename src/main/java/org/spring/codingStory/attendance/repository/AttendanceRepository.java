@@ -1,4 +1,4 @@
-package org.spring.codingStory.attendance;
+package org.spring.codingStory.attendance.repository;
 
 import org.spring.codingStory.attendance.entity.AttendanceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

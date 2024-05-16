@@ -5,6 +5,7 @@ import org.spring.codingStory.attendance.entity.AttendanceEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -18,14 +19,14 @@ public class AttendanceDto {
 
     private MemberEntity memberEntity;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private Date checkInTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private Date checkOutTime;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+//    private Date checkInTime;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+//    private Date checkOutTime;
 
-//    private LocalDateTime checkInTime;
-//
-//    private LocalDateTime checkOutTime;
+    private LocalDateTime checkInTime;
+
+    private LocalDateTime checkOutTime;
 
     private String attendanceType;
 
