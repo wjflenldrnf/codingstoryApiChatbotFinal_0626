@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="right" th:fragment="apvListRightFragment">
+
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>결재 양식</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>상태</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td th:text="${approval.id}"></td>
+                <td th:text="${approval.title}"></td>
+                <td th:text="${approvalDiv.apvDivName}"></td>
+                <td th:text="${approval.memberEntity}"></td>
+                <td th:text="${approval.createTime}"></td>
+                <td th:text="${apv.}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
+</html>

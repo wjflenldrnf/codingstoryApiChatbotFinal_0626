@@ -3,8 +3,9 @@ package org.spring.codingStory.approval.dto;
 import lombok.*;
 import org.spring.codingStory.approval.entity.ApprovalDivEntity;
 import org.spring.codingStory.approval.entity.ApprovalFileEntity;
-import org.spring.codingStory.approval.entity.ApprovalOkEntity;
+import org.spring.codingStory.approval.entity.ApprovalStatusEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -24,19 +25,22 @@ public class ApprovalDto {
 
     private int apvAttachFile;
 
-    private String apvFnl;
+    //dto 만 따로 추가
+    private MultipartFile apvFile;
 
-    private String apvNo;
+    private String apvStatus;
 
-    private String apvDiv;
+    //dto만 따로 추가
+    private Long memberId;
 
     private MemberEntity memberEntity;
 
     private ApprovalDivEntity approvalDivEntity;
 
-    private ApprovalOkEntity approvalOkEntity;
+    private ApprovalStatusEntity approvalStatusEntity;
 
     private List<ApprovalFileEntity> approvalFileEntityList;
+
 
 
 }

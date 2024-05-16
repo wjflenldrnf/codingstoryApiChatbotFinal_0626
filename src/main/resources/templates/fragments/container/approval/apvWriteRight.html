@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="right" th:fragment="apvWriteRightFragment">
+
+    <div class="write">
+        <div class="write-con">
+            <form th:action="@{/apv/write}" method="POST" enctype="multipart/form-data">
+                <h1>보고서 작성</h1>
+                <ul>
+
+                    <li>
+                        <label for="report" id="report">보고서 종류
+                            <select>
+                                <option value="report">보고서</option>
+                                <option value="holiday">휴가 일정</option>
+                            </select>
+                        </label>
+
+                    </li>
+
+                    <li>
+                        <label for="memberName">보고서 작성자</label><!--결재자 선택하는 것 처럼 본인 선택하도록?-->
+                        <input type="text" name="memberName" id="memberName" th:value="${memberName}" readonly>
+                    </li>
+
+                    <li>
+                        결재자(창 띄워서 선택 할 수 있도록)
+                    </li>
+
+                    <li>
+                        결재 기한(날짜 선택)
+                    </li>
+
+                    <li>
+                        <label for="apvTitle">기안서 제목</label>
+                        <input type="text" name="apvTitle" id="apvTitle" placeholder="제목을 입력하세요.">
+                    </li>
+
+                    <li>
+                        <label for="apvContent">기안서 내용</label>
+                        <textarea name="apvContent" id="apvContent" cols="50" rows="30"
+                                  placeholder="내용을 입력하세요"></textarea>
+                    </li>
+
+                    <li class="file">
+                        <label for="file">파일</label>
+                        <input type="file" name="file" id="file">
+                    </li>
+
+                    <li>
+                        <input type="button" value="취소" onclick="history.back();"/>
+                        <input type="submit" value="작성">
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+
+</div>
+</html>

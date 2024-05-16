@@ -10,11 +10,12 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-public class ApprovalDivOkDto {
+public class ApprovalStatusDto {
 
     private Long id;
 
     private String apvOk;
 
     private List<ApprovalEntity> approvalEntityList;
+
 }
