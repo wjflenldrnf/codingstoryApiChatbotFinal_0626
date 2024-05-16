@@ -1,140 +1,23 @@
 @import url(/css/common/reset.css);
-/*admin*/
+@import url(/css/common/left.css);
+/*index*/
 .container{
   width:100%;
 }
-.admin{
+.index{
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: space-between;
 }
-.admin .left{
-  flex: 0 0 300px;
-  height: 100vh;
-  position: sticky;
-  top:0;
-  /* background-color: bisque; */
-}
-.admin .left-con{
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  /* padding: 10px; */
-  box-sizing: border-box;
-}
-.admin .left-con .top{
-
-  /* background-color: aquamarine; */
-  padding: 0 20px;
-  box-sizing: border-box;
-}
-
-.admin .left-con .top .title{
-
-}
-
-.admin .left-con .top .title h1.logo{
-  height: auto; 
-  /* background-color: #e392ef; */
-}
-.admin .left-con .top .title h1.logo img{
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.admin .left-con .top .title .profile{
-  height: 100px;
-  background-color: #18011b;
-  color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.admin .left-con .top .left-menu{
-  background-color: #d7d2d7;
-  padding: 20px 0;
-}
-.admin .left-con .top .left-menu>ul{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 3px;
-}
-.admin .left-con .top .left-menu>ul>li{
-  padding: 2px 5px;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-.admin .left-con .bottom{
-  height: 100px;
-  background-color: rgb(1, 24, 16); 
-  color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.admin .right{
-  flex:1;
-  /* background-color: cadetblue; */
-}
-.admin .right .right-con{
-  min-height: 100vh;
-}
-.admin .right .right-con .top{
-  height: 80px;
-  background-color: #ffffff;
-  position: sticky;
-  top:0;
-
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 10px;
-  box-sizing: border-box;
-}
-
-.admin .right .right-con .top .gnb{
- /* border: 1px solid; */
- box-sizing: border-box;
-}
-.admin .right .right-con .top .gnb>ul{
-  display: flex;
-  justify-content: space-between;
-  /* padding: 10px 0 ; */
-  box-sizing: border-box;
- }
- .admin .right .right-con .top .gnb>ul>li{
-  /* border: 1px solid; */
-  box-sizing: border-box;
-  font-size: 14px;
-  line-height: 20px;
-  padding: 10px 0 ;
- }
- .admin .right .right-con .top .gnb>ul>li>a{
- 
-  font-size: inherit;
-  line-height: inherit;
-  padding: 0 20px ;
-  background-color: inherit;
-  color: inherit;
- }
- .admin .right .right-con .top .gnb>ul>li:hover{
- background-color: black;
- color: #ffffff;
- }
 
 
 
-.admin .right .right-con .bottom{ 
+.index .right .right-con .bottom{ 
   padding: 10px ;
   box-sizing: border-box;
 }
-.admin .right .right-con .bottom .admin-data{
+.index .right .right-con .bottom .index-data{
   height: calc( 100vh - 100px );
   box-sizing: border-box;
   background-color: #ededea;
