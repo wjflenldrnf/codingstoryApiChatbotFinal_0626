@@ -11,68 +11,59 @@
 <div class="join-form">
 
 
-<form th:action="@{/member/join}" method="POST">
-<ul>
-  <li>
-    이메일
-  <input type="text" id="userEmail" name="userEmail">
-  </li>
-  <li>
-    비밀번호
-  <input type="text" id="userPw" name="userPw">
-  </li>
-  <li>
-    이름
-  <input type="text" id="name" name="name">
-  </li>
+  <form th:action="@{/member/join}" method="POST" enctype="multipart/form-data">
+    <ul>
+      <li>
+        이메일
+        <input type="text" id="userEmail" name="userEmail" maxlength="20">
+      </li>
+      <li>
+        비밀번호
+        <input type="text" id="userPw" name="userPw">
+      </li>
+      <li>
+        이름
+        <input type="text" id="name" name="name">
+      </li>
 
-    <li>
-      부서
-  <input type="text" id="department" name="department">
-    </li>
+      <li>
+        직급
+        <input type="text" id="mRank" name="mRank">
+      </li>
+      <li>
+        주소
+        <input type="text" id="address" name="address">
+      </li>
+      <li>
+        번호
+        <input type="text" id="phoneNumber" name="phoneNumber">
+      </li>
 
-  <li>
-    직급
-  <input type="text" id="mRank" name="mRank">
-  </li>
-    <li>
-      주소
-  <input type="text" id="address" name="address">
-    </li>
-  <li>
-    번호
-  <input type="text" id="phoneNumber" name="phoneNumber">
-  </li>
 
-  <li>
-  <input type="file" value="파일">
-  </li>
-  
 
-  <div class="radios">
+      <div class="radios">
+        <h2>부서</h2>
+        <input type="radio" id="a1" name="department" value="일반관">
+        <label for="a1">일반관</label>
 
-  <li>
-    <label for="a1">
-      a1
-    <input type="radio" id="a1" >
-    </label>
-    <label for="a2">
-      a2
-      <input type="radio" id="a2">
-    </label>
-    <label for="a3">
-      a3
-      <input type="radio" id="a3">
-    </label>
-  </li>
-  </div>
-</ul>
+        <input type="radio" id="a2" name="department" value="야외관">
+        <label for="a2">야외관</label>
 
-  <input type="submit" value="회원가입완료">
-</form>
+        <input type="radio" id="a3" name="department" value="자동차극장">
+        <label for="a3">자동차극장</label>
+
+        <input type="radio" id="a4" name="department" value="해외지점">
+        <label for="a4">해외지점</label>
+      </div>
+
+      <li>
+        <input type="file" id="memberFile" name="memberFile">
+      </li>
+
+    <input type="submit" value="회원가입완료">
+    </ul>
+  </form>
 </div>
-
-
 
 
 <body>

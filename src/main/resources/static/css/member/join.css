@@ -1,25 +1,48 @@
+@import url(/css/common/reset.css);
 .join-form{
 display:flex;
 flex-direction:column;
 }
 .join-form form{
+display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .join-form form ul{
+line-height:35px;
 }
 .join-form form ul>li{
 }
 
 .join-form form input{
-
 }
+input:focus {
+  outline: 3px solid #09aa5c;
+}
+
 
 .radios{
+padding:10px;
 }
+
 .radios input[type=radio]{
 display:none;
 }
-.radios label{
-border:1px solid;
-gap:10px;
+
+.radios input[type=radio] + label {
+    display:inline-block;
+    margin:-2px;
+    padding: 4px 12px;
+    background-color: #e7e7e7;
+    border-color: #ddd;
+    cursor:pointer;
+
 }
+
+.radios input[type=radio]:checked+label{
+background-color: #d0d0d0;
+background-image:none;
+}
+

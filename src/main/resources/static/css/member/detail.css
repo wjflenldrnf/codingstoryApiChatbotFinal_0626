@@ -1,0 +1,88 @@
+@import url(/css/common/reset.css);
+.container {
+  width: 100%;
+}
+
+.detail {
+  list-style-type: none;
+  background-color: #ffffff;
+  width: 100%;
+  min-height: calc(100vh - 70px - 150px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail .detail-con{
+  flex-basis: 1208px;
+  min-height: calc(100vh - 70px - 150px);
+  box-sizing: border-box;
+  padding: 20px;
+}
+.top{
+}
+.top .top-con{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    padding:10px;
+    gap:10px;
+}
+.top .top-con img{
+width:200px;
+height:220px;
+}
+.top .top-con p{
+    font-size: 15px;
+    line-height: 19px;
+    color: #929294;
+    display:flex;
+    justify-content:center;
+}
+
+.memberInfo{
+display:flex;
+justify-content:center;
+
+}
+
+.memberInfo-con{
+
+
+
+}
+.memberInfo-con ul{
+border:1px solid #ccc;
+border-radius: 12px 12px 0 0;
+width:500px;
+height:300px;
+}
+
+
+.memberInfo-con ul>li h1{
+font-size: 18px;
+font-weight: 700;
+line-height: 20px;
+color: #fff;
+}
+
+.memberInfo-con ul>li{
+line-height:30px;
+display:flex;
+justify-content:space-between;
+}
+
+.memberInfo-con ul>li span{
+}
+
+.fire{
+}
+.fire input{
+}
+.fire button{
+}
+
+
+
