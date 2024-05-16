@@ -1,4 +1,4 @@
-package org.spring.codingStory.attendance.attendanceServiceImpl.attendanceService;
+package org.spring.codingStory.attendance.serviceImpl.service;
 
 import org.spring.codingStory.attendance.dto.AttendanceDto;
 

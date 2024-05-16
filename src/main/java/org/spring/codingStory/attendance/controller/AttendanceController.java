@@ -1,7 +1,7 @@
 package org.spring.codingStory.attendance.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.codingStory.attendance.attendanceServiceImpl.AttendanceServiceImpl;
+import org.spring.codingStory.attendance.serviceImpl.AttendanceServiceImpl;
 import org.spring.codingStory.attendance.dto.AttendanceDto;
 import org.spring.codingStory.config.MyUserDetails;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

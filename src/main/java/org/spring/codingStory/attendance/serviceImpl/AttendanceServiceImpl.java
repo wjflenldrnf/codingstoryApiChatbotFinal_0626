@@ -1,8 +1,8 @@
-package org.spring.codingStory.attendance.attendanceServiceImpl;
+package org.spring.codingStory.attendance.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
 import org.spring.codingStory.attendance.repository.AttendanceRepository;
-import org.spring.codingStory.attendance.attendanceServiceImpl.attendanceService.AttendanceService;
+import org.spring.codingStory.attendance.serviceImpl.service.AttendanceService;
 import org.spring.codingStory.attendance.dto.AttendanceDto;
 import org.spring.codingStory.attendance.entity.AttendanceEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
