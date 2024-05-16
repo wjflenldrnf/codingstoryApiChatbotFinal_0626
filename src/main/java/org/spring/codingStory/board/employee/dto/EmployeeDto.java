@@ -1,9 +1,11 @@
 package org.spring.codingStory.board.employee.dto;
 
 import lombok.*;
+import org.spring.codingStory.board.employee.entity.EmployeeEntity;
 import org.spring.codingStory.board.employee.entity.EmployeeFileEntity;
 import org.spring.codingStory.board.employee.entity.EmployeeReplyEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,7 +19,7 @@ public class EmployeeDto {
 
     private Long id;
 
-    public Long category;
+    private String category;
 
     private String empTitle;
 
@@ -25,9 +27,11 @@ public class EmployeeDto {
 
     private int empHit;
 
-    private int replyCount;
+    private String empWriter;
 
     private int empAttachFile;
+
+    private MultipartFile boardFile;
 
     private MemberEntity memberEntity;
 
@@ -45,4 +49,29 @@ public class EmployeeDto {
 
     private String oldFileName;
 
+    public static EmployeeDto toEmpDto(EmployeeEntity empEntity) {
+        EmployeeDto boardDto = new EmployeeDto();
+
+        boardDto.setId(empEntity.getId());
+        boardDto.setEmpContent(empEntity.getEmpContent());
+        boardDto.setEmpTitle(empEntity.getEmpTitle());
+        boardDto.setCategory(empEntity.getCategory());
+        boardDto.setEmpWriter(empEntity.getMemberEntity().getName()); // 작성말고 회원의 이름정보만 받아오기?
+        boardDto.setEmpHit(empEntity.getEmpHit());
+        boardDto.setEmpAttachFile(empEntity.getEmpAttachFile());
+        boardDto.setCreateTime(empEntity.getCreateTime());
+        boardDto.setUpdateTime(empEntity.getUpdateTime());
+        if(empEntity.getEmpAttachFile()==0) {
+            //파일0
+            boardDto.setEmpAttachFile(empEntity.getEmpAttachFile());
+        }else{
+            boardDto.setEmpAttachFile(empEntity.getEmpAttachFile());
+            //새파일
+            boardDto.setNewFileName(empEntity.getEmployeeFileEntityList().get(0).getEmpNewFileName());
+            //원본파일
+            boardDto.setOldFileName(empEntity.getEmployeeFileEntityList().get(0).getEmpOldFileName());
+        }
+        return boardDto;
+
+    }
 }

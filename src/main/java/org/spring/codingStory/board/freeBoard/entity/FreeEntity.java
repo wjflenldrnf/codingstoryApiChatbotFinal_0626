@@ -2,8 +2,10 @@ package org.spring.codingStory.board.freeBoard.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.spring.codingStory.board.employee.entity.EmployeeEntity;
 import org.spring.codingStory.board.employee.entity.EmployeeFileEntity;
 import org.spring.codingStory.board.employee.entity.EmployeeReplyEntity;
+import org.spring.codingStory.board.freeBoard.dto.FreeDto;
 import org.spring.codingStory.contraint.BaseTimeEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
 
@@ -33,11 +35,11 @@ public class FreeEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private String freeContent;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
-    private int freeHit;
+    @Column(nullable = false)
+    private String freeWriter;
 
     @Column(columnDefinition = "integer default 0", nullable = false)
-    private int replyCount;
+    private int freeHit;
 
     @Column(nullable = false)
     private int freeAttachFile;
@@ -60,5 +62,61 @@ public class FreeEntity extends BaseTimeEntity {
      private List<FreeReplyEntity> freeReplyEntityList;
 
 
+    public static FreeEntity toInsertFreeEntity(FreeDto freeDto) {
+        FreeEntity freeEntity=new FreeEntity();
+        freeEntity.setId(freeDto.getId());
+        freeEntity.setFreeContent(freeDto.getFreeContent());
+        freeEntity.setFreeTitle(freeDto.getFreeTitle());
+        freeEntity.setCategory(freeDto.getCategory());
+        freeEntity.setFreeWriter(freeDto.getFreeWriter());
+        freeEntity.setFreeHit(0);
+        freeEntity.setFreeAttachFile(0);
+        freeEntity.setMemberEntity(freeDto.getMemberEntity());
 
+
+        return freeEntity;
+    }
+
+
+    public static FreeEntity toInsertFileFreeEntity(FreeDto freeDto) {
+        FreeEntity freeEntity=new FreeEntity();
+        freeEntity.setId(freeDto.getId());
+        freeEntity.setFreeContent(freeDto.getFreeContent());
+        freeEntity.setFreeTitle(freeDto.getFreeTitle());
+        freeEntity.setCategory(freeDto.getCategory());
+        freeEntity.setFreeWriter(freeDto.getFreeWriter());
+        freeEntity.setFreeHit(0);
+        freeEntity.setFreeAttachFile(1);
+        freeEntity.setMemberEntity(freeDto.getMemberEntity());
+
+
+        return freeEntity;
+    }
+
+    public static FreeEntity toUpdateFreeEntity(FreeDto freeDto) {
+        FreeEntity freeEntity=new FreeEntity();
+        freeEntity.setId(freeDto.getId());
+        freeEntity.setFreeContent(freeDto.getFreeContent());
+        freeEntity.setFreeTitle(freeDto.getFreeTitle());
+        freeEntity.setCategory(freeDto.getCategory());
+        freeEntity.setFreeWriter(freeDto.getFreeWriter());
+        freeEntity.setFreeAttachFile(0);
+        freeEntity.setMemberEntity(freeDto.getMemberEntity());
+
+
+        return freeEntity;
+    }
+    public static FreeEntity toUpdateFileFreeEntity(FreeDto freeDto) {
+        FreeEntity freeEntity=new FreeEntity();
+        freeEntity.setId(freeDto.getId());
+        freeEntity.setFreeContent(freeDto.getFreeContent());
+        freeEntity.setFreeTitle(freeDto.getFreeTitle());
+        freeEntity.setCategory(freeDto.getCategory());
+        freeEntity.setFreeWriter(freeDto.getFreeWriter());
+        freeEntity.setFreeAttachFile(1);
+        freeEntity.setMemberEntity(freeDto.getMemberEntity());
+
+
+        return freeEntity;
+    }
 }
