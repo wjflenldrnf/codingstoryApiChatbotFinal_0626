@@ -2,14 +2,48 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-
-  <script type="text/javascript">
-    $(function(){
-        $('#list').load('empList.do?deptno=
-    });
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+  <h1>부서관리</h1>
+  <button class="btn btn-success" onclick="showForm()">부서등록</button>
+  <table id="departmentTable">
+    <thead>
+    <tr>
+      <th>부서번호</th>
+      <th>부서이름</th>
+      <th>부서 위치</th>
+      <th>소속 인원 수</th>
+      <th>수정</th>
+      <th>삭제</th>
+    </tr>
+    </thead>
+    <tbody>
+      <!--여기에 부서 정보가 동적으로 추가된다. -->
+    </tbody>
+
+  </table>
+ <!-- 부서 등록 폼-->
+    <div id="departmentForm" style="display:none;">
+
+      <h2>부서등록</h2>
+  <form id="addDepartmentForm">
+    <label for="deptName">부서이름:</label>
+    <input type="text" id="deptName" name="deptLocation"><br>
+    <label for="deptLocation">부서 위치:</label>
+    <input type="text" id="deptLocation" name="deptLocation"><br>
+    <button type="submit" class="btn btn-success">등록</button>
+  </form>
+    </div>
+  <script>
+    //부서 등록 폼 표시 함수
+    function showForm(){
+      document.getElementById("departmentForm")
+    }
+  </script>
+
+
+
 
 </body>
 </html>

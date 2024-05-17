@@ -5,7 +5,6 @@ import lombok.*;
 import org.spring.codingStory.approval.entity.ApprovalEntity;
 import org.spring.codingStory.contraint.BaseTimeEntity;
 import org.spring.codingStory.department.entity.DepartmentEntity;
-import org.spring.codingStory.fullcalender.entity.FullCalenderEntity;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
 import org.spring.codingStory.mRank.entity.RankEntity;
@@ -86,8 +85,5 @@ public class MemberEntity extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private DepartmentEntity departmentEntity;
-
-    @OneToMany(mappedBy = "memberEntity")
-    private List<FullCalenderEntity> fullCalenderEntities;
 
 }

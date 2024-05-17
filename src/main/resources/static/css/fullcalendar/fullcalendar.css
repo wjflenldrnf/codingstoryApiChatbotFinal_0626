@@ -1,0 +1,42 @@
+ #content {
+      width: 80vw;
+      text-align: center;
+      margin: 0 auto
+    }
+
+    h1.title {
+      text-align: center;
+      background: linear-gradient(to right, #ceff7f, #8af7ff,#cd8fff);
+      color: rgb(253, 253, 253);
+      padding: 10px 0;
+    }
+
+    #calendar {
+.fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */
+    .fc-day-number.fc-sun.fc-past { color:#FF0000; }    /* 일요일 */
+
+
+      width: 80vw;
+      height: 80vh;
+      margin: 0 auto
+    }
+
+    #calendarBox {
+      width: 70%;
+      padding-left: 15%;
+      color: #cd8fff;
+    }
+
+    .fc-day-sun a {
+      color: red;
+      text-decoration: none;
+    }
+
+    /* 토요일 날짜 파란색 */
+    .fc-day-sat a {
+      color: blue;
+      text-decoration: none;
+    }
+
+
+

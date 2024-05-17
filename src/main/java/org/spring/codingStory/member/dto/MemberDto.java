@@ -2,12 +2,11 @@ package org.spring.codingStory.member.dto;
 
 import lombok.*;
 import org.spring.codingStory.department.entity.DepartmentEntity;
+import org.spring.codingStory.mRank.entity.RankEntity;
 import org.spring.codingStory.member.entity.MemberFileEntity;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
-import org.spring.codingStory.mRank.entity.RankEntity;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,7 +28,7 @@ public class MemberDto {
 
     private String department;
 
-    private String rank;
+    private String mRank;
 
     private String address;
 
