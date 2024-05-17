@@ -3,6 +3,7 @@ package org.spring.codingStory.member.dto;
 import lombok.*;
 import org.spring.codingStory.department.entity.DepartmentEntity;
 import org.spring.codingStory.mRank.entity.RankEntity;
+import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.entity.MemberFileEntity;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
@@ -57,6 +58,7 @@ public class MemberDto {
     private List<PayEntity> PayEntityList;
 
     private List<MemberFileEntity> memberFileEntityList;
+
 
 
 }

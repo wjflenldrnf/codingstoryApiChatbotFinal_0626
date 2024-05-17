@@ -8,6 +8,8 @@ import org.spring.codingStory.member.serviceImpl.service.MemberService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -22,5 +24,7 @@ public class MemberServiceImpl implements MemberService {
     memberRepository.save(memberEntity);
 
     }
-  }
+
+
+}
 

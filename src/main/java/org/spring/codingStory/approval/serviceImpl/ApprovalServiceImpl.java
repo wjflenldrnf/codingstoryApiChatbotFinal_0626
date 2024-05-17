@@ -83,7 +83,7 @@ public class ApprovalServiceImpl implements ApprovalService {
             }
         }
 
-        Page<ApprovalDto> approvalDtoPage = approvalEntityPage.map(ApprovalDto::toApvDto);
+        Page<ApprovalDto> approvalDtoPage = approvalEntityPage.map(ApprovalDto::toApvDtoList);
 
         return approvalDtoPage;
     }
