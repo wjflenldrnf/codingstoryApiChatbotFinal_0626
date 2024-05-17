@@ -26,59 +26,59 @@ import java.util.List;
 @Table(name = "member")
 public class MemberEntity extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "member_id")
+  private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String userEmail;
+  @Column(nullable = false, unique = true)
+  private String userEmail;
 
-    @Column(nullable = false)
-    private String userPw;
+  @Column(nullable = false)
+  private String userPw;
 
-    @Column(nullable = false)
-    private String name;
+  @Column(nullable = false)
+  private String name;
 
-    @Column(nullable = false)
-    private String department;
+  @Column(nullable = false)
+  private String department;
 
-    @Column(nullable = false)
-    private String mRank;
+  @Column(nullable = false)
+  private String mRank;
 
-    @Column(nullable = true) // 기본이 널 허용
-    private String address;
+  @Column(nullable = true) // 기본이 널 허용
+  private String address;
 
-    @Column(nullable = true)
-    private String phoneNumber;
+  @Column(nullable = true)
+  private String phoneNumber;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+  @Enumerated(EnumType.STRING)
+  private Role role;
 
-    @Column(nullable = true)
-    private String memberFileName;
+  @Column(nullable = true)
+  private String memberFileName;
 
-    @Column(nullable = false)
-    private int memberAttachFile;
+  @Column(nullable = false)
+  private int memberAttachFile;
 
-//  1:N
-    @JsonIgnore // ajax시 순환참조 방지
-    @OneToMany(mappedBy = "memberEntity"
-            , fetch = FetchType.LAZY
-            , cascade = CascadeType.REMOVE)
-    private List<MemberFileEntity> memberFileEntityList;
+  //  1:N
+  @JsonIgnore // ajax시 순환참조 방지
+  @OneToMany(mappedBy = "memberEntity"
+          , fetch = FetchType.LAZY
+          , cascade = CascadeType.REMOVE)
+  private List<MemberFileEntity> memberFileEntityList;
 
-    @JsonIgnore // ajax시 순환참조 방지
-    @OneToMany(mappedBy = "memberEntity"
-            , fetch = FetchType.LAZY
-            , cascade = CascadeType.REMOVE)
-    private List<PayEntity> payEntityList;
+  @JsonIgnore // ajax시 순환참조 방지
+  @OneToMany(mappedBy = "memberEntity"
+          , fetch = FetchType.LAZY
+          , cascade = CascadeType.REMOVE)
+  private List<PayEntity> payEntityList;
 
-    @JsonIgnore // ajax시 순환참조 방지
-    @OneToMany(mappedBy = "memberEntity"
-            , fetch = FetchType.LAZY
-            , cascade = CascadeType.REMOVE)
-    private List<ApprovalEntity> approvalEntityList;
+  @JsonIgnore // ajax시 순환참조 방지
+  @OneToMany(mappedBy = "memberEntity"
+          , fetch = FetchType.LAZY
+          , cascade = CascadeType.REMOVE)
+  private List<ApprovalEntity> approvalEntityList;
 
     @JsonIgnore // ajax시 순환참조 방지
     @OneToMany(mappedBy = "memberEntity"
@@ -98,49 +98,89 @@ public class MemberEntity extends BaseTimeEntity {
             , cascade = CascadeType.REMOVE)
     private List<FreeEntity> freeEntityList;
 
-//  N:1
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rank_id")
-    private RankEntity rankEntity;
+  //  N:1
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "rank_id")
+  private RankEntity rankEntity;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
-    private DepartmentEntity departmentEntity;
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "department_id")
+  private DepartmentEntity departmentEntity;
 
 
-    public static MemberEntity toJoinMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
-        MemberEntity memberEntity=new MemberEntity();
+  public static MemberEntity toJoinMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
+    MemberEntity memberEntity = new MemberEntity();
 
-        memberEntity.setUserEmail(memberDto.getUserEmail());
-        memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
-        memberEntity.setName(memberDto.getName());
-        memberEntity.setDepartment(memberDto.getDepartment());
-        memberEntity.setMRank(memberDto.getMRank());
-        memberEntity.setAddress(memberDto.getAddress());
-        memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
-        memberEntity.setRole(Role.MEMBER);
-        memberEntity.setMemberAttachFile(0);
+    memberEntity.setUserEmail(memberDto.getUserEmail());
+    memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
+    memberEntity.setName(memberDto.getName());
+    memberEntity.setDepartment(memberDto.getDepartment());
+    memberEntity.setMRank(memberDto.getMRank());
+    memberEntity.setAddress(memberDto.getAddress());
+    memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
+    memberEntity.setRole(Role.MEMBER);
+    memberEntity.setMemberAttachFile(0);
 
-        return memberEntity;
+    return memberEntity;
 
-    }
+  }
 
-    public static MemberEntity toJoinFileMember(MemberDto memberDto,PasswordEncoder passwordEncoder) {
+  public static MemberEntity toJoinFileMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
 
-        MemberEntity memberEntity=new MemberEntity();
+    MemberEntity memberEntity = new MemberEntity();
 
-        memberEntity.setUserEmail(memberDto.getUserEmail());
-        memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
-        memberEntity.setName(memberDto.getName());
-        memberEntity.setDepartment(memberDto.getDepartment());
-        memberEntity.setMRank(memberDto.getMRank());
-        memberEntity.setAddress(memberDto.getAddress());
-        memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
-        memberEntity.setRole(Role.MEMBER);
-        memberEntity.setMemberAttachFile(1);
+    memberEntity.setUserEmail(memberDto.getUserEmail());
+    memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
+    memberEntity.setName(memberDto.getName());
+    memberEntity.setDepartment(memberDto.getDepartment());
+    memberEntity.setMRank(memberDto.getMRank());
+    memberEntity.setAddress(memberDto.getAddress());
+    memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
+    memberEntity.setRole(Role.MEMBER);
+    memberEntity.setMemberAttachFile(1);
 
-        return memberEntity;
-    }
+
+    return memberEntity;
+  }
+
+  public static MemberEntity toUpdateFileMember(MemberDto memberDto) {
+    MemberEntity memberEntity = new MemberEntity();
+
+    memberEntity.setId(memberDto.getId());
+    memberEntity.setUserPw(memberDto.getUserPw());
+    memberEntity.setUserEmail(memberDto.getUserEmail());
+    memberEntity.setName(memberDto.getName());
+    memberEntity.setDepartment(memberDto.getDepartment());
+    memberEntity.setMRank(memberDto.getMRank());
+    memberEntity.setAddress(memberDto.getAddress());
+    memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
+    memberEntity.setRole(memberDto.getRole());
+    memberEntity.setMemberAttachFile(1);
+    memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+
+    return memberEntity;
+
+  }
+
+  public static MemberEntity toUpdateMember(MemberDto memberDto) {
+
+    MemberEntity memberEntity = new MemberEntity();
+
+    memberEntity.setId(memberDto.getId());
+    memberEntity.setUserPw(memberDto.getUserPw());
+    memberEntity.setUserEmail(memberDto.getUserEmail());
+    memberEntity.setName(memberDto.getName());
+    memberEntity.setDepartment(memberDto.getDepartment());
+    memberEntity.setMRank(memberDto.getMRank());
+    memberEntity.setAddress(memberDto.getAddress());
+    memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
+    memberEntity.setRole(memberDto.getRole());
+    memberEntity.setMemberAttachFile(0);
+    memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+
+    return memberEntity;
+
+  }
 }

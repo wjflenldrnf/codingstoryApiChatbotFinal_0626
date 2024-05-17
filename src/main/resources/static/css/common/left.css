@@ -269,6 +269,21 @@ display:block;/*수정수정수정11111*/
 transition-duration: 1s;
 }
 
+.myInfo{
+display:flex;
+padding: 10px 0;
+gap:10px;
+cursor:pointer;
+}
+.myInfo li{
+display:flex;
+}
+.myInfo p{
+}
+
+
+
+
 
 
 
