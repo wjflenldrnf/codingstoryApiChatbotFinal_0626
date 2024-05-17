@@ -3,6 +3,9 @@ package org.spring.codingStory.member.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.codingStory.approval.entity.ApprovalEntity;
+import org.spring.codingStory.board.employee.entity.EmployeeEntity;
+import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
+import org.spring.codingStory.board.notice.entity.NoticeEntity;
 import org.spring.codingStory.contraint.BaseTimeEntity;
 import org.spring.codingStory.department.entity.DepartmentEntity;
 import org.spring.codingStory.mRank.entity.RankEntity;
@@ -77,6 +80,23 @@ public class MemberEntity extends BaseTimeEntity {
           , cascade = CascadeType.REMOVE)
   private List<ApprovalEntity> approvalEntityList;
 
+    @JsonIgnore // ajax시 순환참조 방지
+    @OneToMany(mappedBy = "memberEntity"
+            , fetch = FetchType.LAZY
+            , cascade = CascadeType.REMOVE)
+    private List<EmployeeEntity> employeeEntityList;
+
+    @JsonIgnore // ajax시 순환참조 방지
+    @OneToMany(mappedBy = "memberEntity"
+            , fetch = FetchType.LAZY
+            , cascade = CascadeType.REMOVE)
+    private List<NoticeEntity> noticeEntityList;
+
+    @JsonIgnore // ajax시 순환참조 방지
+    @OneToMany(mappedBy = "memberEntity"
+            , fetch = FetchType.LAZY
+            , cascade = CascadeType.REMOVE)
+    private List<FreeEntity> freeEntityList;
 
   //  N:1
   @JsonIgnore

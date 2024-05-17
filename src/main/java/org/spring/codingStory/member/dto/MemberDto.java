@@ -9,7 +9,6 @@ import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,6 +21,7 @@ import java.util.List;
 public class MemberDto {
 
     private Long id;
+
     @NotBlank
     private String userEmail;
     @NotBlank

@@ -25,4 +25,8 @@ public interface MemberService {
   void memberPhoneNumberUpdate(MemberDto memberDto);
 
   void memberAddressUpdate(MemberDto memberDto);
+
+    int findCheck(MemberDto memberDto);
+
+  void findPasswordFin(MemberDto memberDto);
 }

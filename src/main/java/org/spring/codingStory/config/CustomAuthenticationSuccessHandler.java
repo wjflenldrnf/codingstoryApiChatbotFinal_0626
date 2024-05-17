@@ -21,7 +21,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         PrintWriter out = response.getWriter();
 
         out.println("<script> alert('로그인 성공!" + authentication.getName() +" 님 반갑습니다.');" +
-                        "location.href='/';" +
+                        "location.href='/index';" +
                 "</script>");
 
         out.close();

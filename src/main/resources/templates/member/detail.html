@@ -33,15 +33,26 @@
 
       <div class="memberInfo-con">
           <ul>
-              <h1>내 정보</h1>
-
             <li>
               <div>
               <label>비번</label>
               </div>
               <div>
+                <div id="modal4" class="modal">
+                  <form id="passwordForm" method="post">
+                    <input type="hidden" id="memberId4" name="id" th:value="${member.id}">
+                    현재비번<input type="password" id="password" name="password">
+
+                    바꿀비번 <input type="password" id="password2" name="password2">
+
+                    <button type="button" onClick="memberPasswordUpdateFn()">수정</button>
+                  </form>
+                  <a href="#" rel="modal:close">닫기</a>
+                </div>
+                <p><a href="#modal4" rel="modal:open">수정</a></p>
               </div>
             </li>
+
           <li>
             <div>
             <label>이름</label>

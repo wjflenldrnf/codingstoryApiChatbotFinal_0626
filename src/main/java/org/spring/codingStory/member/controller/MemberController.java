@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.spring.codingStory.config.MyUserDetails;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.repository.MemberRepository;
-import org.spring.codingStory.member.serviceImpl.MemberServiceImpl;
 import org.spring.codingStory.member.serviceImpl.service.MemberService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -45,25 +43,11 @@ public class MemberController {
   }
   memberService.memberJoin(memberDto);
 
-    return "redirect:/member/login";
+    return "redirect:/login";
   }
 
-  @GetMapping("/login")
-  public String login(){
 
-    return "member/login";
-  }
 
-//  @GetMapping("/memberList")
-//  public String memberList(Model model){
-//
-//
-//    List<MemberDto> memberDto=memberService.memberList();
-//
-//    model.addAttribute("memberDto",memberDto);
-//
-//    return "member/memberList";
-//  }
 
   @GetMapping("/detail/{id}")
   public String memberDetail(@PathVariable("id")Long id,Model model,MemberDto memberDto){
@@ -94,7 +78,7 @@ public class MemberController {
 
   @GetMapping("/memberList")
   public String shopList(@PageableDefault(page=0,size = 8, sort = "id",direction = Sort.Direction.DESC) Pageable pageable,
-                         @RequestParam(name = "department", required = false) String department, Model model) {
+                         @RequestParam(name = "department", required = false) String department, Model model, @AuthenticationPrincipal MyUserDetails myUserDetails) {
 
 
     Page<MemberDto> memberDto = memberService.memberPagingList(pageable,department);
@@ -119,6 +103,7 @@ public class MemberController {
     model.addAttribute("endPage",endPage);
 
     model.addAttribute("memberDto",memberDto);
+    model.addAttribute("myUserDetails",myUserDetails);
 
 
     return "member/memberList";
@@ -152,9 +137,36 @@ public class MemberController {
     return "member/detail/"+memberDto.getId();
   }
 
+  @GetMapping("/findCheck")
+  public String findCheck(){
+
+    return "member/findCheck";
+  }
+
+  @ResponseBody
+  @PostMapping("/findCheck")
+  public ResponseEntity<?> findCheckGo(MemberDto memberDto){
+
+    int result=memberService.findCheck(memberDto);
+
+    return ResponseEntity.status(HttpStatus.OK).body(result);
+  }
+
+  @GetMapping("/findPasswordOk")
+  public String findPasswordOk(MemberDto memberDto, Model model){
+
+    model.addAttribute("userEmail", memberDto.getUserEmail());
 
 
+    return "member/findPasswordOk";
+  }
 
+  @PostMapping("/findPasswordOk")
+  public String findPasswordOkFin(MemberDto memberDto){
 
+    memberService.findPasswordFin(memberDto);
+
+    return "login";
+  }
 
 }
