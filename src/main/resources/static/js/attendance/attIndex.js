@@ -9,6 +9,91 @@ const tbody = document.querySelector('.tbody');
 
 //**************************
 
+function updateAttendance(id) {
+  const checkInTime = document.querySelector(`#checkInTime-${id}`).value;
+  const checkOutTime = document.querySelector(`#checkOutTime-${id}`).value;
+  const attendanceType = document.querySelector(`#attendanceType-${id}`).value;
+
+  const data = {
+    checkInTime: checkInTime,
+    checkOutTime: checkOutTime,
+    attendanceType: attendanceType
+  };
+
+  $.ajax({
+    type: 'PUT',
+    url: `/api/admin/attendance/${id}`,
+    contentType: "application/json",
+    data: JSON.stringify(data),
+    success: function (res) {
+      if (res == 1) {
+        alert('업데이트 완료');
+        ajaxAttendanceList();
+      }
+    },
+    error: function () {
+      alert('업데이트 실패');
+    }
+  });
+}
+
+// ajaxAttendanceList 함수 업데이트
+function ajaxAttendanceList() {
+  const url = "/api/admin/attendance/attList";
+  fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      let dataHtml = ``;
+      data.forEach(el => {
+        dataHtml += `
+          <tr>
+            <td class="id" id="id">${el.id}</td>
+            <td>${el.memberEntity.id}</td>
+            <td><input type="text" id="attendanceType-${el.id}" value="${el.attendanceType}"></td>
+            <td><input type="text" id="checkInTime-${el.id}" value="${el.checkInTime}"></td>
+            <td><input type="text" id="checkOutTime-${el.id}" value="${el.checkOutTime}"></td>
+            <td>
+              <button type="button" onclick="checkOutTimeBtnFn(event, ${el.id})">삭제</button>
+              <button type="button" onclick="updateAttendance(${el.id})">업데이트</button>
+            </td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = dataHtml;
+    }).catch((error) => {
+      console.log(error);
+    });
+}
+
+
+//**************************
+
+function checkOutTimeBtnFn(event, id){
+ const memberId=$('#memberId').val()
+ $.ajax({
+    type: 'POST',
+    url: `/api/admin/attendance/attendanceDelete/${id}/member/${memberId}`,
+
+    success: function (res) {
+      if(res==1){
+         alert('삭제완료')
+         console.log(res)
+
+         ajaxAttendanceList();
+        }
+      },
+    error: function () {
+    alert('실패')
+    }
+  });
+}
+
 //**************************
 
 function ajaxAttendanceList() {
@@ -26,14 +111,15 @@ function ajaxAttendanceList() {
       data.forEach(el => {
         dataHtml += `
                  <tr >
-                  <td class="id">${el.id}</td>
+                  <td class="id" id="id">${el.id}</td>
                   <td >${el.memberEntity.id}</td>
                   <td >${el.attendanceType}</td>
                   <td >${el.checkInTime}</td>
                   <td >${el.checkOutTime}</td>
                   <td>
-                    <button type="button" class="memberDeleteBtn">삭제</button>
-                    <button type="button" class="memberDetailBtn" onclick="memberDetailBtnFn(event,${el.id})">보기</button>
+
+
+                    <button type="button" class="checkOutTimeBtn" name="checkOutTimeBtn"onclick="checkOutTimeBtnFn(event,${el.id})">삭제</button>
                   </td>
                 </tr>
                `;

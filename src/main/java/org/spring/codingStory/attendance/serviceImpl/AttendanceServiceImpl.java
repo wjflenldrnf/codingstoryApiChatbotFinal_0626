@@ -10,8 +10,10 @@ import org.spring.codingStory.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,7 +42,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         List<AttendanceEntity> attendanceEntityList = attendanceRepository.findAll();
 
 
-        return attendanceEntityList.stream().map(AttendanceDto::toUpdateAttendanceDto)
+        return attendanceEntityList.stream().map(AttendanceDto::toSelectAllAttendanceDto)
                 .collect(Collectors.toList());
     }
 
@@ -57,4 +59,33 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     }
 
+    @Override
+    public int attendanceDelete(Long id) {
+
+        Optional<AttendanceEntity> optionalAttendanceEntity = attendanceRepository.findById(id);
+
+        if (optionalAttendanceEntity.isPresent()) {
+            attendanceRepository.delete(optionalAttendanceEntity.get());
+            return 1;
+        }
+        return 0;
+    }
+
+
+    @Override
+    public int attendanceUpdate(Long id, AttendanceDto attendanceDto) {
+        Optional<AttendanceEntity> optionalAttendanceEntity = attendanceRepository.findById(id);
+        if (optionalAttendanceEntity.isPresent()) {
+            AttendanceEntity attendanceEntity = optionalAttendanceEntity.get();
+
+            LocalDateTime checkOutTime = LocalDateTime.now();
+
+//            attendanceEntity.setCheckInTime(attendanceDto.getCheckInTime());
+            attendanceEntity.setCheckOutTime(checkOutTime);
+            attendanceEntity.setAttendanceType("퇴근");
+            attendanceRepository.save(attendanceEntity);
+            return 1;
+        }
+        return 0;
+    }
 }

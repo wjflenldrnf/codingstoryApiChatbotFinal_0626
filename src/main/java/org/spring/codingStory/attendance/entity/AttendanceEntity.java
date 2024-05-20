@@ -7,6 +7,7 @@ import org.spring.codingStory.member.entity.MemberEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -55,8 +56,9 @@ public class AttendanceEntity {
         attendanceEntity.setCheckInTime(checkInTime);
 //        attendanceEntity.setCheckOutTime(checkOutTime);
 //        attendanceEntity.setAttendanceType(attendanceDto.getAttendanceType());
-        attendanceEntity.setAttendanceType("at work");
+        attendanceEntity.setAttendanceType("at_work");
 
         return attendanceEntity;
     }
+
 }

@@ -13,5 +13,7 @@ public interface AttendanceService {
     Integer insertCheckInAttendance2(AttendanceDto attendanceDto);
 
 
+    int attendanceDelete(Long id);
 
+    int attendanceUpdate(Long id, AttendanceDto attendanceDto);
 }

@@ -19,11 +19,6 @@ public class AttendanceDto {
 
     private MemberEntity memberEntity;
 
-//    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-//    private Date checkInTime;
-//    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-//    private Date checkOutTime;
-
     private LocalDateTime checkInTime;
 
     private LocalDateTime checkOutTime;
@@ -34,22 +29,16 @@ public class AttendanceDto {
 
 
     //entity -> dto
-    public static AttendanceDto toUpdateAttendanceDto(AttendanceEntity attendanceEntity) {
+    public static AttendanceDto toSelectAllAttendanceDto(AttendanceEntity attendanceEntity) {
         AttendanceDto attendanceDto=new AttendanceDto();
 
         attendanceDto.setId(attendanceEntity.getId());
         attendanceDto.setMemberEntity(attendanceEntity.getMemberEntity());
         attendanceDto.setCheckInTime(attendanceEntity.getCheckInTime());
         attendanceDto.setCheckOutTime(attendanceEntity.getCheckOutTime());
-//        attendanceDto.setAttendanceType(attendanceDto.getAttendanceType());
         attendanceDto.setAttendanceType(attendanceEntity.getAttendanceType());
 
         return attendanceDto;
     }
 
 }
-
-//public static AttendanceDto toInsertAttendanceDto(AttendanceEntity attendanceEntity){
-//
-//    return
-//}
