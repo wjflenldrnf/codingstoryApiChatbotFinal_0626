@@ -10,6 +10,9 @@ import org.spring.codingStory.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,13 +24,37 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public void insertCheckInAttendance(AttendanceDto attendanceDto) {
-//        MemberEntity memberEntity = MemberEntity.builder().id(attendanceDto.getMemberEntity().getId()).build();
 
         attendanceDto.setMemberEntity(MemberEntity.builder()
                 .id(attendanceDto.getMemberId())
                 .build());
 
-        AttendanceEntity attendanceEntity= AttendanceEntity.toInsertCheckInAttendanceEntity(attendanceDto);
+        AttendanceEntity attendanceEntity = AttendanceEntity.toInsertCheckInAttendanceEntity(attendanceDto);
         attendanceRepository.save(attendanceEntity);
     }
+
+    @Override
+    public List<AttendanceDto> attList() {
+
+        List<AttendanceDto> attendanceDtoList = new ArrayList<>();
+        List<AttendanceEntity> attendanceEntityList = attendanceRepository.findAll();
+
+
+        return attendanceEntityList.stream().map(AttendanceDto::toUpdateAttendanceDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer insertCheckInAttendance2(AttendanceDto attendanceDto) {
+
+        attendanceDto.setMemberEntity(MemberEntity.builder()
+                .id(attendanceDto.getMemberId())
+                .build());
+
+        AttendanceEntity attendanceEntity = AttendanceEntity.toInsertCheckInAttendanceEntity(attendanceDto);
+        attendanceRepository.save(attendanceEntity);
+        return 1;
+
+    }
+
 }

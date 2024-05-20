@@ -54,7 +54,8 @@ public class AttendanceEntity {
         attendanceEntity.setMemberEntity(attendanceDto.getMemberEntity());
         attendanceEntity.setCheckInTime(checkInTime);
 //        attendanceEntity.setCheckOutTime(checkOutTime);
-        attendanceEntity.setAttendanceType(attendanceDto.getAttendanceType());
+//        attendanceEntity.setAttendanceType(attendanceDto.getAttendanceType());
+        attendanceEntity.setAttendanceType("at work");
 
         return attendanceEntity;
     }

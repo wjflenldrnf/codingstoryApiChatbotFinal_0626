@@ -20,7 +20,7 @@
 
 
 
-.boardWrite  .boardWrite-con  {
+.attendanceWrite  .attendanceWrite-con  {
     width:100%;
     height:800px;
     background-color: rgb(255 251 247);
@@ -32,7 +32,7 @@
     justify-content: center;
 
 }
-.boardWrite   .boardWrite-form {
+.attendanceWrite   .attendanceWrite-form {
     width:100%;
     background-color: rgb(255, 255, 255);
     flex-basis: 400px;
@@ -46,13 +46,13 @@
 
 
 
-.boardWrite   .boardWrite-form ul {
+.attendanceWrite   .attendanceWrite-form ul {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.boardWrite   .boardWrite-form ul li {
+.attendanceWrite   .attendanceWrite-form ul li {
      display: flex;
        justify-content: space-between;
        /*gap: 5px;*/
@@ -60,11 +60,11 @@
        box-sizing: border-box;
        float: right;
 }
-.boardWrite   .boardWrite-form ul li h1{
+.attendanceWrite   .attendanceWrite-form ul li h1{
     text-align:center;
 }
 
-.boardWrite   .boardWrite-form ul li label {
+.attendanceWrite   .attendanceWrite-form ul li label {
 
         flex: 1;
             font-size: 20px;
@@ -74,7 +74,7 @@
             box-sizing: border-box;
 }
 
-.boardWrite   .boardWrite-form ul li input{
+.attendanceWrite   .attendanceWrite-form ul li input{
    flex: 3;
        padding: 20px;
        border: 1px solid #ccc;
@@ -82,17 +82,17 @@
        box-sizing: border-box;
 }
 
-.boardWrite   .boardWrite-form ul li.file{
+.attendanceWrite   .attendanceWrite-form ul li.file{
  display:flex;
  justify-content:space-between;
     align-items:center;
 }
 
-.boardWrite   .boardWrite-form ul li input[type=file]{
+.attendanceWrite   .attendanceWrite-form ul li input[type=file]{
     border: 0;
 
 }
-.boardWrite   .boardWrite-form ul li select {
+.attendanceWrite   .attendanceWrite-form ul li select {
        width:600px;
        height:30px;
     text-align: center;
@@ -101,7 +101,7 @@
 }
 
 
-.boardWrite   .boardWrite-form ul li textarea {
+.attendanceWrite   .attendanceWrite-form ul li textarea {
   flex: 3;
        padding: 20px;
        border: 1px solid #ccc;
@@ -110,7 +110,7 @@
     resize: none;
 }
 
-.boardWrite   .boardWrite-form ul li input[type=submit] {
+.attendanceWrite   .attendanceWrite-form ul li input[type=submit] {
 
     padding: 5px;
     box-sizing: border-box;
@@ -119,7 +119,7 @@
     cursor: pointer;
 }
 
-.boardWrite   .boardWrite-form ul li a {
+.attendanceWrite   .attendanceWrite-form ul li a {
 
     padding: 5px;
     box-sizing: border-box;
