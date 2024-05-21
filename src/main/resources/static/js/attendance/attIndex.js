@@ -9,10 +9,8 @@ const tbody = document.querySelector('.tbody');
 
 //**************************
 
-function updateAttendance(id) {
-  const checkInTime = document.querySelector(`#checkInTime-${id}`).value;
-  const checkOutTime = document.querySelector(`#checkOutTime-${id}`).value;
-  const attendanceType = document.querySelector(`#attendanceType-${id}`).value;
+function checkOutTimeBtnFn(id) {
+
 
   const data = {
     checkInTime: checkInTime,
@@ -27,12 +25,12 @@ function updateAttendance(id) {
     data: JSON.stringify(data),
     success: function (res) {
       if (res == 1) {
-        alert('업데이트 완료');
+        alert('퇴근 완료');
         ajaxAttendanceList();
       }
     },
     error: function () {
-      alert('업데이트 실패');
+      alert('퇴근 실패');
     }
   });
 }
@@ -59,8 +57,8 @@ function ajaxAttendanceList() {
             <td><input type="text" id="checkInTime-${el.id}" value="${el.checkInTime}"></td>
             <td><input type="text" id="checkOutTime-${el.id}" value="${el.checkOutTime}"></td>
             <td>
-              <button type="button" onclick="checkOutTimeBtnFn(event, ${el.id})">삭제</button>
-              <button type="button" onclick="updateAttendance(${el.id})">업데이트</button>
+              <button type="button" onclick="attendanceDeleteBtnFn(event, ${el.id})">삭제</button>
+              <button type="button" onclick="checkOutTimeBtnFn(${el.id})">퇴근</button>
             </td>
           </tr>
         `;
@@ -74,7 +72,7 @@ function ajaxAttendanceList() {
 
 //**************************
 
-function checkOutTimeBtnFn(event, id){
+function attendanceDeleteBtnFn(event, id){
  const memberId=$('#memberId').val()
  $.ajax({
     type: 'POST',
@@ -119,7 +117,8 @@ function ajaxAttendanceList() {
                   <td>
 
 
-                    <button type="button" class="checkOutTimeBtn" name="checkOutTimeBtn"onclick="checkOutTimeBtnFn(event,${el.id})">삭제</button>
+                    <button type="button" class="checkOutTimeBtn" name="checkOutTimeBtn"onclick="attendanceDeleteBtnFn(event,${el.id})">삭제</button>
+                    <button type="button" class="updateAttendance" name="updateAttendance"onclick="checkOutTimeBtnFn(${el.id})">퇴근</button>
                   </td>
                 </tr>
                `;

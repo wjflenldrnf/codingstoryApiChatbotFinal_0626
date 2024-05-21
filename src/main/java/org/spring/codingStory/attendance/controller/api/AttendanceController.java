@@ -31,9 +31,21 @@ public class AttendanceController {
         return new ResponseEntity<>(attendanceDtoList, HttpStatus.OK);
     }
 
+//    @PostMapping("/attendance/checkInTime")
+//    public ResponseEntity<Integer> checkInTimeInsert(@RequestBody AttendanceDto attendanceDto){
+//        int checkInTime= attendanceServiceImpl.insertCheckInAttendance2(attendanceDto);
+//        return new ResponseEntity<>(checkInTime,HttpStatus.OK);
+//    }
+
     @PostMapping("/attendance/checkInTime")
     public ResponseEntity<Integer> checkInTimeInsert(@RequestBody AttendanceDto attendanceDto){
-        int checkInTime= attendanceServiceImpl.insertCheckInAttendance2(attendanceDto);
+
+        if (attendanceServiceImpl.hasAttendanceToday(attendanceDto.getMemberId())) {
+            throw new IllegalArgumentException("already checked");
+        }
+
+
+        int checkInTime= attendanceServiceImpl.insertCheckInAttendance(attendanceDto);
         return new ResponseEntity<>(checkInTime,HttpStatus.OK);
     }
 
@@ -48,11 +60,11 @@ public class AttendanceController {
     }
 
 
-    // 업데이트 엔드포인트 추가
-    @ResponseBody
+    // 퇴근 엔드포인트 추가
+//    @ResponseBody
     @PutMapping("/attendance/{id}")
-    public ResponseEntity<?> attendanceUpdate(@PathVariable("id") Long id, @RequestBody AttendanceDto attendanceDto) {
-        int result = attendanceServiceImpl.attendanceUpdate(id, attendanceDto);
+    public ResponseEntity<?> checkOutTimeInsert(@PathVariable("id") Long id, @RequestBody AttendanceDto attendanceDto) {
+        int result = attendanceServiceImpl.updateCheckOutAttendance(id, attendanceDto);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

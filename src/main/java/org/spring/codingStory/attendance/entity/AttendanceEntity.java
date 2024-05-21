@@ -6,6 +6,10 @@ import org.spring.codingStory.attendance.dto.AttendanceDto;
 import org.spring.codingStory.member.entity.MemberEntity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.sql.Time;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -45,6 +49,37 @@ public class AttendanceEntity {
     private String attendanceType; // 정상 출근, 지각 등
 
 
+
+    @Column
+    private Time workTime;
+
+//    @Column
+//    private BigDecimal dailyWage;
+//
+//    @Column
+//    private LocalDate workDay;
+//
+//    @Column
+//    private BigDecimal weeklyAllowance;
+//
+//    @Column
+//    private BigDecimal bonus;
+
+
+    public Time calculationSetWorkTime(LocalDateTime checkInTime, LocalDateTime checkOutTime) {
+        Duration duration = Duration.between(checkInTime, checkOutTime);
+
+        // Duration 객체를 통해 시간과 분 계산
+        long hours = duration.toHours();
+        long minutes = duration.toMinutes() % 60;
+
+        LocalTime totalTime = LocalTime.of((int) hours, (int) minutes);
+
+        // LocalTime 객체를 Time 타입으로 변환
+        return Time.valueOf(totalTime);
+    }
+
+
     public static AttendanceEntity toInsertCheckInAttendanceEntity(AttendanceDto attendanceDto) {
 
         LocalDateTime checkInTime = LocalDateTime.now();
@@ -56,9 +91,37 @@ public class AttendanceEntity {
         attendanceEntity.setCheckInTime(checkInTime);
 //        attendanceEntity.setCheckOutTime(checkOutTime);
 //        attendanceEntity.setAttendanceType(attendanceDto.getAttendanceType());
-        attendanceEntity.setAttendanceType("at_work");
+        attendanceEntity.setAttendanceType("출근");
 
         return attendanceEntity;
     }
 
+    ////////////////////////////////////////////////////////
+
+    public static AttendanceEntity toUpdateCheckOutAttendanceEntity(AttendanceDto attendanceDto) {
+
+        LocalDateTime checkInTime = LocalDateTime.now();
+        LocalDateTime checkOutTime = LocalDateTime.now();
+
+        AttendanceEntity attendanceEntity=new AttendanceEntity();
+
+        attendanceEntity.setMemberEntity(attendanceDto.getMemberEntity());
+//
+        attendanceEntity.setId(attendanceDto.getId());
+
+//        attendanceEntity.setCheckInTime(checkInTime);
+        attendanceEntity.setCheckOutTime(checkOutTime);
+        attendanceEntity.setAttendanceType(attendanceDto.getAttendanceType());
+
+
+        attendanceEntity.setAttendanceType("퇴근");
+
+
+        attendanceDto.setMemberEntity(MemberEntity.builder()
+                .id(attendanceDto.getMemberId())
+                .build());
+
+        return attendanceEntity;
+
+    }
 }
