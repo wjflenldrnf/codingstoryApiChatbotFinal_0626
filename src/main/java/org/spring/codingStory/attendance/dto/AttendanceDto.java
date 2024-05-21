@@ -3,8 +3,14 @@ package org.spring.codingStory.attendance.dto;
 import lombok.*;
 import org.spring.codingStory.attendance.entity.AttendanceEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
+import java.math.BigDecimal;
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,10 +29,39 @@ public class AttendanceDto {
 
     private String attendanceType;
 
-}
+    private Long memberId;
 
-//public static AttendanceDto toInsertAttendanceDto(AttendanceEntity attendanceEntity){
+
+
+
+    private Time workTime;
+
+
+//    private BigDecimal dailyWage;
 //
-//    return
-//}
+//
+//    private LocalDate workDay;
+//
+//
+//    private BigDecimal weeklyAllowance;
+//
+//
+//    private BigDecimal bonus;
 
+
+
+
+    //entity -> dto
+    public static AttendanceDto toSelectAllAttendanceDto(AttendanceEntity attendanceEntity) {
+        AttendanceDto attendanceDto=new AttendanceDto();
+
+        attendanceDto.setId(attendanceEntity.getId());
+        attendanceDto.setMemberEntity(attendanceEntity.getMemberEntity());
+        attendanceDto.setCheckInTime(attendanceEntity.getCheckInTime());
+        attendanceDto.setCheckOutTime(attendanceEntity.getCheckOutTime());
+        attendanceDto.setAttendanceType(attendanceEntity.getAttendanceType());
+
+        return attendanceDto;
+    }
+
+}
