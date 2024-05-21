@@ -24,7 +24,7 @@ public class ApprovalFileEntity {
     private String apvNewFileName;
 
     @Column(nullable = false)
-    private String avpOldFileName;
+    private String apvOldFileName;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,7 +35,7 @@ public class ApprovalFileEntity {
         ApprovalFileEntity approvalFileEntity = new ApprovalFileEntity();
 
         approvalFileEntity.setApvNewFileName(approvalFileDto.getApvNewFileName());
-        approvalFileEntity.setAvpOldFileName(approvalFileDto.getAvpOldFileName());
+        approvalFileEntity.setApvOldFileName(approvalFileDto.getApvOldFileName());
         approvalFileEntity.setApprovalEntity(approvalFileDto.getApprovalEntity());
 
         return approvalFileEntity;

@@ -31,10 +31,18 @@ public class ApprovalDto {
     //dto 만 따로 추가
     private MultipartFile apvFile;
 
+    private String apvFnl;
+
     private String apvStatus;
 
     //dto만 따로 추가
     private Long memberId;
+
+    //dto만 따로 추가
+    private String apvDiv;
+
+    //dto만 따로 추가
+    private String apvOldFileName;
 
     private MemberEntity memberEntity;
 
@@ -64,5 +72,31 @@ public class ApprovalDto {
 
     return approvalDto;
 
+    }
+
+    public static ApprovalDto toApvDtoDetail(ApprovalEntity approvalEntity) {
+        ApprovalDto approvalDto = new ApprovalDto();
+        ApprovalFileEntity approvalFileEntity = new ApprovalFileEntity();
+
+        approvalDto.setId(approvalEntity.getId());
+        approvalDto.setApvTitle(approvalEntity.getApvTitle());
+        approvalDto.setApvFnl(approvalEntity.getApvFnl());
+        approvalDto.setApvContent(approvalEntity.getApvContent());
+        approvalDto.setApprovalStatusEntity(approvalEntity.getApprovalStatusEntity());
+        approvalDto.setApvAttachFile(approvalEntity.getApvAttachFile());
+        approvalDto.setMemberEntity(approvalEntity.getMemberEntity());
+        approvalDto.setApprovalDivEntity(approvalEntity.getApprovalDivEntity());
+
+        if (approvalDto.getApvAttachFile() == 0) {
+            approvalDto.setApvAttachFile(approvalEntity.getApvAttachFile());
+        } else {
+            approvalDto.setApvAttachFile(approvalEntity.getApvAttachFile());
+            approvalDto.setApvOldFileName(approvalEntity.getApprovalFileEntityList().get(0).getApvOldFileName());
+        }
+
+        approvalDto.setCreateTime(approvalEntity.getCreateTime());
+        approvalDto.setUpdateTime(approvalEntity.getUpdateTime());
+
+        return approvalDto;
     }
 }

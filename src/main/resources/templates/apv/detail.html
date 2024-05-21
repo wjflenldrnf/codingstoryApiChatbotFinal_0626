@@ -1,108 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
->
-<head>
-  <meta charset="UTF-8">
-  <title>index</title>
-  <script th:src="@{/js/member/memberDetail.js}" defer></script>
-  <link rel="stylesheet" th:href="@{/css/member/detail.css}">
-</head>
-<body>
-<div class="container">
-  <div class="detail">
-    <div class="detail-con">
-      <div class="top">
-        <div class="top-con">
-          <th:block th:if="${member.memberAttachFile==1}">
-            <img th:src="@{|/upload/${member.newFileName}|}" alt="이미지대체문구">
-          </th:block>
-          <th:block th:unless="${member.memberAttachFile==1}">
-            <img src="https://placehold.co/400x500?text=NOIMAGE" alt="이미지대체문구">
-          </th:block>
-          <p th:text="${member.userEmail}"></p>
-        </div>
-
-      </div>
-            <input type="hidden" th:value="${member.id}" id="id" name="id">
-      <div class="memberInfo">
-
-      <div class="memberInfo-con">
-          <ul>
-            <li>
-              <h1>내 정보</h1>
-            </li>
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout/apv/apvDetail_Layout}" ><!-- 기본레이아웃  -->
 
 
-            <li>
-              <div>
-              <label>비번</label>
-              </div>
-              <div>
-              </div>
-            </li>
-          <li>
-            <div>
-            <label>이름</label>
-              <span th:text="${member.name}"></span>
-            </div>
-            <div>
-              <div id="modal1" class="modal">
-                <form th:action="@{/member/nameUpdate}" method="post">
-                  <input type="text" th:value="${member.id}" readonly>
-                  <input type="text" id="name" name="name" th:value="${member.name}">
-                  <input type="submit" value="수정">
+<!-- head layout 설정된  fragment-->
+<th:block layout:fragment="title">
+  <title>admin </title>
+</th:block>
 
-                  <button onClick="memberNameUpdateFn()">수정ajax</button>
-                </form>
-                <a href="#" rel="modal:close">닫기</a>
-              </div>
-              <p><a href="#modal1" rel="modal:open">수정</a></p>
-            </div>
-          </li>
+<th:block layout:fragment="css">
+  <link rel="stylesheet" th:href="@{/css/approval/apvDetail.css}">
+</th:block>
 
+<th:block layout:fragment="script">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />-->
+</th:block>
 
-          <li>
-            <div>
-            <label>주소</label>
-            <input type="text" th:value="${member.address}" id="address" name="address">
-            </div>
-            <div>
-            </div>
-          </li>
-
-          <li>
-            <div>
-            <label>번호</label>
-            <input type="text" th:value="${member.phoneNumber}" id="phoneNumber" name="phoneNumber">
-            </div>
-            <div>
-            </div>
-          </li>
-          <li>
-            <div>
-            <label>부서</label>
-            <input type="text" th:value="${member.department}" id="department" name="department">
-            </div>
-          </li>
-
-          <li>
-            <div>
-            <label>직급</label>
-            <input type="text" th:value="${member.mRank}" id="mRank" name="mRank">
-            </div>
-          </li>
-            <li>
-              <input type="file" id="memberFile" name="memberFile">
-            </li>
-          </ul>
-
-        </div>
-      </div>
-            <button id="memberDelete" name="memberDelete" onClick="memberDeleteReady()">해고</button>
-    </div>
-  </div>
-</div>
-
-</body>
 </html>

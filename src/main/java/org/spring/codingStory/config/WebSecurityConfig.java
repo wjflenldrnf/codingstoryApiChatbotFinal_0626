@@ -42,22 +42,22 @@ public class WebSecurityConfig {
 
 
         http.formLogin()
-                .loginPage("/member/login")
+                .loginPage("/login")
                 .usernameParameter("userEmail")
                 .passwordParameter("userPw")
-                .loginProcessingUrl("/member/login")
+                .loginProcessingUrl("/login")
                 .successHandler(customAuthenticationSuccessHandler())
                 .failureHandler(authenticationFailureHandler())
 //                .defaultSuccessUrl("/index")
 //                .failureForwardUrl("/login")
                 .and()
                 .oauth2Login()
-                .loginPage("/member/login")
+                .loginPage("/login")
                 .userInfoEndpoint()
                 .userService(myOAuth2Service());
 
         http.logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/index");
 
         return http.build();
