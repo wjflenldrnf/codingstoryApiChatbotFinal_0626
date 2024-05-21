@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="right" th:fragment="empWriteFragment">
+  <div class="right-con">
+      <div class="right-top">
+      <div class="gnb">
+        <ul>
+            <th:block sec:authorize="isAnonymous()">
+                <li><a th:href="@{/member/login}">로그인</a></li>
+                <li><a th:href="@{/member/join}">회원가입</a></li>
+            </th:block>
+            <th:block sec:authorize="isAuthenticated()">
+                로그인중
+            </th:block>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="index-data">
+          <div class="container">
+              <div class="boardWrite">
+                  <div class="boardWrite-con">
+                      <div class="boardWrite-form">
+                          <form th:action="@{/board/empWrite}" method="POST" enctype="multipart/form-data">
+                              <ul>
+                                  <li>
+                                      <h1>우수사원게시판</h1>
+                                  </li>
+
+                                  <li>
+                                      <label for="category">분류</label>
+                                  </li>
+                                  <li>
+                                      <select name="category" id="category">
+                                          <option value="노원점">노원점</option>
+                                          <option value="자동차극장">자동차극장</option>
+                                          <option value="야외극장">야외극장</option>
+                                          <option value="VIP극장">VIP극장</option>
+                                      </select>
+                                  </li>
+
+                                  <li>
+                                      <label for="memberId" hidden="hidden">회원아이디</label>
+                                      <input type="hidden" name="memberId" id="memberId" th:value="${memberId}" readonly>
+                                  </li>
+
+                                  <li>
+                                      <input type="hidden" id="empWriter" name="empWriter" th:value="${memberName}">
+                                  </li>
+
+                                  <li>
+                                      <label>작성자</label>
+                                  </li>
+
+                                  <li>
+                                      <span th:text="${memberName}" readonly></span>
+                                  </li>
+
+                                  <li>
+                                      <label for="empTitle">제목</label>
+                                  </li>
+
+                                  <li>
+                                      <input type="text" id="empTitle" name="empTitle" placeholder="제목을 입력하세요">
+                                  </li>                                 <!-- name 값을 포함하고 있어서 name안써도 된다 -->
+
+
+                                  <li>
+                                      <label for="empContent">내용 </label>
+                                  </li>
+                                  <li>
+                            <textarea name="empContent" id="empContent" cols="30" rows="10"
+                                      placeholder="내용을 입력하세요"></textarea>
+                                  </li>
+
+                                  <li class="file">
+                                      <label for="boardFile">파일</label>
+                                      <input type="file" name="boardFile" id="boardFile">
+                                  </li>
+                                  <li>
+                                      <input type="reset" value="초기화">
+                                      <input type="submit" value="작성">
+                                  </li>
+
+
+                              </ul>
+
+
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+</html>
