@@ -6,16 +6,12 @@
 
     h1.title {
       text-align: center;
-      background: linear-gradient(to right, #ceff7f, #8af7ff,#cd8fff);
+      background: linear-gradient(to right, #CEFF7F, #8AF7FF, #CD8FFF);
       color: rgb(253, 253, 253);
       padding: 10px 0;
     }
 
     #calendar {
-.fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */
-    .fc-day-number.fc-sun.fc-past { color:#FF0000; }    /* 일요일 */
-
-
       width: 80vw;
       height: 80vh;
       margin: 0 auto
@@ -27,16 +23,37 @@
       color: #cd8fff;
     }
 
-    .fc-day-sun a {
-      color: red;
-      text-decoration: none;
-    }
 
-    /* 토요일 날짜 파란색 */
+
+    .fc-col-header-cell.fc-day-sun .fc-col-header-cell-cushion {
+        color: red !important;
+    }
+    .fc-col-header-cell.fc-day-sat .fc-col-header-cell-cushion {
+            color: blue !important;
+        }
+
     .fc-day-sat a {
-      color: blue;
-      text-decoration: none;
+        color: blue !important;; /* 모든 토요일 날짜의 텍스트 색상을 파란색으로 설정 */
+    }
+    .fc-day-sun a {
+            color: red !important;; /* 모든 토요일 날짜의 텍스트 색상을 파란색으로 설정 */
     }
 
 
+    .fc-event-main{
+      background: linear-gradient(to right, #FFD166, #06D6A0, #118AB2);
+      border-color: bisque;
+      color: black;
+    }
+    .fc-event-main-frame{
+      border-color: #ff65cc;
+    }
+    .fc-event-tilte{
+      color: wheat;
+    }
+    .fc-daygrid-day-number {
+      color: red; /* 날짜 텍스트 색상을 빨간색으로 설정 */
+  }
+
+   
 

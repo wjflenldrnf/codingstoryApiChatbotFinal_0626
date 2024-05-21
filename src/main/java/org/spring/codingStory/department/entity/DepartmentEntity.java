@@ -24,6 +24,18 @@ public class DepartmentEntity {
     @Column(nullable = false)
     private String dptName;
 
+    @Column(nullable = false)
+    private String location; // 부서 위치 필드 추가
+
+
+    @Column(nullable = false)
+    private int memberCount;
+
+
+    // 소속 인원 수를 반환하는 메서드
+    public int countMembers() {
+        return memberEntityList != null ? memberEntityList.size() : 0;
+    }
 
 
     @JsonIgnore // ajax시 순환참조 방지

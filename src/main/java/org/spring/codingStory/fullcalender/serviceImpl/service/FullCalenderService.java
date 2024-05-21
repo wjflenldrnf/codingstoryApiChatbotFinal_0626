@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.spring.codingStory.fullcalender.dto.FullCalenderDto;
 import org.spring.codingStory.fullcalender.entity.FullCalenderEntity;
 import org.spring.codingStory.fullcalender.reposiory.FullCalenderRepository;
+import org.spring.codingStory.fullcalender.serviceImpl.FullCalenderServiceInterface;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 @Transactional
 @Service
 @RequiredArgsConstructor
-public class FullCalenderService {
+public class FullCalenderService implements FullCalenderServiceInterface {
 
   private final FullCalenderRepository fullCalenderRepository;
   private static final Logger logger = Logger.getLogger(FullCalenderService.class.getName());
@@ -93,4 +94,8 @@ public class FullCalenderService {
   }
 
 
+  public void deleteCalendarEvent(Long eventId, String username) {
+
+    fullCalenderRepository.deleteById(eventId);
+  }
 }

@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface FullCalenderRepository extends JpaRepository<FullCalenderEntity,Long> {
   List<FullCalenderEntity> findByMemberEntity(MemberEntity memberEntity);
+
+
 }

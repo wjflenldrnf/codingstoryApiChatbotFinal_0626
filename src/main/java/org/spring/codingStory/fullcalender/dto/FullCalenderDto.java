@@ -21,6 +21,8 @@ public class FullCalenderDto {
 
   private String content;
 
+  private String username;
+
   @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
   private Date start;
 
