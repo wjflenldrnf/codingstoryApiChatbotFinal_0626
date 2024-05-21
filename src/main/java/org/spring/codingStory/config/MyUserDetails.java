@@ -62,9 +62,6 @@ public class MyUserDetails implements UserDetails, OAuth2User {
         return memberEntity.getMRank();
     }
 
-
-
-
     @Override
     public String getPassword() {
         return memberEntity.getUserPw();

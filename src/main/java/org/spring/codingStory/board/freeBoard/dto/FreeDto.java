@@ -20,7 +20,7 @@ public class FreeDto {
 
     private Long id;
 
-    public Long category;
+    public String category;
 
     private String freeTitle;
 
@@ -62,6 +62,7 @@ public class FreeDto {
         boardDto.setFreeAttachFile(freeEntity.getFreeAttachFile());
         boardDto.setCreateTime(freeEntity.getCreateTime());
         boardDto.setUpdateTime(freeEntity.getUpdateTime());
+        boardDto.setMemberEntity(freeEntity.getMemberEntity());
         if(freeEntity.getFreeAttachFile()==0) {
             //파일0
             boardDto.setFreeAttachFile(freeEntity.getFreeAttachFile());

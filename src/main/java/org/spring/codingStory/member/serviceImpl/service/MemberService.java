@@ -3,12 +3,12 @@ package org.spring.codingStory.member.serviceImpl.service;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import java.io.IOException;
 import java.util.List;
 
 public interface MemberService {
   void memberJoin(MemberDto memberDto) throws IOException;
+
 
   List<MemberDto> memberList();
 
@@ -29,4 +29,5 @@ public interface MemberService {
     int findCheck(MemberDto memberDto);
 
   void findPasswordFin(MemberDto memberDto);
+
 }

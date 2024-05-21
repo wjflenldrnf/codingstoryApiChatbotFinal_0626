@@ -12,21 +12,21 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "apvOk")
-public class ApprovalOkEntity {
+@Table(name = "apv_status")
+public class ApprovalStatusEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "apvOk_id")
+    @Column(name = "apvStatus_id")
     private Long id;
 
     @Column(nullable = false)
-    private String apvOk;
+    private String apvStatus;
 
     @JsonIgnore // ajax시 순환참조 방지
-    @OneToMany(mappedBy = "approvalOkEntity"
-            , fetch = FetchType.LAZY
-            , cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "approvalStatusEntity"
+        , fetch = FetchType.LAZY
+        , cascade = CascadeType.REMOVE)
     private List<ApprovalEntity> approvalEntityList;
 
 }
