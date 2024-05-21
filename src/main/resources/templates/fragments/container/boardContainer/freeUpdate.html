@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 여기에 헤더 정보를 추가하세요 -->
+</head>
+<body>
+<div class="right" th:fragment="freeUpdateFragment">
+    <div class="right-con">
+        <div class="right-top">
+            <div class="gnb">
+                <ul>
+                    <th:block sec:authorize="isAnonymous()">
+                        <li><a th:href="@{/member/login}">로그인</a></li>
+                        <li><a th:href="@{/member/join}">회원가입</a></li>
+                    </th:block>
+                    <th:block sec:authorize="isAuthenticated()">
+                        로그인 중
+                    </th:block>
+                </ul>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="index-data">
+                <div class="container">
+                    <div class="boardDetail">
+                        <div class="boardDetail-con">
+                            <div class="top">
+                                <div class="boardDetail-form">
+
+
+                                    <form th:action="@{/board/freeUpdate}" method="post" enctype="multipart/form-data">
+                                        <div class="left">
+                                            <div class="left-con">
+                                                <th:block th:if="${free.freeAttachFile==1}"> <!--  이미지 표시 -->
+                                                    <img th:src="@{|/upload/${free.newFileName}|}" alt="이미지대체문구">
+                                                </th:block>
+                                                <th:block th:unless="${free.freeAttachFile==1}">  <!--  이미지 표시 -->
+                                                    <img src="https://placehold.co/400x500?text=NOIMAGE" alt="이미지대체문구">
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                수정게시판
+                                            </li>
+                                            <li>
+                                                <input type="hidden" name="id" id="id" th:value="${free.id}" readonly>
+                                            </li>
+                                            <li>
+                                                <select name="category" id="category">
+                                                    <option value="노원점">노원점</option>
+                                                    <option value="자동차극장">자동차극장</option>
+                                                    <option value="야외극장">야외극장</option>
+                                                    <option value="VIP극장">VIP극장</option>
+                                                </select>
+                                            </li>
+                                            <li>
+                                                <label for="memberId">MemberId</label>
+                                                <input type="text" name="memberId" id="memberId" th:value="${free.memberEntity.id}"
+                                                       readonly>
+                                            </li>
+                                            <li>
+                                                <label for="freeTitle">TITLE</label>
+                                                <input type="text" name="freeTitle" id="freeTitle" th:value="${free.freeTitle}">
+                                            </li>
+                                            <li>
+                                                <label for="freeContent">CONTENT</label>
+                                            </li>
+                                            <li>
+                                            <textarea name="freeContent" id="freeContent" cols="30" rows="3"
+                                                    th:text="${free.freeContent}"></textarea>
+                                            </li>
+
+                                            <li>
+                                                <label for="freeHit">HIT</label>
+                                                <input type="text" name="freeHit" id="freeHit" th:value="${free.freeHit}" readonly>
+                                            </li>
+
+
+                                            <li>
+                                                <label for="freeWriter">작성자</label>
+                                                <input type="text" name="freeWriter" id="freeWriter" th:value="${free.freeWriter}"
+                                                       readonly>
+                                            </li>
+                                            <li>
+                                                <label for="createTime">작성시간</label>
+                                                <input type="text"
+                                                       th:value="${#temporals.format(free.createTime, 'yyyy-MM-dd HH:mm')}"
+                                                       id="createTime" readonly>
+                                            </li>
+                                            <li>
+                                                <label for="updateTime">수정시간</label>
+                                                <input type="text"
+                                                       th:value="${#temporals.format(free.updateTime, 'yyyy-MM-dd HH:mm')}"
+                                                       id="updateTime" readonly>
+                                            </li>
+                                            <li>
+                                                <label for="boardFile">File</label>
+                                                <input type="file" name="boardFile" id="boardFile">
+                                            </li>
+                                            <li>
+
+                                                <th:block  sec:authorize="isAuthenticated()">
+                                                    <th:blcok style="display:flex;" th:if="${free.memberEntity.userEmail==myUserDetails.username}">
+
+                                                        <input type="submit" value="수정" class="btn1">
+
+                                                        <a th:href="@{/board/freeDelete/{id}(id=${free.id})}" class="btn1">삭제</a>
+                                                        <a th:href="@{/board/freeList}" class="btn1">목록</a>
+                                                    </th:blcok>
+                                                </th:block>
+
+                                            </li>
+                                        </ul>
+                                    </form>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

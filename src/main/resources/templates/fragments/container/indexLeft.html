@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div class="left" th:fragment="indexLeftFragment">
   <div class="left-con">
-    <div class="top">
+    <div class="left-top">
       <div class="title">
         <h1 class="logo">
           <a th:href="@{/index}"><img th:src="@{/images/logo.png}" alt=""> </a>
@@ -22,15 +22,15 @@
               <ul class="submenu">
                   <li>
                       <img th:src="@{/images/notice.png}" alt="icon"><a
-                          th:href="@{/board/noticeWrite}">공지사항</a>
+                          th:href="@{/board/noticeList}">공지사항</a>
                   </li>
                   <li>
                       <img th:src="@{/images/free.png}" alt="icon"><a
-                          th:href="@{/board/freeWrite}">자유게시판</a>
+                          th:href="@{/board/freeList}">자유게시판</a>
                   </li>
                   <li>
                       <img th:src="@{/images/bestemp.png}" alt="icon">
-                      <a th:href="@{/board/empWrite}">이달의사원</a>
+                      <a th:href="@{/board/empList}">이달의사원</a>
                   </li>
               </ul>
           </div>

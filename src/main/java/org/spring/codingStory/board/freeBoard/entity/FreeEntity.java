@@ -27,7 +27,7 @@ public class FreeEntity extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    public Long category;
+    public String category;
 
     @Column(nullable = false)
     private String freeTitle;
