@@ -39,5 +39,5 @@ logging:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
 
-filePath: file:///c:/codingStory/
+filePath: file:///c:/codingStory_file/
 
