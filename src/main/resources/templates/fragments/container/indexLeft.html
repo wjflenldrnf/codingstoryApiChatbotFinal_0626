@@ -10,6 +10,7 @@
      </div>
      <div class="left-menu">
       <ul>
+
         <li><img th:src="@{/images/emp.png}" alt="icon"><a href="#">사원관리</a></li>
         <li><img th:src="@{/images/pay.png}" alt="icon"><a href="#">급여관리</a></li>
         <li><img th:src="@{/images/add.png}" alt="icon"><a href="#">근태관리</a></li>
@@ -34,8 +35,9 @@
               </ul>
           </div>
       </li>
-        <li><img th:src="@{/images/app.png}" alt="icon"><a href="#">결재관리</a></li>
+        <li><img th:src="@{/images/app.png}" alt="icon"><a th:href="@{/apv/list}">결재관리</a></li>
         <li><img th:src="@{/images/sch.png}" alt="icon"><a href="#">전체일정</a></li>
+
       </ul>
      </div>
     </div>

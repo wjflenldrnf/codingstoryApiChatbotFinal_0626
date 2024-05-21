@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 @Transactional
@@ -267,6 +269,8 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(memberEntity);
 
     }
+
+
 
     @Override
     public int findCheck(MemberDto memberDto) {

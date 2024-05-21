@@ -62,6 +62,7 @@ public class MemberDto {
     private List<MemberFileEntity> memberFileEntityList;
 
 
+
   public static MemberDto toSelectMemberDto(MemberEntity member) {
       MemberDto memberDto=new MemberDto();
       memberDto.setId(member.getId());
@@ -86,4 +87,5 @@ public class MemberDto {
       return memberDto;
 
   }
+
 }
