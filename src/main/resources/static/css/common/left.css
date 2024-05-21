@@ -1,4 +1,4 @@
-@import url(/css/common/reset.css);
+
 /*index*/
 .container{
   width:100%;
@@ -25,27 +25,27 @@
   /* padding: 10px; */
   box-sizing: border-box;
 }
-.index .left-con .top{
+.index .left-con .left-top{
 
   /* background-color: aquamarine; */
   padding: 0 20px;
   box-sizing: border-box;
 }
 
-.index .left-con .top .title{
+.index .left-con .left-top .title{
 
 }
 
-.index .left-con .top .title h1.logo{
-  height: auto; 
+.index .left-con .left-top .title h1.logo{
+  height: auto;
   /* background-color: #e392ef; */
 }
-.index .left-con .top .title h1.logo img{
+.index .left-con .left-top .title h1.logo img{
   display: block;
   width: 100%;
   height: auto;
 }
-.index .left-con .top .title .profile{
+.index .left-con .left-top .title .profile{
   height: 100px;
   background-color: #white;
   color: #ffffff;
@@ -54,17 +54,17 @@
   align-items: center;
 }
 
-.index .left-con .top .left-menu{
+.index .left-con .left-top .left-menu{
   background-color: #white;
   padding: 20px 0;
 }
-.index .left-con .top .left-menu>ul{
+.index .left-con .left-top .left-menu>ul{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 3px;
 }
-.index .left-con .top .left-menu>ul>li{
+.index .left-con .left-top .left-menu>ul>li{
   padding: 2px 5px;
   box-sizing: border-box;
   text-align: center;
@@ -72,7 +72,7 @@
 
 .index .left-con .bottom{
   height: 100px;
-  background-color: rgb(1, 24, 16); 
+  background-color: rgb(1, 24, 16);
   color: #ffffff;
   display: flex;
   justify-content: center;
@@ -86,7 +86,7 @@
 .index .right .right-con{
   min-height: 100vh;
 }
-.index .right .right-con .top{
+.index .right .right-con .right-top{
   height: 80px;
   background-color: #ffffff;
   position: sticky;
@@ -98,24 +98,24 @@
   box-sizing: border-box;
 }
 
-.index .right .right-con .top .gnb{
+.index .right .right-con .right-top .gnb{
  /* border: 1px solid; */
  box-sizing: border-box;
 }
-.index .right .right-con .top .gnb>ul{
+.index .right .right-con .right-top .gnb>ul{
   display: flex;
   justify-content: space-between;
   /* padding: 10px 0 ; */
   box-sizing: border-box;
  }
- .index .right .right-con .top .gnb>ul>li{
+ .index .right .right-con .right-top .gnb>ul>li{
   /* border: 1px solid; */
   box-sizing: border-box;
   font-size: 14px;
   line-height: 20px;
   padding: 10px 0 ;
  }
- .index .right .right-con .top .gnb>ul>li>a{
+ .index .right .right-con .right-top .gnb>ul>li>a{
 
   font-size: inherit;
   line-height: inherit;
@@ -123,7 +123,7 @@
   background-color: inherit;
   color: inherit;
  }
- .index .right .right-con .top .gnb>ul>li:hover{
+ .index .right .right-con .right-top .gnb>ul>li:hover{
  background-color: black;
  color: #ffffff;
  }
@@ -261,7 +261,7 @@ transition-duration: 1s;
 
 /*위랑 같은 거*/
 .left-menu >ul>li.sub .right:hover .submenu {
-height: 350px;
+height: 200px;
 
 display:block;/*수정수정수정11111*/
 

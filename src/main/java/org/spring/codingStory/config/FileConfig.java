@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class FileConfig implements WebMvcConfigurer {
 
 //    파일경로
-    String saveFiles="file:///C:/openApi/saves/"; //실제 파일이 저장되는 경로
+    String saveFiles="file:///C:/codingStory_file/"; //실제 파일이 저장되는 경로
 
 
     @Override
