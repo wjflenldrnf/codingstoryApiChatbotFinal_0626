@@ -23,6 +23,16 @@
                 </div>
                 <li><a th:href="@{/logout}">로그아웃</a></li>
             </th:block>
+
+
+          <li th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <!--사용자가 인증 되어 있으면 보이는 메뉴 -->
+            <a th:href="@{/my/schedule}">Fullcalendar</a>
+          </li>
+          <li>
+
+
+
         </ul>
       </div>
     </div>

@@ -54,6 +54,7 @@ public class MyUserDetails implements UserDetails, OAuth2User {
         return collection;
     }
 
+
     public String getDepartment() {
         return memberEntity.getDepartment();
     }
