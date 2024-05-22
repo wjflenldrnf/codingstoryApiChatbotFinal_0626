@@ -6,12 +6,133 @@
   <meta charset="UTF-8">
   <title>index</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <link rel="stylesheet" th:href="@{/css/member/login.css}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+  <script th:src="@{/js/member/memberDetail.js}" defer></script>
+  <link rel="stylesheet" th:href="@{/css/member/myDetail.css}">
 </head>
 <body>
-<h1>내정보</h1>
+<div class="container">
+  <div class="detail">
+    <div class="detail-con">
+      <div class="top">
+        <div class="top-con">
+          <th:block th:if="${member.memberAttachFile==1}">
+            <img th:src="@{|/upload/${member.memberNewFileName}|}" alt="이미지대체문구">
+          </th:block>
+          <th:block th:unless="${member.memberAttachFile==1}">
+            <img th:src="@{/images/memberProfile.png}" alt="이미지대체문구">
+          </th:block>
+          <p th:text="${member.userEmail}"></p>
+        </div>
+
+      </div>
+      <input type="hidden" th:value="${member.id}" id="id" name="id">
+      <div class="memberInfo">
+        <div class="memberInfo-con">
+          <ul>
+            <li>
+              <div>
+                <label>비밀번호</label>
+              </div>
+              <div>
+                <div id="modal4" class="modal">
+                  <form id="passwordForm" method="post">
+                    <input type="hidden" id="memberId4" name="id" th:value="${member.id}">
+                    비밀번호 입력<input type="password" id="userPw" name="userPw" oninput="passwordCheck()">
+                    비밀번호 확인<input type="password" id="userPw2" name="userPw2" oninput="passwordCheck()">
+                    <span id="passwordCheck"></span>
+                    <button type="button" onClick="memberPasswordUpdateFn()" id="passwordGo">수정</button>
+                  </form>
+                  <a href="#" rel="modal:close">닫기</a>
+                </div>
+                <p><a href="#modal4" rel="modal:open">수정</a></p>
+              </div>
+            </li>
+
+            <li>
+              <div>
+                <label>이름</label>
+                <span th:text="${member.name}"></span>
+              </div>
+              <div>
+                <div id="modal1" class="modal">
+                  <form id="nameForm" method="post">
+                    <input type="hidden" id="memberId" name="id" th:value="${member.id}">
+                    <input type="text" id="name" name="name" th:value="${member.name}">
+                    <button type="button" onClick="memberNameUpdateFn()">수정</button>
+                  </form>
+                  <a href="#" rel="modal:close">닫기</a>
+                </div>
+                <p><a href="#modal1" rel="modal:open">수정</a></p>
+              </div>
+            </li>
 
 
+            <li>
+              <div>
+                <label>주소</label>
+                <span th:text="${member.address}"></span>
+              </div>
+              <div>
+                <div id="modal2" class="modal">
+                  <form id="addressForm" method="post">
+                    <input type="hidden" id="memberId2" name="id" th:value="${member.id}">
+                    <input type="text" id="address" name="address" th:value="${member.address}">
+                    <button type="button" onClick="memberAddressUpdateFn()">수정</button>
+                  </form>
+                  <a href="#" rel="modal:close">닫기</a>
+                </div>
+                <p><a href="#modal2" rel="modal:open">수정</a></p>
+              </div>
+            </li>
 
+            <li>
+              <div>
+                <label>번호</label>
+                <span th:text="${member.phoneNumber}"></span>
+              </div>
+              <div>
+                <div id="modal3" class="modal">
+                  <form id="phoneForm" method="post">
+                    <input type="hidden" id="memberId3" name="id" th:value="${member.id}">
+                    <input type="text" id="phoneNumber" name="phoneNumber" th:value="${member.phoneNumber}">
+                    <button type="button" onClick="memberPhoneNumberUpdateFn()">수정</button>
+                  </form>
+                  <a href="#" rel="modal:close">닫기</a>
+                </div>
+                <p><a href="#modal3" rel="modal:open">수정</a></p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <label>부서</label>
+                <span th:text="${member.department}" id="department" name="department"></span>
+              </div>
+            </li>
+
+            <li>
+              <div>
+                <label>직급</label>
+                <span th:text="${member.mRank}" id="mRank" name="mRank"></span>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+            <div class="fileInput">
+              <label for="memberFile" class="btn">파일업로드</label>
+              <input id="memberFile" name="memberFile" style="display:none;" type="file">
+            </div>
+
+      <div class="return">
+        <a th:href="@{/index}">돌아가기</a>
+      </div>
+
+    </div>
+  </div>
+</div>
 </body>
 </html>
