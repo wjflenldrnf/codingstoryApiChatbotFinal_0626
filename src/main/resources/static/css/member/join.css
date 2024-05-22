@@ -1,36 +1,81 @@
-@import url(/css/common/reset.css);
-.join-form{
-display:flex;
-flex-direction:column;
+@import url(/css/common/parkReset.css);
+.container{
+width:100%;
+height:100%;
 }
-.join-form form{
+#pwConfirm{
+}
+#emailConfirm{
+}
+
+input:focus {
+  outline: 3px solid red;
+}
+
+
+.error{
+font-size:12px;
+font-weight:bold;
+color:red;
+}
+h3{
+font-size: 15px;
+line-height: 22px;
+color: #767678;
+}
+
+.join img{
+width:200px;
+height:150px;
+}
+
+.join{
+list-style-type: none;
+  background-color: #ffffff;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction:column;
+}
+
+.join-form-con img{
+width:30px;
+height:30px;
+}
+.join-form-con{
 display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+flex-direction: column;
+gap:20px;
 }
-
-.join-form form ul{
-line-height:35px;
+.join-form-con div{
+border: 1px solid #ccc;
+    display: flex;
+    width: 460px;
+    height: 30px;
+    border-radius: 6px;
+    gap: 20px;
+    padding: 10px;
+    align-items:center;
 }
-.join-form form ul>li{
-}
-
-.join-form form input{
+.join-form-con input{
+border:0;
+height:22px;
+width:350px;
 }
 input:focus {
-  outline: 3px solid #09aa5c;
+outline:none;
 }
-
+input::placeholder{
+font-weight:600;
+color:#8e8e8e;
+}
 
 .radios{
-padding:10px;
 }
-
 .radios input[type=radio]{
 display:none;
 }
-
 .radios input[type=radio] + label {
     display:inline-block;
     margin:-2px;
@@ -40,9 +85,26 @@ display:none;
     cursor:pointer;
 
 }
-
 .radios input[type=radio]:checked+label{
 background-color: #d0d0d0;
 background-image:none;
 }
+
+.ok{
+display: flex;
+    justify-content: center;
+    padding-top: 30px;
+}
+.ok button{
+width:100%;
+height:50px;
+border:0;
+background-color:#fee500;
+border-radius:6px;
+color:#ffffff;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
 

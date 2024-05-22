@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      layout:decorate="~{fragments/layout/memberList_layout}" ><!-- 기본레이아웃  -->
+      layout:decorate="~{fragments/layout/memberList_Layout}" ><!-- 기본레이아웃  -->
 <!-- head layout 설정된  fragment -->
 <th:block layout:fragment="title">
   <title>memberList</title>
 </th:block>
 <th:block layout:fragment="css">
   <link rel="stylesheet" th:href="@{/css/member/memberList.css}">
-  <link rel="stylesheet" th:href="@{/css/index.css}">
+  <link rel="stylesheet" th:href="@{/css/member/memberListRight.css}">
 
 </th:block>
 <th:block layout:fragment="script">

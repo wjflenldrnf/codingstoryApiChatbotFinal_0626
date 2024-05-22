@@ -23,7 +23,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         out.println("<script> alert('로그인 성공!" + authentication.getName() +" 님 반갑습니다.');" +
                         "location.href='/index';" +
                 "</script>");
-
         out.close();
     }
 }

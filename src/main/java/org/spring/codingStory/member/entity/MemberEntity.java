@@ -1,4 +1,4 @@
-package org.spring.codingStory.member.entity;
+  package org.spring.codingStory.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -40,10 +40,10 @@ public class MemberEntity extends BaseTimeEntity {
   @Column(nullable = false)
   private String name;
 
-  @Column(nullable = false)
+  @Column(nullable = true)
   private String department;
 
-  @Column(nullable = false)
+  @Column(nullable = true)
   private String mRank;
 
   @Column(nullable = true) // 기본이 널 허용
@@ -120,7 +120,7 @@ public class MemberEntity extends BaseTimeEntity {
     memberEntity.setMRank(memberDto.getMRank());
     memberEntity.setAddress(memberDto.getAddress());
     memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
-    memberEntity.setRole(Role.MEMBER);
+    memberEntity.setRole(Role.GEUST);
     memberEntity.setMemberAttachFile(0);
 
     return memberEntity;
@@ -138,9 +138,8 @@ public class MemberEntity extends BaseTimeEntity {
     memberEntity.setMRank(memberDto.getMRank());
     memberEntity.setAddress(memberDto.getAddress());
     memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
-    memberEntity.setRole(Role.MEMBER);
+    memberEntity.setRole(Role.GEUST);
     memberEntity.setMemberAttachFile(1);
-
 
     return memberEntity;
   }
