@@ -54,6 +54,7 @@ public class MyUserDetails implements UserDetails, OAuth2User {
         return collection;
     }
 
+
     public String getDepartment() {
         return memberEntity.getDepartment();
     }
@@ -61,9 +62,6 @@ public class MyUserDetails implements UserDetails, OAuth2User {
     public String getMRank() {
         return memberEntity.getMRank();
     }
-
-
-
 
     @Override
     public String getPassword() {

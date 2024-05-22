@@ -10,12 +10,16 @@ import org.spring.codingStory.board.employee.repository.EmpFileRepository;
 import org.spring.codingStory.board.employee.repository.EmployeeRepository;
 import org.spring.codingStory.board.employee.serviceImpl.service.EmployeeService;
 import org.spring.codingStory.member.entity.MemberEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -44,7 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             UUID uuid = UUID.randomUUID(); //random id -> 랜덤한 값을 추출하는 플래스
             String newFileName = uuid + "_" + oldFileName; // 저장파일이름 (보완)
 
-            String filePath = "C:/CodingStory_file/" + newFileName; // 실제 파일 저장경로+이름
+            String filePath = "C:/codingStory_file/" + newFileName; // 실제 파일 저장경로+이름
             //실제파일 저장 실행
             boardFile.transferTo(new File(filePath));//저장, 예외처리 -> 경로에 파일 저장
 
@@ -82,4 +86,114 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void updateEmpHit(Long id) {
         employeeRepository.updateEmpHit(id);
     }
+
+    @Override
+    public Page<EmployeeDto> empList(Pageable pageable, String searchCategory, String searchField, String search) {
+        if (searchCategory == null || searchField == null || search == null) {
+            return employeeRepository.findAll(pageable).map(EmployeeDto::toEmpDto);
+        }
+
+        String field = getFieldFromSearchField(searchField);
+
+        List<String> categories = Collections.singletonList(searchCategory);
+
+        if ("EmpTitle".equals(field)) {
+            return employeeRepository.findByCategoryInAndEmpTitleContainsOrCategoryInAndEmpContentContains(
+                    categories, search, categories, search, pageable).map(EmployeeDto::toEmpDto);
+        } else {
+            return employeeRepository.findByCategoryInAndEmpTitleContainsOrCategoryInAndEmpContentContains(
+                    categories, search, categories, search, pageable).map(EmployeeDto::toEmpDto);
+        }
+    }
+    private String getFieldFromSearchField(String searchField) {
+        switch (searchField) {
+            case "empTitle":
+                return "EmpTitle"; // "EmployeeTitle"에서 "EmpTitle"로 변경
+            case "empContent":
+                return "EmpContent"; // 변경할 필요 없음
+            default:
+                throw new IllegalArgumentException("Invalid search field: " + searchField);
+        }
+    }
+
+    @Override
+    public EmployeeDto detail(Long Id) {
+        Optional<EmployeeEntity> optionalEmployeeEntity = employeeRepository.findById(Id);
+        if (optionalEmployeeEntity.isPresent()) {
+            //조회할 게시물이 있으면
+            EmployeeEntity employeeEntity = optionalEmployeeEntity.get();
+            EmployeeDto employeeDto = EmployeeDto.toEmpDto(employeeEntity);
+            return employeeDto;
+        }
+        throw new IllegalArgumentException("아이다가 fail");
+    }
+
+    @Override
+    public void empUpdateOk(EmployeeDto employeeDto) {
+        //게시물 유무 체크
+        EmployeeEntity employeeEntity = employeeRepository.findById(employeeDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("수정게시물없음"));
+        //파일체크
+        Optional<EmployeeFileEntity> optionalFileEntity = empFileRepository.findByEmployeeEntityId(employeeDto.getId());
+        //파일이 있으면 파일 기존 파일 삭제
+        if (optionalFileEntity.isPresent()) {
+            String fileNewName = optionalFileEntity.get().getEmpNewFileName();
+            String filePath = "C:/codingStory_file/" + fileNewName;
+            File deleteFile = new File(filePath);
+            if (deleteFile.exists()) {
+                deleteFile.delete();
+                System.out.println("파일을 삭제하였습니다");
+            } else {
+                System.out.println("파일이 존재하지않습니다");
+            }
+            empFileRepository.delete(optionalFileEntity.get());//파일 테이블 레코드 삭제
+        }
+        //수정
+        Optional<EmployeeEntity> optionalShopEntity = employeeRepository.findById(employeeDto.getId());
+        MemberEntity memberEntity = MemberEntity.builder().id(employeeDto.getMemberId()).build();
+        employeeDto.setMemberEntity(memberEntity);
+        if (employeeDto.getBoardFile().isEmpty()) {
+            //파일 없는경우
+            employeeEntity = EmployeeEntity.toUpdateEmpEntity(employeeDto);
+            employeeRepository.save(employeeEntity);
+        } else {
+            //파일있는경우
+            MultipartFile boardFile = employeeDto.getBoardFile();
+            String fileOldName = boardFile.getOriginalFilename();
+            UUID uuid = UUID.randomUUID();
+            String fileNewName = uuid + "_" + fileOldName;
+            String savaPath = "C:/codingStory_file/" + fileNewName;
+            try {
+                boardFile.transferTo(new File(savaPath));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            employeeEntity = EmployeeEntity.toUpdateFileEmpEntity(employeeDto);
+            employeeRepository.save(employeeEntity);
+
+            EmployeeFileEntity bFileEntity = EmployeeFileEntity.builder()
+                    .employeeEntity(employeeEntity)
+                    .empNewFileName(fileNewName)
+                    .empOldFileName(fileOldName)
+                    .build();
+            Long fileId = empFileRepository.save(bFileEntity).getId();
+            empFileRepository.findById(fileId).orElseThrow(() -> {
+                throw new IllegalArgumentException("파일등록 실패");
+            });
+        }
+        //게시글 수정 확인
+        employeeRepository.findById(employeeDto.getId()).orElseThrow(() -> {
+            throw new IllegalArgumentException("게시글 수정실패");
+        });
+    }
+
+
+    @Override
+    public void empDelete(Long id) {
+        EmployeeEntity employeeEntity= employeeRepository.findById(id).orElseThrow(()->{
+            throw new IllegalArgumentException("삭제할 게시물 없음");});
+        employeeRepository.delete(employeeEntity);
+    }
 }
+

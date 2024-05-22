@@ -13,22 +13,25 @@
   <script th:src="@{/js/member/test.js}" defer></script>
 </head>
 <body>
+<label for="test1">여기</label>
+<input type="text" id="test1">
+
 
 
 <div class="blocker" style="display:none">
 <div id="modal4" class="modal">
-  <form id="passwordForm" method="post">
-    <p>안녕하세요</p>
-  </form>
+
+
+  <input type="text" value="입력" id="test2">
+  
+  <button onClick="testFn()">넣기</button>
+
   <a href="#" rel="modal:close">닫기</a>
 </div>
 </div>
 
 
 
-<br>
-<br>
-<br>
 <p><a href="#modal4" rel="modal:open">수정</a></p>
 
 <h1>423543543543</h1>
@@ -41,6 +44,7 @@
   <div class="modal-content">
     <span class="close">&times;</span>
     <p>모달 내용</p>
+
   <a class="close2" href="">닫기</a>
   </div>
 </div>

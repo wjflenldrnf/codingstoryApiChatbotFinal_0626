@@ -1,4 +1,4 @@
-function emailCheck(){
+/*function emailCheck(){
 		var emailForm = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 		var userEmail=$('#userEmail').val()
  if(emailForm.test(userEmail)=== false){
@@ -14,7 +14,7 @@ function emailCheck(){
         $('#joinGo').css('cursor','pointer')
         document.getElementById('joinGo').disabled =false;
  }
- }
+ }*/
 
 function passwordCheck(){
     const joinGo=document.getElementById('.joinGo')
@@ -62,6 +62,11 @@ $('#phone').css('outline','')
 $('#joinGo').css('cursor','pointer')
 document.getElementById('joinGo').disabled =false;
 }
+}
+
+function removeComma(inputId) {
+    var inputElement = document.getElementById(inputId);
+    inputElement.value = inputElement.value.replace(/,/g, '');
 }
 
 

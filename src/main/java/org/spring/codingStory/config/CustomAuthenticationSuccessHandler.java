@@ -25,4 +25,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 "</script>");
         out.close();
     }
+
+
 }

@@ -18,3 +18,10 @@ var closeBtn2 = modal.querySelector(".close2");
 closeBtn.onclick = function() {
   modal.style.display = "none";
 };
+
+
+function testFn(){
+const test2= $('#test2').val()
+$('#test1').val(test2)
+
+}

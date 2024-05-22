@@ -2,6 +2,11 @@ package org.spring.codingStory.board.notice.serviceImpl;
 
 
 import lombok.RequiredArgsConstructor;
+import org.spring.codingStory.board.employee.dto.EmployeeDto;
+import org.spring.codingStory.board.employee.entity.EmployeeEntity;
+import org.spring.codingStory.board.freeBoard.dto.FreeDto;
+import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
+import org.spring.codingStory.board.freeBoard.entity.FreeFileEntity;
 import org.spring.codingStory.board.notice.dto.NoticeDto;
 import org.spring.codingStory.board.notice.dto.NoticeFileDto;
 import org.spring.codingStory.board.notice.entity.NoticeEntity;
@@ -10,12 +15,15 @@ import org.spring.codingStory.board.notice.repository.NoticeFileRepository;
 import org.spring.codingStory.board.notice.repository.NoticeRepository;
 import org.spring.codingStory.board.notice.serviceImpl.service.NoticeService;
 import org.spring.codingStory.member.entity.MemberEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -84,5 +92,115 @@ public class NoticeServiceImpl implements NoticeService {
         noticeRepository.updateNoticeHit(id);
     }
 
+    @Override
+    public Page<NoticeDto> noticeList(Pageable pageable, String subject1, String subject2, String search) {
+        Page<NoticeEntity> noticeEntityPage = null;
 
+        if (subject1 != null && subject2 != null && search != null) {
+            if ("NoticeTitle".equals(subject2)) {
+                if ("노원점".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("노원점"), search, pageable);
+                } else if ("자동차극장".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("자동차극장"), search, pageable);
+                } else if ("야외극장".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("야외극장"), search, pageable);
+                } else if ("VIP극장".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("VIP극장"), search, pageable);
+                }
+            } else if ("noticeContent".equals(subject2)) {
+                if ("노원점".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("노원점"), search, pageable);
+                } else if ("자동차극장".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("자동차극장"), search, pageable);
+                } else if ("야외극장".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("야외극장"), search, pageable);
+                } else if ("VIP극장".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("VIP극장"), search, pageable);
+                }
+            }
+        } else {
+            noticeEntityPage = noticeRepository.findAll(pageable);
+        }
+
+        return noticeEntityPage.map(NoticeDto::toNoticeDto);
+    }
+
+    @Override
+    public NoticeDto detail(Long Id) {
+        Optional<NoticeEntity> optionalNoticeEntity = noticeRepository.findById(Id);
+        if (optionalNoticeEntity.isPresent()) {
+            //조회할 게시물이 있으면
+            NoticeEntity noticeEntity = optionalNoticeEntity.get();
+            NoticeDto noticeDto = NoticeDto.toNoticeDto(noticeEntity);
+            return noticeDto;
+        }
+        throw new IllegalArgumentException("아이다가 fail");
+    }
+
+    @Override
+    public void noticeUpdateOk(NoticeDto noticeDto) {
+        //게시물 유무 체크
+        NoticeEntity noticeEntity = noticeRepository.findById(noticeDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("수정게시물없음"));
+        //파일체크
+        Optional<NoticeFileEntity> optionalFileEntity = noticeFileRepository.findByNoticeEntityId(noticeDto.getId());
+        //파일이 있으면 파일 기존 파일 삭제
+        if (optionalFileEntity.isPresent()) {
+            String fileNewName = optionalFileEntity.get().getNoticeNewFileName();
+            String filePath = "C:/codingStory_file/" + fileNewName;
+            File deleteFile = new File(filePath);
+            if (deleteFile.exists()) {
+                deleteFile.delete();
+                System.out.println("파일을 삭제하였습니다");
+            } else {
+                System.out.println("파일이 존재하지않습니다");
+            }
+            noticeFileRepository.delete(optionalFileEntity.get());//파일 테이블 레코드 삭제
+        }
+        //수정
+        Optional<NoticeEntity> optionalFreeEntity = noticeRepository.findById(noticeDto.getId());
+        MemberEntity memberEntity = MemberEntity.builder().id(noticeDto.getMemberId()).build();
+        noticeDto.setMemberEntity(memberEntity);
+        if (noticeDto.getBoardFile().isEmpty()) {
+            //파일 없는경우
+            noticeEntity = NoticeEntity.toUpdateNoticeEntity(noticeDto);
+            noticeRepository.save(noticeEntity);
+        } else {
+            //파일있는경우
+            MultipartFile boardFile = noticeDto.getBoardFile();
+            String fileOldName = boardFile.getOriginalFilename();
+            UUID uuid = UUID.randomUUID();
+            String fileNewName = uuid + "_" + fileOldName;
+            String savaPath = "C:/codingStory_file/" + fileNewName;
+            try {
+                boardFile.transferTo(new File(savaPath));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            noticeEntity = NoticeEntity.toUpdateFileNoticeEntity(noticeDto);
+            noticeRepository.save(noticeEntity);
+
+            NoticeFileEntity bFileEntity = NoticeFileEntity.builder()
+                    .noticeEntity(noticeEntity)
+                    .noticeNewFileName(fileNewName)
+                    .noticeOldFileName(fileOldName)
+                    .build();
+            Long fileId = noticeFileRepository.save(bFileEntity).getId();
+            noticeFileRepository.findById(fileId).orElseThrow(() -> {
+                throw new IllegalArgumentException("파일등록 실패");
+            });
+        }
+        //게시글 수정 확인
+        noticeRepository.findById(noticeDto.getId()).orElseThrow(() -> {
+            throw new IllegalArgumentException("게시글 수정실패");
+        });
+    }
+
+    @Override
+    public void noticeDelete(Long id) {
+        NoticeEntity noticeEntity= noticeRepository.findById(id).orElseThrow(()->{
+            throw new IllegalArgumentException("삭제할 게시물 없음");});
+        noticeRepository.delete(noticeEntity);
+    }
 }

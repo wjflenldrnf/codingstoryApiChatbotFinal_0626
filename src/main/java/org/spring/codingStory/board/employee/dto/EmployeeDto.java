@@ -45,9 +45,9 @@ public class EmployeeDto {
 
     private Long memberId;
 
-    private String newFileName;
+    private String empNewFileName;
 
-    private String oldFileName;
+    private String empOldFileName;
 
     public static EmployeeDto toEmpDto(EmployeeEntity empEntity) {
         EmployeeDto boardDto = new EmployeeDto();
@@ -61,15 +61,16 @@ public class EmployeeDto {
         boardDto.setEmpAttachFile(empEntity.getEmpAttachFile());
         boardDto.setCreateTime(empEntity.getCreateTime());
         boardDto.setUpdateTime(empEntity.getUpdateTime());
+        boardDto.setMemberEntity(empEntity.getMemberEntity());
         if(empEntity.getEmpAttachFile()==0) {
             //파일0
             boardDto.setEmpAttachFile(empEntity.getEmpAttachFile());
         }else{
             boardDto.setEmpAttachFile(empEntity.getEmpAttachFile());
             //새파일
-            boardDto.setNewFileName(empEntity.getEmployeeFileEntityList().get(0).getEmpNewFileName());
+            boardDto.setEmpNewFileName(empEntity.getEmployeeFileEntityList().get(0).getEmpNewFileName());
             //원본파일
-            boardDto.setOldFileName(empEntity.getEmployeeFileEntityList().get(0).getEmpOldFileName());
+            boardDto.setEmpOldFileName(empEntity.getEmployeeFileEntityList().get(0).getEmpOldFileName());
         }
         return boardDto;
 

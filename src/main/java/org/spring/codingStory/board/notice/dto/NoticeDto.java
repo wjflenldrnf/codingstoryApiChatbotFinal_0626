@@ -19,7 +19,7 @@ public class NoticeDto {
 
     private Long id;
 
-    public Long category;
+    public String category;
 
     private String noticeTitle;
 
@@ -61,6 +61,7 @@ public class NoticeDto {
         boardDto.setNoticeAttachFile(noticeEntity.getNoticeAttachFile());
         boardDto.setCreateTime(noticeEntity.getCreateTime());
         boardDto.setUpdateTime(noticeEntity.getUpdateTime());
+        boardDto.setMemberEntity(noticeEntity.getMemberEntity());
         if(noticeEntity.getNoticeAttachFile()==0) {
             //파일0
             boardDto.setNoticeAttachFile(noticeEntity.getNoticeAttachFile());
