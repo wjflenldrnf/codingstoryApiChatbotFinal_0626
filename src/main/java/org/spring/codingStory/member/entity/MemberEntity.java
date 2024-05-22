@@ -8,10 +8,10 @@ import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
 import org.spring.codingStory.board.notice.entity.NoticeEntity;
 import org.spring.codingStory.contraint.BaseTimeEntity;
 import org.spring.codingStory.department.entity.DepartmentEntity;
-import org.spring.codingStory.mRank.entity.RankEntity;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
+import org.spring.codingStory.mRank.entity.RankEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -26,10 +26,11 @@ import java.util.List;
 @Table(name = "member")
 public class MemberEntity extends BaseTimeEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "member_id")
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
+    private Long id;
+
 
   @Column(nullable = false, unique = true)
   private String userEmail;
@@ -142,6 +143,7 @@ public class MemberEntity extends BaseTimeEntity {
     memberEntity.setMemberAttachFile(1);
 
 
+
     return memberEntity;
   }
 
@@ -183,4 +185,5 @@ public class MemberEntity extends BaseTimeEntity {
     return memberEntity;
 
   }
+
 }

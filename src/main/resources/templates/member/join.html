@@ -41,7 +41,7 @@
 
 
 
-      <div class="radios">
+      <!--<div class="radios">
         <h2>부서</h2>
         <input type="radio" id="a1" name="department" value="일반관">
         <label for="a1">일반관</label>
@@ -54,13 +54,27 @@
 
         <input type="radio" id="a4" name="department" value="해외지점">
         <label for="a4">해외지점</label>
-      </div>
+      </div>-->
+
+      <!-- 내가쓴 코드-->
+        <li>
+          <label for="department">부서:</label>
+          <select name="department" id="department">
+            <option value="">부서를 선택하세요</option>
+            <option value="일반관">일반관</option>
+            <option value="야외관">야외관</option>
+            <option value="자동차극장">자동차극장</option>
+            <option value="해외지점">해외지점</option>
+          </select>
+        </li>
+
+
 
       <li>
         <input type="file" id="memberFile" name="memberFile">
       </li>
 
-    <input type="submit" value="회원가입완료">
+      <input type="submit" value="회원가입완료">
     </ul>
   </form>
 </div>
