@@ -70,6 +70,18 @@ public class DepartmentController {
     return "department/members";
   }
 
+  @GetMapping
+  public String showDepartmentForm(Model model){
+    List<DepartmentEntity> departmentEntities =departmentService.getAllDepartments();
+    model.addAttribute("departmentEntities",departmentEntities);
+    //초기 페이지 로드시 첫번째 부서를 선택하여 멤버 목록 로드
+    if(!departmentEntities.isEmpty()){
+      model.addAttribute("initialDeptId",departmentEntities.get(0).getId());
+    }
+    return "departmentForm";
+  }
+
+
   @PostMapping("/addMember")
   public String addDepartmentMember(@RequestParam Long deptId, @ModelAttribute("memberDto")MemberDto memberDto){
     departmentService.adddMemberToDepartment(deptId, memberDto);

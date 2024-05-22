@@ -1,72 +1,74 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>부서 인원 관리</title>
 </head>
 <body>
 <h1>부서 인원</h1>
-<form id="addMemberForm">
-  <label for="department">부서 선택:</label>
-  <select id="department" name="department">
-    <!-- 부서 목록을 Thymeleaf를 통해 렌더링 -->
-    <option th:each="dept : ${departments}" th:value="${dept.id}" th:text="${dept.name}"></option>
-  </select>
-  <br>
-  <label for="memberId">멤버 ID:</label>
-  <input type="text" id="memberId" name="memberId" required>
-  <br>
-  <label for="name">이름:</label>
-  <input type="text" id="name" name="name" required>
-  <br>
-  <label for="role">직급:</label>
-  <input type="text" id="role" name="role" required>
-  <br>
-  <!-- AJAX를 통해 비동기적으로 데이터 전송 -->
-  <button type="button" id="addMemberBtn">부서원 등록</button>
-</form>
+<label for="department">부서 선택:</label>
+<select id="department" name="department">
+  <!-- 부서 목록을 Thymeleaf를 통해 렌더링 -->
+  <option th:each="dept : ${departments}" th:value="${dept.id}" th:text="${dept.name}"></option>
+</select>
 
 <h2>부서원 목록</h2>
-<div id="memberList"></div>
+<div id="memberList">
+  <table>
+    <thead>
+    <tr>
+      <th>부서</th>
+      <th>멤버 ID</th>
+      <th>이름</th>
+      <th>직급</th>
+    </tr>
+    </thead>
+    <tbody id="memberListBody">
+    <!-- 부서원 목록을 여기에 렌더링 -->
+    </tbody>
+  </table>
+</div>
 
 <script>
-  // 부서원 등록 버튼 클릭시
-$("#addMemberBtn").click(function(){
-  var formData = $("#addMemberForm").serialize(); // 폼데이터 직렬화
-  var deptId = $("#department").val();
-  var memberId = $("#memberId").val(); // 입력된 멤버 ID 가져오기
+  // 부서 선택 시 부서원 목록을 로드하는 함수
+  function loadMembers(departmentId) {
+    $.ajax({
+      type: "GET",
+      url: "/department/members", // 부서원 목록을 가져오는 엔드포인트
+      data: { departmentId: departmentId }, // 선택된 부서의 ID 전송
+      success: function(response) {
+        var memberListBody = $("#memberListBody");
+        memberListBody.empty(); // 기존 목록을 비움
 
-  // memberId를 Long 타입으로 변환
-  var memberIdAsLong = parseInt(memberId);
-
-  // 변환에 실패한 경우에는 0이나 다른 기본값으로 처리할 수 있습니다.
-  if (!isNaN(memberIdAsLong)) {
-    formData += "&memberId=" + memberIdAsLong;
-  } else {
-    // 변환에 실패한 경우에 대한 처리
-    console.error("Failed to convert memberId to Long type");
-    // 기본값이나 다른 처리 수행
-    // 예를 들어, memberId를 0으로 설정하거나, 사용자에게 알림을 표시하는 등의 처리 가능
+        response.members.forEach(function(member) {
+          memberListBody.append(
+            "<tr>" +
+              "<td>" + member.memberId + "</td>" +
+              "<td>" + member.name + "</td>" +
+              "<td>" + member.role + "</td>" +
+            "</tr>"
+          );
+        });
+      },
+      error: function(xhr, status, error) {
+        console.error(xhr.responseText);
+      }
+    });
   }
 
-  formData += "&deptId=" + deptId; // 선택한 부서의 ID를 추가
+  // 페이지 로드 시 부서 선택 이벤트 바인딩
+  $(document).ready(function() {
+    $("#department").change(function() {
+      var departmentId = $(this).val();
+      loadMembers(departmentId);
+    });
 
-  $.ajax({
-    type: "POST", // POST 요청
-    url: "/department/addMember", // 서버의 컨트롤러 엔드포인트
-    data: formData, // 폼데이터 전송
-    success: function(response){ // 요청 성공 시
-      // 성공 메시지를 보여줄 수 있거나 새로운 멤버를 목록에 추가 할 수 있음
-      // 여기서는 새로고침 없이 멤버 목록을 다시 로드
-      loadMembers();
-    },
-    error: function(xhr, status, error){ // 요청 실패 시
-      console.error(xhr.responseText); // 오류 메시지를 콘솔에 출력
-    }
+    // 페이지 초기 로드 시 첫 번째 부서를 선택하여 멤버 목록 로드
+    var initialDepartmentId = $("#department").val();
+    loadMembers(initialDepartmentId);
   });
-});
-
 </script>
 </body>
 </html>

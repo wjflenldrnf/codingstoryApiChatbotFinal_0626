@@ -49,6 +49,9 @@ public class MemberController {
 
 
 
+
+
+
   @GetMapping("/detail/{id}")
   public String memberDetail(@PathVariable("id")Long id,Model model,MemberDto memberDto){
 

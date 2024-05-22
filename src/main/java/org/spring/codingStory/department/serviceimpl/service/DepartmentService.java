@@ -56,16 +56,16 @@ public class DepartmentService implements DepartmentServiceInterface {
 
     // 멤버 리스트 설정
    List<MemberEntity> memberEntityList=department.getMemberEntityList();
-   List<MemberDto> memberDtoList=new ArrayList<>();
+   List<MemberDto> memberDtoList= memberEntityList.stream()
+           .map(memberEntity -> {
+             MemberDto memberDto =new MemberDto();
+             memberDto.setId(memberEntity.getId());
+             memberDto.setRole(memberEntity.getRole());
+             memberDto.setName(memberEntity.getName());
+             return memberDto;
+           })
+               .collect(Collectors.toList());
 
-   for(MemberEntity memberEntity:memberEntityList){
-     MemberDto memberDto=new MemberDto();
-     memberDto.setId(memberEntity.getId());
-     memberDto.setRole(memberEntity.getRole());
-
-     //다른 필요한 속성들도 설정
-     memberDtoList.add(memberDto);
-   }
    dto.setMemberDtoList(memberDtoList);
 
    return dto;
@@ -73,7 +73,16 @@ public class DepartmentService implements DepartmentServiceInterface {
 
   @Override
   public void adddMemberToDepartment(Long deptId, MemberDto memberDto) {
+    DepartmentEntity department =departmentRepository.findById(deptId)
+        .orElseThrow(()-> new RuntimeException("Department not found"));
 
+    MemberEntity memberEntity = MemberEntity.builder()
+        .departmentEntity(department)
+        .name(memberDto.getName())
+        .role(memberDto.getRole())
+        .build();
+
+    memberRepository.save(memberEntity);
   }
 
 
