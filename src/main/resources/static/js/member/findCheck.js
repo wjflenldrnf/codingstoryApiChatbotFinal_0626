@@ -1,7 +1,5 @@
 function findPasswordFn(event){
-
     event.preventDefault();
-
 
     var userEmail = $('#userEmail').val();
     var name = $('#name').val();
@@ -23,7 +21,7 @@ function findPasswordFn(event){
         }
       },
     error: function () {
-    alert('실패')
+    alert('정보가 없습니다')
     }
   });
 }

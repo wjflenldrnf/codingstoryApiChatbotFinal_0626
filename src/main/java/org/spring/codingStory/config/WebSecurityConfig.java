@@ -61,7 +61,7 @@ public class WebSecurityConfig {
 
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/index");
+                .logoutSuccessUrl("/");
 
         return http.build();
     }

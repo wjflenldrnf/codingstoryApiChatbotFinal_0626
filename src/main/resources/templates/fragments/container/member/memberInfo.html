@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="right" th:fragment="memberInfoRightFragment">
+  <div class="right-con">
+    <div class="right-top">
+      <div class="gnb">
+        <ul>
+          <th:block sec:authorize="isAnonymous()">
+            <li><a th:href="@{/login}">로그인</a></li>
+            <li><a th:href="@{/member/join}">회원가입</a></li>
+          </th:block>
+          <th:block sec:authorize="isAuthenticated()">
+            <div class="myInfo"
+                 th:onClick="|location.href='@{/member/myDetail/{id}(id=${#authentication.principal.memberEntity.id})}'|">
+              <li>
+                <p th:text="${#authentication.principal.memberEntity.department}"></p>부
+              </li>
+              <li>
+                <p th:text="${#authentication.principal.memberEntity.mRank}"></p>
+              </li>
+              <li>
+                <p th:text="${#authentication.principal.memberEntity.name}"></p>님
+              </li>
+            </div>
+            <li><a th:href="@{/logout}">로그아웃</a></li>
+          </th:block>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="index-data">
+        <div class="memberInfo">
+          <div class="memberInfo-con">
+            <div class="up">
+              <th:block th:if="${member.memberAttachFile==1}">
+                <img th:src="@{|/upload/${member.memberNewFileName}|}" alt="이미지대체문구">
+              </th:block>
+              <th:block th:unless="${member.memberAttachFile==1}">
+                <img th:src="@{/images/memberProfile.png}" alt="이미지대체문구">
+              </th:block>
+            </div>
+            <div class="down">
+              <ul>
+                <span th:text="${member.id}" id="id" name="id" hidden="hidden"></span>
+                <div class="info">
+                  <label for="userEmail">이메일</label>
+                  <li>
+                    <span th:text="${member.userEmail}" id="userEmail" name="userEmail"></span>
+                  </li>
+                </div>
+
+                <div class="info">
+                  <label for="name">이름</label>
+                  <li>
+                    <span th:text="${member.name}" id="name" name="name"></span>
+                  </li>
+                </div>
+
+                <div class="info">
+                  <label for="address">주소</label>
+
+                  <li>
+                    <span th:text="${member.address}" id="address" name="address"></span>
+                  </li>
+                </div>
+
+                <div class="info">
+                  <label for="phoneNumber">번호</label>
+                  <li>
+                    <span th:text="${member.phoneNumber}" id="phoneNumber" name="phoneNumber"></span>
+                  </li>
+                </div>
+
+                <div class="info">
+                  <label for="createTime">가입일</label>
+                  <li>
+                    <span th:text="${#temporals.format(member.createTime, 'yy년MM월dd일 HH시mm분')}" id="createTime" name="createTime"></span>
+
+                  </li>
+                </div>
+
+                  <div class="info">
+                    <label for="department">부서</label>
+                <li>
+                    <span th:text="${member.department}" id="department" name="department"></span>
+                    <div>
+                      <div id="modal" class="modal">
+                        <form id="departmentForm" method="post">
+                          <input type="hidden" id="memberId" name="memberId" th:value="${member.id}">
+                          <h2>변경할 부서를 선택해주세요</h2>
+                          <input type="radio" name="department" id="a1" value="일반관">
+                          <label for="a1"></label>
+                          <input type="radio" name="department" id="a2" value="야외관">
+                          <label for="a2"></label>
+                          <input type="radio" name="department" id="a3" value="자동차극장">
+                          <label for="a3"></label>
+                          <input type="radio" name="department" id="a4" value="해외지점">
+                          <label for="a4"></label>
+
+                          <button type="button" onClick="memberPasswordUpdateFn()">수정</button>
+                        </form>
+                        <a href="#" rel="modal:close">닫기</a>
+                      </div>
+                      <p><a href="#modal" rel="modal:open">변경</a></p>
+                    </div>
+                  </div>
+                </li>
+
+
+                  <div class="info">
+                    <label for="mRank">직급</label>
+                  <li>
+
+                    <span th:text="${member.mRank}" id="mRank" name="mRank"></span>
+                    <div>
+                      <div id="modal1" class="modal">
+                        <form id="mRankForm" method="post">
+                          <input type="hidden" id="memberId1" name="memberId1" th:value="${member.id}">
+                          <h2>변경할 직급을 선택해주세요</h2>
+                          <input type="radio" name="department" id="1" value="사원">
+                          <label for="1"></label>
+                          <input type="radio" name="department" id="2" value="팀장">
+                          <label for="2"></label>
+                          <input type="radio" name="department" id="3" value="부장">
+                          <label for="3"></label>
+
+                          <button type="button" onClick="memberPasswordUpdateFn()">수정</button>
+                        </form>
+                        <a href="#" rel="modal:close">닫기</a>
+                      </div>
+                      <p><a href="#modal1" rel="modal:open">변경</a></p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="back">
+          <a th:href="@{/member/memberList}">목록으로</a>
+          <button onClick="memberDeleteReady()">해고</button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+</html>
