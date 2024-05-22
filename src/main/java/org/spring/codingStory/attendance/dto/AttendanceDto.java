@@ -37,7 +37,7 @@ public class AttendanceDto {
     private Time workTime;
 
 
-//    private BigDecimal dailyWage;
+    private BigDecimal dailyWage;
 //
 //
 //    private LocalDate workDay;
@@ -47,6 +47,8 @@ public class AttendanceDto {
 //
 //
 //    private BigDecimal bonus;
+
+    private BigDecimal hourWage;
 
 
 
@@ -60,6 +62,7 @@ public class AttendanceDto {
         attendanceDto.setCheckInTime(attendanceEntity.getCheckInTime());
         attendanceDto.setCheckOutTime(attendanceEntity.getCheckOutTime());
         attendanceDto.setAttendanceType(attendanceEntity.getAttendanceType());
+        attendanceDto.setWorkTime(attendanceEntity.getWorkTime());
 
         return attendanceDto;
     }
