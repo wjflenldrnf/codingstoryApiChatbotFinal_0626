@@ -16,7 +16,7 @@ public interface MemberService {
 
   int memberDelete(Long id);
 
-  void memberUpdate(MemberDto memberDto) throws IOException;
+//  void memberUpdate(MemberDto memberDto) throws IOException;
 
   Page<MemberDto> memberPagingList(Pageable pageable, String department);
 
@@ -30,4 +30,9 @@ public interface MemberService {
 
   void findPasswordFin(MemberDto memberDto);
 
+  int memberAppOk(MemberDto memberDto);
+
+  Page<MemberDto> memberAppList(Pageable pageable);
+
+  void memberPasswordUpdate(MemberDto memberDto);
 }
