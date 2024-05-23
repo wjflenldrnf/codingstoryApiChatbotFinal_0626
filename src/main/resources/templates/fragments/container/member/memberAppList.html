@@ -46,7 +46,7 @@
                <div class="card-down">
                  <div>
                    <label for="userEmail">이메일</label>
-                 <span th:text="${member.userEmail}" id="userEmail" name="userEmail"></span>s
+                 <span th:text="${member.userEmail}" id="userEmail" name="userEmail"></span>
                  </div>
                  <div>
                    <label for="name">이름</label>
@@ -66,36 +66,6 @@
                  <span th:text="${#temporals.format(member.createTime, 'yy년MM월dd일 HH시mm분')}" id="createTime" name="createTime"></span>
                  </div>
 
-                 <div class="radios">
-                   <img th:src="@{/images/group.png}" alt="group">
-                   <input type="radio" id="a1" name="department" value="일반관">
-                   <label for="a1">일반관</label>
-
-                   <input type="radio" id="a2" name="department" value="야외관">
-                   <label for="a2">야외관</label>
-
-                   <input type="radio" id="a3" name="department" value="자동차극장">
-                   <label for="a3">자동차극장</label>
-
-                   <input type="radio" id="a4" name="department" value="해외지점">
-                   <label for="a4">해외지점</label>
-                 </div>
-
-                 <div class="radios">
-                   <img th:src="@{/images/group.png}" alt="group">
-                   <input type="radio" id="m1" name="mRank" value="사원">
-                   <label for="a1">일반관</label>
-
-                   <input type="radio" id="m2" name="mRank" value="팀장">
-                   <label for="a2">야외관</label>
-
-                   <input type="radio" id="m3" name="mRank" value="지점장">
-                   <label for="a3">자동차극장</label>
-
-                 </div>
-
-
-                 
 
                </div>
              </div>
