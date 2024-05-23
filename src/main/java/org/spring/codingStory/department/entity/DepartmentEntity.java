@@ -45,4 +45,10 @@ public class DepartmentEntity {
     private List<MemberEntity> memberEntityList;
 
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="parent_department_id") //부모 부서의 iD를 가리키는 외래키
+    private DepartmentEntity parentDepartment;
+
+    @OneToMany(mappedBy = "parentDepartment", fetch = FetchType.LAZY)
+    private List<DepartmentEntity> childDepartments;
 }
