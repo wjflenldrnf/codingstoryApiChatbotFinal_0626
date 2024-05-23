@@ -1,76 +1,83 @@
-@import url(/css/common/reset.css);
-
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa;
-  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #343a40;
-}
-
-#departmentTable {
-  width: 100%;
-  margin-top: 20px;
-  border-collapse: collapse;
-  background-color: #ffffff;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-#departmentTable th,
-#departmentTable td {
-  padding: 12px;
-  text-align: center;
-  border-bottom: 1px solid #dee2e6;
-}
-
-#departmentTable th {
-  background-color: #343a40;
-  color: #ffffff;
-}
-
-#departmentForm {
-  margin-top: 20px;
-  padding: 20px;
-  border: 1px solid #dee2e6;
-  border-radius: 5px;
-  background-color: #ffffff;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-#departmentForm h2 {
-  margin-bottom: 20px;
-  color: #495057;
-}
-
-#departmentForm label {
-  display: block;
-  margin-bottom: 8px;
-  color: #495057;
-}
-
-#departmentForm input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #cecece;
-  border-radius: 4px;
+  color: #333;
 }
 
 .button-container {
-  display: flex;
-  justify-content: flex-end;
+  text-align: center;
   margin-bottom: 20px;
 }
 
-.button-container .btn-success {
-  margin-right: 0; /* Adjust as needed to control spacing from the right edge */
+.btn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
-.btn-success:hover {
-  background-color: aqua;
-  border-color: #1e7e34;
+.btn:hover {
+  background-color: #45a049;
+}
+
+.department {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  cursor: pointer; /* 수정된 부분: 커서를 포인터로 변경하여 클릭 가능한 상태로 표시 */
+}
+
+.sub-department {
+  display: none; /* 수정된 부분: 초기에는 하위 부서를 숨깁니다. */
+  margin-left: 20px;
+  margin-bottom: 10px;
+  border-left: 1px dashed #ddd;
+  padding-left: 10px;
+}
+
+.department.open > .sub-department {
+  display: block; /* 수정된 부분: open 클래스가 있는 경우에만 하위 부서를 보여줍니다. */
+}
+
+.add-sub-department-form {
+  display: none;
+  margin-top: 10px;
+}
+
+input[type="text"] {
+  width: 200px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+select {
+  width: 210px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+form button[type="submit"] {
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+  background-color: #76ffbf;
 }
