@@ -1,5 +1,6 @@
 @import url(/css/common/reset.css);
 .container {
+background:url(/images/m1.avif);
   width: 100%;
 }
 
