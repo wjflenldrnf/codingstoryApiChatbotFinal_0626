@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="left" th:fragment="indexLeftFragment">
+    <div class="left-con">
+        <div class="left-top">
+            <div class="title">
+                <h1 class="logo">
+                    <a th:href="@{/index}"><img th:src="@{/images/logo.png}" alt=""> </a>
+                </h1>
+            </div>
+            <div class="left-menu">
+                <ul>
+                    <li class="sub">
+                        <img th:src="@{/images/emp.png}" alt="icon">
+
+
+                        <div class="right">
+                            <a href="#">사원관리</a>
+                            <ul class="submenu">
+                                <li>
+                                    <a th:href="@{/member/memberList}">사원목록</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/member/memberAppList}">가입승인</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </li>
+
+
+                    <li class="sub">
+                        <img th:src="@{/images/pay.png}" alt="icon">
+
+
+                        <div class="right">
+                            <a th:href="@{/pay}">급여관리</a>
+                            <ul class="submenu">
+                                <li><a th:href="@{/pay/payWrite/}"> payWrite </a></li>
+                                <li><a th:href="@{/pay/payList/}"> payList </a></li>
+                            </ul>
+
+                        </div>
+                    </li>
+
+
+
+
+                    <li><img th:src="@{/images/depart.png}" alt="icon"><a th:href="@{/department/department}">부서관리</a>
+                    </li>
+                    <li><img th:src="@{/images/add.png}" alt="icon"><a th:href="@{/attendance}">근태관리</a></li>
+
+
+                    <li class="sub">
+                        <img th:src="@{/images/board.png}" alt="icon">
+                        <div class="right">
+                            <a th:href="@{/board/reviewBoardList}">게시판</a>
+                            <ul class="submenu">
+                                <li>
+                                    <img th:src="@{/images/notice.png}" alt="icon"><a
+                                        th:href="@{/board/noticeList}">공지사항</a>
+                                </li>
+                                <li>
+                                    <img th:src="@{/images/free.png}" alt="icon"><a
+                                        th:href="@{/board/freeList}">자유게시판</a>
+                                </li>
+                                <li>
+                                    <img th:src="@{/images/bestemp.png}" alt="icon">
+                                    <a th:href="@{/board/empList}">이달의사원</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><img th:src="@{/images/app.png}" alt="icon"><a th:href="@{/apv/list}">결재관리</a></li>
+                    <li><img th:src="@{/images/sch.png}" alt="icon"><a href="#">전체일정</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="bottom">
+            주소,저작권
+        </div>
+    </div>
+</div>
+</html>

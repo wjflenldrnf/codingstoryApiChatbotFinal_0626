@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -37,16 +38,19 @@ public class AttendanceDto {
     private Time workTime;
 
 
-//    private BigDecimal dailyWage;
-//
-//
+    private BigDecimal dailyWage;
+
 //    private LocalDate workDay;
-//
 //
 //    private BigDecimal weeklyAllowance;
 //
-//
 //    private BigDecimal bonus;
+
+    private BigDecimal hourWage;
+
+    private Time overTIme;
+
+    private BigDecimal overTImeWage;
 
 
 
@@ -60,8 +64,23 @@ public class AttendanceDto {
         attendanceDto.setCheckInTime(attendanceEntity.getCheckInTime());
         attendanceDto.setCheckOutTime(attendanceEntity.getCheckOutTime());
         attendanceDto.setAttendanceType(attendanceEntity.getAttendanceType());
+        attendanceDto.setWorkTime(attendanceEntity.getWorkTime());
 
         return attendanceDto;
     }
 
+    //entity -> dto
+    public static AttendanceDto toSelectWorkTimeAttendanceDto(Time workTime) {
+        AttendanceDto dto = new AttendanceDto();
+        dto.setWorkTime(workTime);
+        return dto;
+    }
+
+
+    public static AttendanceDto toSelectDaliyWageAttendanceDto(BigDecimal dailyWage) {
+        AttendanceDto dto = new AttendanceDto();
+        dto.setDailyWage(dailyWage);
+        return dto;
+
+    }
 }
