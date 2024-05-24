@@ -1,4 +1,6 @@
 package org.spring.codingStory.approval.serviceImpl;
 
-public class ApprovalFileServiceImpl {
+import org.spring.codingStory.approval.serviceImpl.service.ApprovalFileService;
+
+public class ApprovalFileServiceImpl implements ApprovalFileService {
 }
