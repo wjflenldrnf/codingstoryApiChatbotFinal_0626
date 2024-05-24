@@ -1,6 +1,8 @@
-@import url(/css/common/reset.css);
+@import url(/css/common/parkReset.css);
 .container {
   width: 100%;
+  height:100%;
+  background:url(/images/movieLogin.jpg) repeat 0;
 }
 
 img{
@@ -14,7 +16,6 @@ outline:none;
 input::placeholder{
 font-weight:600;
 color:#8e8e8e;
-
 }
 
 .login {
