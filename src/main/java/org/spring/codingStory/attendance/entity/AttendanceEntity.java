@@ -55,6 +55,7 @@ public class AttendanceEntity {
     private Time workTime;
 
     @Column
+    @Builder.Default
     private BigDecimal dailyWage=new BigDecimal("103");
 
 //
@@ -70,6 +71,12 @@ public class AttendanceEntity {
 
     @Column
     private BigDecimal hourWage;
+
+    @Column
+    private Time overTIme;
+
+    @Column
+    private BigDecimal overTImeWage;
 
 
     public Time calculationSetWorkTime(LocalDateTime checkInTime, LocalDateTime checkOutTime) {
@@ -126,17 +133,31 @@ public class AttendanceEntity {
         LocalDateTime checkOutTime = LocalDateTime.now();
 
         AttendanceEntity attendanceEntity=new AttendanceEntity();
-
         attendanceEntity.setMemberEntity(attendanceDto.getMemberEntity());
         attendanceEntity.setCheckInTime(checkInTime);
-//        attendanceEntity.setCheckOutTime(checkOutTime);
-//        attendanceEntity.setAttendanceType(attendanceDto.getAttendanceType());
         attendanceEntity.setAttendanceType("출근");
-
         attendanceEntity.setHourWage(new BigDecimal(6000));
-
         return attendanceEntity;
     }
+
+
+//    public static AttendanceEntity toInsertCheckInAttendanceEntity(AttendanceDto attendanceDto) {
+//
+//        LocalDateTime checkInTime = LocalDateTime.now();
+//        LocalDateTime checkOutTime = LocalDateTime.now();
+//
+//        AttendanceEntity attendanceEntity=new AttendanceEntity();
+//
+//        attendanceEntity.setMemberEntity(attendanceDto.getMemberEntity());
+//        attendanceEntity.setCheckInTime(checkInTime);
+////        attendanceEntity.setCheckOutTime(checkOutTime);
+////        attendanceEntity.setAttendanceType(attendanceDto.getAttendanceType());
+//        attendanceEntity.setAttendanceType("출근");
+//
+//        attendanceEntity.setHourWage(new BigDecimal(6000));
+//
+//        return attendanceEntity;
+//    }
 
     ////////////////////////////////////////////////////////
 
