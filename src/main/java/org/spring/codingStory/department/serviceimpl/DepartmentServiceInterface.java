@@ -15,4 +15,10 @@ public interface DepartmentServiceInterface {
 
 
   void adddMemberToDepartment(Long deptId, MemberDto memberDto);
+
+  List<DepartmentEntity> getParentDepartments();
+
+  void addSubDepartment(Long parentDeptId, DepartmentDto departmentDto);
+
+  List<DepartmentDto> findDepart();
 }

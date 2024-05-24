@@ -16,10 +16,10 @@
             </div>
         </div>
         <h1>
-            <a th:href="@{/apv/myApvList}">보낸 문서</a>
-            <a th:href="@{/apv/#}">대기 문서</a>
-            <a th:href="@{/apv/#}">완료</a>
-            <a th:href="@{/apv/write}">문서 작성</a>
+            <a th:href="@{/apv/myApvList}">보낸문서 </a>
+            <a th:href="@{/apv/#}">대기문서 </a>
+            <a th:href="@{/apv/list}">전체문서 </a>
+            <a th:href="@{/apv/write}">문서작성 </a>
         </h1>
         <div class="bottom">
             <div class="index-data">
@@ -93,6 +93,7 @@
                                                  ,search=${param.search},subject=${param.subject})}"
                                                     class="span1">&lt</a>
                                     </span>
+
                                     </li>
                                     <li th:each="i: ${#numbers.sequence(startPage,endPage)}" class="block">
                                     <span th:if="${i==approvalDtoPage.pageable.pageNumber+1}" th:text="${i}"
@@ -101,6 +102,7 @@
                                            th:href="@{/apv/list(page=${i-1},search=${param.search},subject=${param.subject})}"
                                            th:text="${i}"></a>
                                     </li>
+
                                     <li>
                                     <span th:if="${approvalDtoPage.totalPages==approvalDtoPage.pageable.pageNumber+1}"
                                           class="span0">&gt</span>

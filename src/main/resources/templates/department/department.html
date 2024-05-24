@@ -5,27 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/department/department.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+  <style>
+    .department, .sub-department {
+      margin-left: 20px;
+    }
+    .add-sub-department-form {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 <h1>부서관리</h1>
 <div class="button-container">
   <button class="btn btn-success" onclick="showForm()">부서등록</button>
 </div>
-<table id="departmentTable">
-  <thead>
-  <tr>
-    <th>부서번호</th>
-    <th>부서이름</th>
-    <th>부서 위치</th>
-    <th>소속 인원 수</th>
-  </tr>
-  </thead>
-  <tbody id="departmentTableBody">
-  <!-- 부서 정보 표시 -->
-  </tbody>
-</table>
-<!-- 부서 등록 폼-->
+<div id="departmentTree">
+  <!-- 부서 조직도 표시 -->
+</div>
+
+<!-- 부서 등록 폼 -->
 <div id="departmentForm" style="display:none;">
   <h2>부서등록</h2>
   <form id="addDepartmentForm" action="/department/add" method="post">
@@ -33,11 +31,16 @@
     <input type="text" id="deptName" name="dptName"><br>
     <label for="deptLocation">부서 위치:</label>
     <input type="text" id="deptLocation" name="location"><br>
+    <label for="parentDept">상위 부서:</label>
+    <select id="parentDept" name="parentDeptId">
+      <option value="">없음</option>
+      <!-- 상위 부서 선택 옵션 -->
+    </select><br>
     <button type="submit" class="btn btn-success">등록</button>
   </form>
 </div>
-  <!-- 멤버 리스트 표시 컨테이너 -->
-  <div id="memberListContainer"></div>
+<!-- 멤버 리스트 표시 컨테이너 -->
+<div id="memberListContainer"></div>
 
 <script>
   // 부서 등록 폼 표시 함수
@@ -45,14 +48,10 @@
     document.getElementById("departmentForm").style.display = 'block';
   }
 
-  //부서 인원 조회 함수
-  function showDepartmentMembers(){
-    window.location.href="/department/members"; //변경 필요
-  }
-
   // 페이지 로드시 초기 부서 목록을 불러옵니다.
   $(document).ready(function() {
     loadDepartments();
+    loadParentDepartments();
 
     // 폼 제출 시
     $("#addDepartmentForm").submit(function(event) {
@@ -71,6 +70,8 @@
           // 입력 필드 초기화
           $("#deptName").val("");
           $("#deptLocation").val("");
+          // 상위 부서 목록 다시 로드
+          loadParentDepartments();
         },
         error: function(xhr, status, error) {
           // 에러 발생 시 처리
@@ -82,51 +83,81 @@
   });
 
   // 부서 목록을 불러오는 함수
-function loadDepartments() {
-  $.get("/department/list", function(data) {
-    console.log(data); // 데이터 확인
-    var tbody = $("#departmentTableBody");
-    tbody.empty();
-    // 데이터가 배열 형태인지 확인
-    if (Array.isArray(data)) {
-      // 배열 형태인 경우
-      data.forEach(function(department) {
-        var row = "<tr>" +
-          "<td><a href='/department/members?deptId=" + department.id + "'>" + department.id + "</a></td>" +
-          "<td><a href='/department/members?deptId=" + department.id + "'>" + department.dptName + "</a></td>" +
-          "<td><a href='/department/members?deptId=" + department.id + "'>" + department.location + "</a></td>" +
-          "<td><a href='/department/members?deptId=" + department.id + "'>" + department.memberCount + "</a></td>" +
-          "</tr>";
-        tbody.append(row);
-      });
-    } else {
-      // 배열의 형태가 아닌 경우
-      var row = "<tr>" +
-        "<td><a href='/department/members?deptId=" + data.id + "'>" + data.id + "</a></td>" +
-        "<td><a href='/department/members?deptId=" + data.id + "'>" + data.dptName + "</a></td>" +
-        "<td><a href='/department/members?deptId=" + data.id + "'>" + data.location + "</a></td>" +
-        "<td><a href='/department/members?deptId=" + data.id + "'>" + data.memberCount + "</a></td>" +
-        "</tr>";
-      tbody.append(row);
-    }
-  });
-}
-// 부서 소속 멤버를 표시하는 함수
-  function showMembers(members){
-    var memberList="<ul>";
-    members.forEach(function(member){
-    memberList +="<li>" + member.name +"(" +member.role+")</li>";
-  });
-  memberList +="</ul>";
-  $("#memberListContainer").html(memberList); //멤버 리스트를 표시할 컨테이너에 추가
+  function loadDepartments() {
+    $.get("/department/list", function(data) {
+      console.log(data); // 데이터 확인
+      var departmentTree = $("#departmentTree");
+      departmentTree.empty();
+      // 부서 정보를 표시하는 함수 호출
+      displayDepartments(data, departmentTree);
+    });
   }
 
-  $(document).ready(function(){
-    loadDepartments();
-  });
+  // 상위 부서 목록을 불러오는 함수
+  function loadParentDepartments() {
+    $.get("/department/parents", function(data) {
+      console.log(data); // 데이터 확인
+      var parentDeptSelect = $("#parentDept");
+      parentDeptSelect.empty();
+      parentDeptSelect.append("<option value=''>없음</option>"); // 없음 옵션 추가
+      // 상위 부서 옵션 추가
+      data.forEach(function(parent) {
+        parentDeptSelect.append("<option value='" + parent.id + "'>" + parent.dptName + "</option>");
+      });
+    });
+  }
+
+  // 부서 정보를 표시하는 함수
+  function displayDepartments(departments, parentElement) {
+    departments.forEach(function(department) {
+      var departmentElement = $("<div>").addClass("department");
+      departmentElement.html(department.dptName + " <button onclick='showSubDepartmentForm(" + department.id + ")'>+</button>");
+      parentElement.append(departmentElement);
+
+      var subDepartmentForm = $("<div>").addClass("add-sub-department-form").attr("id", "sub-department-form-" + department.id);
+      subDepartmentForm.html(`
+        <form onsubmit="addSubDepartment(event, ${department.id})">
+          <label for="subDeptName-${department.id}">하위 부서 이름:</label>
+          <input type="text" id="subDeptName-${department.id}" name="dptName" required>
+          <label for="subDeptLocation-${department.id}">위치:</label>
+          <input type="text" id="subDeptLocation-${department.id}" name="location" required>
+          <button type="submit">추가</button>
+        </form>
+      `);
+      departmentElement.append(subDepartmentForm);
+
+      if (department.childDepartments && department.childDepartments.length > 0) {
+        var childElement = $("<div>").addClass("sub-department");
+        departmentElement.append(childElement);
+        displayDepartments(department.childDepartments, childElement);
+      }
+    });
+  }
 
 
+  function showSubDepartmentForm(departmentId) {
+    $("#sub-department-form-" + departmentId).toggle();
+  }
+
+
+  function addSubDepartment(event, parentDeptId) {
+    event.preventDefault();
+    var form = $(event.target);
+    var data = form.serialize() + "&parentDeptId=" + parentDeptId;
+
+    $.ajax({
+      type: "POST",
+      url: "/department/add",
+      data: data,
+      success: function(response) {
+        loadDepartments();
+      },
+      error: function(xhr, status, error) {
+        console.error(error);
+        alert("하위 부서 등록에 실패했습니다.");
+      }
+    });
+  }
 </script>
-
 </body>
 </html>

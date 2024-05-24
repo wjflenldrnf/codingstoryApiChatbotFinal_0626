@@ -2,11 +2,6 @@ package org.spring.codingStory.board.notice.serviceImpl;
 
 
 import lombok.RequiredArgsConstructor;
-import org.spring.codingStory.board.employee.dto.EmployeeDto;
-import org.spring.codingStory.board.employee.entity.EmployeeEntity;
-import org.spring.codingStory.board.freeBoard.dto.FreeDto;
-import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
-import org.spring.codingStory.board.freeBoard.entity.FreeFileEntity;
 import org.spring.codingStory.board.notice.dto.NoticeDto;
 import org.spring.codingStory.board.notice.dto.NoticeFileDto;
 import org.spring.codingStory.board.notice.entity.NoticeEntity;
@@ -53,7 +48,7 @@ public class NoticeServiceImpl implements NoticeService {
             UUID uuid = UUID.randomUUID(); //random id -> 랜덤한 값을 추출하는 플래스
             String newFileName = uuid + "_" + oldFileName; // 저장파일이름 (보완)
 
-            String filePath = "C:/CodingStory_file/" + newFileName; // 실제 파일 저장경로+이름
+            String filePath = "C:/codingStory_file/" + newFileName; // 실제 파일 저장경로+이름
             //실제파일 저장 실행
             boardFile.transferTo(new File(filePath));//저장, 예외처리 -> 경로에 파일 저장
 

@@ -31,10 +31,12 @@ public class DepartmentController {
     return "department/department";
   }
 
-
+  //부서를 추가하는 컨트롤러
   @GetMapping("/add")
   public String showAddDepartmentForm(Model model){
     model.addAttribute("departmentDto",new DepartmentDto());
+    List<DepartmentEntity> parentDepartments= departmentService.getParentDepartments();
+    model.addAttribute("parentDepartments",parentDepartments);
     return "department/add_department_form";
   }
 
@@ -43,6 +45,14 @@ public class DepartmentController {
     DepartmentEntity departmentEntity=departmentService.addDepartment(departmentDto);
     return "redirect:/department/department";
   }
+
+  //하위부서 추가 컨트롤러
+  @PostMapping("/addSubDepartment")
+  public String addSubDepartment(@RequestParam Long parentDeptId, @ModelAttribute("departmentDto")DepartmentDto departmentDto){
+      departmentService.addSubDepartment(parentDeptId, departmentDto);
+      return "redirect:/department/department";
+  }
+
 
   @GetMapping("/list")
   @ResponseBody
@@ -55,12 +65,7 @@ public class DepartmentController {
 
 
 
-  /*@GetMapping("/department/members")
-  public String showDepartmentMembers(@RequestParam Long deptId){
-     return "department/members";
-  }
-*/
-
+  //멤버추가컨트롤러
   @GetMapping("/members")
   public String showDepartmentMembers(@RequestParam Long deptId, Model model){
     DepartmentDto department= departmentService.getDepartmentByIdWithMembers(deptId);
@@ -69,7 +74,7 @@ public class DepartmentController {
 
     return "department/members";
   }
-
+  // 부서 선택 및 초기 데이터를 로드하는 컨트롤러
   @GetMapping
   public String showDepartmentForm(Model model){
     List<DepartmentEntity> departmentEntities =departmentService.getAllDepartments();
@@ -89,6 +94,14 @@ public class DepartmentController {
   }
 
 
+
+  //부서 추가시 부모 부서를 선택 할 수 있는 컨틀로러
+  @GetMapping("/parents")
+  @ResponseBody
+  public ResponseEntity<List<DepartmentEntity>> getParentDepartments(){
+    List<DepartmentEntity> parentDepartments= departmentService.getParentDepartments();
+    return ResponseEntity.ok().body(parentDepartments);
+  }
 
 
 

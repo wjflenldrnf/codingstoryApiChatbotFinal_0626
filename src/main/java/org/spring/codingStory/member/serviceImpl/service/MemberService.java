@@ -35,4 +35,6 @@ public interface MemberService {
   Page<MemberDto> memberAppList(Pageable pageable);
 
   void memberPasswordUpdate(MemberDto memberDto);
+
+  void profileUpdate(MemberDto memberDto) throws IOException;
 }

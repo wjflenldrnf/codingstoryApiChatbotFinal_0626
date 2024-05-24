@@ -9,6 +9,7 @@ import org.spring.codingStory.member.entity.MemberEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,6 +46,12 @@ public class ApprovalDto {
     private String apvOldFileName;
 
     private MemberEntity memberEntity;
+    
+    //나만 따로 추가
+    private String apvCom;
+    //상신 코멘트
+
+    private String date;
 
     private ApprovalDivEntity approvalDivEntity;
 
@@ -69,6 +76,7 @@ public class ApprovalDto {
     approvalDto.setApprovalFileEntityList(approvalEntity.getApprovalFileEntityList());
     approvalDto.setCreateTime(approvalEntity.getCreateTime());
     approvalDto.setUpdateTime(approvalEntity.getUpdateTime());
+    approvalDto.setDate(approvalEntity.getDate());
 
     return approvalDto;
 
@@ -77,6 +85,7 @@ public class ApprovalDto {
     public static ApprovalDto toApvDtoDetail(ApprovalEntity approvalEntity) {
         ApprovalDto approvalDto = new ApprovalDto();
         ApprovalFileEntity approvalFileEntity = new ApprovalFileEntity();
+        List<ApprovalStatusEntity> approvalStatusEntityList = new ArrayList<>();
 
         approvalDto.setId(approvalEntity.getId());
         approvalDto.setApvTitle(approvalEntity.getApvTitle());
@@ -84,19 +93,21 @@ public class ApprovalDto {
         approvalDto.setApvContent(approvalEntity.getApvContent());
         approvalDto.setApprovalStatusEntity(approvalEntity.getApprovalStatusEntity());
         approvalDto.setApvAttachFile(approvalEntity.getApvAttachFile());
+        approvalDto.setApvCom(approvalEntity.getApvCom());
         approvalDto.setMemberEntity(approvalEntity.getMemberEntity());
+        approvalDto.setMemberId(approvalEntity.getMemberEntity().getId());
         approvalDto.setApprovalDivEntity(approvalEntity.getApprovalDivEntity());
-
         if (approvalDto.getApvAttachFile() == 0) {
             approvalDto.setApvAttachFile(approvalEntity.getApvAttachFile());
         } else {
             approvalDto.setApvAttachFile(approvalEntity.getApvAttachFile());
             approvalDto.setApvOldFileName(approvalEntity.getApprovalFileEntityList().get(0).getApvOldFileName());
         }
-
         approvalDto.setCreateTime(approvalEntity.getCreateTime());
         approvalDto.setUpdateTime(approvalEntity.getUpdateTime());
+        approvalDto.setDate(approvalEntity.getDate());
 
         return approvalDto;
     }
+
 }

@@ -1,4 +1,5 @@
 // 모달 버튼과 모달창 가져오기
+/*222222222*/
 var modalBtn = document.getElementById("modalBtn");
 var modal = document.getElementById("myModal");
 
