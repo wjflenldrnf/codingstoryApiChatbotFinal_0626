@@ -1,10 +1,13 @@
 function memberAppOkFn(){
   var role = $('#role').val();
   var memberId = $('#id').val();
+  var department = document.getElementById('department').value;
+  var mRank = document.getElementById('mRank').value;
+
   $.ajax({
     type: 'POST',
     url: '/member/memberAppOk',
-    data: { id: memberId, role: role },
+    data: { id: memberId, role: role, mRank: mRank, department: department },
     success: function (res) {
     if(res==1){
     alert('승인되었습니다')

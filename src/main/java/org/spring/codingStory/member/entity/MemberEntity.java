@@ -184,4 +184,23 @@ public class MemberEntity extends BaseTimeEntity {
 
   }
 
+  public static MemberEntity toUpdateProfile(MemberDto memberDto) {
+
+    MemberEntity memberEntity= new MemberEntity();
+    memberEntity.setId(memberDto.getId());
+    memberEntity.setMemberAttachFile(0);
+    memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+
+    return memberEntity;
+  }
+
+  public static MemberEntity toUpdateProfileYes(MemberDto memberDto) {
+
+    MemberEntity memberEntity= new MemberEntity();
+    memberEntity.setId(memberDto.getId());
+    memberEntity.setMemberAttachFile(1);
+    memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+
+    return memberEntity;
+  }
 }

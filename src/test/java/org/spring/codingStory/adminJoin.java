@@ -3,6 +3,8 @@ package org.spring.codingStory;
 import ch.qos.logback.classic.pattern.FileOfCallerConverter;
 import org.junit.jupiter.api.Test;
 import org.spring.codingStory.config.FileConfig;
+import org.spring.codingStory.mRank.entity.RankEntity;
+import org.spring.codingStory.mRank.repository.MRankRepository;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.dto.MemberFileDto;
 import org.spring.codingStory.member.entity.MemberEntity;
@@ -36,6 +38,8 @@ public class adminJoin {
   private PasswordEncoder passwordEncoder;
   @Autowired
   private MemberFileRepository memberFileRepository;
+  @Autowired
+  private MRankRepository mRankRepository;
 
 
   @Test
@@ -56,6 +60,26 @@ public class adminJoin {
                     .role(Role.ADMIN)
                     .memberAttachFile(0)
                     .build());
+
+    RankEntity rankEntity=RankEntity.builder()
+            .rankName("사원")
+            .build();
+    RankEntity rankEntity1=RankEntity.builder()
+            .rankName("팀장")
+            .build();
+    RankEntity rankEntity2=RankEntity.builder()
+            .rankName("지점장")
+            .build();
+    RankEntity rankEntity3=RankEntity.builder()
+            .rankName("사장")
+            .build();
+
+    mRankRepository.save(rankEntity);
+    mRankRepository.save(rankEntity1);
+    mRankRepository.save(rankEntity2);
+    mRankRepository.save(rankEntity3);
+
+
 
   }
 }

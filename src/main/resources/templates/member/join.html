@@ -6,7 +6,9 @@
   <meta charset="UTF-8">
   <title>index</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script th:src="@{/js/member/memberJoin.js}" defer></script>
+  <script th:src="@{/js/member/address.js}" defer></script>
   <link rel="stylesheet" th:href="@{/css/member/join.css}">
 </head>
 <div class="container">
@@ -42,6 +44,21 @@
             <img th:src="@{/images/name.png}" alt="name" >
             <input type="text" id="name" name="name" placeholder="이름" maxlength="15" oninput="nameCheck()">
           </div>
+
+
+            <label for="address">주소</label>
+          <div class="address one">
+            <input type="text" id="postcode" placeholder="우편번호">
+            <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+          </div>
+          <div class="address two">
+            <input type="text" id="mainAddress" placeholder="주소">
+            <input type="text" id="detailAddress" placeholder="상세주소">
+            <input type="text" id="extraAddress" placeholder="참고항목">
+          </div>
+
+
+
           <div>
             <img th:src="@{/images/home.png}" alt="home">
             <input type="text" id="address" name="address" placeholder="주소">

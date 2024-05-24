@@ -1,6 +1,7 @@
 package org.spring.codingStory.department.dto;
 
 import lombok.*;
+import org.spring.codingStory.department.entity.DepartmentEntity;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.entity.MemberEntity;
 
@@ -26,4 +27,17 @@ public class DepartmentDto {
     private List<MemberDto> memberDtoList;
 
 
+    public static DepartmentDto toSelectDepart(DepartmentEntity department) {
+        DepartmentDto departmentDto=new DepartmentDto();
+
+        departmentDto.setId(department.getId());
+        departmentDto.setDptName(department.getDptName());
+        departmentDto.setLocation(department.getLocation());
+        departmentDto.setMemberCount(department.getMemberCount());
+        departmentDto.setMemberEntityList(department.getMemberEntityList());
+
+
+        return departmentDto;
+
+    }
 }

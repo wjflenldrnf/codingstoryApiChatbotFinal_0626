@@ -1,4 +1,8 @@
 package org.spring.codingStory.mRank.repository;
 
-public interface MRankRepository {
+import org.spring.codingStory.mRank.dto.RankDto;
+import org.spring.codingStory.mRank.entity.RankEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MRankRepository extends JpaRepository<RankEntity,Long> {
 }
