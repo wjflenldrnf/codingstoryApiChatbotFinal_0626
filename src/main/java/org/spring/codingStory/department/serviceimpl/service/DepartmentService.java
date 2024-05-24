@@ -45,8 +45,14 @@ public class DepartmentService implements DepartmentServiceInterface {
 
   @Override
   public DepartmentDto getDepartmentByIdWithMembers(Long deptId) {
-    DepartmentEntity department = departmentRepository.findById(deptId)
-        .orElseThrow(() -> new RuntimeException("Department not found"));
+   /* DepartmentEntity department = departmentRepository.findById(deptId)
+        .orElseThrow(() -> new RuntimeException("Department not found"));*/
+    //부서를 찾지 못하면 예외를 던지지 않고 null로 반환하도록 수정해라
+    DepartmentEntity department=departmentRepository.findById(deptId).orElse(null);
+    //부서를 찾지 못한 경우 null로 반환해라
+    if(department==null){
+      return null;
+    }
 
     DepartmentDto dto = new DepartmentDto();
     dto.setId(department.getId());
@@ -83,6 +89,9 @@ public class DepartmentService implements DepartmentServiceInterface {
         .build();
 
     memberRepository.save(memberEntity);
+
+    department.setMemberCount(department.getMemberEntityList().size());
+    departmentRepository.save(department);
   }
 
   @Override

@@ -4,15 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="/css/department/members.css">
   <title>부서 인원 관리</title>
 </head>
 <body>
-<h1>부서 인원</h1>
-<label for="department">부서 선택:</label>
-<select id="department" name="department">
-  <!-- 부서 목록을 Thymeleaf를 통해 렌더링 -->
-  <option th:each="dept : ${departments}" th:value="${dept.id}" th:text="${dept.name}"></option>
-</select>
+<h1 th:text="${dptName}">부서 인원</h1>
+
+  <div id="departmentList">
+   <ul>
+     <li th:each="dept:${departments}"
+         data-department-id="${dept.id}"
+         class="department"
+         th:text="${dept.name}">
+
+     </li>
+  </ul>
+  </div>
+
 
 <h2>부서원 목록</h2>
 <div id="memberList">
@@ -32,43 +40,60 @@
 </div>
 
 <script>
-  // 부서 선택 시 부서원 목록을 로드하는 함수
-  function loadMembers(departmentId) {
-    $.ajax({
-      type: "GET",
-      url: "/department/members", // 부서원 목록을 가져오는 엔드포인트
-      data: { departmentId: departmentId }, // 선택된 부서의 ID 전송
-      success: function(response) {
-        var memberListBody = $("#memberListBody");
-        memberListBody.empty(); // 기존 목록을 비움
+  $(document).on('click','.department',function(){
+     var departmentId = $(this).data('department-id'); // 클릭된 부서의 ID를 가져옴
+     var departmentName = $(this).text().trim(); // 클릭한 부서의 이름을 가져옴 (공백 제거)
 
-        response.members.forEach(function(member) {
-          memberListBody.append(
-            "<tr>" +
-              "<td>" + member.memberId + "</td>" +
-              "<td>" + member.name + "</td>" +
-              "<td>" + member.role + "</td>" +
-            "</tr>"
-          );
-        });
-      },
-      error: function(xhr, status, error) {
-        console.error(xhr.responseText);
-      }
-    });
-  }
+     console.log("Department ID: " + departmentId);
+     console.log("Department Name: " + departmentName);
 
-  // 페이지 로드 시 부서 선택 이벤트 바인딩
-  $(document).ready(function() {
-    $("#department").change(function() {
-      var departmentId = $(this).val();
-      loadMembers(departmentId);
-    });
-
-    // 페이지 초기 로드 시 첫 번째 부서를 선택하여 멤버 목록 로드
-    var initialDepartmentId = $("#department").val();
-    loadMembers(initialDepartmentId);
+     // departmentName이 비어 있지 않은 경우에만 URL 생성 및 페이지 이동
+     if(departmentId !== undefined && departmentName !== ""){
+       var newUrl = "/department/member?deptId=" + departmentId + "&dptName=" + encodeURIComponent(departmentName);
+       window.location.href = newUrl; // 새로운 URL로 이동
+     } else {
+       console.error("Invalid departmentId or departmentName");
+     }
   });
+
+   // 부서 멤버들을 로드하는 함수
+   function loadMembers(element){
+       var departmentId = $(element).attr('value');
+
+       // AJAX 요청을 통해 서버에서 부서 멤버들을 가져옵니다.
+       $.ajax({
+           type: "GET", // HTTP 메서드 유형을 설정합니다. GET 요청
+           url: "members", // 서버의 URL을 members로 설정한다.
+           data: {deptId: departmentId}, // 서버로 보낼 때 데이터를 설정
+           success: function(response){ // 요청이 성공했을 때 호출이 되는 함수
+               console.log("AJAX response:", response); // 서버의 응답을 콘솔에 출력한다.
+               var memberListBody = $("#memberListBody"); // 멤버 목록을 표시할 테이블의 tbody 요소를 선택한다.
+               memberListBody.empty(); // 기존의 멤버 목록을 비웁니다.
+               // 서버로부터 받은 각 멤버 데이터를 테이블에 추가합니다.
+               response.forEach(function(member){
+                 memberListBody.append(
+                 "<tr>" +
+                     "<td>" + member.departmentName +"</td>" + // 부서 이름을 표시합니다.
+                     "<td>" + member.memberId + "</td>" + // 멤버 ID를 표시합니다.
+                     "<td>" + member.name + "</td>" + // 멤버 이름을 표시합니다.
+                     "<td>" + member.role + "</td>" + // 멤버 역할을 표시합니다.
+                 "</tr>"
+                 );
+                 });
+             },
+             error: function(xhr, status, error){ // 요청이 실패했을 때 호출되는 함수
+                 console.error("AJAX error:", xhr.responseText); // 에러 메시지를 콘솔에 출력함
+             }
+           });
+           }
+           // 문서가 준비되었을 때 실행되는 함수
+             $(document).ready(function(){
+             // 부서 선택이 변경될 때마다 loadMembers 함수를 호출합니다.
+             $("#department").change(loadMembers);
+             // 페이지가 로드될 때 초기 멤버 목록을 로드합니다.
+             loadMembers();
+             });
 </script>
+
 </body>
 </html>
