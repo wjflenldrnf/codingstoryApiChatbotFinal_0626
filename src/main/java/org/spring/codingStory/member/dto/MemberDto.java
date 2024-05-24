@@ -22,7 +22,7 @@ public class MemberDto {
 
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "이메일을 입력해주세요")
     private String userEmail;
     @NotBlank
     private String userPw;

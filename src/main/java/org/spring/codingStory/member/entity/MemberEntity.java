@@ -1,4 +1,4 @@
-package org.spring.codingStory.member.entity;
+  package org.spring.codingStory.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -8,10 +8,10 @@ import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
 import org.spring.codingStory.board.notice.entity.NoticeEntity;
 import org.spring.codingStory.contraint.BaseTimeEntity;
 import org.spring.codingStory.department.entity.DepartmentEntity;
-import org.spring.codingStory.mRank.entity.RankEntity;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
+import org.spring.codingStory.mRank.entity.RankEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -26,10 +26,11 @@ import java.util.List;
 @Table(name = "member")
 public class MemberEntity extends BaseTimeEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "member_id")
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
+    private Long id;
+
 
   @Column(nullable = false, unique = true)
   private String userEmail;
@@ -40,10 +41,10 @@ public class MemberEntity extends BaseTimeEntity {
   @Column(nullable = false)
   private String name;
 
-  @Column(nullable = false)
+  @Column(nullable = true)
   private String department;
 
-  @Column(nullable = false)
+  @Column(nullable = true)
   private String mRank;
 
   @Column(nullable = true) // 기본이 널 허용
@@ -120,7 +121,7 @@ public class MemberEntity extends BaseTimeEntity {
     memberEntity.setMRank(memberDto.getMRank());
     memberEntity.setAddress(memberDto.getAddress());
     memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
-    memberEntity.setRole(Role.MEMBER);
+    memberEntity.setRole(Role.GEUST);
     memberEntity.setMemberAttachFile(0);
 
     return memberEntity;
@@ -138,9 +139,8 @@ public class MemberEntity extends BaseTimeEntity {
     memberEntity.setMRank(memberDto.getMRank());
     memberEntity.setAddress(memberDto.getAddress());
     memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
-    memberEntity.setRole(Role.MEMBER);
+    memberEntity.setRole(Role.GEUST);
     memberEntity.setMemberAttachFile(1);
-
 
     return memberEntity;
   }
@@ -182,5 +182,25 @@ public class MemberEntity extends BaseTimeEntity {
 
     return memberEntity;
 
+  }
+
+  public static MemberEntity toUpdateProfile(MemberDto memberDto) {
+
+    MemberEntity memberEntity= new MemberEntity();
+    memberEntity.setId(memberDto.getId());
+    memberEntity.setMemberAttachFile(0);
+    memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+
+    return memberEntity;
+  }
+
+  public static MemberEntity toUpdateProfileYes(MemberDto memberDto) {
+
+    MemberEntity memberEntity= new MemberEntity();
+    memberEntity.setId(memberDto.getId());
+    memberEntity.setMemberAttachFile(1);
+    memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+
+    return memberEntity;
   }
 }

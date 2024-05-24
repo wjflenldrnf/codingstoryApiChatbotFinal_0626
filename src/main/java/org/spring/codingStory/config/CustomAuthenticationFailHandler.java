@@ -1,6 +1,7 @@
 package org.spring.codingStory.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.spring.codingStory.member.exception.GuestLoginException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -38,11 +39,14 @@ public class CustomAuthenticationFailHandler extends SimpleUrlAuthenticationFail
             errorMessage = "아이디가 존재하지 않습니다.";
         } else if (exception instanceof AuthenticationCredentialsNotFoundException) {
             errorMessage = "인증 요청이 거부되었습니다. 관리자에게 문의하세요.";
+        } else if (exception instanceof GuestLoginException) {
+            errorMessage = "가입 대기중";
         }
+
 
         errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
         // member/login 페이지로 error, exception
-        setDefaultFailureUrl("/member/login?error=true&exception=" + errorMessage);
+        setDefaultFailureUrl("/login?error=true&exception=" + errorMessage);
         super.onAuthenticationFailure(request, response, exception);
     }
 
