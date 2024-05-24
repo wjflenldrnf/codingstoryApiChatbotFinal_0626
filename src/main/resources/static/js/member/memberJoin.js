@@ -64,9 +64,11 @@ document.getElementById('joinGo').disabled =false;
 }
 }
 
-function removeComma(inputId) {
-    var inputElement = document.getElementById(inputId);
-    inputElement.value = inputElement.value.replace(/,/g, '');
-}
+
+
+
+
+
+
 
 

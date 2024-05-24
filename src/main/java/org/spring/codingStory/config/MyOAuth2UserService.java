@@ -76,7 +76,7 @@ public class MyOAuth2UserService extends DefaultOAuth2UserService {
                 .userPw(userPw)
                 .name(name)
                 .address(address)
-                .role(Role.MEMBER)
+                .role(Role.GEUST)
                 .build();
 
         MemberEntity member = memberRepository.save(memberEntity);

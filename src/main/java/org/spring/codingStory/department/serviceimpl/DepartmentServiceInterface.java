@@ -21,4 +21,6 @@ public interface DepartmentServiceInterface {
   void addSubDepartment(Long parentDeptId, DepartmentDto departmentDto);
 
 
+  List<DepartmentDto> findDepart();
+
 }

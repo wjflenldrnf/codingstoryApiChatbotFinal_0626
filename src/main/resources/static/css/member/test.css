@@ -48,7 +48,10 @@ display:none;
 }
 
 
-.modal {
+
+
+/*222222222*/
+.modal2 {
   display: none; /* 모달창 기본 숨김 */
   position: fixed;
   z-index: 1;

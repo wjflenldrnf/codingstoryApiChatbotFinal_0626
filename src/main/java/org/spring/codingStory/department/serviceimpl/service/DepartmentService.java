@@ -126,7 +126,19 @@ public class DepartmentService implements DepartmentServiceInterface {
       departmentRepository.save(subDepartment);
   }
 
+  @Override
+  public List<DepartmentDto> findDepart() {
 
+    List<DepartmentEntity> departmentEntities = departmentRepository.findAll();
+
+    List<DepartmentDto> departmentDtoList = new ArrayList<>();
+
+    for (DepartmentEntity department : departmentEntities) {
+      DepartmentDto memberDto = DepartmentDto.toSelectDepart(department);
+      departmentDtoList.add(memberDto);
+    }
+    return departmentDtoList;
+  }
 }
 
 

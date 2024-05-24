@@ -31,12 +31,6 @@ public class AttendanceController {
         return new ResponseEntity<>(attendanceDtoList, HttpStatus.OK);
     }
 
-//    @PostMapping("/attendance/checkInTime")
-//    public ResponseEntity<Integer> checkInTimeInsert(@RequestBody AttendanceDto attendanceDto){
-//        int checkInTime= attendanceServiceImpl.insertCheckInAttendance2(attendanceDto);
-//        return new ResponseEntity<>(checkInTime,HttpStatus.OK);
-//    }
-
     @PostMapping("/attendance/checkInTime")
     public ResponseEntity<Integer> checkInTimeInsert(@RequestBody AttendanceDto attendanceDto){
 
