@@ -34,6 +34,7 @@ border-collapse: collapse;
 table-layout:fixed;
 border:1px solid #cccccc;
 background-color:#ededea;
+height:600px;
 }
 table th{
 height:40px;
@@ -48,6 +49,7 @@ table tbody td{
     height:50px;
     vertical-align: top;
     line-height: 50px;
+    table-layout:fixed;
 }
 table tbody th{
 height:50px;
@@ -56,6 +58,7 @@ height:50px;
 table tbody tr{
 cursor:pointer;
 height:50px;
+    table-layout:fixed;
 }
 table tbody tr:hover{
 background-color:#ccc;

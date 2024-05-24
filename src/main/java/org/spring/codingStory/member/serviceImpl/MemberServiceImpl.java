@@ -106,7 +106,7 @@ public class MemberServiceImpl implements MemberService {
 //
 //        if (optionalMemberFileEntity.isPresent()) {
 //            String newFileName = optionalMemberFileEntity.get().getMemberNewFileName();
-//            String filePath = "C:/codingStory/" + newFileName;
+//            String filePath = "C:/codingStory_file/" + newFileName;
 //            File deleteFile = new File(filePath);
 //            if (deleteFile.exists()) {
 //                deleteFile.delete();
@@ -120,7 +120,7 @@ public class MemberServiceImpl implements MemberService {
 //        if (memberDto.getMemberFile().isEmpty() && memberDto.getUserPw().equals(oldPw)) {
 //            memberEntity = MemberEntity.toUpdateMember(memberDto);
 //            memberRepository.save(memberEntity);
-//        } else if (!memberDto.getMemberFile().isEmpty() && memberDto.getUser  Pw().equals(oldPw)) {
+//        } else if (!memberDto.getMemberFile().isEmpty() && memberDto.getUserPw().equals(oldPw)) {
 //            MultipartFile memberFile = memberDto.getMemberFile();
 //            String oldFileName = memberFile.getOriginalFilename();
 //            UUID uuid = UUID.randomUUID();
@@ -219,13 +219,13 @@ public class MemberServiceImpl implements MemberService {
 
         } else {
 
-            if (department.equals("일반관")) {
+            if (department.equals("노원점")) {
                 memberEntities = memberRepository.findByRoleAndDepartmentContains(pageable, Role.MEMBER, department);
             } else if (department.equals("야외관")) {
                 memberEntities = memberRepository.findByRoleAndDepartmentContains(pageable, Role.MEMBER, department);
-            } else if (department.equals("자동차극장")) {
+            } else if (department.equals("자동차관")) {
                 memberEntities = memberRepository.findByRoleAndDepartmentContains(pageable, Role.MEMBER, department);
-            } else if (department.equals("해외지점")) {
+            } else if (department.equals("커플관")) {
                 memberEntities = memberRepository.findByRoleAndDepartmentContains(pageable, Role.MEMBER, department);
             } else {
                 memberEntities = memberRepository.findByRole(pageable, Role.MEMBER);
@@ -340,6 +340,68 @@ public class MemberServiceImpl implements MemberService {
 
         memberRepository.save(memberEntity);
 
+    }
+
+    @Override
+    public void profileUpdate(MemberDto memberDto) throws IOException {
+
+
+        MemberEntity memberEntity = memberRepository.findById(memberDto.getId()).orElseThrow(IllegalArgumentException::new);
+
+        Optional<MemberFileEntity> optionalMemberFileEntity = fileRepository.findByMemberEntityId(memberDto.getId());
+
+        if (optionalMemberFileEntity.isPresent()) {
+            String newFileName = optionalMemberFileEntity.get().getMemberNewFileName();
+            String filePath = "C:/codingStory_file/" + newFileName;
+            File deleteFile = new File(filePath);
+            if (deleteFile.exists()) {
+                deleteFile.delete();
+            } else {
+                System.out.println("파일이 존재하지 않습니다.");
+            }
+            fileRepository.delete(optionalMemberFileEntity.get());
+        }
+
+        if (memberDto.getMemberFile().isEmpty()) {
+            memberEntity = MemberEntity.toUpdateMember(memberDto);
+            memberRepository.save(memberEntity);
+        } else if (!memberDto.getMemberFile().isEmpty()) {
+            MultipartFile memberFile = memberDto.getMemberFile();
+            String oldFileName = memberFile.getOriginalFilename();
+            UUID uuid = UUID.randomUUID();
+            String newFileName = uuid + "_" + oldFileName;
+
+            String savePath = "C:/codingStory_file/" + newFileName;
+            memberFile.transferTo(new File(savePath));
+
+            memberDto.setMemberFileName(newFileName);
+
+            memberEntity = MemberEntity.toUpdateFileMember(memberDto);
+
+            Long memberId = memberRepository.save(memberEntity).getId();
+
+            MemberEntity memberEntity1 =
+                    memberRepository.findById(memberId).orElseThrow(() -> {
+                        throw new IllegalArgumentException("해당 아이디가 존재하지 않습니다.");
+                    });
+
+            MemberFileDto memberFileDto
+                    = MemberFileDto.builder()
+                    .memberOldFileName(oldFileName)
+                    .memberNewFileName(newFileName)
+                    .memberEntity(memberEntity1)
+                    .build();
+
+            MemberFileEntity memberFileEntity = MemberFileEntity
+                    .builder()
+                    .memberEntity(memberFileDto.getMemberEntity())
+                    .memberOldFileName(memberFileDto.getMemberOldFileName())
+                    .memberNewFileName(memberFileDto.getMemberNewFileName())
+                    .build();
+
+            fileRepository.save(memberFileEntity);
+
+        }
     }
 
     @Override

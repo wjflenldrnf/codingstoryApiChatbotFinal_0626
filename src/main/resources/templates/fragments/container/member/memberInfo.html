@@ -108,23 +108,19 @@
 
 
                   <div class="info">
-                    <label for="mRank">직급</label>
+                    <label for="mRank0">직급</label>
                   <li>
 
-                    <span th:text="${member.mRank}" id="mRank" name="mRank"></span>
+                    <span th:text="${member.mRank}" id="mRank0" name="mRank0"></span>
                     <div>
                       <div id="modal1" class="modal">
                         <form id="mRankForm" method="post">
                           <input type="hidden" id="memberId1" name="memberId1" th:value="${member.id}">
                           <h2>변경할 직급을 선택해주세요</h2>
-                          <input type="radio" name="department" id="1" value="사원">
-                          <label for="1"></label>
-                          <input type="radio" name="department" id="2" value="팀장">
-                          <label for="2"></label>
-                          <input type="radio" name="department" id="3" value="부장">
-                          <label for="3"></label>
-
-                          <button type="button" onClick="memberPasswordUpdateFn()">수정</button>
+                          <div th:each="re : ${rank}">
+                            <input type="radio" th:value="${re.rankName}" id="rank1">
+                            <label for="rank1">[[${re.rankName}]]</label>
+                          </div>
                         </form>
                         <a href="#" rel="modal:close">닫기</a>
                       </div>
