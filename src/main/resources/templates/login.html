@@ -3,52 +3,59 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
 <head>
-    <meta charset="UTF-8">
-    <title>index</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
-    <script th:src="@{/js/member/memberLogin.js}" defer></script>
-    <link rel="stylesheet" th:href="@{/css/member/login.css}">
+  <meta charset="UTF-8">
+  <title>index</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+  <script th:src="@{/js/member/memberLogin.js}" defer></script>
+  <link rel="stylesheet" th:href="@{/css/member/login.css}">
 </head>
 <div class="container">
-    <div class="login">
-        <img th:src="@{/images/logo.png}" alt="logo">
-        <div class="login-con">
-            <form th:action="@{/login}" method="POST">
-                <ul>
-                    <div class="loginInput">
-                        <input type="text" id="userEmail" name="userEmail" placeholder="아이디">
-                        <input type="password" id="userPw" name="userPw" placeholder="비밀번호">
-                    </div>
-                    <li>
-                    </li>
-                    <li class="loginBtn">
-                        <button type="submit">로그인</button>
-                    </li>
+  <div class="login">
+    <div class="login-con">
+      <form th:action="@{/login}" method="POST">
+        <ul>
+          <div class="loginInput">
+            <input type="text" id="userEmail" name="userEmail" placeholder="아이디">
+            <input type="password" id="userPw" name="userPw" placeholder="비밀번호">
+          </div>
+          <li>
+          </li>
+          <li class="loginBtn">
+            <button type="submit" onClick="testFn()">로그인</button>
+          </li>
 
-                    <div class="account">
-                        <a th:href="@{/member/join}">회원가입</a>
+          <div class="account">
+            <a th:href="@{/member/join}">회원가입</a>
 
-                        <div class="find">
-                            <a th:href="@{#}">계정찾기</a>
-                            <p><a th:href="@{/member/findCheck}">비밀번호찾기</a></p>
-                        </div>
-                    </div>
+            <div class="find">
+              <a th:href="@{#}">계정찾기</a>
+              <p><a th:href="@{/member/findCheck}">비밀번호찾기</a></p>
+            </div>
+          </div>
 
-                    </li>
-                </ul>
-                    <li>
-                    <th:block th:if="error">
-                        <p style="color:#ff0000; font-size:12px;" th:text="${exception}"></p>
-                    </th:block>
-                     </li>
+          <div class="sns">
+<!--            <a th:href="@{/oauth2/authorization/google}"><img th:src="@{/images/google.png}" alt="google"></a> <br>-->
+<!--            <a th:href="@{/oauth2/authorization/kakao}"><img th:src="@{/images/kakao.png}" alt="kakao"></a> <br>-->
+<!--            <a th:href="@{/oauth2/authorization/naver}"><img th:src="@{/images/naver.png}" alt="naver"></a>-->
+            <a th:href="@{/oauth2/authorization/google}"><p>구글로그인</p></a>
+            <a th:href="@{/oauth2/authorization/kakao}"><p>카카오로그인</p></a>
+            <a th:href="@{/oauth2/authorization/naver}"><p>네이버로그인</p></a>
+          </div>
+
+        </ul>
+        <li>
+          <th:block th:if="error">
+            <p style="color:#ff0000; font-size:12px;" th:text="${exception}"></p>
+          </th:block>
+        </li>
 
 
-            </form>
-        </div>
+      </form>
     </div>
+  </div>
 </div>
 
 <body>

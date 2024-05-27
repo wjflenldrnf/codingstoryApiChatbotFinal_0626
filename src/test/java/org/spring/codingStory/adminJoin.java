@@ -61,27 +61,42 @@ public class adminJoin {
                     .memberAttachFile(0)
                     .build());
 
-    RankEntity rankEntity=RankEntity.builder()
-            .rankName("사원")
-            .build();
-    RankEntity rankEntity1=RankEntity.builder()
-            .rankName("팀장")
-            .build();
-    RankEntity rankEntity2=RankEntity.builder()
-            .rankName("지점장")
-            .build();
-    RankEntity rankEntity3=RankEntity.builder()
-            .rankName("사장")
-            .build();
-
-    mRankRepository.save(rankEntity);
-    mRankRepository.save(rankEntity1);
-    mRankRepository.save(rankEntity2);
-    mRankRepository.save(rankEntity3);
+    for (int i = 7; i < 20; i++) {
+      MemberEntity memberEntity1 = memberRepository.save(
+              MemberEntity.builder()
+                      .userEmail("m" + i + "@naver.com")
+                      .userPw(passwordEncoder.encode("1234"))
+                      .name("사원" + i)
+                      .address("서울")
+                      .phoneNumber("010" + i)
+                      .role(Role.GEUST)
+                      .memberAttachFile(0)
+                      .build());
 
 
+      RankEntity rankEntity = RankEntity.builder()
+              .rankName("사원")
+              .build();
+      RankEntity rankEntity1 = RankEntity.builder()
+              .rankName("팀장")
+              .build();
+      RankEntity rankEntity2 = RankEntity.builder()
+              .rankName("지점장")
+              .build();
+      RankEntity rankEntity3 = RankEntity.builder()
+              .rankName("사장")
+              .build();
 
+      mRankRepository.save(rankEntity);
+      mRankRepository.save(rankEntity1);
+      mRankRepository.save(rankEntity2);
+      mRankRepository.save(rankEntity3);
+
+
+    }
   }
+
+
 }
 
 
