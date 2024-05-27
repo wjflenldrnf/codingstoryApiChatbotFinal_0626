@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PayRepository extends JpaRepository<PayEntity, Long> {
-    Page<PayEntity> findByPayMonContains(Pageable pageable, String search);
+//    Page<PayEntity> findByPayMonContains(Pageable pageable, String search);
 }

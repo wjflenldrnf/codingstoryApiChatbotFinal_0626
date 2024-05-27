@@ -18,7 +18,7 @@ public interface AttendanceRepository extends JpaRepository<AttendanceEntity, Lo
     boolean existsByEmployeeIdAndStartTimeBetween(@Param("id") Long id, @Param("start") LocalDateTime todayStart, @Param("end") LocalDateTime todayEnd);
 
     @Query(value = "select a.* from attendance_entity a inner join member m on a.member_id=m.member_id;"
-            ,nativeQuery = true    )
+            , nativeQuery = true)
     List<AttendanceEntity> findByAttendanceNative();
 
     @Query(value = "select distinct a.work_time from attendance_entity a where a.member_id = :id", nativeQuery = true)
@@ -26,4 +26,14 @@ public interface AttendanceRepository extends JpaRepository<AttendanceEntity, Lo
 
     @Query(value = "select distinct a.daily_wage from attendance_entity a where a.member_id = :id", nativeQuery = true)
     List<BigDecimal> findByAttendanceDailyWageNative(@Param("id") Long id);
+
+
+    @Query(value = "SELECT SUM(TIME_TO_SEC(a.work_time)) FROM attendance_entity a " +
+            "WHERE a.member_id = :memberId " +
+            "AND a.check_in_time BETWEEN :start AND :end", nativeQuery = true)
+    Long findTotalWorkTimeByMemberIdAndCheckInTimeBetween(@Param("memberId") Long memberId,
+                                                          @Param("start") LocalDateTime start,
+                                                          @Param("end") LocalDateTime end);
+
 }
+
