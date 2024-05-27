@@ -84,23 +84,23 @@ public class AttendanceTest {
 
 
 
-    @Transactional
-    @Test
-    void test4() {
-        Long id = 5L;
-
-        List<BigDecimal> dailyWages = attendanceRepository.findByAttendanceDailyWageNative(id);
-        List<AttendanceDto> attendanceDtos = new ArrayList<>();
-
-        attendanceDtos = dailyWages.stream()
-                .map(AttendanceDto::toSelectDaliyWageAttendanceDto)
-                .collect(Collectors.toList());
-
-        for (AttendanceDto attendanceDto : attendanceDtos) {
-//            System.out.println(attendanceDto);
-            System.out.println("daily wage: " + attendanceDto.getDailyWage());
-        }
-    }
+//    @Transactional
+//    @Test
+//    void test4() {
+//        Long id = 5L;
+//
+//        List<BigDecimal> dailyWages = attendanceRepository.findByAttendanceDailyWageNative(id);
+//        List<AttendanceDto> attendanceDtos = new ArrayList<>();
+//
+//        attendanceDtos = dailyWages.stream()
+//                .map(AttendanceDto::toSelectDaliyWageAttendanceDto)
+//                .collect(Collectors.toList());
+//
+//        for (AttendanceDto attendanceDto : attendanceDtos) {
+////            System.out.println(attendanceDto);
+//            System.out.println("daily wage: " + attendanceDto.getDailyWage());
+//        }
+//    }
 
 
 

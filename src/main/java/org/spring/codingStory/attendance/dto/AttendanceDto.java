@@ -38,7 +38,7 @@ public class AttendanceDto {
     private Time workTime;
 
 
-    private BigDecimal dailyWage;
+//    private BigDecimal dailyWage;
 
 //    private LocalDate workDay;
 //
@@ -46,11 +46,11 @@ public class AttendanceDto {
 //
 //    private BigDecimal bonus;
 
-    private BigDecimal hourWage;
+//    private BigDecimal hourWage;
 
-    private Time overTIme;
+//    private Time overTIme;
 
-    private BigDecimal overTImeWage;
+//    private BigDecimal overTImeWage;
 
 
 
@@ -77,10 +77,10 @@ public class AttendanceDto {
     }
 
 
-    public static AttendanceDto toSelectDaliyWageAttendanceDto(BigDecimal dailyWage) {
-        AttendanceDto dto = new AttendanceDto();
-        dto.setDailyWage(dailyWage);
-        return dto;
-
-    }
+//    public static AttendanceDto toSelectDaliyWageAttendanceDto(BigDecimal dailyWage) {
+//        AttendanceDto dto = new AttendanceDto();
+//        dto.setDailyWage(dailyWage);
+//        return dto;
+//
+//    }
 }

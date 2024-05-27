@@ -12,6 +12,7 @@ import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
 import org.spring.codingStory.mRank.entity.RankEntity;
+import org.spring.codingStory.payment.entity.PaymentEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -74,6 +75,16 @@ public class MemberEntity extends BaseTimeEntity {
           , fetch = FetchType.LAZY
           , cascade = CascadeType.REMOVE)
   private List<PayEntity> payEntityList;
+
+  /////////////////////////////////////////////////////////////////
+
+  @JsonIgnore // ajax시 순환참조 방지
+  @OneToMany(mappedBy = "memberEntity"
+          , fetch = FetchType.LAZY
+          , cascade = CascadeType.REMOVE)
+  private List<PaymentEntity> paymentEntityList;
+
+  /////////////////////////////////////////////////////////////////
 
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"

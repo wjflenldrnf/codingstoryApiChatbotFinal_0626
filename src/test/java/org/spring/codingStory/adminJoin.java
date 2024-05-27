@@ -128,11 +128,7 @@ public class adminJoin {
 
   }
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> dev
 }
 
 

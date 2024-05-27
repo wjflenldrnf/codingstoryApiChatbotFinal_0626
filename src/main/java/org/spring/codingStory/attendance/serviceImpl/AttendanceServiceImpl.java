@@ -133,26 +133,26 @@ public class AttendanceServiceImpl implements AttendanceService {
             attendanceEntity.setWorkTime(
                     attendanceEntity.calculationSetWorkTime(attendanceEntity.getCheckInTime(), checkOutTime)); // 총 근무 시간 입력
 
-            BigDecimal dailyWage = attendanceEntity.calculattionDailyWage(
-                    attendanceEntity.calculationWorkTime(attendanceEntity.getCheckInTime(), checkOutTime),
-                    attendanceEntity.getHourWage()
-            );
-            attendanceEntity.setDailyWage(dailyWage);
+//            BigDecimal dailyWage = attendanceEntity.calculattionDailyWage(
+//                    attendanceEntity.calculationWorkTime(attendanceEntity.getCheckInTime(), checkOutTime),
+//                    attendanceEntity.getHourWage()
+//            );
+//            attendanceEntity.setDailyWage(dailyWage);
 
             // attendanceEntity 저장
             attendanceRepository.save(attendanceEntity);
 
-            // PayDto 생성 (생성 방법이 있다고 가정)
-            PayDto payDto = new PayDto();
-            payDto.setMemberEntity(attendanceEntity.getMemberEntity()); // 회원 엔티티 설정
-            payDto.setPayBns("Some bonus"); // 필요한 다른 필드 설정
-            payDto.setPaymentDate(LocalDate.now()); // 결제 날짜 설정
-
-            // PayEntity 생성
-            PayEntity payEntity = toInsertPayEntity2(payDto, dailyWage);
-
-            // PayEntity 저장 (저장할 레포지토리가 있다고 가정)
-            payRepository.save(payEntity);
+//            // PayDto 생성 (생성 방법이 있다고 가정)
+//            PayDto payDto = new PayDto();
+//            payDto.setMemberEntity(attendanceEntity.getMemberEntity()); // 회원 엔티티 설정
+//            payDto.setPayBns("Some bonus"); // 필요한 다른 필드 설정
+//            payDto.setPaymentDate(LocalDate.now()); // 결제 날짜 설정
+//
+//            // PayEntity 생성
+//            PayEntity payEntity = toInsertPayEntity2(payDto, dailyWage);
+//
+//            // PayEntity 저장 (저장할 레포지토리가 있다고 가정)
+//            payRepository.save(payEntity);
 
             return 1;
         }

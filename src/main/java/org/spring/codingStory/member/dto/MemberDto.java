@@ -7,6 +7,7 @@ import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.entity.MemberFileEntity;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
+import org.spring.codingStory.payment.entity.PaymentEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
@@ -58,6 +59,12 @@ public class MemberDto {
     private RankEntity rankEntity;
 
     private List<PayEntity> PayEntityList;
+
+    /////////////////////////////////////////////////////////////
+
+    private List<PaymentEntity> paymentEntityList;
+
+    /////////////////////////////////////////////////////////////
 
     private List<MemberFileEntity> memberFileEntityList;
 
