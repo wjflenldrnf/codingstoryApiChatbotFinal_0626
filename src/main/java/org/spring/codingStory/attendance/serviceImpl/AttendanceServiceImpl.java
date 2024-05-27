@@ -11,15 +11,14 @@ import org.spring.codingStory.pay.dto.PayDto;
 import org.spring.codingStory.pay.entity.PayEntity;
 import org.spring.codingStory.pay.repository.PayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -120,9 +119,10 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     @Transactional
-    public int updateCheckOutAttendance(Long id, AttendanceDto attendanceDto) {
+    public int updateCheckOutAttendance(Long memberId, Long id, AttendanceDto attendanceDto) {
 
         Optional<AttendanceEntity> optionalAttendanceEntity = attendanceRepository.findById(id);
+
         if (optionalAttendanceEntity.isPresent()) {
             AttendanceEntity attendanceEntity = optionalAttendanceEntity.get();
 
@@ -139,20 +139,15 @@ public class AttendanceServiceImpl implements AttendanceService {
             );
             attendanceEntity.setDailyWage(dailyWage);
 
+            BigDecimal monthlySalary = attendanceRepository.findMonthPay(LocalDate.now().getMonthValue(), id);
+
+
+            PayEntity payEntity = PayEntity.builder()
+                    .payMon(monthlySalary.toString())
+                    .build();
+
             // attendanceEntity 저장
             attendanceRepository.save(attendanceEntity);
-
-            // PayDto 생성 (생성 방법이 있다고 가정)
-            PayDto payDto = new PayDto();
-            payDto.setMemberEntity(attendanceEntity.getMemberEntity()); // 회원 엔티티 설정
-            payDto.setPayBns("Some bonus"); // 필요한 다른 필드 설정
-            payDto.setPaymentDate(LocalDate.now()); // 결제 날짜 설정
-
-            // PayEntity 생성
-            PayEntity payEntity = toInsertPayEntity2(payDto, dailyWage);
-
-            // PayEntity 저장 (저장할 레포지토리가 있다고 가정)
-            payRepository.save(payEntity);
 
             return 1;
         }
@@ -201,5 +196,19 @@ public class AttendanceServiceImpl implements AttendanceService {
         return attendanceRepository
                 .existsByEmployeeIdAndStartTimeBetween(memberId, todayStart, todayEnd);
     }
+
+    public BigDecimal calculateMonthlySalaryForMonth(Long id) {
+        // 특정 월의 출근 기록만 필터링
+
+        BigDecimal monthlySalary = attendanceRepository.findMonthPay(LocalDate.now().getMonthValue(), id);
+
+        AttendanceEntity.builder().memberEntity(MemberEntity.builder().id(id).build()).build();
+
+        PayDto.builder().payMon(monthlySalary.toString()).build();
+
+        return monthlySalary;
+    }
+
+
 
 }

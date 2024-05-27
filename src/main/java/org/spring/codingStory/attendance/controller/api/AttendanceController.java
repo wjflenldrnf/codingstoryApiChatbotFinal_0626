@@ -2,6 +2,7 @@ package org.spring.codingStory.attendance.controller.api;
 
 import lombok.RequiredArgsConstructor;
 import org.spring.codingStory.attendance.dto.AttendanceDto;
+import org.spring.codingStory.attendance.entity.AttendanceEntity;
 import org.spring.codingStory.attendance.serviceImpl.AttendanceServiceImpl;
 import org.spring.codingStory.config.MyUserDetails;
 import org.spring.codingStory.member.dto.MemberDto;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 @Transactional
 @RestController
@@ -57,8 +59,12 @@ public class AttendanceController {
     // 퇴근 엔드포인트 추가
 //    @ResponseBody
     @PutMapping("/attendance/{id}")
-    public ResponseEntity<?> checkOutTimeInsert(@PathVariable("id") Long id, @RequestBody AttendanceDto attendanceDto) {
-        int result = attendanceServiceImpl.updateCheckOutAttendance(id, attendanceDto);
+    public ResponseEntity<?> checkOutTimeInsert(@PathVariable("id") Long id,
+                                                @AuthenticationPrincipal MyUserDetails myUserDetails,
+                                                @RequestBody AttendanceDto attendanceDto) {
+
+        Long memberId = myUserDetails.getMemberEntity().getId();
+        int result = attendanceServiceImpl.updateCheckOutAttendance(memberId, id, attendanceDto);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

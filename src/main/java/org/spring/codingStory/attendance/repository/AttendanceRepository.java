@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,4 +27,9 @@ public interface AttendanceRepository extends JpaRepository<AttendanceEntity, Lo
 
     @Query(value = "select distinct a.daily_wage from attendance_entity a where a.member_id = :id", nativeQuery = true)
     List<BigDecimal> findByAttendanceDailyWageNative(@Param("id") Long id);
+
+    List<AttendanceEntity> findByMemberEntityId(Long memberId);
+
+    @Query(value = "select sum(daily_wage) from attendance_entity where member_id = :id and MONTH(check_in_time) <= :month and MONTH(check_out_time) >= :month", nativeQuery = true)
+    BigDecimal findMonthPay(@Param("month") int monthValue, @Param("id") Long id);
 }
