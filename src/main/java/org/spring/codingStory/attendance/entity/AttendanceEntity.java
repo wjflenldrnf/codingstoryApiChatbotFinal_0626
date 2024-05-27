@@ -7,6 +7,7 @@ import org.spring.codingStory.member.entity.MemberEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -31,14 +32,6 @@ public class AttendanceEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
-//    @Column
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date checkInTime;
-//
-//    @Column
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date checkOutTime;
-
     @Column
     private LocalDateTime checkInTime;
 
@@ -48,22 +41,8 @@ public class AttendanceEntity {
     @Column
     private String attendanceType; // 정상 출근, 지각 등
 
-
-
     @Column
     private Time workTime;
-
-//    @Column
-//    private BigDecimal dailyWage;
-//
-//    @Column
-//    private LocalDate workDay;
-//
-//    @Column
-//    private BigDecimal weeklyAllowance;
-//
-//    @Column
-//    private BigDecimal bonus;
 
 
     public Time calculationSetWorkTime(LocalDateTime checkInTime, LocalDateTime checkOutTime) {
@@ -79,6 +58,40 @@ public class AttendanceEntity {
         return Time.valueOf(totalTime);
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+
+    public Duration calculationWorkTime(LocalDateTime checkInTime, LocalDateTime checkOutTime) {
+
+        return Duration.between(checkInTime, checkOutTime);
+    }
+    ////////////////////////////////////////////////////////////////////////////
+
+    public BigDecimal calculattionDailyWage(Duration workTime, BigDecimal hourWage) {
+        BigDecimal dailyWage = BigDecimal.ZERO;
+//        int overtimeThreshold = 8 * 60; // 8시간,480분 (8 시간 * 60 분)
+        int overtimeThreshold = 2; // 8시간,480분 (8 시간 * 60 분)
+
+        // 원래 시간에 대한 계산
+        int regularTime = 0;
+        if (workTime.toMinutes() >= overtimeThreshold) {
+            regularTime = overtimeThreshold;
+        } else {
+            regularTime = (int) workTime.toMinutes();
+        }
+
+//        dailyWage = dailyWage.add(hourWage.multiply(BigDecimal.valueOf(regularTime)).divide(BigDecimal.valueOf(60), RoundingMode.HALF_UP));
+        dailyWage = dailyWage.add(hourWage.multiply(BigDecimal.valueOf(100)));
+
+        // 초과 근무에 대한 계산
+        if (workTime.toMinutes() > overtimeThreshold) {
+            int extraTime = (int) workTime.toMinutes() - overtimeThreshold;
+            BigDecimal extraWage = hourWage.multiply(new BigDecimal("1.5"));
+            dailyWage = dailyWage.add(extraWage.multiply(BigDecimal.valueOf(extraTime)).divide(BigDecimal.valueOf(60), RoundingMode.HALF_UP));
+        }
+
+        return dailyWage;
+    }
+
 
     public static AttendanceEntity toInsertCheckInAttendanceEntity(AttendanceDto attendanceDto) {
 
@@ -86,42 +99,11 @@ public class AttendanceEntity {
         LocalDateTime checkOutTime = LocalDateTime.now();
 
         AttendanceEntity attendanceEntity=new AttendanceEntity();
-
         attendanceEntity.setMemberEntity(attendanceDto.getMemberEntity());
         attendanceEntity.setCheckInTime(checkInTime);
-//        attendanceEntity.setCheckOutTime(checkOutTime);
-//        attendanceEntity.setAttendanceType(attendanceDto.getAttendanceType());
         attendanceEntity.setAttendanceType("출근");
-
         return attendanceEntity;
     }
 
-    ////////////////////////////////////////////////////////
 
-    public static AttendanceEntity toUpdateCheckOutAttendanceEntity(AttendanceDto attendanceDto) {
-
-        LocalDateTime checkInTime = LocalDateTime.now();
-        LocalDateTime checkOutTime = LocalDateTime.now();
-
-        AttendanceEntity attendanceEntity=new AttendanceEntity();
-
-        attendanceEntity.setMemberEntity(attendanceDto.getMemberEntity());
-//
-        attendanceEntity.setId(attendanceDto.getId());
-
-//        attendanceEntity.setCheckInTime(checkInTime);
-        attendanceEntity.setCheckOutTime(checkOutTime);
-        attendanceEntity.setAttendanceType(attendanceDto.getAttendanceType());
-
-
-        attendanceEntity.setAttendanceType("퇴근");
-
-
-        attendanceDto.setMemberEntity(MemberEntity.builder()
-                .id(attendanceDto.getMemberId())
-                .build());
-
-        return attendanceEntity;
-
-    }
 }

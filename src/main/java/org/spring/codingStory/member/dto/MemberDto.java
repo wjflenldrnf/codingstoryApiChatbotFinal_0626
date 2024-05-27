@@ -7,6 +7,7 @@ import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.entity.MemberFileEntity;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
+import org.spring.codingStory.payment.entity.PaymentEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
@@ -61,29 +62,34 @@ public class MemberDto {
 
     private List<MemberFileEntity> memberFileEntityList;
 
-  public static MemberDto toSelectMemberDto(MemberEntity member) {
-      MemberDto memberDto=new MemberDto();
-      memberDto.setId(member.getId());
-      memberDto.setUserEmail(member.getUserEmail());
-      memberDto.setName(member.getName());
-      memberDto.setDepartment(member.getDepartment());
-      memberDto.setMRank(member.getMRank());
-      memberDto.setAddress(member.getAddress());
-      memberDto.setPhoneNumber(member.getPhoneNumber());
-      memberDto.setRole(member.getRole());
-      memberDto.setCreateTime(member.getCreateTime());
-      memberDto.setUpdateTime(member.getUpdateTime());
+    private PaymentEntity paymentEntity;
 
-      if (member.getMemberAttachFile() == 0) {
-          memberDto.setMemberAttachFile(member.getMemberAttachFile());
-      } else {
-          memberDto.setMemberAttachFile(member.getMemberAttachFile());
-          memberDto.setMemberNewFileName(member.getMemberFileEntityList().get(0).getMemberNewFileName());
-          memberDto.setMemberOldFileName(member.getMemberFileEntityList().get(0).getMemberOldFileName());
-      }
+    public static MemberDto toSelectMemberDto(MemberEntity member) {
+        MemberDto memberDto=new MemberDto();
+        memberDto.setId(member.getId());
+        memberDto.setUserEmail(member.getUserEmail());
+        memberDto.setName(member.getName());
+        memberDto.setDepartment(member.getDepartment());
+        memberDto.setMRank(member.getMRank());
+        memberDto.setAddress(member.getAddress());
+        memberDto.setPhoneNumber(member.getPhoneNumber());
+        memberDto.setRole(member.getRole());
+        memberDto.setCreateTime(member.getCreateTime());
+        memberDto.setUpdateTime(member.getUpdateTime());
 
-      return memberDto;
+        if (member.getMemberAttachFile() == 0) {
+            memberDto.setMemberAttachFile(member.getMemberAttachFile());
+        } else {
+            memberDto.setMemberAttachFile(member.getMemberAttachFile());
+            memberDto.setMemberNewFileName(member.getMemberFileEntityList().get(0).getMemberNewFileName());
+            memberDto.setMemberOldFileName(member.getMemberFileEntityList().get(0).getMemberOldFileName());
+        }
 
-  }
+        return memberDto;
+
+    }
+
+
+
 
 }
