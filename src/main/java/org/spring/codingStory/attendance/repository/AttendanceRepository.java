@@ -36,4 +36,3 @@ public interface AttendanceRepository extends JpaRepository<AttendanceEntity, Lo
                                                           @Param("end") LocalDateTime end);
 
 }
-
