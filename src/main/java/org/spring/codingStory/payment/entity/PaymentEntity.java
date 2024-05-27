@@ -3,8 +3,10 @@ package org.spring.codingStory.payment.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.spring.codingStory.member.entity.MemberEntity;
+import org.spring.codingStory.pay.entity.PayEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @ToString
 @AllArgsConstructor
@@ -21,14 +23,22 @@ public class PaymentEntity {
     @Column(name = "payment_id")
     private Long id;
 
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "member_id", unique = true)
+//    private MemberEntity memberEntity;
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
-    @Column
-    private String hourWage;
+    //페이먼트엔티티 연관관계
+    //페이먼트엔티티 1:n 페이엔티티
+    @JsonIgnore
+    @OneToMany(mappedBy = "paymentEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    List<PayEntity> payEntityList;
 
 
+    // 기타 필드
+    private String hourlyWage;
 
 }

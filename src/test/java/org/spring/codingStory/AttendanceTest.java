@@ -1,18 +1,24 @@
 package org.spring.codingStory;
 
 import org.junit.jupiter.api.Test;
+import org.spring.codingStory.approval.entity.ApprovalDivEntity;
+import org.spring.codingStory.approval.entity.ApprovalStatusEntity;
+import org.spring.codingStory.approval.repository.ApprovalDivRepository;
+import org.spring.codingStory.approval.repository.ApprovalStatusRepository;
 import org.spring.codingStory.attendance.dto.AttendanceDto;
 import org.spring.codingStory.attendance.entity.AttendanceEntity;
 import org.spring.codingStory.attendance.repository.AttendanceRepository;
+import org.spring.codingStory.mRank.entity.RankEntity;
+import org.spring.codingStory.mRank.repository.MRankRepository;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.repository.MemberFileRepository;
 import org.spring.codingStory.member.repository.MemberRepository;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.member.serviceImpl.service.MemberService;
-import org.spring.codingStory.pay.dto.PayDto;
-import org.spring.codingStory.pay.entity.PayEntity;
 import org.spring.codingStory.pay.repository.PayRepository;
+import org.spring.codingStory.payment.entity.PaymentEntity;
+import org.spring.codingStory.payment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,9 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.Time;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,74 +37,131 @@ import java.util.stream.Collectors;
 @AutoConfigureMockMvc
 public class AttendanceTest {
 
+
+
+
+    @Autowired
+    private MemberRepository memberRepository;
     @Autowired
     private MemberService memberService;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private MemberFileRepository memberFileRepository;
+    @Autowired
+    private MRankRepository mRankRepository;
+    @Autowired
+    private ApprovalDivRepository approvalDivRepository;
+    @Autowired
+    private ApprovalStatusRepository approvalStatusRepository;
+
+
 
 
     @Autowired
-    MemberRepository memberRepository;
+    private AttendanceRepository attendanceRepository;
 
     @Autowired
-    AttendanceRepository attendanceRepository;
+    private PayRepository payRepository;
 
     @Autowired
-    PayRepository payRepository;
+    private PaymentRepository paymentRepository            ;
 
 
-    @Transactional
+
     @Test
-    void test5() {
-        Long memberId = 5L;
+    void admin2() throws IOException {
 
-        // 단계 1: daily wages 가져오기
-        List<BigDecimal> dailyWages = attendanceRepository.findByAttendanceDailyWageNative(memberId);
+        MemberDto memberDto;
+        String adminFile = "admin.jpg";
 
-        // 각 회원당 하나의 distinct daily wage만 있다고 가정
-        if (!dailyWages.isEmpty()) {
-            BigDecimal dailyWage = dailyWages.get(0);
+        MemberEntity memberEntity = MemberEntity.builder()
+                .userEmail("admin@naver.com")
+                .userPw(passwordEncoder.encode("1234"))
+                .name("관리자")
+                .department("노원점")
+                .mRank("사장")
+                .address("서울")
+                .phoneNumber("0101234")
+                .role(Role.ADMIN)
+                .memberAttachFile(0)
+                .build();
 
-            // 단계 2: PayDto 생성 (생성 방법이 있다고 가정)
-            PayDto payDto = new PayDto();
-            payDto.setMemberEntity(memberRepository.findById(memberId).orElse(null)); // 회원 엔티티 설정
-            payDto.setPayBns("Some bonus"); // 필요한 다른 필드 설정
-            payDto.setPaymentDate(LocalDate.now()); // 결제 날짜 설정
+        memberEntity = memberRepository.save(memberEntity);
 
-            // 단계 3: 계산된 PayMon으로 PayDto를 PayEntity로 변환
-            PayEntity payEntity = PayEntity.toInsertPayEntity2(payDto, dailyWage);
+        PaymentEntity paymentEntity = new PaymentEntity();
+        paymentEntity.setMemberEntity(memberEntity);
 
-            // 단계 4: PayEntity 저장 (저장할 레포지토리가 있다고 가정)
-            payRepository.save(payEntity);
-
-            // 단계 5: 검증을 위해 PayEntity 출력
-            System.out.println(payEntity);
+        // mRank가 "사장"일 때 hourWage를 1000원으로 설정
+        if ("사장".equals(memberEntity.getMRank())) {
+            paymentEntity.setHourlyWage("1000");
         } else {
-            System.out.println("해당 ID를 가진 회원의 daily wages를 찾을 수 없습니다: " + memberId);
+            paymentEntity.setHourlyWage("0"); // 기본 값 설정
         }
+
+        paymentRepository.save(paymentEntity);
+
+        RankEntity rankEntity = RankEntity.builder()
+                .rankName("사원")
+                .build();
+        RankEntity rankEntity1 = RankEntity.builder()
+                .rankName("팀장")
+                .build();
+        RankEntity rankEntity2 = RankEntity.builder()
+                .rankName("지점장")
+                .build();
+        RankEntity rankEntity3 = RankEntity.builder()
+                .rankName("사장")
+                .build();
+
+        mRankRepository.save(rankEntity);
+        mRankRepository.save(rankEntity1);
+        mRankRepository.save(rankEntity2);
+        mRankRepository.save(rankEntity3);
+
+        //보고서 진행 상태
+        ApprovalStatusEntity approvalStatusEntity1 = approvalStatusRepository.save(
+                ApprovalStatusEntity.builder()
+                        .apvStatus("진행중")
+                        .build()
+        );
+        ApprovalStatusEntity approvalStatusEntity2 = approvalStatusRepository.save(
+                ApprovalStatusEntity.builder()
+                        .apvStatus("승인")
+                        .build()
+        );
+        ApprovalStatusEntity approvalStatusEntity3 = approvalStatusRepository.save(
+                ApprovalStatusEntity.builder()
+                        .apvStatus("반려")
+                        .build()
+        );
+
+        //보고서 종류
+        ApprovalDivEntity approvalDivEntity1 = approvalDivRepository.save(
+                ApprovalDivEntity.builder()
+                        .apvDivName("업무 보고서")
+                        .build()
+        );
+        ApprovalDivEntity approvalDivEntity2 = approvalDivRepository.save(
+                ApprovalDivEntity.builder()
+                        .apvDivName("회의결과 보고서")
+                        .build()
+        );
+        ApprovalDivEntity approvalDivEntity3 = approvalDivRepository.save(
+                ApprovalDivEntity.builder()
+                        .apvDivName("휴가 보고서")
+                        .build()
+        );
+        ApprovalDivEntity approvalDivEntity4 = approvalDivRepository.save(
+                ApprovalDivEntity.builder()
+                        .apvDivName("결제 청구서")
+                        .build()
+        );
     }
 
 
 
-//    @Transactional
-//    @Test
-//    void test4() {
-//        Long id = 5L;
-//
-//        List<BigDecimal> dailyWages = attendanceRepository.findByAttendanceDailyWageNative(id);
-//        List<AttendanceDto> attendanceDtos = new ArrayList<>();
-//
-//        attendanceDtos = dailyWages.stream()
-//                .map(AttendanceDto::toSelectDaliyWageAttendanceDto)
-//                .collect(Collectors.toList());
-//
-//        for (AttendanceDto attendanceDto : attendanceDtos) {
-////            System.out.println(attendanceDto);
-//            System.out.println("daily wage: " + attendanceDto.getDailyWage());
-//        }
-//    }
+
 
 
 

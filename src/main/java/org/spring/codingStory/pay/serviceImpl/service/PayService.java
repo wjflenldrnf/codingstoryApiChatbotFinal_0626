@@ -6,6 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface PayService {
     void insertPay(PayDto payDto);
-
-    Page<PayDto> paySearchPagingList(Pageable pageable, String subject, String search);
+//
+//    Page<PayDto> paySearchPagingList(Pageable pageable, String subject, String search);
 }

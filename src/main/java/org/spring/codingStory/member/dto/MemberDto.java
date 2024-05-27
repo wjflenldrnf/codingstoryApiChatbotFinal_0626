@@ -60,39 +60,43 @@ public class MemberDto {
 
     private List<PayEntity> PayEntityList;
 
-    /////////////////////////////////////////////////////////////
-
-    private List<PaymentEntity> paymentEntityList;
-
-    /////////////////////////////////////////////////////////////
-
     private List<MemberFileEntity> memberFileEntityList;
 
 
 
-  public static MemberDto toSelectMemberDto(MemberEntity member) {
-      MemberDto memberDto=new MemberDto();
-      memberDto.setId(member.getId());
-      memberDto.setUserEmail(member.getUserEmail());
-      memberDto.setName(member.getName());
-      memberDto.setDepartment(member.getDepartment());
-      memberDto.setMRank(member.getMRank());
-      memberDto.setAddress(member.getAddress());
-      memberDto.setPhoneNumber(member.getPhoneNumber());
-      memberDto.setRole(member.getRole());
-      memberDto.setCreateTime(member.getCreateTime());
-      memberDto.setUpdateTime(member.getUpdateTime());
+    public static MemberDto toSelectMemberDto(MemberEntity member) {
+        MemberDto memberDto=new MemberDto();
+        memberDto.setId(member.getId());
+        memberDto.setUserEmail(member.getUserEmail());
+        memberDto.setName(member.getName());
+        memberDto.setDepartment(member.getDepartment());
+        memberDto.setMRank(member.getMRank());
+        memberDto.setAddress(member.getAddress());
+        memberDto.setPhoneNumber(member.getPhoneNumber());
+        memberDto.setRole(member.getRole());
+        memberDto.setCreateTime(member.getCreateTime());
+        memberDto.setUpdateTime(member.getUpdateTime());
 
-      if (member.getMemberAttachFile() == 0) {
-          memberDto.setMemberAttachFile(member.getMemberAttachFile());
-      } else {
-          memberDto.setMemberAttachFile(member.getMemberAttachFile());
-          memberDto.setMemberNewFileName(member.getMemberFileEntityList().get(0).getMemberNewFileName());
-          memberDto.setMemberOldFileName(member.getMemberFileEntityList().get(0).getMemberOldFileName());
-      }
+        if (member.getMemberAttachFile() == 0) {
+            memberDto.setMemberAttachFile(member.getMemberAttachFile());
+        } else {
+            memberDto.setMemberAttachFile(member.getMemberAttachFile());
+            memberDto.setMemberNewFileName(member.getMemberFileEntityList().get(0).getMemberNewFileName());
+            memberDto.setMemberOldFileName(member.getMemberFileEntityList().get(0).getMemberOldFileName());
+        }
 
-      return memberDto;
+        return memberDto;
 
-  }
+    }
+
+
+
+
+    /////////////////////////////////////////////////////////////
+
+//    private List<PaymentEntity> paymentEntityList;
+    private PaymentEntity paymentEntity;
+
+    /////////////////////////////////////////////////////////////
 
 }

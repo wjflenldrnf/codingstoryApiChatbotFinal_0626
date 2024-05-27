@@ -32,14 +32,6 @@ public class AttendanceEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
-//    @Column
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date checkInTime;
-//
-//    @Column
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date checkOutTime;
-
     @Column
     private LocalDateTime checkInTime;
 
@@ -49,34 +41,8 @@ public class AttendanceEntity {
     @Column
     private String attendanceType; // 정상 출근, 지각 등
 
-
-
     @Column
     private Time workTime;
-
-//    @Column
-//    @Builder.Default
-//    private BigDecimal dailyWage=new BigDecimal("103");
-
-//
-//    @Column
-//    private LocalDate workDay;
-//
-//    @Column
-//    private BigDecimal weeklyAllowance;
-//
-//    @Column
-//    private BigDecimal bonus;
-
-
-//    @Column
-//    private BigDecimal hourWage;
-//
-//    @Column
-//    private Time overTIme;
-//
-//    @Column
-//    private BigDecimal overTImeWage;
 
 
     public Time calculationSetWorkTime(LocalDateTime checkInTime, LocalDateTime checkOutTime) {
@@ -136,29 +102,8 @@ public class AttendanceEntity {
         attendanceEntity.setMemberEntity(attendanceDto.getMemberEntity());
         attendanceEntity.setCheckInTime(checkInTime);
         attendanceEntity.setAttendanceType("출근");
-//        attendanceEntity.setHourWage(new BigDecimal(6000));
         return attendanceEntity;
     }
 
-
-//    public static AttendanceEntity toInsertCheckInAttendanceEntity(AttendanceDto attendanceDto) {
-//
-//        LocalDateTime checkInTime = LocalDateTime.now();
-//        LocalDateTime checkOutTime = LocalDateTime.now();
-//
-//        AttendanceEntity attendanceEntity=new AttendanceEntity();
-//
-//        attendanceEntity.setMemberEntity(attendanceDto.getMemberEntity());
-//        attendanceEntity.setCheckInTime(checkInTime);
-////        attendanceEntity.setCheckOutTime(checkOutTime);
-////        attendanceEntity.setAttendanceType(attendanceDto.getAttendanceType());
-//        attendanceEntity.setAttendanceType("출근");
-//
-//        attendanceEntity.setHourWage(new BigDecimal(6000));
-//
-//        return attendanceEntity;
-//    }
-
-    ////////////////////////////////////////////////////////
 
 }
