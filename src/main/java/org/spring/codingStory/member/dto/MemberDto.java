@@ -62,7 +62,7 @@ public class MemberDto {
 
     private List<MemberFileEntity> memberFileEntityList;
 
-
+    private PaymentEntity paymentEntity;
 
     public static MemberDto toSelectMemberDto(MemberEntity member) {
         MemberDto memberDto=new MemberDto();
@@ -91,12 +91,5 @@ public class MemberDto {
 
 
 
-
-    /////////////////////////////////////////////////////////////
-
-//    private List<PaymentEntity> paymentEntityList;
-    private PaymentEntity paymentEntity;
-
-    /////////////////////////////////////////////////////////////
 
 }
