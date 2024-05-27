@@ -53,6 +53,22 @@
     loadDepartments();
     loadParentDepartments();
 
+  //부서 클릭 이벤트 핸들러
+ $(document).on('click','.department',function(){
+    var departmentId = $(this).data('department-id');
+    var departmentName = $(this).text(); // 부서 이름 가져오기
+    // 해당 부서의 ID를 사용하여 새 URL 생성
+    console.log("Department ID: " + departmentId);
+    console.log("Department Name: " + departmentName);
+
+    if(departmentId !== undefined && departmentName !== undefined){
+        var newUrl = "/department/members?deptId=" + departmentId + "&dptName=" + encodeURIComponent(departmentName);
+        window.location.href = newUrl;
+    } else {
+        console.error("Invalid departmentId or departmentName");
+    }
+});
+
     // 폼 제출 시
     $("#addDepartmentForm").submit(function(event) {
       // 폼의 기본 동작을 중지
@@ -110,8 +126,12 @@
   // 부서 정보를 표시하는 함수
   function displayDepartments(departments, parentElement) {
     departments.forEach(function(department) {
-      var departmentElement = $("<div>").addClass("department");
-      departmentElement.html(department.dptName + " <button onclick='showSubDepartmentForm(" + department.id + ")'>+</button>");
+      var departmentElement= $("<div>").addClass("department");
+       //부서 이름과 함께 링크 추가
+        var departmentLink = $("<a>").attr("href", "/department/members?deptId=" + department.id).text(department.dptName);
+        departmentElement.append(departmentLink);
+        departmentElement.append("<button onclick='showSubDepartmentForm("+department.id+")'>+</button>");
+
       parentElement.append(departmentElement);
 
       var subDepartmentForm = $("<div>").addClass("add-sub-department-form").attr("id", "sub-department-form-" + department.id);

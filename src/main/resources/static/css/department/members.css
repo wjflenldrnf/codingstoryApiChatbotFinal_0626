@@ -1,0 +1,93 @@
+body{
+  font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container{
+  width: 80%;
+  margin-top: 30px;
+}
+
+h1{
+  color: #333;
+}
+
+.label-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.label-container label{
+  margin-right:10px ;
+  font-size: 18px;
+  color: #555;
+}
+
+.select-container select{
+  padding:10px;
+  font-size: 16px;
+  border-radius:5px;
+  background-color: #fff;
+  color: #333;
+}
+
+#memberList{
+  margin-top:20px;
+}
+table{
+  width: 100%;
+  border-collapse:collapse;
+  border-radius:5px;
+  overflow:hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+thead{
+  background-color: rgb(72, 170, 255);
+  color: #fff;
+}
+th, td{
+  padding: 15px;
+  text-align: left;
+}
+
+tr:nth-child(even){
+  background-color: rgb(128, 99, 255);
+}
+tr:hover{
+  background-color: #ddd;
+}
+/*추가 버튼 스타일*/
+.add-button{
+  margin-top: 20px;
+}
+.add-button button{
+  padding: 10px 20px;
+  font-size: 10px;
+  background-color: bisque;
+  color: azure;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.add-button button:hover{
+  background-color: #dbff5be0;
+}
+
+/*애니매이션 효과*/
+@keyframes fadeIn{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+.fade-in{
+  animation: fadeIn 0.5s ease-in-out;
+}
