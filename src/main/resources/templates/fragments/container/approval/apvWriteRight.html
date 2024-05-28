@@ -26,8 +26,14 @@
                                     <thead>
                                     <tr>
                                         <th class="tg-0pky" rowspan="2">결재자</th>
-                                        <th class="tg-0pky">부서</th>
-                                        <th class="tg-0lax">부서 선택</th>
+                                        <th class="tg-0lax">이름</th>
+                                        <th class="tg-0lax"> <select class="select_type01 w170" th:name="apvFnl" id="apvFnl">
+
+                                            <option th:each="member : ${memberDtoList}"
+                                                    th:value="${member?.name}"
+                                                    th:utext="${member?.mRank +' '+ member?.name +'-'+member?.department}">
+                                            </option>
+                                        </select></th>
                                         <th class="tg-0pky" rowspan="2">문서종류</th>
                                         <th class="tg-0pky" rowspan="2">
                                             <select class="select_type01 w170" th:name="approvalDivEntity" id="approvalDivEntity">
@@ -37,14 +43,6 @@
                                         </select></th>
                                     </tr>
                                     <tr>
-                                        <th class="tg-0lax">이름</th>
-                                        <th class="tg-0lax"> <select class="select_type01 w170" th:name="apvFnl" id="apvFnl">
-
-                                            <option th:each="member : ${memberDtoList}"
-                                                    th:value="${member?.name}"
-                                                    th:utext="${member?.name}">
-                                            </option>
-                                        </select></th>
                                         <input type="hidden" value="1" id="approvalStatusEntity" name="approvalStatusEntity">
                                         <input type="hidden" name="memberId" id="memberId" th:value="${memberId}">
                                     </tr>
@@ -52,7 +50,9 @@
                                     <tbody>
                                     <tr>
                                         <td class="tg-0pky">작성자</td>
-                                        <td class="tg-0pky" colspan="2"><input type="text" name="memberName" id="memberName" th:value="${memberName}" readonly></td>
+                                        <td class="tg-0pky"> <input type="text" name="department" id="department" th:value="${department}" readonly></td>
+                                        <td class="tg-0pky" colspan="1">
+                                            <input type="text" name="memberName" id="memberName" th:value="${mRank +' '+memberName}" readonly></td>
                                         <td class="tg-0pky">결재 기한</td>
                                         <td class="tg-0pky"><input type="date" name="date" id="date" max="2099-12-31" min="2020-01-01" value="2024-05-31"></td>
                                     </tr>

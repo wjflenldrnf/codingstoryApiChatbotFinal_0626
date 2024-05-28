@@ -1,7 +1,8 @@
 package org.spring.codingStory.chatbot.repository;
 
-import org.springframework.stereotype.Repository;
+import org.spring.codingStory.chatbot.entity.AnswerEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface AnswerRepository {
+public interface AnswerRepository extends JpaRepository<AnswerEntity, Long>{
+
 }

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-//import static org.spring.codingStory.pay.entity.PayEntity.toInsertPayEntity3;
 
 @Service
 @RequiredArgsConstructor
@@ -98,9 +97,6 @@ public class AttendanceServiceImpl implements AttendanceService {
         }
         return 0;
     }
-
-
-
 
     @Override
     public boolean hasAttendanceToday(Long memberId) {

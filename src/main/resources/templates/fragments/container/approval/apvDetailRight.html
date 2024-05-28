@@ -27,10 +27,11 @@
                                     <input type="hidden" name="id" id="id" th:value="${approvalDto.id}">
                                     <input type="hidden" name="memberId" id="memberId"
                                            th:value="${approvalDto.memberEntity.id}">
-                                    <tr>
+                                    <tr><!--결재자 정보-->
                                         <th class="tg-0pky" rowspan="2">결재자</th>
-                                        <th class="tg-0pky">부서</th>
-                                        <th class="tg-0pky">부서값</th>
+                                        <th class="tg-0pky" rowspan="2">이름</th><!--결재자 부서-->
+                                        <th class="tg-0pky"><input type="text" id="apvFnl" name="apvFnl"
+                                                                   th:value="${approvalDto.apvFnl}" readonly></th>
                                         <th class="tg-0pky" rowspan="2">문서종류</th>
                                         <th class="tg-0pky" rowspan="2">
                                             <input type="text" name="approvalDivEntity1"
@@ -39,18 +40,14 @@
                                             <input type="hidden" id="approvalDivEntity" name="approvalDivEntity"
                                                    th:value="${approvalDto.approvalDivEntity.id}"></th>
                                     </tr>
-                                    <tr>
-                                        <th class="tg-0pky">이름</th>
-                                        <th class="tg-0pky">직급 값+ <input type="text" id="apvFnl" name="apvFnl"
-                                                                         th:value="${approvalDto.apvFnl}" readonly></th>
-                                    </tr>
+
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td class="tg-0pky">작성자</td>
-                                        <td class="tg-0pky">부서 값</td>
-                                        <td class="tg-0pky">직급 값 + <input type="text" name="memberName" id="memberName"
-                                                                          th:value="${approvalDto.memberEntity.name}"
+                                        <td class="tg-0pky">작성자</td><!--작성자 정보-->
+                                        <td class="tg-0pky"><input type="text" name="department" id="department"  th:value="${department}" readonly></td>
+                                        <td class="tg-0pky"><input type="text" name="memberName" id="memberName"
+                                                                          th:value="${mRank +' '+memberName}"
                                                                           readonly></td>
                                         <td class="tg-0pky">결재 기한</td>
                                         <td class="tg-0pky"><input type="text" name="date" id="date"

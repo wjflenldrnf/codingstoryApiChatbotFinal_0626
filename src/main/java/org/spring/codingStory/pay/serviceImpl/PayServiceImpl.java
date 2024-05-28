@@ -77,7 +77,7 @@ public class PayServiceImpl implements PayService {
 //    }
 
     @Autowired
-    private AttendanceRepository attendanceRepository;
+    private final AttendanceRepository attendanceRepository;
 
     @Autowired
     private PayRepository payRepository;

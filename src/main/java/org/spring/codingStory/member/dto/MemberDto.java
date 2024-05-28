@@ -64,8 +64,6 @@ public class MemberDto {
 
     private PaymentEntity paymentEntity;
 
-
-
     public static MemberDto toSelectMemberDto(MemberEntity member) {
         MemberDto memberDto=new MemberDto();
         memberDto.setId(member.getId());
@@ -90,8 +88,6 @@ public class MemberDto {
         return memberDto;
 
     }
-
-
 
 
 
