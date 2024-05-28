@@ -10,7 +10,8 @@
             <li><a th:href="@{/member/join}">회원가입</a></li>
           </th:block>
           <th:block sec:authorize="isAuthenticated()">
-            <div class="myInfo" th:onClick="|location.href='@{/member/myDetail/{id}(id=${#authentication.principal.memberEntity.id})}'|">
+            <div class="myInfo"
+                 th:onClick="|location.href='@{/member/myDetail/{id}(id=${#authentication.principal.memberEntity.id})}'|">
               <li>
                 <p th:text="${#authentication.principal.memberEntity.department}"></p>부
               </li>
@@ -28,50 +29,72 @@
     </div>
     <div class="bottom">
       <div class="index-data">
-          <div class="list">
-            <div class="list-con">
-              <h1>가입승인요청</h1>
-              <table>
-                <thead>
-                <tr>
-                  <th></th>
-                  <th>이메일</th>
-                  <th>이름</th>
-                  <th>부서</th>
-                  <th>직급</th>
-                  <th>주소</th>
-                  <th>번호</th>
-                  <th>신청일</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="member: ${memberDto}">
-                  <input type="hidden" th:value="${member.role}" id="role" name="role">
-                  <input type="hidden" th:value="${member.id}" id="id" name="id">
-                  <td>
-                    <th:block th:if="${member.memberAttachFile==1}">
-                      <img th:src="@{|/upload/${member.memberNewFileName}|}" alt="이미지대체문구">
-                    </th:block>
-                    <th:block th:unless="${member.memberAttachFile==1}">
-                      <img th:src="@{/images/memberProfile.png}" alt="이미지대체문구">
-                    </th:block>
-                  </td>
-                  <td th:text="${member.userEmail}"></td>
-                  <td th:text="${member.name}"></td>
-                  <td th:text="${member.department}"></td>
-                  <td th:text="${member.mRank}"></td>
-                  <td th:text="${member.address}"></td>
-                  <td th:text="${member.phoneNumber}"></td>
-                  <td th:text="${#temporals.format(member.createTime, 'yy년MM월dd일 HH시mm분')}"></td>
-                  <td><button onClick="memberAppOkFn()">승인</button></td>
-                  <td><button onClick="memberAppNoReady()">거절</button></td>
-                </tr>
-                </tbody>
-              </table>
+        <div class="list">
+          <p>가입대기자 [[${total}]] 명 있습니다</p>
+          <div class="list-con">
+            <div th:each="member: ${memberDto}" class="card">
+              <div class="card-up">
+                <th:block th:if="${member.memberAttachFile==1}">
+                  <img th:src="@{|/upload/${member.memberNewFileName}|}" alt="이미지대체문구">
+                </th:block>
+                <th:block th:unless="${member.memberAttachFile==1}">
+                  <img th:src="@{/images/memberProfile.png}" alt="이미지대체문구">
+                </th:block>
+              </div>
+              <input type="hidden" th:value="${member.id}" id="id" name="id">
+              <input type="hidden" th:value="${member.role}" id="role" name="role">
+              <div class="card-down">
+                <div>
+                  <label for="userEmail">이메일</label>
+                  <span th:text="${member.userEmail}" id="userEmail" name="userEmail"></span>
+                </div>
+                <div>
+                  <label for="name">이름</label>
+                  <span th:text="${member.name}" id="name" name="name"></span>
+                </div>
+                <div>
+                  <label for="phoneNumber">번호</label>
+                  <span th:text="${member.phoneNumber}" id="phoneNumber" name="phoneNumber"></span>
+                </div>
+                <div>
+                  <label for="address">주소</label>
+                  <span th:text="${member.address}" id="address" name-="address"></span>
+                </div>
+
+                <div>
+                  <label for="createTime">신청일</label>
+                  <span th:text="${#temporals.format(member.createTime, 'yy년MM월dd일 HH시mm분')}" id="createTime"
+                        name="createTime"></span>
+                </div>
+
+
+                <div>
+                  <label for="department">부서</label>
+                  <select id="department" name="department">
+                    <option th:each="de : ${depart}" th:value="${de.dptName}"
+                            th:text="${de.dptName}">
+                    </option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="mRank">직급</label>
+                  <select id="mRank" name="mRank">
+                    <option th:each="re : ${rank}" th:value="${re.rankName}"
+                            th:text="${re.rankName}">
+                    </option>
+                  </select>
+                </div>
+
+
+              </div>
             </div>
           </div>
+        </div>
+        <div class="gogo">
+          <button onClick="memberAppOkFn()">승인</button>
+          <button onClick="memberAppNoReady()">거절</button>
+        </div>
         <div class="bottom1">
           <div class="memberDto">
             <div class="memberDto-con">
@@ -120,7 +143,7 @@
             </div>
           </div>
         </div>
-        </div>
+      </div>
 
     </div>
   </div>

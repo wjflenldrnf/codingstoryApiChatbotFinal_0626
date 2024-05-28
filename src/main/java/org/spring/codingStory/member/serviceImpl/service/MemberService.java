@@ -37,4 +37,5 @@ public interface MemberService {
   void memberPasswordUpdate(MemberDto memberDto);
 
   void profileUpdate(MemberDto memberDto) throws IOException;
+
 }
