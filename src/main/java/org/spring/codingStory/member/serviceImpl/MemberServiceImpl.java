@@ -33,6 +33,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final MemberFileRepository fileRepository;
+    private final PaymentRepository paymentRepository;
 
     @Override
     public void memberJoin(MemberDto memberDto) throws IOException {
@@ -303,22 +304,6 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(memberEntity);
     }
 
-//    @Override
-//    public int memberAppOk(MemberDto memberDto) {
-//
-//
-//        MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
-//                .orElseThrow(() -> new IllegalArgumentException("xx"));
-//
-//        memberEntity.setRole(Role.MEMBER);
-//        memberEntity.setDepartment(memberDto.getDepartment());
-//        memberEntity.setMRank(memberDto.getMRank());
-//        memberRepository.save(memberEntity);
-//
-//        return 1;
-//
-//    }
-
     @Override
     public Page<MemberDto> memberAppList(Pageable pageable) {
         Page<MemberEntity> memberEntities = null;
@@ -417,13 +402,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-
-
-
-
-
-    /////////////////////////////////////////////////////
-    private final PaymentRepository paymentRepository;
 
 //    @Override
 //    public void memberJoin(MemberDto memberDto) throws IOException {
