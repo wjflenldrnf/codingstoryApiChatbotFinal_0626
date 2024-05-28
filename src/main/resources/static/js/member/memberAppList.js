@@ -44,3 +44,46 @@ function memberAppNoReady() {
         }
 }
 
+
+
+function pageBeforeFn(){
+const before= $('#before').val()
+const startPage=$('#startPage').val()
+const i=$('#i').val()
+if(before===i){
+document.getElementById('pageBeforeBtn').disabled =true;
+$('#pageBeforeBtn').text('◁')
+}else{
+location.href=`/member/memberAppList?page=${before}`;
+document.getElementById('pageBeforeBtn').disabled =false;
+
+}
+}
+
+function pageNextFn(){
+const next=$('#next').val()
+const total=$('#total').val()
+if(next===total){
+document.getElementById('pageNextBtn').disabled =true;
+$('#pageNextBtn').text('▷')
+}else{
+location.href=`/member/memberAppList?page=${next}`;
+document.getElementById('pageNextBtn').disabled =false;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

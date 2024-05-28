@@ -146,11 +146,11 @@ public class MemberEntity extends BaseTimeEntity {
     return memberEntity;
   }
 
-  public static MemberEntity toUpdateFileMember(MemberDto memberDto) {
+  public static MemberEntity toUpdateFileMember(MemberDto memberDto,PasswordEncoder passwordEncoder) {
     MemberEntity memberEntity = new MemberEntity();
 
     memberEntity.setId(memberDto.getId());
-    memberEntity.setUserPw(memberDto.getUserPw());
+    memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
     memberEntity.setUserEmail(memberDto.getUserEmail());
     memberEntity.setName(memberDto.getName());
     memberEntity.setDepartment(memberDto.getDepartment());
@@ -165,12 +165,13 @@ public class MemberEntity extends BaseTimeEntity {
 
   }
 
-  public static MemberEntity toUpdateMember(MemberDto memberDto) {
+  public static MemberEntity toUpdateMember(MemberDto memberDto,PasswordEncoder passwordEncoder) {
+
 
     MemberEntity memberEntity = new MemberEntity();
 
     memberEntity.setId(memberDto.getId());
-    memberEntity.setUserPw(memberDto.getUserPw());
+    memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
     memberEntity.setUserEmail(memberDto.getUserEmail());
     memberEntity.setName(memberDto.getName());
     memberEntity.setDepartment(memberDto.getDepartment());
