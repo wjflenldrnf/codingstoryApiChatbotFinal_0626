@@ -11,32 +11,32 @@
     margin: 20px;
 }
 .hh h1:nth-child(1){
-  border: 2px solid #000000;
-        background: radial-gradient(circle, rgba(198, 195, 195, 1), rgba(107, 107, 107, 0.9));;
+  border: 2px solid rgb(222 223 188);
+     background-color: rgb(62 104 136 / 58%);
         border-radius: 8px;
          color: white;
 }
 .hh h1:nth-child(2){
-  border: 2px solid #000000;
-       background: radial-gradient(circle, rgba(198, 195, 195, 1), rgba(107, 107, 107, 0.9));
+  border: 2px solid rgb(222 223 188);
+background-color: rgb(62 104 136 / 58%);
         border-radius: 8px;
          color: white;
 }
 .hh h1:nth-child(3){
-   border: 2px solid #000000;
-       background: radial-gradient(circle, rgba(198, 195, 195, 1), rgba(107, 107, 107, 0.9));
+   border: 2px solid rgb(222 223 188);
+background-color: rgb(62 104 136 / 58%);
         border-radius: 8px;
          color: white;
 }
 .hh h1:nth-child(4){
-     border: 2px solid #000000;
-        background: radial-gradient(circle, rgba(198, 195, 195, 1), rgba(107, 107, 107, 0.9));
+     border: 2px solid rgb(222 223 188);
+background-color: rgb(62 104 136 / 58%);
          border-radius: 8px;
           color: white;
 }
  .hh h1:nth-child(5){
-   border: 2px solid #000000;
-          background: radial-gradient(circle, rgba(198, 195, 195, 1), rgba(107, 107, 107, 0.9));
+   border: 2px solid rgb(222 223 188);
+background-color: rgb(62 104 136 / 58%);
           border-radius: 8px;
            color: white;
 }
@@ -49,6 +49,11 @@ padding-bottom: 20px;
     padding-top: 50px;
         padding-bottom:50px;
 }
+.ct table tbody{
+color: #ffffff
+
+}
+
 .ct tr{
 border: 1px solid #ccc;
 }
@@ -70,7 +75,7 @@ margin-bottom: 10px !important;
 
 
 .ct th {
-  background: #efefef;
+background-color: rgb(222 223 188);
   border-top: 1px solid #e2e2e2;
   color: #333;
   width: 120px;

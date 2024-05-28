@@ -360,7 +360,7 @@ public class MemberServiceImpl implements MemberService {
       memberDto.setMemberFileName(newFileName);
 
 
-      memberEntity=MemberEntity.toUpdateFileMember(memberDto,passwordEncoder);
+      memberEntity = MemberEntity.toUpdateFileMember(memberDto, passwordEncoder);
 
       Long memberId = memberRepository.save(memberEntity).getId();
 
@@ -399,11 +399,17 @@ public class MemberServiceImpl implements MemberService {
       memberRepository.delete(optionalMemberEntity.get());
       return 1;
     }
+
     return 0;
   }
 
 
     /////////////////////////////////////////////////////
+
+
+
+
+
 
 
 //    @Override
