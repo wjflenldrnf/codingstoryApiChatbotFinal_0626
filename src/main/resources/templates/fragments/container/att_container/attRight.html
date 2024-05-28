@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div class="right" th:fragment="attRightFragment">
     <div class="right-con">
-        <div class="top">
+        <div class="right-top">
             <div class="gnb">
                 <ul>
                     <th:block sec:authorize="isAnonymous()">
@@ -27,9 +27,6 @@
                             <div class="attendanceWrite-form">
 
                                 <ul>
-                                    <li>
-<!--                                        <input type="hidden" name="id" id="id" th:value="${id}" readonly>-->
-                                    </li>
 
                                     <li>
                                         <label for="name">이름</label>
@@ -45,7 +42,7 @@
                                         <input type="button" name="checkInTimeBtn" id="checkInTimeBtn" value="checkInTimeBtn">
                                     </li>
 
-                                    <li> <input type="submit" value="확인"> </li>
+
 
                                 </ul>
 

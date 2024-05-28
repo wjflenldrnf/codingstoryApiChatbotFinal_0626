@@ -1,14 +1,21 @@
 package org.spring.codingStory.payment.dto;
 
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.spring.codingStory.member.entity.MemberEntity;
+import org.spring.codingStory.payment.entity.PaymentEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-@Transactional
-@Service
-@RequiredArgsConstructor
+//@Transactional
+//@Service
+//@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+@Setter
 public class PaymentDto {
 
     private Long id;
@@ -18,4 +25,14 @@ public class PaymentDto {
     private String hourlyWage;
 
 
+    public static PaymentDto toSelectAllPaymentList(PaymentEntity paymentEntity) {
+
+        PaymentDto paymentDto = new PaymentDto();
+        paymentDto.setId(paymentEntity.getId());
+        paymentDto.setMemberEntity(paymentEntity.getMemberEntity());
+        paymentDto.setHourlyWage(paymentEntity.getHourlyWage());
+
+        return paymentDto;
+
+    }
 }

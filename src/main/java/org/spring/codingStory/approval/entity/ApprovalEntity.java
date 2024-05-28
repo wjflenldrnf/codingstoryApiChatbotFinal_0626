@@ -2,6 +2,7 @@ package org.spring.codingStory.approval.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.spring.codingStory.approval.dto.ApprovalDto;
 import org.spring.codingStory.approval.dto.ApprovalStatusDto;
 import org.spring.codingStory.contraint.BaseTimeEntity;
@@ -17,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@DynamicUpdate
 @Table(name = "apv_tb")
 public class ApprovalEntity extends BaseTimeEntity {
 
