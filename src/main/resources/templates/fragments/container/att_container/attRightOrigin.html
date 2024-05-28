@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div class="right" th:fragment="att_RightFragment">
+<div class="right" th:fragment="attRightOriginFragment">
     <div class="right-con">
-        <div class="top">
+        <div class="right-top">
             <div class="gnb">
                 <ul>
                     <th:block sec:authorize="isAnonymous()">
@@ -27,9 +27,6 @@
                             <div class="attendanceWrite-form">
 
                                 <ul>
-                                    <li>
-<!--                                        <input type="hidden" name="id" id="id" th:value="${id}" readonly>-->
-                                    </li>
 
                                     <li>
                                         <label for="name">이름</label>
@@ -44,25 +41,11 @@
                                     <li>
                                         <input type="button" name="checkInTimeBtn" id="checkInTimeBtn" value="checkInTimeBtn">
                                     </li>
+<li>
+    <button type="button" class="updateAttendance" name="updateAttendance" onclick="checkOutTimeBtnFn(${el.id})">퇴근</button>
+</li>
 
-<!--                                    <li>-->
-<!--                                        <input type="button" name="checkOutTimeBtn" id="checkOutTimeBtn" value="checkOutTimeBtn">-->
-<!--                                    </li>-->
 
-
-<!--                                    <li>-->
-<!--                                        <label for="attendanceType">attendanceType</label>-->
-<!--                                        <input type="text" id="attendanceType">-->
-<!--                                    </li>-->
-
-                                    <li>
-                                        <input type="submit" value="확인">
-
-                                    </li>
-<!--                                    <li>-->
-<!--                                        <a th:href="@{/attendance/attDetail}" value="attDetail">attDetail</a>-->
-<!--                                        <a th:href="@{/attendance/attList}" value="attList">attList</a>-->
-<!--                                    </li>-->
                                 </ul>
 
                             </div>
@@ -71,7 +54,7 @@
                                 <table>
                                     <thead>
                                     <tr>
-                                        <th colspan="6"><h3>회원목록</h3></th>
+                                        <th colspan="7"><h3>회원목록</h3></th>
                                     </tr>
                                     <tr>
                                         <th>id</th>
@@ -80,12 +63,16 @@
                                         <th>checkInTime</th>
                                         <th>checkOutTime</th>
                                         <th>삭제/보기</th>
+                                        <th>workTime</th>
                                     </tr>
                                     </thead>
                                     <tbody class="tbody">
 
                                     </tbody>
                                 </table>
+
+
+
                             </div>
 
                         </div>
