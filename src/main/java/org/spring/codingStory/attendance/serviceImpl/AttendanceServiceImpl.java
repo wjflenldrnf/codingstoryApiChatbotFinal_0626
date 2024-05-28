@@ -56,6 +56,22 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
+    public Integer insertCheckInAttendance2(AttendanceDto attendanceDto) {
+        attendanceDto.setMemberEntity(MemberEntity.builder()
+                .id(attendanceDto.getMemberId())
+                .build());
+
+        AttendanceEntity attendanceEntity = AttendanceEntity.toInsertCheckInAttendanceEntity(attendanceDto);
+        AttendanceEntity savedEntity = attendanceRepository.save(attendanceEntity);
+
+        attendanceDto.setId(savedEntity.getId()); // 저장된 엔티티의 ID를 DTO에 설정
+        attendanceDto.setAttendanceType(savedEntity.getAttendanceType());
+        attendanceDto.setCheckInTime(savedEntity.getCheckInTime());
+        attendanceDto.setCheckOutTime(savedEntity.getCheckOutTime());
+        return 1;
+    }
+
+    @Override
     public int attendanceDelete(Long id) {
 
         Optional<AttendanceEntity> optionalAttendanceEntity = attendanceRepository.findById(id);
@@ -96,6 +112,22 @@ public class AttendanceServiceImpl implements AttendanceService {
             return 1;
         }
         return 0;
+    }
+
+
+    @Override
+    public AttendanceDto getAttendanceById(Long id) {
+        AttendanceEntity attendanceEntity = attendanceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid attendance ID"));
+
+        return AttendanceDto.builder()
+                .id(attendanceEntity.getId())
+                .memberId(attendanceEntity.getMemberEntity().getId())
+                .attendanceType(attendanceEntity.getAttendanceType())
+                .checkInTime(attendanceEntity.getCheckInTime())
+                .checkOutTime(attendanceEntity.getCheckOutTime())
+                .workTime(attendanceEntity.getWorkTime())
+                .build();
     }
 
     @Override

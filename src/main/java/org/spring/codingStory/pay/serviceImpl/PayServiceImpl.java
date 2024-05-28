@@ -30,6 +30,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PayServiceImpl implements PayService {
 
+    @Autowired
+    private final AttendanceRepository attendanceRepository;
+
+    @Autowired
+    private PayRepository payRepository;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
+
+    ////////////////////////////////////////////////////////////////////////////////
+
     @Override
     public int updateOk(PayDto payDto) {
         Optional<PayEntity> optionalPayEntity = payRepository.findById(payDto.getId());
@@ -61,30 +72,8 @@ public class PayServiceImpl implements PayService {
         System.out.println("회원수정실패");
         throw new IllegalArgumentException("조회할 아이디가 없습니다.");
     }
-//    @Override
-//    public int updateOk(PayDto payDto) {
-//        PayEntity payEntity = PayEntity.toUpdatePayEntity(payDto);
-//        Long id = payRepository.save(payEntity).getId();
-//
-//        Optional<PayEntity> optionalPayEntity=payRepository.findById(id);
-//
-//        if(optionalPayEntity.isPresent()){
-//            System.out.println("수정 ok");
-//            return 0;
-//        }
-//        System.out.println("회원수정실패");
-//        throw new IllegalArgumentException("조회할 아이디가 없습니다.");
-//    }
 
-    @Autowired
-    private final AttendanceRepository attendanceRepository;
-
-    @Autowired
-    private PayRepository payRepository;
-
-    @Autowired
-    private PaymentRepository paymentRepository;
-
+    ////////////////////////////////////////////////////////////////////////////////
 
 
     @Transactional

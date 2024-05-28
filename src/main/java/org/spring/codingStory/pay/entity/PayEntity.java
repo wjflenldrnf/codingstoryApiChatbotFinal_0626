@@ -44,8 +44,6 @@ public class PayEntity extends BaseTimeEntity {
     private Date endDate;
     //산정종료일
 
-
-
     //페이엔티티 연관관계
     // 페이엔티티 n:1 페이먼트엔티티
     @JsonIgnore //ajax 시 순환 참조 방지
@@ -102,9 +100,6 @@ public class PayEntity extends BaseTimeEntity {
 //        payEntity.setPayingDate(payDto.getPayingDate());
         return payEntity;
     }
-
-
-
 
 
 }

@@ -12,58 +12,34 @@
                     <th:block sec:authorize="isAuthenticated()">
                         로그인중
                     </th:block>
-
                     <li><a th:href="@{/member/detail/}" th:text="${ #authentication.principal.username }"></a></li>
-
-
                 </ul>
             </div>
         </div>
         <div class="bottom">
             <div class="admin-data">
-                            <li><a th:href="@{/pay/payWrite/}"> payWrite </a></li>
-                            <li><a th:href="@{/pay/payList/}"> payList </a></li>
-
-
                 <table>
                     <thead>
                     <tr>
                         <th>id</th>
                         <th>memberEntity.id</th>
+                        <th>memberEntity.name</th>
                         <th>hourlyWage</th>
-
-                        <th>보기1</th> <!-- 게시글 상세보기 -->
-
-
+                        <th>Edit</th>
+                        <th>보기</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="payment : ${paymentList}">
                         <td th:text="${payment.id}"></td>
                         <td th:text="${payment.memberEntity.id}"></td>
+                        <td th:text="${payment.memberEntity.name}"></td>
                         <td th:text="${payment.hourlyWage}"></td>
-
-                        <td><a th:href="@{/pay/payWrite/{id}(id=${payment.memberEntity.id})}">쓰기</a></td><!-- 게시글 상세보기 -->
-
-                        <td><a th:href="@{/pay/payDetail/{id}(id=${payment.id})}">보기</a></td><!-- 게시글 상세보기 -->
-
-
-                        <!--<td th:text="${#temporals.format(board.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td th:text="${#temporals.format(board.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td><a th:href="@{/board/detail1/{id}(id=${board.id})}">보기</a></td>&lt;!&ndash; 게시글 상세보기 &ndash;&gt;
-                        <td><a th:href="@{/board/detail2/{id}(id=${board.id})}">보기</a></td>&lt;!&ndash; 게시글 상세보기(ajax) &ndash;&gt;
-                        <th:block th:if="${board.attachFile==1}">
-                            <td>O</td>
-                        </th:block>
-                        <th:block th:unless="${board.attachFile==1}">
-                            <td>X</td>
-                        </th:block>-->
+                        <td><a th:href="@{/pay/payWrite/{id}(id=${payment.memberEntity.id})}">급여작성</a></td>
+                        <td><a th:href="@{/pay/payDetail/{id}(id=${payment.id})}">보기</a></td>
                     </tr>
                     </tbody>
                 </table>
-
-
-
             </div>
         </div>
     </div>
