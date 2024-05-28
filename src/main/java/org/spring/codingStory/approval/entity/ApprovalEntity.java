@@ -2,12 +2,14 @@ package org.spring.codingStory.approval.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.spring.codingStory.approval.dto.ApprovalDto;
 import org.spring.codingStory.approval.dto.ApprovalStatusDto;
 import org.spring.codingStory.contraint.BaseTimeEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -16,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@DynamicUpdate
 @Table(name = "apv_tb")
 public class ApprovalEntity extends BaseTimeEntity {
 
@@ -37,11 +40,17 @@ public class ApprovalEntity extends BaseTimeEntity {
     private String apvFnl;
     //최종 결재 승인자(사람)
 
-
+    //나만 따로 추가
+    @Column(nullable = true)
+    private String apvCom;
+    //상신 코멘트
     
 //    @Column(nullable = false)
 //    private String apvDiv;
 //    //결재 종류
+    @Column(nullable = true)
+    private String date;
+
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -80,6 +89,7 @@ public class ApprovalEntity extends BaseTimeEntity {
         approvalEntity.setApprovalDivEntity(approvalDto.getApprovalDivEntity());
         approvalEntity.setApprovalStatusEntity(approvalDto.getApprovalStatusEntity());
         approvalEntity.setApprovalFileEntityList(approvalDto.getApprovalFileEntityList());
+        approvalEntity.setDate(approvalDto.getDate());
 
         return approvalEntity;
     }
@@ -97,15 +107,63 @@ public class ApprovalEntity extends BaseTimeEntity {
         approvalEntity.setApprovalDivEntity(approvalDto.getApprovalDivEntity());
         approvalEntity.setApprovalStatusEntity(approvalDto.getApprovalStatusEntity());
         approvalEntity.setApprovalFileEntityList(approvalDto.getApprovalFileEntityList());
+        approvalEntity.setDate(approvalDto.getDate());
 
         return approvalEntity;
     }
 
     //dto -> entity
     public static ApprovalEntity toApvOkEntity(ApprovalDto approvalDto) {
+
         ApprovalEntity approvalEntity = new ApprovalEntity();
+
         approvalEntity.setId(approvalDto.getId());
+        approvalEntity.setApvTitle(approvalDto.getApvTitle());
+        approvalEntity.setApvContent(approvalDto.getApvContent());
+        approvalEntity.setApvAttachFile(0);
+        approvalEntity.setMemberEntity(approvalDto.getMemberEntity());
+        approvalEntity.setApvFnl(approvalDto.getApvFnl());
+        approvalEntity.setApprovalDivEntity(approvalDto.getApprovalDivEntity());
         approvalEntity.setApprovalStatusEntity(approvalDto.getApprovalStatusEntity());
+        approvalEntity.setApprovalFileEntityList(approvalDto.getApprovalFileEntityList());
+        approvalEntity.setApvCom(approvalDto.getApvCom());
+        approvalEntity.setDate(approvalDto.getDate());
+
         return approvalEntity;
     }
+
+    public static ApprovalEntity toApvUpdateEntity0(ApprovalDto approvalDto) {
+        ApprovalEntity approvalEntity =new ApprovalEntity();
+
+        approvalEntity.setId(approvalDto.getId());
+        approvalEntity.setApvTitle(approvalDto.getApvTitle());
+        approvalEntity.setApvContent(approvalDto.getApvContent());
+        approvalEntity.setApvAttachFile(0);
+        approvalEntity.setMemberEntity(approvalDto.getMemberEntity());
+        approvalEntity.setApvFnl(approvalDto.getApvFnl());
+        approvalEntity.setApprovalDivEntity(approvalDto.getApprovalDivEntity());
+        approvalEntity.setApprovalStatusEntity(approvalDto.getApprovalStatusEntity());
+        approvalEntity.setApprovalFileEntityList(approvalDto.getApprovalFileEntityList());
+        approvalEntity.setDate(approvalDto.getDate());
+
+        return approvalEntity;
+    }
+
+    public static ApprovalEntity toApvUpdateEntity1(ApprovalDto approvalDto) {
+        ApprovalEntity approvalEntity =new ApprovalEntity();
+        approvalEntity.setId(approvalDto.getId());
+        approvalEntity.setApvTitle(approvalDto.getApvTitle());
+        approvalEntity.setApvContent(approvalDto.getApvContent());
+        approvalEntity.setApvAttachFile(1);
+        approvalEntity.setMemberEntity(approvalDto.getMemberEntity());
+        approvalEntity.setApvFnl(approvalDto.getApvFnl());
+        approvalEntity.setApprovalDivEntity(approvalDto.getApprovalDivEntity());
+        approvalEntity.setApprovalStatusEntity(approvalDto.getApprovalStatusEntity());
+        approvalEntity.setApprovalFileEntityList(approvalDto.getApprovalFileEntityList());
+        approvalEntity.setDate(approvalDto.getDate());
+
+        return approvalEntity;
+    }
+
+
 }

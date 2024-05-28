@@ -16,14 +16,15 @@
             </div>
         </div>
         <h1>
-            <a th:href="@{/apv/apvMyList}">보낸 문서</a>
-            <a th:href="@{/apv/#}">대기 문서</a>
-            <a th:href="@{/apv/#}">완료</a>
-            <a th:href="@{/apv/write}">문서 작성</a>
+            <a th:href="@{/apv/myApvList}">보낸문서 </a>
+            <a th:href="@{/apv/#}">대기문서 </a>
+            <a th:href="@{/apv/list}">전체문서 </a>
+            <a th:href="@{/apv/write}">문서작성 </a>
         </h1>
         <div class="bottom">
             <div class="index-data">
                 <table>
+                    <thead>
                     <tr>
                         <div class="search">
                             <div class="search-con">
@@ -46,7 +47,6 @@
                             </div>
                         </div>
                     </tr>
-                    <thead>
                     <tr>
                         <th>번호</th>
                         <th>제목</th>

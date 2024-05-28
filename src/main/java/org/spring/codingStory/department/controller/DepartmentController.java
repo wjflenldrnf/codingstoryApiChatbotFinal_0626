@@ -64,16 +64,25 @@ public class DepartmentController {
   }
 
 
-
-  //멤버추가컨트롤러
   @GetMapping("/members")
-  public String showDepartmentMembers(@RequestParam Long deptId, Model model){
+  public String showDepartmentMembers(@RequestParam("deptId") Long deptId,@RequestParam("dptName") String dptName, Model model){
+    System.out.println("Received deptId:" +deptId);
     DepartmentDto department= departmentService.getDepartmentByIdWithMembers(deptId);
-    model.addAttribute("memberDto",new MemberDto());
     model.addAttribute("department",department);
+    model.addAttribute("dptName",dptName);
+
 
     return "department/members";
   }
+
+  @PostMapping("/addMember")
+  public String addDepartmentMember(@RequestParam("deptId") Long deptId,
+                                    @RequestParam("dptName")String dptName,  @ModelAttribute("memberDto")MemberDto memberDto){
+    departmentService.adddMemberToDepartment(deptId, memberDto);
+    return "redirect:/department/members?deptId=" + deptId + "&dptName=" +dptName;
+  }
+
+
   // 부서 선택 및 초기 데이터를 로드하는 컨트롤러
   @GetMapping
   public String showDepartmentForm(Model model){
@@ -87,14 +96,6 @@ public class DepartmentController {
   }
 
 
-  @PostMapping("/addMember")
-  public String addDepartmentMember(@RequestParam Long deptId, @ModelAttribute("memberDto")MemberDto memberDto){
-    departmentService.adddMemberToDepartment(deptId, memberDto);
-    return "redirect:/department/members?deptId=" + deptId;
-  }
-
-
-
   //부서 추가시 부모 부서를 선택 할 수 있는 컨틀로러
   @GetMapping("/parents")
   @ResponseBody
@@ -102,6 +103,12 @@ public class DepartmentController {
     List<DepartmentEntity> parentDepartments= departmentService.getParentDepartments();
     return ResponseEntity.ok().body(parentDepartments);
   }
+
+
+
+
+
+
 
 
 

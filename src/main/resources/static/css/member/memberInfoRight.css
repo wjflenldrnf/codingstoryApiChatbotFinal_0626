@@ -12,13 +12,11 @@
 }
 
 .index .right .right-con .bottom{
-  padding: 10px ;
   box-sizing: border-box;
 }
 .index .right .right-con .bottom .index-data{
   height: calc( 100vh - 100px );
   box-sizing: border-box;
-  background-color: #ededea;
 
 }
 

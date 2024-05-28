@@ -9,6 +9,8 @@ import org.spring.codingStory.member.repository.MemberFileRepository;
 import org.spring.codingStory.member.repository.MemberRepository;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.member.serviceImpl.service.MemberService;
+import org.spring.codingStory.payment.entity.PaymentEntity;
+import org.spring.codingStory.payment.repository.PaymentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,8 +25,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Service
 @Transactional
@@ -33,6 +33,7 @@ public class MemberServiceImpl implements MemberService {
   private final MemberRepository memberRepository;
   private final PasswordEncoder passwordEncoder;
   private final MemberFileRepository fileRepository;
+  private final PaymentRepository paymentRepository;
 
   @Override
   public void memberJoin(MemberDto memberDto) throws IOException {
@@ -299,21 +300,7 @@ public class MemberServiceImpl implements MemberService {
     memberRepository.save(memberEntity);
   }
 
-  @Override
-  public int memberAppOk(MemberDto memberDto) {
 
-
-    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
-            .orElseThrow(() -> new IllegalArgumentException("xx"));
-
-    memberEntity.setRole(Role.MEMBER);
-    memberEntity.setDepartment(memberDto.getDepartment());
-    memberEntity.setMRank(memberDto.getMRank());
-    memberRepository.save(memberEntity);
-
-    return 1;
-
-  }
 
   @Override
   public Page<MemberDto> memberAppList(Pageable pageable) {
@@ -359,7 +346,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     if (memberDto.getMemberFile().isEmpty()) {
-      memberEntity = MemberEntity.toUpdateMember(memberDto);
+      memberEntity=MemberEntity.toUpdateMember(memberDto,passwordEncoder);
       memberRepository.save(memberEntity);
     } else if (!memberDto.getMemberFile().isEmpty()) {
       MultipartFile memberFile = memberDto.getMemberFile();
@@ -372,7 +359,8 @@ public class MemberServiceImpl implements MemberService {
 
       memberDto.setMemberFileName(newFileName);
 
-      memberEntity = MemberEntity.toUpdateFileMember(memberDto);
+
+      memberEntity=MemberEntity.toUpdateFileMember(memberDto,passwordEncoder);
 
       Long memberId = memberRepository.save(memberEntity).getId();
 
@@ -401,6 +389,7 @@ public class MemberServiceImpl implements MemberService {
   }
 
 
+
   @Override
   public int memberDelete(Long id) {
 
@@ -414,4 +403,73 @@ public class MemberServiceImpl implements MemberService {
   }
 
 
+    /////////////////////////////////////////////////////
+
+
+//    @Override
+//    public void memberJoin(MemberDto memberDto) throws IOException {
+//        MemberEntity memberEntity;
+//
+//        if (memberDto.getMemberFile().isEmpty()) {
+//            memberEntity = MemberEntity.toJoinMember(memberDto, passwordEncoder);
+//        } else {
+//            MultipartFile memberFile = memberDto.getMemberFile();
+//
+//            String oldFileName = memberFile.getOriginalFilename();
+//            UUID uuid = UUID.randomUUID();
+//            String newFileName = uuid + "_" + oldFileName;
+//            String fileSavePath = "C:/codingStory_file/" + newFileName;
+//            memberFile.transferTo(new File(fileSavePath));
+//
+//            memberEntity = MemberEntity.toJoinFileMember(memberDto, passwordEncoder);
+//        }
+//
+//        // PaymentEntity 생성
+//        PaymentEntity paymentEntity = new PaymentEntity();
+//        paymentEntity.setMemberEntity(memberEntity);
+//
+//        // mRank가 "사장"일 때 hourWage를 500원으로 설정
+//        if ("사원".equals(memberDto.getMRank())) {
+//            paymentEntity.setHourlyWage("500");
+//        } else {
+//            paymentEntity.setHourlyWage("1000"); // 기본 값 설정
+//        }
+//
+//        // 관계 설정
+//        memberEntity.setPaymentEntity(paymentEntity);
+//
+//        memberRepository.save(memberEntity);
+//        paymentRepository.save(paymentEntity);
+//    }
+
+    @Override
+    public int memberAppOk(MemberDto memberDto) {
+
+        MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("xx"));
+
+        memberEntity.setRole(Role.MEMBER);
+        memberEntity.setDepartment(memberDto.getDepartment());
+        memberEntity.setMRank(memberDto.getMRank());
+        memberRepository.save(memberEntity);
+
+        // PaymentEntity 생성 및 저장
+        PaymentEntity paymentEntity = new PaymentEntity();
+        paymentEntity.setMemberEntity(memberEntity);
+
+        // mRank가 "사장"일 때 hourWage를 1000원으로 설정
+
+        if ("사원".equals(memberDto.getMRank())) {
+            paymentEntity.setHourlyWage("500");
+        }else if ("지점장".equals(memberDto.getMRank())) {
+            paymentEntity.setHourlyWage("700");
+        }
+        else {
+            paymentEntity.setHourlyWage("600"); // 기본 값 설정
+        }
+
+        paymentRepository.save(paymentEntity);
+
+        return 1;
+    }
 }

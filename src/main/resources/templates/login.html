@@ -35,17 +35,25 @@
               <p><a th:href="@{/member/findCheck}">비밀번호찾기</a></p>
             </div>
           </div>
-
+        </ul>
+      </form>
           <div class="sns">
-<!--            <a th:href="@{/oauth2/authorization/google}"><img th:src="@{/images/google.png}" alt="google"></a> <br>-->
-<!--            <a th:href="@{/oauth2/authorization/kakao}"><img th:src="@{/images/kakao.png}" alt="kakao"></a> <br>-->
-<!--            <a th:href="@{/oauth2/authorization/naver}"><img th:src="@{/images/naver.png}" alt="naver"></a>-->
-            <a th:href="@{/oauth2/authorization/google}"><p>구글로그인</p></a>
-            <a th:href="@{/oauth2/authorization/kakao}"><p>카카오로그인</p></a>
-            <a th:href="@{/oauth2/authorization/naver}"><p>네이버로그인</p></a>
+            <div class="sns-con">
+            <a th:href="@{/oauth2/authorization/kakao}"><img th:src="@{/images/kakao.png}" alt="kakao"></a> <br>
+            <a th:href="@{/oauth2/authorization/naver}"><img th:src="@{/images/naver.png}" alt="naver"></a>
+            <div class="google2" th:onClick="|location.href='@{/oauth2/authorization/google}'|">
+              <ul>
+                <li>
+                  <img th:src="@{/images/google.png}" alt="google">
+                </li>
+                <li>
+                  <p>구글 로그인</p>
+                </li>
+              </ul>
+            </div>
+            </div>
           </div>
 
-        </ul>
         <li>
           <th:block th:if="error">
             <p style="color:#ff0000; font-size:12px;" th:text="${exception}"></p>
@@ -53,7 +61,7 @@
         </li>
 
 
-      </form>
+
     </div>
   </div>
 </div>
