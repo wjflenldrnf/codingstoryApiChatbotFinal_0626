@@ -2,6 +2,8 @@
 /*index*/
 .container{
   width:100%;
+background: linear-gradient(to top, #003973, #E5E5BE);
+
 }
 
 .index{
@@ -15,7 +17,6 @@
   height: 100vh;
   position: sticky;
   top:0;
-background: linear-gradient(to bottom, #4C4C4C 57%, rgba(255, 255, 255, 0.58) 74%);
 }
 .index .left-con{
   height: 100vh;
@@ -67,6 +68,11 @@ background: linear-gradient(to bottom, #4C4C4C 57%, rgba(255, 255, 255, 0.58) 74
   padding: 2px 5px;
   box-sizing: border-box;
   text-align: center;
+  background: radial-gradient(circle, #E5E5BE, rgba(0, 57, 115, 0.45));
+
+}
+.index .left-con .left-top .left-menu>ul>li a{
+ color:#000;
 }
 
 .index .left-con .bottom{
@@ -86,7 +92,6 @@ background: linear-gradient(to bottom, #4C4C4C 57%, rgba(255, 255, 255, 0.58) 74
 }
 .index .right .right-con .right-top{
   height: 80px;
-background: linear-gradient(to right, #4C4C4C, rgba(255, 255, 255, 0.58));
   position: sticky;
   top:0;
 
@@ -231,7 +236,7 @@ overflow: hidden;
 
 .right ul.submenu > li {
 /* line-height: 50px; */
-background: radial-gradient(circle, rgba(107, 107, 107, 0.9), rgba(198, 195, 195, 1));
+background-color: rgb(222 223 188);
 justify-content: center;
 
 }
