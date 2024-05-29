@@ -38,7 +38,15 @@
           <div class="dpt">조직도</div>
           <div class="att">출퇴근</div>
           <div class="time">시간</div>
-          <div class="board">게시판</div>
+          <div class="board">게시판
+              <div  class="freeHit" th:each="freeHit :${freeHit}">
+                  <ul>
+                      <li><a th:href="@{/board/freeDetail/{id}(id=${freeHit.id})}"><span th:text="${freeHit.freeTitle}"></span></a></li>
+                      <li class="heart">┴<span class="hit" th:text="${freeHit.freeHit}"></span></li>
+                  </ul>
+              </div>
+          </div>
+
       </div>
     </div>
   </div>

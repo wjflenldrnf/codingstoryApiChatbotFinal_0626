@@ -20,4 +20,7 @@ public interface FreeRepository extends JpaRepository<FreeEntity,Long> {
     Page<FreeEntity> findByCategoryInAndFreeTitleContains(List<String> categories, String search, Pageable pageable);
 
     Page<FreeEntity> findByCategoryInAndFreeContentContains(List<String> categories, String search, Pageable pageable);
+
+
+    List<FreeEntity> findTop3ByOrderByFreeHitDesc();
 }
