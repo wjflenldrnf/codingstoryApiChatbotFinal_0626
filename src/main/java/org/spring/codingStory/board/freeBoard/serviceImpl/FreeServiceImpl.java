@@ -97,25 +97,25 @@ public class FreeServiceImpl implements FreeService {
         Page<FreeEntity> freeEntityPage = null;
 
         if (subject1 != null && subject2 != null && search != null) {
-            if ("FreeTitle".equals(subject2)) {
+            if ("freeTitle".equals(subject2)) {
                 if ("노원점".equals(subject1)) {
                     freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("노원점"), search, pageable);
-                } else if ("자동차극장".equals(subject1)) {
-                    freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("자동차극장"), search, pageable);
-                } else if ("야외극장".equals(subject1)) {
-                    freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("야외극장"), search, pageable);
-                } else if ("VIP극장".equals(subject1)) {
-                    freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("VIP극장"), search, pageable);
+                } else if ("자동차관".equals(subject1)) {
+                    freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("자동차관"), search, pageable);
+                } else if ("야외관".equals(subject1)) {
+                    freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("야외관"), search, pageable);
+                } else if ("커플관".equals(subject1)) {
+                    freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("커플관"), search, pageable);
                 }
             } else if ("freeContent".equals(subject2)) {
                 if ("노원점".equals(subject1)) {
                     freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("노원점"), search, pageable);
-                } else if ("자동차극장".equals(subject1)) {
-                    freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("자동차극장"), search, pageable);
-                } else if ("야외극장".equals(subject1)) {
-                    freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("야외극장"), search, pageable);
-                } else if ("VIP극장".equals(subject1)) {
-                    freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("VIP극장"), search, pageable);
+                } else if ("자동차관".equals(subject1)) {
+                    freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("자동차관"), search, pageable);
+                } else if ("야외관".equals(subject1)) {
+                    freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("야외관"), search, pageable);
+                } else if ("커플관".equals(subject1)) {
+                    freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("커플관"), search, pageable);
                 }
             }
         } else {

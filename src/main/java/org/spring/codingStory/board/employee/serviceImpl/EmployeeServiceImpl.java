@@ -1,6 +1,5 @@
 package org.spring.codingStory.board.employee.serviceImpl;
 
-import com.fasterxml.jackson.databind.introspect.AnnotationCollector;
 import lombok.RequiredArgsConstructor;
 import org.spring.codingStory.board.employee.dto.EmployeeDto;
 import org.spring.codingStory.board.employee.dto.EmployeeFileDto;
@@ -19,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -88,34 +86,39 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Page<EmployeeDto> empList(Pageable pageable, String searchCategory, String searchField, String search) {
-        if (searchCategory == null || searchField == null || search == null) {
+    public Page<EmployeeDto> empList(Pageable pageable, String subject1, String subject2, String search) {
+        Page<EmployeeEntity> employeeEntityPage = null;
+
+        if (subject1 != null && subject2 != null && search != null) {
+            if ("empTitle".equals(subject2)) {
+                if ("노원점".equals(subject1)) {
+                    employeeEntityPage = employeeRepository.findByCategoryInAndEmpTitleContains(Collections.singletonList("노원점"), search, pageable);
+                } else if ("자동차관".equals(subject1)) {
+                    employeeEntityPage = employeeRepository.findByCategoryInAndEmpTitleContains(Collections.singletonList("자동차관"), search, pageable);
+                } else if ("야외관".equals(subject1)) {
+                    employeeEntityPage = employeeRepository.findByCategoryInAndEmpTitleContains(Collections.singletonList("야외관"), search, pageable);
+                } else if ("커플관".equals(subject1)) {
+                    employeeEntityPage = employeeRepository.findByCategoryInAndEmpTitleContains(Collections.singletonList("커플관"), search, pageable);
+                }
+            } else if ("empContent".equals(subject2)) {
+                if ("노원점".equals(subject1)) {
+                    employeeEntityPage = employeeRepository.findByCategoryInAndEmpContentContains(Collections.singletonList("노원점"), search, pageable);
+                } else if ("자동차관".equals(subject1)) {
+                    employeeEntityPage = employeeRepository.findByCategoryInAndEmpContentContains(Collections.singletonList("자동차관"), search, pageable);
+                } else if ("야외관".equals(subject1)) {
+                    employeeEntityPage = employeeRepository.findByCategoryInAndEmpContentContains(Collections.singletonList("야외관"), search, pageable);
+                } else if ("커플관".equals(subject1)) {
+                    employeeEntityPage = employeeRepository.findByCategoryInAndEmpContentContains(Collections.singletonList("커플관"), search, pageable);
+                }
+            }
+        } else {
+            // null일 경우 기본적으로 findAll 메서드 호출
             return employeeRepository.findAll(pageable).map(EmployeeDto::toEmpDto);
         }
-
-        String field = getFieldFromSearchField(searchField);
-
-        List<String> categories = Collections.singletonList(searchCategory);
-
-        if ("EmpTitle".equals(field)) {
-            return employeeRepository.findByCategoryInAndEmpTitleContainsOrCategoryInAndEmpContentContains(
-                    categories, search, categories, search, pageable).map(EmployeeDto::toEmpDto);
-        } else {
-            return employeeRepository.findByCategoryInAndEmpTitleContainsOrCategoryInAndEmpContentContains(
-                    categories, search, categories, search, pageable).map(EmployeeDto::toEmpDto);
-        }
+        Page<EmployeeDto> employeeDtoPage = employeeEntityPage.map(EmployeeDto::toEmpDto);
+        // noticeEntityPage가 null이 아닌 경우에만 map() 메서드 호출
+        return employeeDtoPage;
     }
-    private String getFieldFromSearchField(String searchField) {
-        switch (searchField) {
-            case "empTitle":
-                return "EmpTitle"; // "EmployeeTitle"에서 "EmpTitle"로 변경
-            case "empContent":
-                return "EmpContent"; // 변경할 필요 없음
-            default:
-                throw new IllegalArgumentException("Invalid search field: " + searchField);
-        }
-    }
-
     @Override
     public EmployeeDto detail(Long Id) {
         Optional<EmployeeEntity> optionalEmployeeEntity = employeeRepository.findById(Id);
