@@ -19,10 +19,14 @@ public class MessageDTO {
 
 	public MessageDTO today(String today) {
 		this.today=today;
-		return this;		
+		return this;
 	}
+
+
 	public MessageDTO answer(AnswerDTO answer) {
 		this.answer=answer;
-		return this;		
+		return this;
 	}
+
+
 }

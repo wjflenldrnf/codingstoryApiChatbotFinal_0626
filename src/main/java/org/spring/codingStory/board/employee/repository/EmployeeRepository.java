@@ -17,7 +17,8 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity,Long> {
     @Query(value = " update EmployeeEntity b set b.empHit=b.empHit+1  where b.id= :id ")
     void updateEmpHit(@Param("id") Long id);
 
-    Page<EmployeeEntity> findByCategoryInAndEmpTitleContainsOrCategoryInAndEmpContentContains(
-            List<String> categories1, String searchTitle, List<String> categories2, String searchContent, Pageable pageable);
 
+    Page<EmployeeEntity> findByCategoryInAndEmpTitleContains(List<String> categories, String search, Pageable pageable);
+
+    Page<EmployeeEntity> findByCategoryInAndEmpContentContains(List<String> categories, String search, Pageable pageable);
 }

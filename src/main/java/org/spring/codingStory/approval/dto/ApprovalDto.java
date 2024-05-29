@@ -36,6 +36,8 @@ public class ApprovalDto {
 
     private String apvStatus;
 
+    private Long apvStatusId;
+
     //dto만 따로 추가
     private Long memberId;
 
@@ -70,6 +72,7 @@ public class ApprovalDto {
     approvalDto.setApvTitle(approvalEntity.getApvTitle());
     approvalDto.setApvContent(approvalEntity.getApvContent());
     approvalDto.setApprovalStatusEntity(approvalEntity.getApprovalStatusEntity());
+    approvalDto.setApvStatusId(approvalEntity.getApprovalStatusEntity().getId()); // apvStatusId 추가
     approvalDto.setApvAttachFile(approvalDto.getApvAttachFile());
     approvalDto.setMemberEntity(approvalEntity.getMemberEntity());
     approvalDto.setApprovalDivEntity(approvalEntity.getApprovalDivEntity());

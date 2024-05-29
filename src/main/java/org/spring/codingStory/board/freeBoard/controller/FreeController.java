@@ -53,7 +53,7 @@ public class FreeController {
     }
 
     @GetMapping("/freeList")
-    public String freeList(@PageableDefault(page = 0, size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+    public String freeList(@PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                            Model model,
                            @RequestParam(name = "subject1", required = false) String subject1,
                            @RequestParam(name = "subject2", required = false) String subject2,

@@ -89,35 +89,38 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public Page<NoticeDto> noticeList(Pageable pageable, String subject1, String subject2, String search) {
+        NoticeEntity noticeEntity=new NoticeEntity();
         Page<NoticeEntity> noticeEntityPage = null;
 
         if (subject1 != null && subject2 != null && search != null) {
-            if ("NoticeTitle".equals(subject2)) {
+            if ("noticeTitle".equals(subject2)) {
                 if ("노원점".equals(subject1)) {
                     noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("노원점"), search, pageable);
-                } else if ("자동차극장".equals(subject1)) {
-                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("자동차극장"), search, pageable);
-                } else if ("야외극장".equals(subject1)) {
-                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("야외극장"), search, pageable);
-                } else if ("VIP극장".equals(subject1)) {
-                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("VIP극장"), search, pageable);
+                } else if ("자동차관".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("자동차관"), search, pageable);
+                } else if ("야외관".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("야외관"), search, pageable);
+                } else if ("커플관".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("커플관"), search, pageable);
                 }
             } else if ("noticeContent".equals(subject2)) {
                 if ("노원점".equals(subject1)) {
                     noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("노원점"), search, pageable);
-                } else if ("자동차극장".equals(subject1)) {
-                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("자동차극장"), search, pageable);
-                } else if ("야외극장".equals(subject1)) {
-                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("야외극장"), search, pageable);
-                } else if ("VIP극장".equals(subject1)) {
-                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("VIP극장"), search, pageable);
+                } else if ("자동차관".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("자동차관"), search, pageable);
+                } else if ("야외관".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("야외관"), search, pageable);
+                } else if ("커플관".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("커플관"), search, pageable);
                 }
             }
         } else {
-            noticeEntityPage = noticeRepository.findAll(pageable);
+            // null일 경우 기본적으로 findAll 메서드 호출
+            return noticeRepository.findAll(pageable).map(NoticeDto::toNoticeDto);
         }
-
-        return noticeEntityPage.map(NoticeDto::toNoticeDto);
+        Page<NoticeDto> noticeDtoPage = noticeEntityPage.map(NoticeDto::toNoticeDto);
+        // noticeEntityPage가 null이 아닌 경우에만 map() 메서드 호출
+        return noticeDtoPage;
     }
 
     @Override

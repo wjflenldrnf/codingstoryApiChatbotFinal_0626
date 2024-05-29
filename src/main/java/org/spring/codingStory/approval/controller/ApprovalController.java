@@ -87,14 +87,6 @@ public class ApprovalController {
         return "redirect:/apv/list";
     }
 
-    //코멘트 작성 폼
-//    @PostMapping("/write1")
-//    public String write1(ApprovalDto approvalDto) throws IOException {
-//
-//        approvalService.apvWriteCom(approvalDto);
-//
-//        return "apv/write";
-//    }
 
     //내가 결재자인 보고서
     @GetMapping("/list")
@@ -104,15 +96,17 @@ public class ApprovalController {
                            @RequestParam(name = "search", required = false) String search,
                            @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC)
                            Pageable pageable) {
-        ApprovalEntity approvalEntity = new ApprovalEntity();
-        ApprovalDto approvalDto = new ApprovalDto();
         System.out.println(">>>>>>>>>" + myUserDetails.getName());
         model.addAttribute("myUserDetails", myUserDetails);
         String name = myUserDetails.getName();
-
-//        Long id = approvalEntity.getApprovalStatusEntity().getId();
+        Long memberId=myUserDetails.getMemberEntity().getId();
 
         Page<ApprovalDto> approvalDtoPage = approvalService.apvList(pageable, subject, search, name);
+
+        Long apvCount=approvalService.apvCount(name);
+        Long apvWaitCount = approvalService.apvWaitCount(name,1L);
+        Long apvDenyCount = approvalService.apvDenyCount(name,3L);
+        Long apvMyCount = approvalService.apvMyCount(memberId);
 
         int totalPages = approvalDtoPage.getTotalPages();
         int newPage = approvalDtoPage.getNumber();
@@ -126,9 +120,94 @@ public class ApprovalController {
         model.addAttribute("newPage", newPage);
         model.addAttribute("endPage", endPage);
         model.addAttribute("approvalDtoPage", approvalDtoPage);
+        model.addAttribute("apvCount", apvCount);
+        model.addAttribute("apvWaitCount", apvWaitCount);
+        model.addAttribute("apvDenyCount", apvDenyCount);
+        model.addAttribute("apvMyCount", apvMyCount);
 
         return "/apv/list";
     }
+
+
+
+    //진행(대기)중인 보고서
+    @GetMapping("/waitList")
+    public String apvWaitList(Model model,
+                           @AuthenticationPrincipal MyUserDetails myUserDetails,
+                           @RequestParam(name = "subject", required = false) String subject,
+                           @RequestParam(name = "search", required = false) String search,
+                           @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC)
+                           Pageable pageable) {
+        model.addAttribute("myUserDetails", myUserDetails);
+        String name = myUserDetails.getName();
+        Long approvalStatusEntity_Id = 1L;
+        Long memberId=myUserDetails.getMemberEntity().getId();
+
+        Page<ApprovalDto> approvalDtoPage = approvalService.apvWaitList(pageable, subject, approvalStatusEntity_Id, search, name);
+        Long apvCount=approvalService.apvCount(name);
+        Long apvWaitCount = approvalService.apvWaitCount(name,1L);
+        Long apvDenyCount = approvalService.apvDenyCount(name,3L);
+        Long apvMyCount = approvalService.apvMyCount(memberId);
+
+        int totalPages = approvalDtoPage.getTotalPages();
+        int newPage = approvalDtoPage.getNumber();
+        int blockNum = 10;
+        int startPage = (int) (
+            (Math.floor(newPage / blockNum) * blockNum) + 1 <=
+                totalPages ? (Math.floor(newPage / blockNum) * blockNum) + 1 : totalPages);
+        int endPage = (startPage + blockNum) - 1 < totalPages ? (startPage + blockNum) - 1 : totalPages;
+
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("newPage", newPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("approvalDtoPage", approvalDtoPage);
+        model.addAttribute("apvCount", apvCount);
+        model.addAttribute("apvWaitCount", apvWaitCount);
+        model.addAttribute("apvDenyCount", apvDenyCount);
+        model.addAttribute("apvMyCount", apvMyCount);
+
+        return "/apv/waitList";
+    }
+
+    // 반려된 보고서
+    @GetMapping("/denyList")
+    public String apvDenyList(Model model,
+                              @AuthenticationPrincipal MyUserDetails myUserDetails,
+                              @RequestParam(name = "subject", required = false) String subject,
+                              @RequestParam(name = "search", required = false) String search,
+                              @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC)
+                              Pageable pageable) {
+        model.addAttribute("myUserDetails", myUserDetails);
+        String name = myUserDetails.getName();
+        Long memberId = myUserDetails.getMemberEntity().getId();
+        Long approvalStatusEntity_Id = 3L;
+
+        Page<ApprovalDto> approvalDtoPage = approvalService.apvDenyList(pageable, subject, approvalStatusEntity_Id, search, name);
+        Long apvCount=approvalService.apvCount(name);
+        Long apvWaitCount = approvalService.apvWaitCount(name,1L);
+        Long apvDenyCount = approvalService.apvDenyCount(name,3L);
+        Long apvMyCount = approvalService.apvMyCount(memberId);
+
+        int totalPages = approvalDtoPage.getTotalPages();
+        int newPage = approvalDtoPage.getNumber();
+        int blockNum = 10;
+        int startPage = (int) (
+            (Math.floor(newPage / blockNum) * blockNum) + 1 <=
+                totalPages ? (Math.floor(newPage / blockNum) * blockNum) + 1 : totalPages);
+        int endPage = (startPage + blockNum) - 1 < totalPages ? (startPage + blockNum) - 1 : totalPages;
+
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("newPage", newPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("approvalDtoPage", approvalDtoPage);
+        model.addAttribute("apvCount", apvCount);
+        model.addAttribute("apvWaitCount", apvWaitCount);
+        model.addAttribute("apvDenyCount", apvDenyCount);
+        model.addAttribute("apvMyCount", apvMyCount);
+
+        return "/apv/denyList";
+    }
+
 
     ///내가 쓴  보고서
     @GetMapping("/myApvList")
@@ -142,7 +221,12 @@ public class ApprovalController {
         System.out.println(">>>>>>>>>" + myUserDetails.getName());
         model.addAttribute("myUserDetails", myUserDetails);
         Long memberId = myUserDetails.getMemberEntity().getId();
+        String name = myUserDetails.getName();
         Page<ApprovalDto> approvalDtoPage = approvalService.myApvList(pageable, subject, search, memberId);
+        Long apvCount=approvalService.apvCount(name);
+        Long apvWaitCount = approvalService.apvWaitCount(name,1L);
+        Long apvDenyCount = approvalService.apvDenyCount(name,3L);
+        Long apvMyCount = approvalService.apvMyCount(memberId);
 
         int totalPages = approvalDtoPage.getTotalPages();
         int newPage = approvalDtoPage.getNumber();
@@ -156,8 +240,23 @@ public class ApprovalController {
         model.addAttribute("newPage", newPage);
         model.addAttribute("endPage", endPage);
         model.addAttribute("approvalDtoPage", approvalDtoPage);
+        model.addAttribute("apvCount", apvCount);
+        model.addAttribute("apvWaitCount", apvWaitCount);
+        model.addAttribute("apvDenyCount", apvDenyCount);
+        model.addAttribute("apvMyCount", apvMyCount);
 
         return "/apv/myApvList";
+    }
+
+
+    @GetMapping("waitCount")
+    public Long waitCount(@AuthenticationPrincipal MyUserDetails myUserDetails,
+                           Model model){
+        String name = myUserDetails.getName();
+        Long approvalStatusEntity_Id = 1L;
+        Long waitCount=  approvalService.apvWaitCount(name,approvalStatusEntity_Id);
+    model.addAttribute("waitCount",waitCount);
+        return waitCount;
     }
 
 

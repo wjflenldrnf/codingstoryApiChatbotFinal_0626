@@ -53,7 +53,7 @@ public class NoticeController {
     }
 
     @GetMapping("/noticeList")
-    public String noticeList(@PageableDefault(page = 0, size = 8, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+    public String noticeList(@PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                            Model model,
                            @RequestParam(name = "subject1", required = false) String subject1,
                            @RequestParam(name = "subject2", required = false) String subject2,
@@ -64,16 +64,15 @@ public class NoticeController {
         Page<NoticeDto> noticeList = noticeService.noticeList(pageable, subject1, subject2, search);
 
 
-        int totalPage = noticeList.getTotalPages();//전체page
-        int newPage = noticeList.getNumber();//현재page
-        Long totalElements = noticeList.getTotalElements();//전체 레코드 갯수
-        int size = noticeList.getSize();//페이지당 보이는 갯수
+        int totalPages = noticeList.getTotalPages(); // 전체 페이지
+        int newPage = noticeList.getNumber(); // 현재 페이지
+        int blockNum = 8;// 브라우저에 보이는 페이지번호
 
-        int blockNum = 3; //브라우저에 보이는 페이지 갯수
+        int startPage = (int) (
+                (Math.floor(newPage / blockNum) * blockNum) + 1 <= totalPages ? (Math.floor(newPage / blockNum) * blockNum) + 1 : totalPages
+        );
 
-        int startPage = (int) ((Math.floor(newPage / blockNum) * blockNum) + 1 <= totalPage
-                ? (Math.floor(newPage / blockNum) * blockNum) + 1 : totalPage);
-        int endPage = (startPage + blockNum) - 1 < totalPage ? (startPage + blockNum) - 1 : totalPage;
+        int endPage = (startPage + blockNum) - 1 < totalPages ? (startPage + blockNum) - 1 : totalPages;
 
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);

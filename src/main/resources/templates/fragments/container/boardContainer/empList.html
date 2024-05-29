@@ -33,11 +33,11 @@
                                                 <select name="subject1" id="subject1">
                                                     <option value="노원점" th:selected="${param.subject1 == '노원점'}">노원점
                                                     </option>
-                                                    <option value="자동차극장" th:selected="${param.subject1 == '자동차극장'}">자동차극장
+                                                    <option value="자동차관" th:selected="${param.subject1 == '자동차관'}">자동차관
                                                     </option>
-                                                    <option value="야외극장" th:selected="${param.subject1 == '야외극장'}">야외극장
+                                                    <option value="야외관" th:selected="${param.subject1 == '야외관'}">야외관
                                                     </option>
-                                                    <option value="VIP극장" th:selected="${param.subject1 == 'VIP극장'}">VIP극장
+                                                    <option value="커플관" th:selected="${param.subject1 == '커플관'}">커플관
                                                     </option>
                                                 </select>
                                                 <select name="subject2" id="subject2">
@@ -88,7 +88,7 @@
                                                     <span th:if="${empList.pageable.pageNumber + 1 eq 1}" class="span0">&laquo;</span>
                                                     <!-- 처음 페이지가 아니면  a -->
                                                     <span th:unless="${empList.pageable.pageNumber + 1 eq 1}">
-                                                        <a th:href="@{/board/empList(page=0, search=${param.search}, subject1=${param.subject1}, subject2=${param.subject2})}"
+                                                        <a th:href="@{/board/empList(page=0, search=${param.search}, subject1=${param.subject1})}"
                                                            class="span1">&laquo;</a>
                                                     </span>
                                                 </li>
@@ -97,7 +97,7 @@
                                                     <span th:if="${1 == empList.pageable.pageNumber + 1}" class="span0">&lt;</span>
                                                     <span th:unless="${1 == empList.pageable.pageNumber + 1}">
                                                         <!-- itemList.pageable.pageNumber 현재페이지 -1 -->
-                                                        <a th:href="@{/board/empList(page=${empList.pageable.pageNumber - 1}, search=${param.search}, subject1=${param.subject1}, subject2=${param.subject2})}"
+                                                        <a th:href="@{/board/empList(page=${empList.pageable.pageNumber - 1}, search=${param.search}, subject1=${param.subject1})}"
                                                            class="span1">&lt;</a>
                                                     </span>
                                                 </li>
@@ -107,7 +107,7 @@
                                                     <span th:if="${i == empList.pageable.pageNumber + 1}" th:text="${i}"
                                                           class="now"></span>
                                                     <a th:unless="${i == empList.pageable.pageNumber + 1}"
-                                                       th:href="@{/board/empList(page=${i - 1}, search=${param.search}, subject1=${param.subject1}, subject2=${param.subject2})}"
+                                                       th:href="@{/board/empList(page=${i - 1}, search=${param.search}, subject1=${param.subject1})}"
                                                        th:text="${i}"></a>
                                                 </li>
                                                 <li>
@@ -116,7 +116,7 @@
                                                           class="span0">&gt;</span>
                                                     <!-- 현재페이지가 마지막 페이지아니면    a 표시 현재페이지 +1 -->
                                                     <span th:unless="${empList.totalPages == empList.pageable.pageNumber + 1}">
-                                                        <a th:href="@{/board/empList(page=${empList.pageable.pageNumber + 1}, search=${param.search}, subject1=${param.subject1}, subject2=${param.subject2})}"
+                                                        <a th:href="@{/board/empList(page=${empList.pageable.pageNumber + 1}, search=${param.search}, subject1=${param.subject1})}"
                                                            class="span1">&gt;</a>
                                                     </span>
                                                 </li>
@@ -126,7 +126,7 @@
                                                           class="span0">&raquo;</span>
                                                     <!-- 현재페이지가 마지막 페이지가 아니면 마지막 페이지로 이동 해라  a -->
                                                     <span th:unless="${empList.totalPages == empList.pageable.pageNumber + 1}">
-                                                        <a th:href="@{/board/empList(page=${empList.totalPages - 1}, search=${param.search}, subject1=${param.subject1}, subject2=${param.subject2})}"
+                                                        <a th:href="@{/board/empList(page=${empList.totalPages - 1}, search=${param.search}, subject1=${param.subject1})}"
                                                            class="span1">&raquo;</a>
                                                     </span>
                                                 </li>
