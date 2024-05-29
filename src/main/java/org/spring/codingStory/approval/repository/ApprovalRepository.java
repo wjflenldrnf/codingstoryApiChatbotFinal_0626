@@ -41,8 +41,8 @@ public interface ApprovalRepository extends JpaRepository<ApprovalEntity,Long> {
     Page<ApprovalEntity> findByApvFnlAndApprovalStatusEntityAndApvContentContaining(Pageable pageable, String name, ApprovalStatusEntity approvalStatusEntity, String search);
 
 
-    @Query(value = "select count(*) from apv_tb where apv_Fnl = :name and ApprovalStatusEntity = 1",nativeQuery = true)
-    int findByApvFnlAndApprovalStatusEntityCount(String name, ApprovalStatusEntity approvalStatusEntity);
+//    @Query(value = "select count(*) from apv_tb where apv_Fnl = :name and ApprovalStatusEntity = 1",nativeQuery = true)
+//    int findByApvFnlAndApprovalStatusEntityCount(String name, ApprovalStatusEntity approvalStatusEntity);
 
     Long countByApvFnl(String name);
 

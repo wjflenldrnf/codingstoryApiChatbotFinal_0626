@@ -14,6 +14,13 @@ display: flex;
     gap: 20px;
 }
 
+img{
+width:260px;
+height:260px;
+}
+
+
+
 
 
 .list{
@@ -38,7 +45,7 @@ display: flex;
     padding-top: 20px;
     gap:20px;
     border: 1px solid;
-        width: 800px;
+        width: 700px;
 }
 .center-bottom{
     display: flex;
@@ -53,15 +60,17 @@ display: flex;
     align-items: center;
     gap:5px;
     border: 1px solid #ccc;
+    border-radius:50px;
         width: 250px;
-        height:60px;
+        height:70px;
 }
 .info label{
 font-size:20px;
 font-weight:bold;
+color:#ffffff;
 }
 .info span{
-color:#7b8994;
+color:#ffffff;
 }
 
 
@@ -69,15 +78,17 @@ color:#7b8994;
 
 #pageNextBtn{
 border:0;
-background-color:#ffffff;
 font-size:50px;
-color:#6e6e6e;
+color:#c5c1e0;
+width:0;
+cursor:pointer;
 }
 #pageBeforeBtn{
 border:0;
-background-color:#ffffff;
+color:#c5c1e0;
 font-size:50px;
-color:#6e6e6e;
+width:0;
+cursor:pointer;
 }
 
 .down{
@@ -91,6 +102,9 @@ justify-content:center;
 align-items:center;
 }
 
+.down span{
+color:#ffffff;
+}
 
 .gogo{
 display:flex;
@@ -101,7 +115,10 @@ width:200px;
 height:50px;
 border-radius:6px;
 border:0;
-background-color:#ccc;
+background-color:#40464d;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 

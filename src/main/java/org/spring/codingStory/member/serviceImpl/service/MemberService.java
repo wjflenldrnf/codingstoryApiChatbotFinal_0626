@@ -39,4 +39,7 @@ public interface MemberService {
   void profileUpdate(MemberDto memberDto) throws IOException;
 
 
+  int memberJoin2(MemberDto memberDto) throws IOException;
+
+  int memberMD(MemberDto memberDto);
 }

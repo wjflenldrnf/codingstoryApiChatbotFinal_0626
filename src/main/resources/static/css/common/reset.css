@@ -11,5 +11,9 @@ ul,li{
 }
 a{
   text-decoration: none;
+<<<<<<< HEAD
   color: #ffffff;
+=======
+  color:#ffffff;
+>>>>>>> dev
 }

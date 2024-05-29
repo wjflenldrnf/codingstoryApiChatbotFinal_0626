@@ -6,7 +6,6 @@
   <meta charset="UTF-8">
   <title>index</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
   <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />-->
   <link rel="stylesheet" th:href="@{/css/member/test.css}">
@@ -14,10 +13,10 @@
 </head>
 <body>
 <div class="container">
-  <form th:action="@{/member/test}" method="post" enctype="multipart/form-data">
+  <form th:action="@{/member/test}" method="post" enctype="multipart/form-data" id="memberForm">
 
   <input type="text" id="userEmail" name="userEmail">
-  <select name="userEmail2" id="userEmail2">
+    <select name="emailDomain" id="emailDomain" onchange="updateEmail()">
     <option value="@story.com">story.com</option>
     <option value="@naver.com">naver.com</option>
     <option value="@nate.com">nate.com</option>
@@ -55,9 +54,6 @@
 
   </ul>
 </div>
-
-
-
 
 </body>
 </html>

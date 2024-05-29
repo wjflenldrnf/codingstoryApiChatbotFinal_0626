@@ -29,9 +29,12 @@
     </div>
     <div class="bottom">
       <div class="index-data">
+              <form th:action="@{/member/memberMD}" method="post" enctype="multipart/form-data">
         <div class="memberInfo">
           <div class="memberInfo-con">
             <div class="up">
+
+
               <th:block th:if="${member.memberAttachFile==1}">
                 <img th:src="@{|/upload/${member.memberNewFileName}|}" alt="이미지대체문구">
               </th:block>
@@ -75,57 +78,30 @@
                   <label for="createTime">가입일</label>
                   <li>
                     <span th:text="${#temporals.format(member.createTime, 'yy년MM월dd일 HH시mm분')}" id="createTime" name="createTime"></span>
-
                   </li>
                 </div>
 
                   <div class="info">
                     <label for="department">부서</label>
                 <li>
-                    <span th:text="${member.department}" id="department" name="department"></span>
-                    <div>
-                      <div id="modal" class="modal">
-                        <form id="departmentForm" method="post">
-                          <input type="hidden" id="memberId" name="memberId" th:value="${member.id}">
-                          <h2>변경할 부서를 선택해주세요</h2>
-                          <input type="radio" name="department" id="a1" value="일반관">
-                          <label for="a1"></label>
-                          <input type="radio" name="department" id="a2" value="야외관">
-                          <label for="a2"></label>
-                          <input type="radio" name="department" id="a3" value="자동차극장">
-                          <label for="a3"></label>
-                          <input type="radio" name="department" id="a4" value="해외지점">
-                          <label for="a4"></label>
+                  <select id="department" name="department">
+                    <option th:each="de : ${depart}" th:value="${de.dptName}"
+                            th:text="${de.dptName}">
+                    </option>
+                  </select>
 
-                          <button type="button" onClick="memberPasswordUpdateFn()">수정</button>
-                        </form>
-                        <a href="#" rel="modal:close">닫기</a>
-                      </div>
-                      <p><a href="#modal" rel="modal:open">변경</a></p>
-                    </div>
                   </div>
                 </li>
 
-
                   <div class="info">
-                    <label for="mRank0">직급</label>
+                    <label for="mRank">직급</label>
                   <li>
+                    <select id="mRank" name="mRank">
+                      <option th:each="re : ${rank}" th:value="${re.rankName}"
+                              th:text="${re.rankName}">
+                      </option>
+                    </select>
 
-                    <span th:text="${member.mRank}" id="mRank0" name="mRank0"></span>
-                    <div>
-                      <div id="modal1" class="modal">
-                        <form id="mRankForm" method="post">
-                          <input type="hidden" id="memberId1" name="memberId1" th:value="${member.id}">
-                          <h2>변경할 직급을 선택해주세요</h2>
-                          <div th:each="re : ${rank}">
-                            <input type="radio" th:value="${re.rankName}" id="rank1">
-                            <label for="rank1">[[${re.rankName}]]</label>
-                          </div>
-                        </form>
-                        <a href="#" rel="modal:close">닫기</a>
-                      </div>
-                      <p><a href="#modal1" rel="modal:open">변경</a></p>
-                    </div>
                   </div>
                 </li>
               </ul>
@@ -134,12 +110,15 @@
           </div>
         </div>
 
-        <div class="back">
-          <a th:href="@{/member/memberList}">목록으로</a>
+        <div class="gogo">
+          <button onclick="memberMDFn()">저장</button>
           <button onClick="memberDeleteReady()">해고</button>
         </div>
 
-
+        <div class="back">
+          <a th:href="@{/member/memberList}">목록으로</a>
+        </div>
+        </form>
       </div>
     </div>
   </div>

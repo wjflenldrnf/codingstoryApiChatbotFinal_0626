@@ -26,7 +26,6 @@ color:#8e8e8e;
 
 .login .login-con {
 width: 580px;
-min-height: 520px;
 margin: 40px auto 42px;
 padding: 0 69px;
 font-size: 12px;
@@ -65,7 +64,7 @@ cursor: pointer;
 border: 0;
 width: 100%;
 height: 50px;
-background-color: #d5d5d7;
+background-color: #ccc;
 border-radius: 4px;
 font-size: 16px;
 font-weight:400px;
@@ -81,16 +80,21 @@ gap:10px;
 
 
 .sns{
-display:flex;
-justify-content:center;
-flex-direction:column;
-align-items:center;
 }
 
 .sns a img{
 width:200px;
+height:50px;
 }
 .sns-con{
+display:flex;
+gap:20px;
+}
+.kakao{
+}
+.naver{
+display: flex;
+padding-right: 15px;
 }
 
 .google2{
@@ -110,6 +114,7 @@ display: flex;
 .google2 ul>li{
 }
 .google2 img{
+display:flex;
     height: 35px;
     padding-left: 5px;
 }

@@ -46,6 +46,7 @@ function nameCheck(){
   }else{
   $('#userName').css('outline','')
   $('#joinGo').css('cursor','pointer')
+  $('#nameConfirm').text('')
   document.getElementById('joinGo').disabled =false;
   }
 }
@@ -62,6 +63,7 @@ document.getElementById('joinGo').disabled =true;
 }else{
 $('#phone').css('outline','')
 $('#joinGo').css('cursor','pointer')
+$('#phoneNumberConfirm').text('')
 document.getElementById('joinGo').disabled =false;
 }
 }

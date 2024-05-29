@@ -108,8 +108,8 @@ background: linear-gradient(to top, #003973, #E5E5BE);
 .index .right .right-con .right-top .gnb>ul{
   display: flex;
   justify-content: space-between;
-  /* padding: 10px 0 ; */
   box-sizing: border-box;
+  padding-right: 40px;
  }
  .index .right .right-con .right-top .gnb>ul>li{
   box-sizing: border-box;
@@ -278,11 +278,20 @@ display:flex;
 padding: 10px 0;
 gap:10px;
 cursor:pointer;
+line-height:20px;
 }
 .myInfo li{
 display:flex;
+font-size:14px;
+box-sizing:border-box;
+gap: 10px;
+}
+.myInfo:hover{
+background: radial-gradient(circle, rgba(198, 195, 195, 1), rgba(107, 107, 107, 0.9));
+ color: #ffffff;
 }
 .myInfo p{
+color:#ffffff;
 }
 
 
