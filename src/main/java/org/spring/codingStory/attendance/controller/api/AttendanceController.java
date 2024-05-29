@@ -51,8 +51,14 @@ public class AttendanceController {
         return new ResponseEntity<>(pagingList, HttpStatus.OK);
     }
 
-    @PostMapping("/attendance/attendanceDelete/{id}/member/{memberId}")
-    public ResponseEntity<?> attendanceDelete(@PathVariable("id")Long id, @PathVariable("memberId")Long memberId) {
+//    @PostMapping("/attendance/attendanceDelete/{id}/member/{memberId}")
+//    public ResponseEntity<?> attendanceDelete(@PathVariable("id")Long id, @PathVariable("memberId")Long memberId) {
+//        int result= attendanceServiceImpl.attendanceDelete(id);
+//        return ResponseEntity.status(HttpStatus.OK).body(result);
+//    }
+
+    @PostMapping("/attendance/attendanceDelete/{id}")
+    public ResponseEntity<?> attendanceDelete(@PathVariable("id")Long id) {
         int result= attendanceServiceImpl.attendanceDelete(id);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

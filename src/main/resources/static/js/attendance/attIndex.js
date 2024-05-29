@@ -54,7 +54,7 @@ function attendanceDeleteBtnFn(event, id) {
     const memberId = $('#memberId').val();
     $.ajax({
         type: 'POST',
-        url: `/api/admin/attendance/attendanceDelete/${id}/member/${memberId}`,
+        url: `/api/admin/attendance/attendanceDelete/${id}`,
         success: function(res) {
             if (res == 1) {
                 alert('삭제완료');
@@ -88,11 +88,14 @@ function ajaxAttendanceList(page) {
                     <td>${el.attendanceType}</td>
                     <td>${el.checkInTime}</td>
                     <td>${el.checkOutTime}</td>
-                    <td>
-                        <button type="button" class="checkOutTimeBtn" name="checkOutTimeBtn" onclick="attendanceDeleteBtnFn(event,${el.id})">삭제</button>
-                        <button type="button" class="updateAttendance" name="updateAttendance" onclick="checkOutTimeBtnFn(${el.id})">퇴근</button>
-                    </td>
+
                     <td>${el.workTime}</td>
+
+                    <td>
+                        <button type="button" class="updateAttendance" name="updateAttendance" onclick="checkOutTimeBtnFn(${el.id})">퇴근</button>
+                        <button type="button" class="checkOutTimeBtn" name="checkOutTimeBtn" onclick="attendanceDeleteBtnFn(event,${el.id})">삭제</button>
+                    </td>
+
                 </tr>`;
         });
         tbody.innerHTML = dataHtml;

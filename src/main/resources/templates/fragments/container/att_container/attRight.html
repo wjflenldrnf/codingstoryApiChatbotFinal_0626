@@ -20,63 +20,43 @@
             </div>
         </div>
         <div class="bottom">
-            <div class="admin-data">
-                <div class="container">
-                    <div class="attendanceWrite">
-                        <div class="attendanceWrite-con">
-                            <div class="attendanceWrite-form">
+            <div class="attendanceWrite-con">
+                <div class="attendanceWrite-form">
 
-                                <ul>
+                    <h1 style="font-style: bold; color: #fff;">근태현황</h1>
 
-<!--                                    <li>-->
-<!--                                        <label for="name">이름</label>-->
-<!--                                        <input type="text" name="name" id="name" th:value="${name}" readonly>-->
-<!--                                    </li>-->
-
-                                    <li>
-                                        <label for="memberId">memberId</label>
-                                        <input type="text" name="memberId" id="memberId" th:value="${memberId}" >
-                                    </li>
-
-                                    <li>
-                                        <input type="button" name="checkInTimeBtn" id="checkInTimeBtn" value="checkInTimeBtn">
-                                    </li>
-
-
-
-                                </ul>
-
-                            </div>
-
-                            <div class="memberList common">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th colspan="7"><h3>회원목록</h3></th>
-                                    </tr>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>memberId</th>
-                                        <th>attendanceType</th>
-                                        <th>checkInTime</th>
-                                        <th>checkOutTime</th>
-                                        <th>삭제/보기</th>
-                                        <th>workTime</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="tbody">
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                    </div>
+                    <ul>
+                        <li>
+                            <label for="memberId">memberId</label>
+                            <input type="text" name="memberId" id="memberId" th:value="${memberId}">
+                            <input type="button" name="checkInTimeBtn" id="checkInTimeBtn" value="checkInTimeBtn">
+                        </li>
+                    </ul>
                 </div>
+                <div class="attendanceList common">
 
-                <div id="pagination" style="margin-top: 20px; text-align: center;"></div> <!-- 페이지네이션 추가 -->
 
+                    <table>
+                        <thead>
+<!--                        <tr>-->
+<!--                            <th colspan="7"><h3>근태현황</h3></th>-->
+<!--                        </tr>-->
+                        <tr>
+                            <th>id</th>
+                            <th>사번</th>
+                            <th>근로상태</th>
+                            <th>출근시간</th>
+                            <th>퇴근시간</th>
+                            <th>근로시간</th>
+                            <th>퇴근/삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody">
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            <div class="pagination" id="pagination" style="margin-top: 20px; text-align: center;"></div> <!-- 페이지네이션 추가 -->
         </div>
     </div>
 </div>
