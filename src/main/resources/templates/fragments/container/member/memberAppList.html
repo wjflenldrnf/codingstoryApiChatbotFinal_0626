@@ -14,11 +14,7 @@
                  th:onClick="|location.href='@{/member/myDetail/{id}(id=${#authentication.principal.memberEntity.id})}'|">
               <li>
                 <p th:text="${#authentication.principal.memberEntity.department}"></p>부
-              </li>
-              <li>
                 <p th:text="${#authentication.principal.memberEntity.mRank}"></p>
-              </li>
-              <li>
                 <p th:text="${#authentication.principal.memberEntity.name}"></p>님
               </li>
             </div>

@@ -26,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.PushBuilder;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -271,12 +272,23 @@ public class MemberController {
 
     return "member/test";
   }
+
   @PostMapping("/test")
-  public String test1(MemberDto memberDto) throws IOException {
+  public ResponseEntity<?> test1(MemberDto memberDto) throws IOException {
 
-    memberService.memberJoin(memberDto);
+    int result=memberService.memberJoin2(memberDto);
 
-    return "/redirect:/index";
+    return ResponseEntity.status(HttpStatus.OK).body(result);
   }
+
+  @PostMapping("/member/memberMD")
+  public ResponseEntity<?> memberMD(MemberDto memberDto){
+
+    int result=memberService.memberMD(memberDto);
+
+    return ResponseEntity.status(HttpStatus.OK).body(result);
+  }
+
+
 
 }

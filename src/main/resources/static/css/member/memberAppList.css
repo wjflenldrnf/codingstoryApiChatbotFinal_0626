@@ -14,6 +14,13 @@ display: flex;
     gap: 20px;
 }
 
+img{
+width:260px;
+height:260px;
+}
+
+
+
 
 
 .list{
@@ -53,8 +60,9 @@ display: flex;
     align-items: center;
     gap:5px;
     border: 1px solid #ccc;
+    border-radius:50px;
         width: 250px;
-        height:60px;
+        height:70px;
 }
 .info label{
 font-size:20px;

@@ -20,6 +20,7 @@ width:100px;
 height:40px;
 cursor:pointer;
 color:#ffffff;
+font-weight:bold;
 }
 
 
@@ -36,7 +37,8 @@ table-layout:fixed;
 }
 table th{
 height:40px;
-background-color: rgb(222 223 188);
+    background-color: rgb(62 104 136 / 58%);
+    color:#ffffff;
 }
 
 table tbody td{

@@ -24,9 +24,8 @@ document.getElementById('pageNextBtn').disabled =false;
 
 function updateEmail() {
   var selectedDomain = document.getElementById("emailDomain").value;
-  var userEmail = document.getElementById("userEmail").value;
-  var completeEmail = userEmail + selectedDomain;
-  console.log(completeEmail);
+  var email = document.getElementById("userEmail").value;
+  var userEmail = email + selectedDomain;
 }
 
 
@@ -36,10 +35,10 @@ const userPw=$('#userPw').val()
 const address=$('#address').val()
 const phoneNumber=$('#phoneNumber').val()
 const name=$('#name').val()
-  var selectedDomain = document.getElementById("emailDomain").value;
-  var email = document.getElementById("userEmail").value;
-const userEmail= email+ selectedDomain;
-const memberFile= $('#memberFile').val(0)
+var selectedDomain = document.getElementById("emailDomain").value;
+var email = document.getElementById("userEmail").value;
+var userEmail = email + selectedDomain;
+
   $.ajax({
     type: 'POST',
     url: '/member/test',
@@ -48,8 +47,7 @@ const memberFile= $('#memberFile').val(0)
     userPw : userPw,
     address : address,
     phoneNumber : phoneNumber,
-    name : name,
-    memberFile : memberFile
+    name : name
     },
     success: function (res) {
 

@@ -32,6 +32,7 @@ public class MyUserDetails implements UserDetails, OAuth2User {
         this.attribute = attribute;
     }
 
+
     @Override
     public Map<String, Object> getAttributes() {
         return attribute;
