@@ -60,13 +60,33 @@ table tbody tr:last-of-type {
     border-bottom: 2px solid #f1f1f1;
 }
 
-table tbody td a {
-    text-decoration: none;
-    color: #00aaff; /* 링크 글씨 색을 하늘색으로 설정 */
-    transition: color 0.3s, text-decoration 0.3s;
+input[type="submit"] {
+    background-color: #009879;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-table tbody td a:hover {
-    color: #0077cc; /* 링크 글씨 마우스 오버 색 */
-    text-decoration: underline; /* 호버 시 밑줄 표시 */
+input[type="submit"]:hover {
+    background-color: #007b5e;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.right-top .gnb ul li a {
+    text-decoration: none;
+    color: #000;
+    transition: color 0.3s;
+}
+
+.right-top .gnb ul li a:hover {
+    color: #555;
+    text-decoration: underline;
 }
