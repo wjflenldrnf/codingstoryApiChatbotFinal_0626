@@ -32,13 +32,10 @@ table{
 width:100%;
 border-collapse: collapse;
 table-layout:fixed;
-border:1px solid #cccccc;
-background-color:#ededea;
-height:600px;
 }
 table th{
 height:40px;
-background-color:red;
+background-color:#40464d;
 }
 
 table tbody td{

@@ -13,14 +13,16 @@ public class AttendanceHomeController {
 
     @GetMapping({"/",""})
     public String attIndex(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model){
-
-
         model.addAttribute("name" ,myUserDetails.getMemberEntity().getName());
         model.addAttribute("memberId",myUserDetails.getMemberEntity().getId());
         return "attendance/attIndex";
-//        return "redirect:/attendance/attDetail";
-//        return "redirect:/";
     }
 
+    @GetMapping("/attendance2")
+    public String attIndexOrigin(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model){
+        model.addAttribute("name" ,myUserDetails.getMemberEntity().getName());
+        model.addAttribute("memberId",myUserDetails.getMemberEntity().getId());
+        return "attendance/attIndexOrigin";
+    }
 
 }

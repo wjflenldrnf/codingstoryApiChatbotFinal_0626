@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div class="right" th:fragment="payListRightFragment">
     <div class="right-con">
-        <div class="top">
+        <div class="right-top">
             <div class="gnb">
                 <ul>
                     <th:block sec:authorize="isAnonymous()">
@@ -12,25 +12,17 @@
                     <th:block sec:authorize="isAuthenticated()">
                         로그인중
                     </th:block>
-
                     <li><a th:href="@{/member/detail/}" th:text="${ #authentication.principal.username }"></a></li>
-
-
                 </ul>
             </div>
         </div>
         <div class="bottom">
             <div class="admin-data">
-
                 <div class="container">
                     <div class="attendanceWrite">
                         <div class="attendanceWrite-con">
-
-
                             <div class="top">
-
                                 <h1 class="title">급여목록</h1>
-
                                 <div class="search">
                                     <form th:action="@{/pay/payList}" method="get">
                                         <select name="subject" id="subject">
@@ -38,23 +30,17 @@
                                             <option value="content">content</option>
                                             <option value="nickName">nickName</option>
                                         </select>
-
                                         <input type="text" name="search" id="search">
                                         <input type="submit" value="검색">
                                     </form>
-
                                 </div>
-
                                 <table>
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>memberEntity.id</th>
-                                        <th>payMon</th>
-                                        <th>payBns</th>
-
-                                        <!--                                        <th>보기1</th> &lt;!&ndash; 게시글 상세보기 &ndash;&gt;-->
-
+                                        <th>Member ID</th>
+                                        <th>급여</th>
+                                        <th>보너스</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -63,14 +49,9 @@
                                         <td th:text="${pay.memberEntity.id}"></td>
                                         <td th:text="${pay.payMon}"></td>
                                         <td th:text="${pay.payBns}"></td>
-
-                                        <!--                                        <td><a th:href="@{/pay/detail/{id}(id=${pay.id})}">보기</a></td>&lt;!&ndash; 게시글 상세보기 &ndash;&gt;-->
-
                                     </tr>
                                     </tbody>
-
                                     <tfoot>
-
                                     <tr>
                                         <td colspan="10">
                                             <div class="paging">
@@ -81,40 +62,37 @@
                                                               class="span0">START</span>
                                                         <!-- 처음 페이지가 아니면 a -->
                                                         <span th:unless="${pagingList.pageable.pageNumber+1 eq 1}">
-                                        <a th:href="@{/pay/payList(page=0)}" class="span1">처음</a>
-                                    </span>
+                                                            <a th:href="@{/pay/payList(page=0)}" class="span1">처음</a>
+                                                        </span>
                                                     </li>
                                                     <li>
                                                         <!-- 이전페이지가 첫번째 페이지이면 span표시 -->
-                                                        <span th:if="${1==pagingList.pageable.pageNumber+1}"
+                                                        <span th:if="${1 == pagingList.pageable.pageNumber+1}"
                                                               class="span0">PRE</span>
-                                                        <span th:unless="${1==pagingList.pageable.pageNumber+1}">
-                                        <!--itemList.pageable.pageNumber 현재페이지 -1 -->
-                                        <a th:href="@{/pay/payList(page=${pagingList.pageable.pageNumber-1})}"
-                                           class="span1">이전</a>
-                                    </span>
+                                                        <span th:unless="${1 == pagingList.pageable.pageNumber+1}">
+                                                            <!--itemList.pageable.pageNumber 현재페이지 -1 -->
+                                                            <a th:href="@{/pay/payList(page=${pagingList.pageable.pageNumber-1})}"
+                                                               class="span1">이전</a>
+                                                        </span>
                                                     </li>
-
-
                                                     <!-- block -->
                                                     <!-- 페이지 번호-->
                                                     <li th:each="i: ${#numbers.sequence(startPage, endPage)}"
                                                         class="block">
-                                <span th:if="${i == pagingList.pageable.pageNumber+1}" th:text="${i}"
-                                      class="now"></span>
+                                                        <span th:if="${i == pagingList.pageable.pageNumber+1}" th:text="${i}"
+                                                              class="now"></span>
                                                         <a th:unless="${i == pagingList.pageable.pageNumber+1}"
                                                            th:href="@{/pay/payList(page=${ i - 1})}" th:text="${i}"></a>
                                                     </li>
-
                                                     <li>
                                                         <!-- 현재페이지가 마지막 페이지이면 span표시 -->
                                                         <span th:if="${pagingList.totalPages ==pagingList.pageable.pageNumber+1}"
                                                               class="span0">NEXT</span>
                                                         <!-- 현재페이지가 마지막 페이지아니면 a 표시 현재페이지 +1 -->
                                                         <span th:unless="${pagingList.totalPages ==pagingList.pageable.pageNumber+1}">
-                                        <a th:href="@{/pay/payList(page=${pagingList.pageable.pageNumber+1})}"
-                                           class="span1">다음</a>
-                                    </span>
+                                                            <a th:href="@{/pay/payList(page=${pagingList.pageable.pageNumber+1})}"
+                                                               class="span1">다음</a>
+                                                        </span>
                                                     </li>
                                                     <li>
                                                         <!-- 현재페이지가 마지막 페이지이면 span표시 -->
@@ -122,23 +100,17 @@
                                                               class="span0">END</span>
                                                         <!-- 현재페이지가 마지막 페이지가 아니면 마지막 페이지로 이동 해라 a -->
                                                         <span th:unless="${pagingList.totalPages ==pagingList.pageable.pageNumber+1}">
-                                        <a th:href="@{/pay/boardList(page=${pagingList.totalPages-1})}"
-                                           class="span1">마지막</a>
-                                    </span>
+                                                            <a th:href="@{/pay/boardList(page=${pagingList.totalPages-1})}"
+                                                               class="span1">마지막</a>
+                                                        </span>
                                                     </li>
                                                 </ul>
-
                                             </div>
                                         </td>
                                     </tr>
-
                                     </tfoot>
                                 </table>
-
-
                             </div>
-
-
                         </div>
                     </div>
                 </div>

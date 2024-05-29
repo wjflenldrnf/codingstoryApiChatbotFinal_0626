@@ -23,12 +23,12 @@ public interface DepartmentServiceInterface {
 
   List<DepartmentDto> findDepart();
 
-  //list
- /* List<MemberDto> getAllDepartmentsId(String dept);*/
+
 
   List<MemberDto> getMembersByDepartmentId(String dept);
 
   void updateDepartmentMemberCount(String department);
+
 
 
 }

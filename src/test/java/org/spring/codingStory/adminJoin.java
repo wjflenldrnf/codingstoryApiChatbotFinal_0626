@@ -17,6 +17,8 @@ import org.spring.codingStory.member.repository.MemberFileRepository;
 import org.spring.codingStory.member.repository.MemberRepository;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.member.serviceImpl.service.MemberService;
+import org.spring.codingStory.payment.entity.PaymentEntity;
+import org.spring.codingStory.payment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,6 +51,103 @@ public class adminJoin {
   @Autowired
   private ApprovalStatusRepository approvalStatusRepository;
 
+  //////////////////////////////////////////////////////////
+
+  @Autowired
+  private PaymentRepository paymentRepository;
+
+  @Test
+  void admin2() throws IOException {
+
+    MemberDto memberDto;
+    String adminFile = "admin.jpg";
+
+    MemberEntity memberEntity = MemberEntity.builder()
+            .userEmail("admin@naver.com")
+            .userPw(passwordEncoder.encode("1234"))
+            .name("관리자")
+            .department("노원점")
+            .mRank("사장")
+            .address("서울")
+            .phoneNumber("0101234")
+            .role(Role.ADMIN)
+            .memberAttachFile(0)
+            .build();
+
+    memberEntity = memberRepository.save(memberEntity);
+
+    PaymentEntity paymentEntity = new PaymentEntity();
+    paymentEntity.setMemberEntity(memberEntity);
+
+    // mRank가 "사장"일 때 hourWage를 1000원으로 설정
+    if ("사장".equals(memberEntity.getMRank())) {
+      paymentEntity.setHourlyWage("1000");
+    } else {
+      paymentEntity.setHourlyWage("0"); // 기본 값 설정
+    }
+
+    paymentRepository.save(paymentEntity);
+
+    RankEntity rankEntity = RankEntity.builder()
+            .rankName("사원")
+            .build();
+    RankEntity rankEntity1 = RankEntity.builder()
+            .rankName("팀장")
+            .build();
+    RankEntity rankEntity2 = RankEntity.builder()
+            .rankName("지점장")
+            .build();
+    RankEntity rankEntity3 = RankEntity.builder()
+            .rankName("사장")
+            .build();
+
+    mRankRepository.save(rankEntity);
+    mRankRepository.save(rankEntity1);
+    mRankRepository.save(rankEntity2);
+    mRankRepository.save(rankEntity3);
+
+    //보고서 진행 상태
+    ApprovalStatusEntity approvalStatusEntity1 = approvalStatusRepository.save(
+            ApprovalStatusEntity.builder()
+                    .apvStatus("진행중")
+                    .build()
+    );
+    ApprovalStatusEntity approvalStatusEntity2 = approvalStatusRepository.save(
+            ApprovalStatusEntity.builder()
+                    .apvStatus("승인")
+                    .build()
+    );
+    ApprovalStatusEntity approvalStatusEntity3 = approvalStatusRepository.save(
+            ApprovalStatusEntity.builder()
+                    .apvStatus("반려")
+                    .build()
+    );
+
+    //보고서 종류
+    ApprovalDivEntity approvalDivEntity1 = approvalDivRepository.save(
+            ApprovalDivEntity.builder()
+                    .apvDivName("업무 보고서")
+                    .build()
+    );
+    ApprovalDivEntity approvalDivEntity2 = approvalDivRepository.save(
+            ApprovalDivEntity.builder()
+                    .apvDivName("회의결과 보고서")
+                    .build()
+    );
+    ApprovalDivEntity approvalDivEntity3 = approvalDivRepository.save(
+            ApprovalDivEntity.builder()
+                    .apvDivName("휴가 보고서")
+                    .build()
+    );
+    ApprovalDivEntity approvalDivEntity4 = approvalDivRepository.save(
+            ApprovalDivEntity.builder()
+                    .apvDivName("결제 청구서")
+                    .build()
+    );
+  }
+
+  //////////////////////////////////////////////////////////
+
   @Test
   void admin() throws IOException {
 
@@ -68,23 +167,17 @@ public class adminJoin {
                     .memberAttachFile(0)
                     .build());
 
-    RankEntity rankEntity=RankEntity.builder()
-            .rankName("사원")
-            .build();
-    RankEntity rankEntity1=RankEntity.builder()
-            .rankName("팀장")
-            .build();
-    RankEntity rankEntity2=RankEntity.builder()
-            .rankName("지점장")
-            .build();
-    RankEntity rankEntity3=RankEntity.builder()
-            .rankName("사장")
-            .build();
-
-    mRankRepository.save(rankEntity);
-    mRankRepository.save(rankEntity1);
-    mRankRepository.save(rankEntity2);
-    mRankRepository.save(rankEntity3);
+    for (int i = 7; i < 20; i++) {
+      MemberEntity memberEntity1 = memberRepository.save(
+              MemberEntity.builder()
+                      .userEmail("m" + i + "@naver.com")
+                      .userPw(passwordEncoder.encode("1234"))
+                      .name("사원" + i)
+                      .address("서울")
+                      .phoneNumber("010" + i)
+                      .role(Role.GEUST)
+                      .memberAttachFile(0)
+                      .build());
 
     //보고서 진행 상태
     ApprovalStatusEntity approvalStatusEntity1 = approvalStatusRepository.save(
@@ -102,7 +195,7 @@ public class adminJoin {
             .apvStatus("반려")
             .build()
     );
-    
+
   //보고서 종류
     ApprovalDivEntity approvalDivEntity1 = approvalDivRepository.save(
         ApprovalDivEntity.builder()
@@ -125,9 +218,32 @@ public class adminJoin {
     );
 
 
+      RankEntity rankEntity = RankEntity.builder()
+              .rankName("사원")
+              .build();
+      RankEntity rankEntity1 = RankEntity.builder()
+              .rankName("팀장")
+              .build();
+      RankEntity rankEntity2 = RankEntity.builder()
+              .rankName("지점장")
+              .build();
+      RankEntity rankEntity3 = RankEntity.builder()
+              .rankName("사장")
+              .build();
 
+      mRankRepository.save(rankEntity);
+      mRankRepository.save(rankEntity1);
+      mRankRepository.save(rankEntity2);
+      mRankRepository.save(rankEntity3);
+
+
+    }
   }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
 }
 
 

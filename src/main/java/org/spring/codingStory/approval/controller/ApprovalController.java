@@ -17,6 +17,8 @@ import org.spring.codingStory.approval.serviceImpl.service.ApprovalDivService;
 import org.spring.codingStory.approval.serviceImpl.service.ApprovalService;
 import org.spring.codingStory.config.MyUserDetails;
 import org.spring.codingStory.department.entity.DepartmentEntity;
+import org.spring.codingStory.department.serviceimpl.service.DepartmentService;
+import org.spring.codingStory.mRank.serviceImpl.MRankServiceImpl;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.serviceImpl.MemberServiceImpl;
@@ -52,6 +54,8 @@ public class ApprovalController {
     private final ApprovalDivServiceImpl approvalDivService;
     private final ApprovalStatusServiceImpl approvalStatusService;
     private final ApprovalStatusRepository approvalStatusRepository;
+    private final DepartmentService departmentService;
+    private final MRankServiceImpl mRankService;
 
     @GetMapping("/write")
     public String write(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model, ApprovalDto approvalDto) {
@@ -65,6 +69,8 @@ public class ApprovalController {
         model.addAttribute("myUserDetails", myUserDetails);
         model.addAttribute("memberId", myUserDetails.getMemberEntity().getId());
         model.addAttribute("memberName", myUserDetails.getMemberEntity().getName());
+        model.addAttribute("mRank", myUserDetails.getMemberEntity().getMRank());
+        model.addAttribute("department", myUserDetails.getMemberEntity().getDepartment());
         model.addAttribute("memberDtoList", memberDtoList);
         model.addAttribute("approvalDivDtoList", approvalDivDtoList);
         model.addAttribute("approvalStatusDtoList", approvalStatusDtoList);
@@ -161,7 +167,12 @@ public class ApprovalController {
         ApprovalEntity approvalEntity = new ApprovalEntity();
         List<ApprovalStatusDto> approvalStatusDtoList = approvalStatusService.apvStatusList();
         ApprovalDto approvalDto = approvalService.apvDetail(id);
+        List<MemberDto> memberDto= memberService.memberList();
 
+        model.addAttribute("memberDto",memberDto);
+        model.addAttribute("mRank", approvalDto.getMemberEntity().getMRank());
+        model.addAttribute("department", approvalDto.getMemberEntity().getDepartment());
+        model.addAttribute("memberName",approvalDto.getMemberEntity().getName());
         model.addAttribute("myUserDetails", myUserDetails);
         model.addAttribute("apvEntity", approvalEntity);
         model.addAttribute("approvalDto", approvalDto);// entity -> dto 로 변환한 것
@@ -189,6 +200,7 @@ public class ApprovalController {
         List<ApprovalStatusDto> approvalStatusDtoList = approvalStatusService.apvStatusList();
 
         model.addAttribute("myUserDetails", myUserDetails);
+        model.addAttribute("mRank", approvalDto.getMemberEntity().getMRank());
         model.addAttribute("memberId", myUserDetails.getMemberEntity().getId());
         model.addAttribute("memberName", myUserDetails.getMemberEntity().getName());
         model.addAttribute("memberDtoList", memberDtoList);

@@ -32,27 +32,7 @@ public class AttendanceDto {
 
     private Long memberId;
 
-
-
-
     private Time workTime;
-
-
-    private BigDecimal dailyWage;
-
-//    private LocalDate workDay;
-//
-//    private BigDecimal weeklyAllowance;
-//
-//    private BigDecimal bonus;
-
-    private BigDecimal hourWage;
-
-    private Time overTIme;
-
-    private BigDecimal overTImeWage;
-
-
 
 
     //entity -> dto
@@ -76,11 +56,4 @@ public class AttendanceDto {
         return dto;
     }
 
-
-    public static AttendanceDto toSelectDaliyWageAttendanceDto(BigDecimal dailyWage) {
-        AttendanceDto dto = new AttendanceDto();
-        dto.setDailyWage(dailyWage);
-        return dto;
-
-    }
 }

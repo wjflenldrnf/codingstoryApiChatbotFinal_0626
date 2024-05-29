@@ -26,10 +26,10 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
   Page<MemberEntity> findByRoleAndDepartmentContains(Pageable pageable, Role role, String department);
   Page<MemberEntity> findByRole(Pageable pageable, Role role);
 
-//  List<MemberEntity> findByDepartment(DepartmentEntity departmentEntity);
 
 
-//  List<MemberEntity> findByDepartmentEntityDptName(DepartmentEntity 야외관);
+
+
 
   List<MemberEntity> findByDepartment(String dept);
 
@@ -38,4 +38,7 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
   int findByAllDepartment(@Param("department") String department);
 
   int countMembersByDepartment(String department);
+
+  Optional<MemberEntity> findByName(String name);
+
 }

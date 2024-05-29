@@ -4,8 +4,16 @@ import org.spring.codingStory.pay.dto.PayDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface PayService {
     void insertPay(PayDto payDto);
 
-    Page<PayDto> paySearchPagingList(Pageable pageable, String subject, String search);
+    PayDto detail(Long id);
+//
+//    Page<PayDto> paySearchPagingList(Pageable pageable, String subject, String search);
+
+    List<PayDto> findByMemberId(Long memberId);
+
+    int updateOk(PayDto payDto);
 }

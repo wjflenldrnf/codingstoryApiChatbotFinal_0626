@@ -1,4 +1,4 @@
-  package org.spring.codingStory.member.entity;
+package org.spring.codingStory.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -12,6 +12,7 @@ import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
 import org.spring.codingStory.mRank.entity.RankEntity;
+import org.spring.codingStory.payment.entity.PaymentEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -26,10 +27,10 @@ import java.util.List;
 @Table(name = "member")
 public class MemberEntity extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "member_id")
+  private Long id;
 
 
   @Column(nullable = false, unique = true)
@@ -83,23 +84,23 @@ public class MemberEntity extends BaseTimeEntity {
           , cascade = CascadeType.REMOVE)
   private List<ApprovalEntity> approvalEntityList;
 
-    @JsonIgnore // ajax시 순환참조 방지
-    @OneToMany(mappedBy = "memberEntity"
-            , fetch = FetchType.LAZY
-            , cascade = CascadeType.REMOVE)
-    private List<EmployeeEntity> employeeEntityList;
+  @JsonIgnore // ajax시 순환참조 방지
+  @OneToMany(mappedBy = "memberEntity"
+          , fetch = FetchType.LAZY
+          , cascade = CascadeType.REMOVE)
+  private List<EmployeeEntity> employeeEntityList;
 
-    @JsonIgnore // ajax시 순환참조 방지
-    @OneToMany(mappedBy = "memberEntity"
-            , fetch = FetchType.LAZY
-            , cascade = CascadeType.REMOVE)
-    private List<NoticeEntity> noticeEntityList;
+  @JsonIgnore // ajax시 순환참조 방지
+  @OneToMany(mappedBy = "memberEntity"
+          , fetch = FetchType.LAZY
+          , cascade = CascadeType.REMOVE)
+  private List<NoticeEntity> noticeEntityList;
 
-    @JsonIgnore // ajax시 순환참조 방지
-    @OneToMany(mappedBy = "memberEntity"
-            , fetch = FetchType.LAZY
-            , cascade = CascadeType.REMOVE)
-    private List<FreeEntity> freeEntityList;
+  @JsonIgnore // ajax시 순환참조 방지
+  @OneToMany(mappedBy = "memberEntity"
+          , fetch = FetchType.LAZY
+          , cascade = CascadeType.REMOVE)
+  private List<FreeEntity> freeEntityList;
 
   //  N:1
   @JsonIgnore
@@ -147,11 +148,11 @@ public class MemberEntity extends BaseTimeEntity {
     return memberEntity;
   }
 
-  public static MemberEntity toUpdateFileMember(MemberDto memberDto) {
+  public static MemberEntity toUpdateFileMember(MemberDto memberDto,PasswordEncoder passwordEncoder) {
     MemberEntity memberEntity = new MemberEntity();
 
     memberEntity.setId(memberDto.getId());
-    memberEntity.setUserPw(memberDto.getUserPw());
+    memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
     memberEntity.setUserEmail(memberDto.getUserEmail());
     memberEntity.setName(memberDto.getName());
     memberEntity.setDepartment(memberDto.getDepartment());
@@ -166,12 +167,13 @@ public class MemberEntity extends BaseTimeEntity {
 
   }
 
-  public static MemberEntity toUpdateMember(MemberDto memberDto) {
+  public static MemberEntity toUpdateMember(MemberDto memberDto,PasswordEncoder passwordEncoder) {
+
 
     MemberEntity memberEntity = new MemberEntity();
 
     memberEntity.setId(memberDto.getId());
-    memberEntity.setUserPw(memberDto.getUserPw());
+    memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
     memberEntity.setUserEmail(memberDto.getUserEmail());
     memberEntity.setName(memberDto.getName());
     memberEntity.setDepartment(memberDto.getDepartment());
@@ -205,4 +207,19 @@ public class MemberEntity extends BaseTimeEntity {
 
     return memberEntity;
   }
+
+
+
+  /////////////////////////////////////////////////////////////////
+
+//  @JsonIgnore // ajax시 순환참조 방지
+//  @OneToMany(mappedBy = "memberEntity"
+//          , fetch = FetchType.LAZY
+//          , cascade = CascadeType.REMOVE)
+//  private List<PaymentEntity> paymentEntityList;
+  @JsonIgnore
+  @OneToOne(mappedBy = "memberEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private PaymentEntity paymentEntity;
+
+  /////////////////////////////////////////////////////////////////
 }

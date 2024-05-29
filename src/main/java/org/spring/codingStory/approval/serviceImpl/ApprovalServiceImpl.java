@@ -47,7 +47,7 @@ public class ApprovalServiceImpl implements ApprovalService {
             String oldFileName = apvFile.getOriginalFilename();
             UUID uuid = UUID.randomUUID();
             String newFileName = uuid + "_" + oldFileName;
-            String filePath = "C:/codingStory/" + newFileName;
+            String filePath = "C:/codingStory_file/" + newFileName;
             apvFile.transferTo(new File(filePath));
 
             approvalDto.setMemberEntity(MemberEntity.builder()
@@ -239,6 +239,31 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     @Override
     public void apvUpdate(ApprovalDto approvalDto) throws IOException {
+        ApprovalFileEntity approvalFileEntity = new ApprovalFileEntity();
+
+        //파일 유지 포기 !!!
+//        if (approvalDto.getApprovalFileEntityList().equals(approvalFileEntity.getApvOldFileName())) {
+//            MultipartFile apvFile = approvalDto.getApvFile();
+//            String fileOldName = apvFile.getOriginalFilename();
+//            UUID uuid = UUID.randomUUID();
+//            String fileNewName = uuid + "_" + fileOldName;
+//            String savePath = "C:/codingStory_file/" + fileNewName;
+//            apvFile.transferTo(new File(savePath));
+//
+//            ApprovalEntity approvalEntity = ApprovalEntity.toApvUpdateEntity1(approvalDto);
+//            approvalRepository.save(approvalEntity);
+//
+//            ApprovalFileEntity approvalFileEntity2 = ApprovalFileEntity.builder()
+//                .approvalEntity(approvalEntity)
+//                .apvNewFileName(fileNewName)
+//                .apvOldFileName(fileOldName)
+//                .build();
+//
+//            Long fileId = approvalFileRepository.save(approvalFileEntity2).getId();
+//            approvalFileRepository.findById(fileId).orElseThrow(() -> {
+//                throw new IllegalArgumentException("파일등록 실패");
+//            });
+
         Optional<ApprovalFileEntity> optionalApprovalFileEntity = approvalFileRepository.findByApprovalEntityId(approvalDto.getId());
         if (optionalApprovalFileEntity.isPresent()) {
             String fileNewName = optionalApprovalFileEntity.get().getApvNewFileName();
@@ -258,12 +283,12 @@ public class ApprovalServiceImpl implements ApprovalService {
         if (approvalDto.getApvFile().isEmpty()) {
             ApprovalEntity approvalEntity = ApprovalEntity.toApvUpdateEntity0(approvalDto);
             approvalRepository.save(approvalEntity);
-        } else {
+        } else if (!approvalDto.getApvFile().isEmpty()) {
             MultipartFile apvFile = approvalDto.getApvFile();
             String fileOldName = apvFile.getOriginalFilename();
             UUID uuid = UUID.randomUUID();
             String fileNewName = uuid + "_" + fileOldName;
-            String savePath = "C:/codingStory/" + fileNewName;
+            String savePath = "C:/codingStory_file/" + fileNewName;
             apvFile.transferTo(new File(savePath));
 
             ApprovalEntity approvalEntity = ApprovalEntity.toApvUpdateEntity1(approvalDto);
