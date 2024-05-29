@@ -22,7 +22,7 @@ public class DepartmentDto {
 
     private String location; // 부서 위치 필드 추가
 
-    private int memberCount; // 소속 인원 수 필드 추가
+    private int memberCount; // 소속 인원 수 필드 추가*/
 
     private List<MemberDto> memberDtoList;
 

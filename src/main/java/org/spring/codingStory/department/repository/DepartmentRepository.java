@@ -9,4 +9,6 @@ public interface DepartmentRepository extends JpaRepository<DepartmentEntity,Lon
 
 
   DepartmentEntity save(DepartmentEntity departmentEntity);
+
+  DepartmentEntity findByDptName(String department);
 }
