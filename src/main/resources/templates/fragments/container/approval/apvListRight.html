@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div class="right" th:fragment="apvListRightFragment">
     <div class="right-con">
-        <div class="top">
+        <div class="right-top">
             <div class="gnb">
                 <ul>
                     <th:block sec:authorize="isAnonymous()">
@@ -10,22 +10,45 @@
                         <li><a th:href="@{/member/join}">회원가입</a></li>
                     </th:block>
                     <th:block sec:authorize="isAuthenticated()">
-                        로그인중
+                        <div class="myInfo"
+                             th:onClick="|location.href='@{/member/myDetail/{id}(id=${#authentication.principal.memberEntity.id})}'|">
+                            <li>
+                                <p th:text="${#authentication.principal.department}"></p>부
+                            </li>
+                            <li>
+                                <p th:text="${#authentication.principal.mRank}"></p>
+                            </li>
+                            <li>
+                                <p th:text="${#authentication.principal.name}"></p>님
+                            </li>
+                        </div>
+                        <li><a th:href="@{/logout}">로그아웃</a></li>
                     </th:block>
                 </ul>
             </div>
         </div>
-        <h1>
-            <a th:href="@{/apv/myApvList}">보낸문서 </a>
-            <a th:href="@{/apv/#}">대기문서 </a>
-            <a th:href="@{/apv/list}">전체문서 </a>
-            <a th:href="@{/apv/write}">문서작성 </a>
-        </h1>
+
         <div class="bottom">
             <div class="index-data">
+                <h1>
+                    <a th:href="@{/apv/myApvList}">보낸문서 <span th:text="${apvMyCount}"></span> </a>
+                </h1>
+                <h1>
+                    <a th:href="@{/apv/waitList}">대기문서 <span th:text="${apvWaitCount}"></span> </a>
+                </h1>
+                <h1>
+                    <a th:href="@{/apv/denyList}">반려 문서 <span th:text="${apvDenyCount}"></span> </a>
+                </h1>
+                <h1>
+                    <a th:href="@{/apv/list}">전체문서 <span th:text="${apvCount}"></span> </a>
+                </h1>
+                <h1>
+                    <a th:href="@{/apv/write}">문서작성 </a>
+                </h1>
                 <table>
-
-                    <!--                    검색-->
+                    <h1>받은 전체 문서 <span th:text="${apvCount}"></span></h1>
+                    <thead>
+                    <!-- 검색 -->
                     <tr>
                         <div class="search">
                             <div class="search-con">
@@ -49,8 +72,6 @@
                         </div>
                     </tr>
 
-
-                    <thead>
                     <tr>
                         <th>번호</th>
                         <th>제목</th>
@@ -58,6 +79,7 @@
                         <th> 작성자</th>
                         <th>작성일</th>
                         <th>상태</th>
+                        <th>기한</th>
                     </tr>
                     </thead>
 
@@ -70,6 +92,7 @@
                         <td th:text="${apvDto.memberEntity.name}"></td>
                         <td th:text="${#temporals.format(apvDto.createTime, 'yyyy-MM-dd HH:mm')}"></td>
                         <td th:text="${apvDto.approvalStatusEntity.apvStatus}"></td>
+                        <td th:text="${apvDto.date}"></td>
                     </tr>
                     </tbody>
                     <tfoot class="page">
@@ -93,7 +116,6 @@
                                                  ,search=${param.search},subject=${param.subject})}"
                                                     class="span1">&lt</a>
                                     </span>
-
                                     </li>
                                     <li th:each="i: ${#numbers.sequence(startPage,endPage)}" class="block">
                                     <span th:if="${i==approvalDtoPage.pageable.pageNumber+1}" th:text="${i}"
@@ -102,7 +124,6 @@
                                            th:href="@{/apv/list(page=${i-1},search=${param.search},subject=${param.subject})}"
                                            th:text="${i}"></a>
                                     </li>
-
                                     <li>
                                     <span th:if="${approvalDtoPage.totalPages==approvalDtoPage.pageable.pageNumber+1}"
                                           class="span0">&gt</span>

@@ -90,7 +90,7 @@ public class DepartmentService implements DepartmentServiceInterface {
 
     memberRepository.save(memberEntity);
 
-    department.setMemberCount(department.getMemberEntityList().size());
+    /*department.setMemberCount(department.getMemberEntityList().size());*/
     departmentRepository.save(department);
   }
 
@@ -139,6 +139,40 @@ public class DepartmentService implements DepartmentServiceInterface {
     }
     return departmentDtoList;
   }
+
+
+
+
+  @Override
+  public List<MemberDto> getMembersByDepartmentId(String dept) {
+    List<MemberEntity> memberEntities=memberRepository.findByDepartment(dept);
+    //MemberDto 리스트를 새엇ㅇ함
+    List<MemberDto> memberDtoList= new ArrayList<>();
+    //각 멤버에 대한 MemberDto를 생성하여 리스트에 추가합니다.
+    for(MemberEntity memberEntity: memberEntities){
+      MemberDto memberDto= MemberDto.toSelectMemberDto(memberEntity);
+      memberDtoList.add(memberDto);
+    }
+      return memberDtoList;
+  }
+
+  @Override
+  public void updateDepartmentMemberCount(String departmentName) {
+  int memberCount =memberRepository.countMembersByDepartment(departmentName);
+    System.out.println("Member count for department" + departmentName + ":"+memberCount);
+
+    DepartmentEntity departmentEntity =departmentRepository.findByDptName(departmentName);
+
+    if(departmentEntity !=null){
+      departmentEntity.setMemberCount(memberCount);
+      departmentRepository.save(departmentEntity);
+      System.out.println("Update department:" + departmentEntity.getDptName()+",member count:" +departmentEntity.getMemberCount());
+    }else{
+      System.out.println("Department not found:" +departmentName);
+    }
+  }
+
+
 }
 
 

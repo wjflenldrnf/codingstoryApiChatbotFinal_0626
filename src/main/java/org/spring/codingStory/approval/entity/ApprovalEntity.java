@@ -120,7 +120,11 @@ public class ApprovalEntity extends BaseTimeEntity {
         approvalEntity.setId(approvalDto.getId());
         approvalEntity.setApvTitle(approvalDto.getApvTitle());
         approvalEntity.setApvContent(approvalDto.getApvContent());
+        if (approvalDto.getApvFile().isEmpty()){
         approvalEntity.setApvAttachFile(0);
+        }else{
+            approvalEntity.setApvAttachFile(1);
+        }
         approvalEntity.setMemberEntity(approvalDto.getMemberEntity());
         approvalEntity.setApvFnl(approvalDto.getApvFnl());
         approvalEntity.setApprovalDivEntity(approvalDto.getApprovalDivEntity());
@@ -145,6 +149,7 @@ public class ApprovalEntity extends BaseTimeEntity {
         approvalEntity.setApprovalStatusEntity(approvalDto.getApprovalStatusEntity());
         approvalEntity.setApprovalFileEntityList(approvalDto.getApprovalFileEntityList());
         approvalEntity.setDate(approvalDto.getDate());
+        approvalEntity.setApvCom(approvalDto.getApvCom());
 
         return approvalEntity;
     }
@@ -161,6 +166,7 @@ public class ApprovalEntity extends BaseTimeEntity {
         approvalEntity.setApprovalStatusEntity(approvalDto.getApprovalStatusEntity());
         approvalEntity.setApprovalFileEntityList(approvalDto.getApprovalFileEntityList());
         approvalEntity.setDate(approvalDto.getDate());
+        approvalEntity.setApvCom(approvalDto.getApvCom());
 
         return approvalEntity;
     }

@@ -9,7 +9,7 @@ function openChat(){
 
 function showMessage(message) {
     $("#chat-content").append(message);
-	//대화창 스크롤을 항상 최하위에 배치   
+	//대화창 스크롤을 항상 최하위에 배치
     $("#chat-content").scrollTop($("#chat-content").prop("scrollHeight"));
 }
 
@@ -73,7 +73,7 @@ function menuclicked(el){
 //엔터가 입력이되면 질문을 텍스트 화면에 표현 
 function questionKeyuped(event){
 	if(event.keyCode!=13)return;
-	btnMsgSendClicked()
+	btnMsgSendClicked() // Enter 키가 눌리면 btnMsgSendClicked 함수 호출
 }
 
 //전송버튼 클릭이되면 질문을 텍스트 화면에 표현

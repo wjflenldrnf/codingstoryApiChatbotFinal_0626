@@ -76,9 +76,9 @@ public class KomoranConfig {
 		member.findAll().forEach(e -> {
 			keys.add(e.getName());
 		});
-		//사원명을 set 에 저장
+		//사원명을 set 에 저장(->이메일)
 		member.findAll().forEach(e -> {
-			keys.add(e.getName());
+			keys.add(e.getUserEmail());
 		});
 
 		// Set에 저장된 명단을 고유명사로 파일에 등록
