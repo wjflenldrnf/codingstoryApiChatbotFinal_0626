@@ -51,13 +51,14 @@ public class EmpController {
     }
 
     @GetMapping("/empList")
-    public String empList(Model model,
+    public String empList(@PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                          Model model,
                           @RequestParam(name = "subject1", required = false) String subject1,
                           @RequestParam(name = "subject2", required = false) String subject2,
                           @RequestParam(name = "search", required = false) String search,
                           @AuthenticationPrincipal MyUserDetails myUserDetails) {
 
-        Page<EmployeeDto> empList = employeeService.empList(PageRequest.of(0, 8, Sort.Direction.DESC, "id"), subject1, subject2, search);
+        Page<EmployeeDto> empList = employeeService.empList(pageable, subject1, subject2, search);
 
         int totalPage = empList.getTotalPages();
         int newPage = empList.getNumber();
