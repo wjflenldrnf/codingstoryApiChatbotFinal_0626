@@ -34,7 +34,7 @@ public class CustomAuthenticationFailHandler extends SimpleUrlAuthenticationFail
         if (exception instanceof BadCredentialsException) {
             errorMessage = "아이디 또는 비밀번호가 맞지 않습니다. 다시 입력하세요";
         } else if (exception instanceof InternalAuthenticationServiceException) {
-            errorMessage = "가입대기중인 계정입니다";
+            errorMessage = "오류발생 관리자문의";
         } else if (exception instanceof UsernameNotFoundException) {
             errorMessage = "아이디가 존재하지 않습니다.";
         } else if (exception instanceof AuthenticationCredentialsNotFoundException) {
@@ -42,7 +42,6 @@ public class CustomAuthenticationFailHandler extends SimpleUrlAuthenticationFail
         } else if (exception instanceof GuestLoginException) {
             errorMessage = "가입 대기중";
         }
-
 
         errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
         // member/login 페이지로 error, exception

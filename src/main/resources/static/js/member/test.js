@@ -22,12 +22,22 @@ document.getElementById('pageNextBtn').disabled =false;
 }
 
 
+function updateEmail() {
+  var selectedDomain = document.getElementById("emailDomain").value;
+  var email = document.getElementById("userEmail").value;
+  var userEmail = email + selectedDomain;
+}
+
+
 function memberJoinFn(){
-const userEmail=$('#userEmail').val()+ $('#userEmail2').val()
+
 const userPw=$('#userPw').val()
 const address=$('#address').val()
 const phoneNumber=$('#phoneNumber').val()
 const name=$('#name').val()
+var selectedDomain = document.getElementById("emailDomain").value;
+var email = document.getElementById("userEmail").value;
+var userEmail = email + selectedDomain;
 
   $.ajax({
     type: 'POST',
