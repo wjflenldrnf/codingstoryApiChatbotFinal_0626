@@ -35,8 +35,9 @@ public class KomoranService {
 
     // 김이름 전화 조회 해주세요.
     //문자에서 명사들만 추출한 목록 중복제거해서 set
-    Set<String> nouns = result.getNouns().stream()
-            .collect(Collectors.toSet());
+    Set<String> nouns = result
+        .getNouns().stream()
+        .collect(Collectors.toSet());
     nouns.forEach((noun) -> {
       System.out.println(">>>:" + noun);
     });

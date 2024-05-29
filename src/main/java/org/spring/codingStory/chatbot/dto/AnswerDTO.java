@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 public class AnswerDTO {
 	
-	private long no;
+	private long id;
 
 	private String content;
 

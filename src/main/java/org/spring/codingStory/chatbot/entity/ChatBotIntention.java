@@ -17,7 +17,7 @@ public class ChatBotIntention {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long no;
+	private long id;
 
 	private String name;
 	
