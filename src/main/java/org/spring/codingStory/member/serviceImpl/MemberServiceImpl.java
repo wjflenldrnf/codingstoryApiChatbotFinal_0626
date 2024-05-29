@@ -1,6 +1,8 @@
 package org.spring.codingStory.member.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.codingStory.department.entity.DepartmentEntity;
+import org.spring.codingStory.department.repository.DepartmentRepository;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.dto.MemberFileDto;
 import org.spring.codingStory.member.entity.MemberEntity;
@@ -30,72 +32,75 @@ import java.util.UUID;
 @Transactional
 public class MemberServiceImpl implements MemberService {
 
-    private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final MemberFileRepository fileRepository;
 
-    @Override
-    public void memberJoin(MemberDto memberDto) throws IOException {
+  private final MemberRepository memberRepository;
+  private final PasswordEncoder passwordEncoder;
+  private final MemberFileRepository fileRepository;
+  private final PaymentRepository paymentRepository;
 
-        if (memberDto.getMemberFile().isEmpty()) {
-            MemberEntity memberEntity = MemberEntity.toJoinMember(memberDto, passwordEncoder);
-            memberRepository.save(memberEntity);
-        } else {
-            MultipartFile memberFile = memberDto.getMemberFile();
 
-            String oldFileName = memberFile.getOriginalFilename();
-            UUID uuid = UUID.randomUUID();
-            String newFileName = uuid + "_" + oldFileName;
-            String fileSavePath = "C:/codingStory_file/" + newFileName;
-            memberFile.transferTo(new File(fileSavePath));
+  @Override
+  public void memberJoin(MemberDto memberDto) throws IOException {
 
-            MemberEntity memberEntity = MemberEntity.toJoinFileMember(memberDto, passwordEncoder);
-            Long id = memberRepository.save(memberEntity).getId();
+    if (memberDto.getMemberFile().isEmpty()) {
+      MemberEntity memberEntity = MemberEntity.toJoinMember(memberDto, passwordEncoder);
+      memberRepository.save(memberEntity);
+    } else {
+      MultipartFile memberFile = memberDto.getMemberFile();
 
-            Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
-            if (optionalMemberEntity.isPresent()) {
-                MemberEntity memberEntity1 = optionalMemberEntity.get();
+      String oldFileName = memberFile.getOriginalFilename();
+      UUID uuid = UUID.randomUUID();
+      String newFileName = uuid + "_" + oldFileName;
+      String fileSavePath = "C:/codingStory_file/" + newFileName;
+      memberFile.transferTo(new File(fileSavePath));
 
-                MemberFileDto fileDto = MemberFileDto.builder().memberOldFileName(oldFileName)
-                        .memberNewFileName(newFileName)
-                        .memberEntity(memberEntity1)
-                        .build();
+      MemberEntity memberEntity = MemberEntity.toJoinFileMember(memberDto, passwordEncoder);
+      Long id = memberRepository.save(memberEntity).getId();
 
-                MemberFileEntity fileEntity = MemberFileEntity.toInsertFile(fileDto);
-                fileRepository.save(fileEntity);
-            } else {
-                throw new IllegalArgumentException("xxxx");
-            }
-        }
+      Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+      if (optionalMemberEntity.isPresent()) {
+        MemberEntity memberEntity1 = optionalMemberEntity.get();
+
+        MemberFileDto fileDto = MemberFileDto.builder().memberOldFileName(oldFileName)
+                .memberNewFileName(newFileName)
+                .memberEntity(memberEntity1)
+                .build();
+
+        MemberFileEntity fileEntity = MemberFileEntity.toInsertFile(fileDto);
+        fileRepository.save(fileEntity);
+      } else {
+        throw new IllegalArgumentException("xxxx");
+      }
     }
+  }
 
-    @Override
-    public List<MemberDto> memberList() {
-        List<MemberEntity> memberEntities = memberRepository.findAll();
+  @Override
+  public List<MemberDto> memberList() {
+    List<MemberEntity> memberEntities = memberRepository.findAll();
 
-        List<MemberDto> memberDtoList = new ArrayList<>();
+    List<MemberDto> memberDtoList = new ArrayList<>();
 
-        for (MemberEntity member : memberEntities) {
-            MemberDto memberDto = MemberDto.toSelectMemberDto(member);
-            memberDtoList.add(memberDto);
-        }
-        return memberDtoList;
+    for (MemberEntity member : memberEntities) {
+      MemberDto memberDto = MemberDto.toSelectMemberDto(member);
+      memberDtoList.add(memberDto);
     }
+    return memberDtoList;
+  }
 
-    @Override
-    public MemberDto memberDetail(Long id) {
-        Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+  @Override
+  public MemberDto memberDetail(Long id) {
+    Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
 
-        if (optionalMemberEntity.isPresent()) {
+    if (optionalMemberEntity.isPresent()) {
 
-            MemberEntity memberEntity = optionalMemberEntity.get();
+      MemberEntity memberEntity = optionalMemberEntity.get();
 
-            MemberDto memberDto = MemberDto.toSelectMemberDto(memberEntity);
+      MemberDto memberDto = MemberDto.toSelectMemberDto(memberEntity);
 
-            return memberDto;
-        }
-        return null;
+      return memberDto;
     }
+    return null;
+  }
 
 //    @Override
 //    public void memberUpdate(MemberDto memberDto) throws IOException {
@@ -206,224 +211,210 @@ public class MemberServiceImpl implements MemberService {
 //        }
 //    }
 
-    @Override
-    public Page<MemberDto> memberPagingList(Pageable pageable, String department) {
+  @Override
+  public Page<MemberDto> memberPagingList(Pageable pageable, String department) {
 
-        Page<MemberEntity> memberEntities = null;
+    Page<MemberEntity> memberEntities = null;
 
+    if (department == null) {
+      memberEntities = memberRepository.findByRole(pageable, Role.MEMBER);
 
-        //************************
-        if (department == null) {    //************************
+    } else {
 
-            memberEntities = memberRepository.findByRole(pageable, Role.MEMBER);
-
-        } else {
-
-            if (department.equals("노원점")) {
-                memberEntities = memberRepository.findByRoleAndDepartmentContains(pageable, Role.MEMBER, department);
-            } else if (department.equals("야외관")) {
-                memberEntities = memberRepository.findByRoleAndDepartmentContains(pageable, Role.MEMBER, department);
-            } else if (department.equals("자동차관")) {
-                memberEntities = memberRepository.findByRoleAndDepartmentContains(pageable, Role.MEMBER, department);
-            } else if (department.equals("커플관")) {
-                memberEntities = memberRepository.findByRoleAndDepartmentContains(pageable, Role.MEMBER, department);
-            } else {
-                memberEntities = memberRepository.findByRole(pageable, Role.MEMBER);
-            }
-
-        }
-
-
-        Page<MemberDto> memberDtos = memberEntities.map(MemberDto::toSelectMemberDto);
-
-
-        return memberDtos;
-    }
-
-    @Override
-    public void memberNameUpdate(MemberDto memberDto) {
-
-        MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
-                .orElseThrow(() -> new IllegalArgumentException("xx"));
-
-        memberEntity.setName(memberDto.getName());
-
-        memberRepository.save(memberEntity);
-    }
-
-    @Override
-    public void memberPhoneNumberUpdate(MemberDto memberDto) {
-        MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
-                .orElseThrow(() -> new IllegalArgumentException("xx"));
-
-        memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
-
-        memberRepository.save(memberEntity);
-    }
-
-    @Override
-    public void memberAddressUpdate(MemberDto memberDto) {
-
-        MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
-                .orElseThrow(() -> new IllegalArgumentException("xx"));
-
-        memberEntity.setAddress(memberDto.getAddress());
-
-        memberRepository.save(memberEntity);
+      if (department.equals("노원점")) {
+        memberEntities = memberRepository.findByRoleAndDepartmentContains(pageable, Role.MEMBER, department);
+      } else if (department.equals("야외관")) {
+        memberEntities = memberRepository.findByRoleAndDepartmentContains(pageable, Role.MEMBER, department);
+      } else if (department.equals("자동차관")) {
+        memberEntities = memberRepository.findByRoleAndDepartmentContains(pageable, Role.MEMBER, department);
+      } else if (department.equals("커플관")) {
+        memberEntities = memberRepository.findByRoleAndDepartmentContains(pageable, Role.MEMBER, department);
+      } else {
+        memberEntities = memberRepository.findByRole(pageable, Role.MEMBER);
+      }
 
     }
 
 
+    Page<MemberDto> memberDtos = memberEntities.map(MemberDto::toSelectMemberDto);
 
-    @Override
-    public int findCheck(MemberDto memberDto) {
 
-        MemberEntity memberEntity = memberRepository.findByUserEmail(memberDto.getUserEmail()).orElseThrow(IllegalArgumentException::new);
+    return memberDtos;
+  }
 
-        String email = memberDto.getUserEmail();
-        String name = memberDto.getName();
-        String phoneNumber = memberDto.getPhoneNumber();
+  @Override
+  public void memberNameUpdate(MemberDto memberDto) {
 
-        if (email.equals(memberEntity.getUserEmail()) &&
-                name.equals(memberEntity.getName()) &&
-                phoneNumber.equals(memberEntity.getPhoneNumber())) {
-            return 1;
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("xx"));
 
-        } else {
-            return 0;
-        }
+    memberEntity.setName(memberDto.getName());
+
+    memberRepository.save(memberEntity);
+  }
+
+  @Override
+  public void memberPhoneNumberUpdate(MemberDto memberDto) {
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("xx"));
+
+    memberEntity.setPhoneNumber(memberDto.getPhoneNumber());
+
+    memberRepository.save(memberEntity);
+  }
+
+  @Override
+  public void memberAddressUpdate(MemberDto memberDto) {
+
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("xx"));
+
+    memberEntity.setAddress(memberDto.getAddress());
+
+    memberRepository.save(memberEntity);
+
+  }
+
+
+  @Override
+  public int findCheck(MemberDto memberDto) {
+
+    MemberEntity memberEntity = memberRepository.findByUserEmail(memberDto.getUserEmail()).orElseThrow(IllegalArgumentException::new);
+
+    String email = memberDto.getUserEmail();
+    String name = memberDto.getName();
+    String phoneNumber = memberDto.getPhoneNumber();
+
+    if (email.equals(memberEntity.getUserEmail()) &&
+            name.equals(memberEntity.getName()) &&
+            phoneNumber.equals(memberEntity.getPhoneNumber())) {
+      return 1;
+
+    } else {
+      return 0;
+    }
+  }
+
+  @Override
+  public void findPasswordFin(MemberDto memberDto) {
+    MemberEntity memberEntity = memberRepository.findByUserEmail(memberDto.getUserEmail()).orElseThrow(IllegalArgumentException::new);
+
+    memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
+
+    memberRepository.save(memberEntity);
+  }
+
+
+
+  @Override
+  public Page<MemberDto> memberAppList(Pageable pageable) {
+    Page<MemberEntity> memberEntities = null;
+
+    memberEntities = memberRepository.findByRole(pageable, Role.GEUST);
+
+    Page<MemberDto> memberDtos = memberEntities.map(MemberDto::toSelectMemberDto);
+
+    return memberDtos;
+  }
+
+  @Override
+  public void memberPasswordUpdate(MemberDto memberDto) {
+
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("xx"));
+
+    memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
+
+    memberRepository.save(memberEntity);
+
+  }
+
+  @Override
+  public void profileUpdate(MemberDto memberDto) throws IOException {
+
+
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId()).orElseThrow(IllegalArgumentException::new);
+
+    Optional<MemberFileEntity> optionalMemberFileEntity = fileRepository.findByMemberEntityId(memberDto.getId());
+
+    if (optionalMemberFileEntity.isPresent()) {
+      String newFileName = optionalMemberFileEntity.get().getMemberNewFileName();
+      String filePath = "C:/codingStory_file/" + newFileName;
+      File deleteFile = new File(filePath);
+      if (deleteFile.exists()) {
+        deleteFile.delete();
+      } else {
+        System.out.println("파일이 존재하지 않습니다.");
+      }
+      fileRepository.delete(optionalMemberFileEntity.get());
     }
 
-    @Override
-    public void findPasswordFin(MemberDto memberDto) {
-        MemberEntity memberEntity = memberRepository.findByUserEmail(memberDto.getUserEmail()).orElseThrow(IllegalArgumentException::new);
+    if (memberDto.getMemberFile().isEmpty()) {
+      memberEntity=MemberEntity.toUpdateMember(memberDto,passwordEncoder);
+      memberRepository.save(memberEntity);
+    } else if (!memberDto.getMemberFile().isEmpty()) {
+      MultipartFile memberFile = memberDto.getMemberFile();
+      String oldFileName = memberFile.getOriginalFilename();
+      UUID uuid = UUID.randomUUID();
+      String newFileName = uuid + "_" + oldFileName;
 
-        memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
+      String savePath = "C:/codingStory_file/" + newFileName;
+      memberFile.transferTo(new File(savePath));
 
-        memberRepository.save(memberEntity);
-    }
+      memberDto.setMemberFileName(newFileName);
 
-//    @Override
-//    public int memberAppOk(MemberDto memberDto) {
-//
-//
-//        MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
-//                .orElseThrow(() -> new IllegalArgumentException("xx"));
-//
-//        memberEntity.setRole(Role.MEMBER);
-//        memberEntity.setDepartment(memberDto.getDepartment());
-//        memberEntity.setMRank(memberDto.getMRank());
-//        memberRepository.save(memberEntity);
-//
-//        return 1;
-//
-//    }
 
-    @Override
-    public Page<MemberDto> memberAppList(Pageable pageable) {
-        Page<MemberEntity> memberEntities = null;
+      memberEntity = MemberEntity.toUpdateFileMember(memberDto, passwordEncoder);
 
-        memberEntities = memberRepository.findByRole(pageable, Role.GEUST);
+      Long memberId = memberRepository.save(memberEntity).getId();
 
-        Page<MemberDto> memberDtos = memberEntities.map(MemberDto::toSelectMemberDto);
+      MemberEntity memberEntity1 =
+              memberRepository.findById(memberId).orElseThrow(() -> {
+                throw new IllegalArgumentException("해당 아이디가 존재하지 않습니다.");
+              });
 
-        return memberDtos;
-    }
+      MemberFileDto memberFileDto
+              = MemberFileDto.builder()
+              .memberOldFileName(oldFileName)
+              .memberNewFileName(newFileName)
+              .memberEntity(memberEntity1)
+              .build();
 
-    @Override
-    public void memberPasswordUpdate(MemberDto memberDto) {
+      MemberFileEntity memberFileEntity = MemberFileEntity
+              .builder()
+              .memberEntity(memberFileDto.getMemberEntity())
+              .memberOldFileName(memberFileDto.getMemberOldFileName())
+              .memberNewFileName(memberFileDto.getMemberNewFileName())
+              .build();
 
-        MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
-                .orElseThrow(() -> new IllegalArgumentException("xx"));
-
-        memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
-
-        memberRepository.save(memberEntity);
+      fileRepository.save(memberFileEntity);
 
     }
-
-    @Override
-    public void profileUpdate(MemberDto memberDto) throws IOException {
+  }
 
 
-        MemberEntity memberEntity = memberRepository.findById(memberDto.getId()).orElseThrow(IllegalArgumentException::new);
 
-        Optional<MemberFileEntity> optionalMemberFileEntity = fileRepository.findByMemberEntityId(memberDto.getId());
+  @Override
+  public int memberDelete(Long id) {
 
-        if (optionalMemberFileEntity.isPresent()) {
-            String newFileName = optionalMemberFileEntity.get().getMemberNewFileName();
-            String filePath = "C:/codingStory_file/" + newFileName;
-            File deleteFile = new File(filePath);
-            if (deleteFile.exists()) {
-                deleteFile.delete();
-            } else {
-                System.out.println("파일이 존재하지 않습니다.");
-            }
-            fileRepository.delete(optionalMemberFileEntity.get());
-        }
+    Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
 
-        if (memberDto.getMemberFile().isEmpty()) {
-            memberEntity = MemberEntity.toUpdateMember(memberDto);
-            memberRepository.save(memberEntity);
-        } else if (!memberDto.getMemberFile().isEmpty()) {
-            MultipartFile memberFile = memberDto.getMemberFile();
-            String oldFileName = memberFile.getOriginalFilename();
-            UUID uuid = UUID.randomUUID();
-            String newFileName = uuid + "_" + oldFileName;
-
-            String savePath = "C:/codingStory_file/" + newFileName;
-            memberFile.transferTo(new File(savePath));
-
-            memberDto.setMemberFileName(newFileName);
-
-            memberEntity = MemberEntity.toUpdateFileMember(memberDto);
-
-            Long memberId = memberRepository.save(memberEntity).getId();
-
-            MemberEntity memberEntity1 =
-                    memberRepository.findById(memberId).orElseThrow(() -> {
-                        throw new IllegalArgumentException("해당 아이디가 존재하지 않습니다.");
-                    });
-
-            MemberFileDto memberFileDto
-                    = MemberFileDto.builder()
-                    .memberOldFileName(oldFileName)
-                    .memberNewFileName(newFileName)
-                    .memberEntity(memberEntity1)
-                    .build();
-
-            MemberFileEntity memberFileEntity = MemberFileEntity
-                    .builder()
-                    .memberEntity(memberFileDto.getMemberEntity())
-                    .memberOldFileName(memberFileDto.getMemberOldFileName())
-                    .memberNewFileName(memberFileDto.getMemberNewFileName())
-                    .build();
-
-            fileRepository.save(memberFileEntity);
-
-        }
+    if (optionalMemberEntity.isPresent()) {
+      memberRepository.delete(optionalMemberEntity.get());
+      return 1;
     }
 
-    @Override
-    public int memberDelete(Long id) {
-
-        Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
-
-        if (optionalMemberEntity.isPresent()) {
-            memberRepository.delete(optionalMemberEntity.get());
-            return 1;
-        }
-        return 0;
-    }
-
-
-
-
-
+    return 0;
+  }
 
 
     /////////////////////////////////////////////////////
-    private final PaymentRepository paymentRepository;
+
+
+
+
+
+
 
 //    @Override
 //    public void memberJoin(MemberDto memberDto) throws IOException {
@@ -463,9 +454,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public int memberAppOk(MemberDto memberDto) {
+        //멤버 정보를 가져옵니다.
 
         MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("xx"));
+
+
+
 
         memberEntity.setRole(Role.MEMBER);
         memberEntity.setDepartment(memberDto.getDepartment());
@@ -477,6 +472,7 @@ public class MemberServiceImpl implements MemberService {
         paymentEntity.setMemberEntity(memberEntity);
 
         // mRank가 "사장"일 때 hourWage를 1000원으로 설정
+
         if ("사원".equals(memberDto.getMRank())) {
             paymentEntity.setHourlyWage("500");
         }else if ("지점장".equals(memberDto.getMRank())) {
@@ -490,4 +486,5 @@ public class MemberServiceImpl implements MemberService {
 
         return 1;
     }
+
 }

@@ -32,7 +32,7 @@ public class KomoranConfig {
 
 	@Autowired
 	DepartmentRepository dept;//부서이름
-	
+
 	@Autowired
 	MemberRepository member;//사원이름
 
@@ -48,11 +48,11 @@ public class KomoranConfig {
 	private void userDic() {
 
 		Set<String> keys = new HashSet<>();
-		
+
 		//기존에 수동으로 등록된 파일에서 고유명사만 추출
 		try {
 			File file=new File(USER_DIC);
-				if(file.exists()) {
+			if(file.exists()) {
 				BufferedReader br = new BufferedReader(new FileReader(file));
 
 				String data = null;
@@ -80,7 +80,7 @@ public class KomoranConfig {
 		member.findAll().forEach(e -> {
 			keys.add(e.getUserEmail());
 		});
-		
+
 		// Set에 저장된 명단을 고유명사로 파일에 등록
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(USER_DIC));
@@ -101,5 +101,5 @@ public class KomoranConfig {
 		}
 	}
 
-	
+
 }

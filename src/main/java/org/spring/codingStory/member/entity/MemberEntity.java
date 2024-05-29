@@ -45,7 +45,7 @@ public class MemberEntity extends BaseTimeEntity {
   @Column(nullable = true)
   private String department;
 
-  @Column(nullable = true)
+  @Column(nullable = true ,unique = true)
   private String mRank;
 
   @Column(nullable = true) // 기본이 널 허용
@@ -62,6 +62,8 @@ public class MemberEntity extends BaseTimeEntity {
 
   @Column(nullable = false)
   private int memberAttachFile;
+
+
 
   //  1:N
   @JsonIgnore // ajax시 순환참조 방지
@@ -146,11 +148,11 @@ public class MemberEntity extends BaseTimeEntity {
     return memberEntity;
   }
 
-  public static MemberEntity toUpdateFileMember(MemberDto memberDto) {
+  public static MemberEntity toUpdateFileMember(MemberDto memberDto,PasswordEncoder passwordEncoder) {
     MemberEntity memberEntity = new MemberEntity();
 
     memberEntity.setId(memberDto.getId());
-    memberEntity.setUserPw(memberDto.getUserPw());
+    memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
     memberEntity.setUserEmail(memberDto.getUserEmail());
     memberEntity.setName(memberDto.getName());
     memberEntity.setDepartment(memberDto.getDepartment());
@@ -165,12 +167,13 @@ public class MemberEntity extends BaseTimeEntity {
 
   }
 
-  public static MemberEntity toUpdateMember(MemberDto memberDto) {
+  public static MemberEntity toUpdateMember(MemberDto memberDto,PasswordEncoder passwordEncoder) {
+
 
     MemberEntity memberEntity = new MemberEntity();
 
     memberEntity.setId(memberDto.getId());
-    memberEntity.setUserPw(memberDto.getUserPw());
+    memberEntity.setUserPw(passwordEncoder.encode(memberDto.getUserPw()));
     memberEntity.setUserEmail(memberDto.getUserEmail());
     memberEntity.setName(memberDto.getName());
     memberEntity.setDepartment(memberDto.getDepartment());

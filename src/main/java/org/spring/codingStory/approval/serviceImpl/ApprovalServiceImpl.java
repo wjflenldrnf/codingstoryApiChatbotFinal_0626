@@ -156,6 +156,12 @@ public class ApprovalServiceImpl implements ApprovalService {
         ApprovalStatusEntity approvalStatusEntity
             = ApprovalStatusEntity.builder().id(approvalStatusEntity_Id).build();
 
+        if (subject!=null && subject.equals("")){
+            subject=null;
+        }
+        if(subject!=null && search.equals("")){
+            subject=null;
+        }
         if (subject == null || search == null) { // 둘다 null이면 다 뽑아라 approvalDivEntity  ApprovalStatusEntity
             approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntity(pageable, name, approvalStatusEntity);
         } else {
@@ -179,6 +185,12 @@ public class ApprovalServiceImpl implements ApprovalService {
         ApprovalStatusEntity approvalStatusEntity
             = ApprovalStatusEntity.builder().id(approvalStatusEntity_Id).build();
         System.out.println("반려 1");
+        if (subject!=null && subject.equals("")){
+            subject=null;
+        }
+        if(subject!=null && search.equals("")){
+            subject=null;
+        }
         if (subject == null || search == null) {//둘다 null이면 다 뽑아라 approvalDivEntity  ApprovalStatusEntity
             approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntity(pageable, name, approvalStatusEntity);
         } else {

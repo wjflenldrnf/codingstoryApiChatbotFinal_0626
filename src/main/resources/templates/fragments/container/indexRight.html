@@ -37,47 +37,7 @@
       </div>
     </div>
 
-      <div class="naver">
-          <div class="left">
-              <ul>
-                  <li>
-                      <a href="워크플레이스 URL" class="naverBtn">네이버API연동</a>
-                  </li>
-                  <li>
-                      <!-- https://developers.worksmobile.com/kr/docs/auth-oauth -->
-                      <!-- 클라이언트 앱에서 사용자 인증을 통해 Authorization Code를 발급받으려면 아래와 같은 URL을 호출 -->
-                      <form action="https://auth.worksmobile.com/oauth2/v2.0/authorize" method="get">
-                          <input type="hidden" name="client_id" value="bkkWFCLHCqDi68L8xRI8">
-                          <input type="hidden" name="redirect_uri" value="http://localhost:8095/naver/auth2">
-                          <input type="hidden" name="scope" value="directory, directory.read, orgunit, orgunit.read, user, user.read">
-                          <input type="hidden" name="response_type" value="code"> <!--"code"로 고정-->
-                          <input type="hidden" name="state" value="test">
-                          <input type="submit" value="조직인증"  class="naverBtn">
-                      </form>
-                  </li>
 
-                  <li>
-                      <!-- naver 이메일 연동 기본 주소 -->
-                      <form id="mail"	onsubmit="window.open('https://mail.worksmobile.com/write/popup', '_blank', 'width=600, height=400,resizeable,scrollbars');">
-                          <input type="submit" value="메일연동"  class="naverBtn">
-                      </form>
-                  </li>
-
-                  <li>
-                      <a href="#">직원조회</a>
-                  </li>
-
-                  <li>
-                      <!-- 네이버 로그인  -->
-                      <a href="#"   class="naverBtn">NAVER LOGIN</a>
-                  </li>
-              </ul>
-          </div>
-          <div class="right">
-
-
-          </div>
-      </div>
 
     <div class="bottom">
       <div class="index-data">

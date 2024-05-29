@@ -3,6 +3,7 @@ package org.spring.codingStory.pay.dto;
 import lombok.*;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.pay.entity.PayEntity;
+import org.spring.codingStory.payment.entity.PaymentEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -47,18 +48,25 @@ public class PayDto {
 
     private LocalDate payingDate;
 
+    private PaymentEntity paymentEntity;
+    private Long paymentId;
 
+    public static PayDto toSelectOnePayDtoList(PayEntity payEntity) {
+        PayDto payDto = new PayDto();
+        payDto.setId(payEntity.getId());
+        payDto.setMemberEntity(payEntity.getMemberEntity());
 
+        payDto.setMemberId(payEntity.getMemberEntity().getId()); // 추가된 부분
 
+        payDto.setPaymentEntity(payEntity.getPaymentEntity());
+        payDto.setStartDate(payEntity.getStartDate());
+        payDto.setEndDate(payEntity.getEndDate());
+        payDto.setCalcTime(payEntity.getCalcTime());
+        payDto.setPayInDur(payEntity.getPayInDur());
+        payDto.setPayBns(payEntity.getPayBns());
+        payDto.setTotalPay(payEntity.getTotalPay());
+        payDto.setPayingDate(payEntity.getPayingDate());
+        return payDto;
+    }
 
-//    public static PayDto toSeletAllPayDto(PayEntity payEntity) {
-//
-//        PayDto payDto=new PayDto();
-//        payDto.setId(payEntity.getId());
-//        payDto.setMemberEntity(payEntity.getMemberEntity());
-//        payDto.setPayMon(payEntity.getPayMon());
-//        payDto.setPayBns(payEntity.getPayBns());
-//
-//        return payDto;
-//    }
 }
