@@ -24,10 +24,21 @@ public class HomeController {
         return "login";
     }
 
+//    @GetMapping("/index")
+//    public String index(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
+//
+//        model.addAttribute("myUserDetails", myUserDetails);
+//
+//        return "index";
+//    }
+
     @GetMapping("/index")
     public String index(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
 
         model.addAttribute("myUserDetails", myUserDetails);
+
+        model.addAttribute("name" ,myUserDetails.getMemberEntity().getName());
+        model.addAttribute("memberId",myUserDetails.getMemberEntity().getId());
 
         return "index";
     }

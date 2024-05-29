@@ -1,75 +1,72 @@
 @import url(/css/common/reset.css);
 @import url(/css/common/left.css);
 
-.right-con a {
-            color: #000; /* 링크 글씨 색을 검은색으로 설정 */
-            text-decoration: none; /* 밑줄 제거 */
-        }
-
-        .right-con a:hover {
-            text-decoration: underline; /* 마우스 오버 시 밑줄 표시 */
-        }
-
-.container {
+.bottom {
     width: 100%;
-    height: auto;
     display: flex;
     justify-content: center;
-}
-
-.bottom {
-    background-color: #f1f1f199;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    background-color: #f1f1f100;
+    margin-top: 200px; /* 위에서 200px 떨어뜨림 */
 }
 
 .admin-data {
     background-color: #fff;
+    padding: 20px;
     border-radius: 10px;
-    overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
 }
 
-.admin-data table {
+table {
     width: 100%;
     border-collapse: collapse;
-    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    background-color: #fff; /* 테이블 배경색 */
 }
 
-.admin-data table thead {
-    background-color: #f1f1f199;
+table th, table td {
+    padding: 12px 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #fff; /* 테이블 경계색 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
 }
 
-.admin-data table thead th {
-    padding: 10px;
-    text-align: left;
-    font-weight: bold;
-    color: #333;
+table thead tr {
+    background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+    color: #000;
 }
 
-.admin-data table tbody tr {
-    border-bottom: 1px solid #f1f1f199;
+table tbody tr:nth-of-type(even) {
+    background-color: #f1f1f1; /* 짝수 행 배경색 */
 }
 
-.admin-data table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+table tbody tr:hover {
+    background-color: #f1f1f1; /* 마우스 오버 행 배경색 */
 }
 
-.admin-data table tbody td {
-    padding: 10px;
-    color: #666;
+table tbody tr:last-of-type {
+    border-bottom: 2px solid #f1f1f1;
 }
 
-.admin-data table tbody td a {
-    color: #3498db;
+table tbody td a {
     text-decoration: none;
+    color: #00aaff; /* 링크 글씨 색을 하늘색으로 설정 */
+    transition: color 0.3s, text-decoration 0.3s;
 }
 
-.admin-data table tbody td a:hover {
-    text-decoration: underline;
-}
-
-.admin-data table tbody tr:hover {
-    background-color: #f1f1f199;
+table tbody td a:hover {
+    color: #0077cc; /* 링크 글씨 마우스 오버 색 */
+    text-decoration: underline; /* 호버 시 밑줄 표시 */
 }

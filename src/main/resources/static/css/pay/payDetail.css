@@ -1,221 +1,86 @@
 @import url(/css/common/reset.css);
 @import url(/css/common/left.css);
 
-.right-con a {
-            color: #000; /* 링크 글씨 색을 검은색으로 설정 */
-            text-decoration: none; /* 밑줄 제거 */
-        }
 
-        .right-con a:hover {
-            text-decoration: underline; /* 마우스 오버 시 밑줄 표시 */
-        }
-
-.container {
+.bottom {
     width: 100%;
-    height: auto;
     display: flex;
     justify-content: center;
-}
-
-.attendanceWrite {
-    width: 1600px;
-    box-sizing: border-box;
-    align-items:center;
-    background-color:  rgb(255, 251, 247);
-
-}
-
-
-
-.attendanceWrite  .attendanceWrite-con  {
-    width:100%;
-    height:800px;
-    background-color: rgb(255 251 247);
-    flex-basis: 400px;
     padding: 20px;
     box-sizing: border-box;
-
-    display: flex;
-    justify-content: center;
-
+    background-color: #f1f1f100;
+    margin-top: 150px; /* 위에서 200px 떨어뜨림 */
 }
-.attendanceWrite   .attendanceWrite-con {
-    width:100%;
-    background-color: rgb(255, 255, 255);
-    flex-basis: 400px;
+
+.admin-data {
+    background-color: #fff;
     padding: 20px;
-    box-sizing: border-box;
-    border-radius: 7px 7px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
-
-}
-
-
-
-.attendanceWrite   .attendanceWrite-con ul {
-    display: flex;
+    align-items: center;
     flex-direction: column;
-    gap: 5px;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
 }
 
-.attendanceWrite   .attendanceWrite-con ul li {
-     display: flex;
-       justify-content: space-between;
-       /*gap: 5px;*/
-       /*border: 1px solid #ccc;*/
-       box-sizing: border-box;
-       float: right;
-}
-.attendanceWrite   .attendanceWrite-con ul li h1{
-    text-align:center;
+.form-list {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.attendanceWrite   .attendanceWrite-con ul li label {
-
-        flex: 1;
-            font-size: 20px;
-            color: #666;
-            font-family:"나눔고딕 ExtraBold";
-            padding-top: 10px;
-            box-sizing: border-box;
+.form-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f1f1;
 }
 
-.attendanceWrite   .attendanceWrite-con ul li input{
-   flex: 3;
-       padding: 20px;
-       border: 1px solid #ccc;
-       border-radius: 7px 7px;
-       box-sizing: border-box;
+.form-list li label {
+    flex: 1;
+    text-align: right;
+    margin-right: 10px;
+    font-weight: bold;
 }
 
-.attendanceWrite   .attendanceWrite-con ul li.file{
- display:flex;
- justify-content:space-between;
-    align-items:center;
+.form-list li input {
+    flex: 2;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
-.attendanceWrite   .attendanceWrite-con ul li input[type=file]{
-    border: 0;
-
-}
-.attendanceWrite   .attendanceWrite-con ul li select {
-       width:600px;
-       height:30px;
+.submit-cell {
     text-align: center;
-    border: 1px solid #ccc;
-           border-radius: 7px 7px;
+    border: none;
 }
 
-
-.attendanceWrite   .attendanceWrite-con ul li textarea {
-  flex: 3;
-       padding: 20px;
-       border: 1px solid #ccc;
-       border-radius: 7px 7px;
-       box-sizing: border-box;
-    resize: none;
-}
-
-.attendanceWrite   .attendanceWrite-con ul li input[type=submit] {
-
-    padding: 5px;
-    box-sizing: border-box;
-    background-color:  rgb(250 184 119);
-    color: #ffffff;
+input[type="submit"] {
+    background-color: #009879;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.attendanceWrite   .attendanceWrite-con ul li a {
-
-    padding: 5px;
-    box-sizing: border-box;
-    background-color:  rgb(250 184 119);
-    color: #ffffff;
-    cursor: pointer;
-   /* display:flex;*/
-    justify-content:space-between;
-    gap:3px;
-      /*flex: 3;*/
-           padding: 20px;
-           border: 1px solid #ccc;
-           border-radius: 7px 7px;
-           box-sizing: border-box;
-           text-align:center;
+input[type="submit"]:hover {
+    background-color: #007b5e;
 }
 
-
-
-
-/*페이징~~~~~~*/
-.attendanceWrite .attendanceWrite-con .top .paging {
-  padding: 10px 0;
-  box-sizing: border-box;
-  background-color: #fefefe;
-  display: flex;
-  justify-content: center;
+.right-top .gnb ul li a {
+    text-decoration: none;
+    color: #000;
+    transition: color 0.3s;
 }
 
-.attendanceWrite .attendanceWrite-con .top .paging>ul {
-  flex-basis: 400px;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  gap: 5px;
-  padding: 5px;
-  box-sizing: border-box;
-}
-
-.attendanceWrite .attendanceWrite-con .top .paging>ul>li {
-  /* flex:1;*/
-  background-color: #58cc0000;
-}
-
-.attendanceWrite .attendanceWrite-con .top .paging>ul>li.block {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-}
-
-.attendanceWrite .attendanceWrite-con .top .paging>ul>li.block a {
-  color: #ffffff;
-  font-weight: bold;
-  background-color: #d8d8d8;
-  padding: 0 10px;
-  display: block;
-}
-
-.attendanceWrite .attendanceWrite-con .top .paging>ul>li span {
-  font-size: 12px;
-}
-
-.attendanceWrite .attendanceWrite-con .top .paging>ul>li a {
-
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.attendanceWrite .attendanceWrite-con .top .paging>ul>li span.span0 {
-  background-color: #d8d8d8;
-  color: #000000;
-  padding: 2px 10px;
-  border-radius: 5px;
-}
-
-.attendanceWrite .attendanceWrite-con .top .paging>ul>li span a.span1 {
-  padding: 2px 10px;
-  background-color: #d8d8d8;
-  color: #000000;
-}
-
-span.now {
-  color: #ffffff;
-  font-weight: bold;
-  border-radius: 10px;
-  background-color: #000000;
-  padding: 0 10px;
-  position: relative;
-  cursor: pointer;
+.right-top .gnb ul li a:hover {
+    color: #555;
+    text-decoration: underline;
 }

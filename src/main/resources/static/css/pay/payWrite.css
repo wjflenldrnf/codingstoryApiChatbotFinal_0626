@@ -2,61 +2,91 @@
 @import url(/css/common/left.css);
 
 .bottom {
-    background-color: #f1f1f199;
+    width: 100%;
+    display: flex;
+    justify-content: center;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    background-color: #f1f1f100;
+    margin-top: 200px; /* 위에서 200px 떨어뜨림 */
 }
 
 .admin-data {
     background-color: #fff;
-    border-radius: 10px;
     padding: 20px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.admin-data form ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.admin-data form ul li {
-    margin-bottom: 15px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
 }
 
-.admin-data form ul li label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
-}
-
-.admin-data form ul li input[type="text"],
-.admin-data form ul li input[type="datetime-local"],
-.admin-data form ul li select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+table {
+    width: 100%;
+    border-collapse: collapse;
     box-sizing: border-box;
-    background-color: #f1f1f199;
-    font-size: 14px;
+    background-color: #fff; /* 테이블 배경색 */
 }
 
-.admin-data form ul li input[type="submit"] {
-    background-color: #3498db;
+table th, table td {
+    padding: 12px 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #fff; /* 테이블 경계색 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+table thead tr {
+    background-color: #f1f1f1; /* 테이블 헤더 배경색 */
+    color: #000;
+}
+
+table tbody tr:nth-of-type(even) {
+    background-color: #f1f1f1; /* 짝수 행 배경색 */
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1; /* 마우스 오버 행 배경색 */
+}
+
+table tbody tr:last-of-type {
+    border-bottom: 2px solid #f1f1f1;
+}
+
+input[type="submit"] {
+    background-color: #009879;
     color: white;
-    padding: 10px 15px;
     border: none;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
-.admin-data form ul li input[type="submit"]:hover {
-    background-color: #2980b9;
+input[type="submit"]:hover {
+    background-color: #007b5e;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.right-top .gnb ul li a {
+    text-decoration: none;
+    color: #000;
+    transition: color 0.3s;
+}
+
+.right-top .gnb ul li a:hover {
+    color: #555;
+    text-decoration: underline;
 }
