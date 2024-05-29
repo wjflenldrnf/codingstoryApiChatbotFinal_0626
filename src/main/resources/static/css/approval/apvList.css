@@ -5,6 +5,9 @@
 
 
 /* 리스트css */
+.right .right-con h1 a{
+color:red !important;
+}
 
 table{
   width: 100%;

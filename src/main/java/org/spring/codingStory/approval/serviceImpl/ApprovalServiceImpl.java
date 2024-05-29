@@ -3,7 +3,6 @@ package org.spring.codingStory.approval.serviceImpl;
 import lombok.RequiredArgsConstructor;
 import org.spring.codingStory.approval.dto.ApprovalDto;
 import org.spring.codingStory.approval.dto.ApprovalFileDto;
-import org.spring.codingStory.approval.dto.ApprovalStatusDto;
 import org.spring.codingStory.approval.entity.ApprovalEntity;
 import org.spring.codingStory.approval.entity.ApprovalFileEntity;
 import org.spring.codingStory.approval.entity.ApprovalStatusEntity;
@@ -124,18 +123,14 @@ public class ApprovalServiceImpl implements ApprovalService {
 //        }
 //    }
 
-    // 내가 결재자인 보고서
+    // 전체 보고서
     @Transactional
     @Override
     public Page<ApprovalDto> apvList(Pageable pageable, String subject
         , String search, String name) {
         Page<ApprovalEntity> approvalEntityPage;
-        ApprovalStatusDto approvalStatusDto = new ApprovalStatusDto();
-        ApprovalEntity approvalEntity = new ApprovalEntity();
-
 
         if (subject == null || search == null) {
-//            approvalEntityPage = approvalRepository.findByApvFnl(pageable, name);
             approvalEntityPage = approvalRepository.findByApvFnl(pageable, name);
         } else {
             if (subject.equals("apvTitle")) {
@@ -151,39 +146,55 @@ public class ApprovalServiceImpl implements ApprovalService {
         return approvalDtoPage;
     }
 
+    //  대기인 것만
+    @Transactional
+    @Override
+    public Page<ApprovalDto> apvWaitList(Pageable pageable, String subject
+        , Long approvalStatusEntity_Id, String search, String name) {
 
-    //상태별로 뽑기
-//    @Transactional
-//    @Override
-//    public Page<ApprovalDto> apvList2(Pageable pageable, String subject
-//        , String search, String name, Long id) {
-//        Page<ApprovalEntity> approvalEntityPage = null;
-//        ApprovalStatusDto approvalStatusDto = new ApprovalStatusDto();
-//
-//        ApprovalEntity approvalEntity = new ApprovalEntity();
-//        if (subject == null || search == null) {
-//            if (1L == id) {
-//                approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntity_Id(pageable, name, id);
-//            } else if (subject.equals("apvTitle")) {
-//                approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntity_IdAndApvTitleContaining(pageable, name, search, id);
-//            } else if (subject.equals("apvContent")) {
-//                approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntity_IdAndApvContentContaining(pageable, name, search, id);
-//            }
-////        } else {
-//
-//            if (2L == id || 3L == id) {
-//                approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntity_Id(pageable, name, id);
-//            } else if (subject.equals("apvTitle")) {
-//                approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntity_IdAndApvTitleContaining(pageable, name, search, id);
-//            } else if (subject.equals("apvContent")) {
-//                approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntity_IdAndApvContentContaining(pageable, name, search, id);
-//            }
-//        }
-//        Page<ApprovalDto> approvalDtoPage = approvalEntityPage.map(ApprovalDto::toApvDtoList);
-//
-//        return approvalDtoPage;
-//    }
+        Page<ApprovalEntity> approvalEntityPage=null;
+        ApprovalStatusEntity approvalStatusEntity
+            = ApprovalStatusEntity.builder().id(approvalStatusEntity_Id).build();
 
+        if (subject == null || search == null) { // 둘다 null이면 다 뽑아라 approvalDivEntity  ApprovalStatusEntity
+            approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntity(pageable, name, approvalStatusEntity);
+        } else {
+            if (subject.equals("apvTitle")) {
+                approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntityAndApvTitleContaining(pageable, name, approvalStatusEntity, search);
+            } else if (subject.equals("apvContent")) {
+                approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntityAndApvContentContaining(pageable, name, approvalStatusEntity, search);
+            }
+        }
+
+        Page<ApprovalDto> approvalDtoPage = approvalEntityPage.map(ApprovalDto::toApvDtoList);
+        return approvalDtoPage;
+    }
+
+    //  반려된 것만
+    @Transactional
+    @Override
+    public Page<ApprovalDto> apvDenyList(Pageable pageable, String subject
+        , Long approvalStatusEntity_Id, String search, String name) {
+        Page<ApprovalEntity> approvalEntityPage = null;
+        ApprovalStatusEntity approvalStatusEntity
+            = ApprovalStatusEntity.builder().id(approvalStatusEntity_Id).build();
+        System.out.println("반려 1");
+        if (subject == null || search == null) {//둘다 null이면 다 뽑아라 approvalDivEntity  ApprovalStatusEntity
+            approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntity(pageable, name, approvalStatusEntity);
+        } else {
+            if (subject.equals("apvTitle")) {
+                approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntityAndApvTitleContaining(pageable, name, approvalStatusEntity, search);
+            } else if (subject.equals("apvContent")) {
+                approvalEntityPage = approvalRepository.findByApvFnlAndApprovalStatusEntityAndApvContentContaining(pageable, name, approvalStatusEntity, search);
+            }
+        }
+        System.out.println("반려 2");
+        
+        System.out.println("반려 3");
+        Page<ApprovalDto> approvalDtoPage = approvalEntityPage.map(ApprovalDto::toApvDtoList);
+        System.out.println("반려 4");
+        return approvalDtoPage;
+    }
 
     //내가 작성한 보고서
     @Override
@@ -205,6 +216,41 @@ public class ApprovalServiceImpl implements ApprovalService {
         Page<ApprovalDto> approvalDtoPage = approvalEntityPage.map(ApprovalDto::toApvDtoList);
 
         return approvalDtoPage;
+    }
+
+    @Override
+    public Long apvCount(String name) {
+        Long apvCount = approvalRepository.countByApvFnl(name);
+        return apvCount;
+    }
+
+    @Override
+    public Long apvWaitCount(String name, Long approvalStatusEntity_Id) {
+        Long apvWaitCount = approvalRepository.countByApvFnlAndApprovalStatusEntity_Id(name, approvalStatusEntity_Id);
+        return apvWaitCount;
+    }
+
+    @Override
+    public Long apvDenyCount(String name, Long approvalStatusEntity_Id) {
+        Long apvDenyCount = approvalRepository.countByApvFnlAndApprovalStatusEntity_Id(name, approvalStatusEntity_Id);
+        return apvDenyCount;
+    }
+
+    @Override
+    public Long apvMyCount(Long memberId) {
+        Long apvMyCount = approvalRepository.countByMemberEntity_Id(memberId);
+
+        return apvMyCount;
+    }
+
+    @Override
+    public int apvWaitCount2(String name, Long approvalStatusEntity_Id) {
+        ApprovalStatusEntity approvalStatusEntity
+            = ApprovalStatusEntity.builder().id(approvalStatusEntity_Id).build();
+
+       int approvalEntityCount = approvalRepository.findByApvFnlAndApprovalStatusEntityCount(name, approvalStatusEntity);
+        return approvalEntityCount;
+
     }
 
     @Override

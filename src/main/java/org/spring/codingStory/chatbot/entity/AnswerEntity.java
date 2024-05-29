@@ -19,7 +19,7 @@ public class AnswerEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long no;
+	private long id;
 
 	private String content;
 	
@@ -32,7 +32,7 @@ public class AnswerEntity {
 	
 	public AnswerDTO toAnswerDTO() {
 		return AnswerDTO.builder()
-				.no(no).content(content).keyword(keyword)
+				.id(id).content(content).keyword(keyword)
 				.build();
 	}
 
