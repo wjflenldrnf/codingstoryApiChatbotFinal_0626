@@ -96,13 +96,9 @@ public class DepartmentController {
 @GetMapping("/list")
 @ResponseBody
 public ResponseEntity<Map<String, Object>>departmentList() {
-
   Map<String, Object> deptList = new HashMap<>();
 
-
   List<DepartmentEntity> departments = departmentService.getAllDepartments();
-
-
   List<String> depts = new ArrayList<>();
   List<Integer> mapDept = new ArrayList<>();
   List<String> mRanks = new ArrayList<>(); //mRank 정보를 담을 리스트 추가

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/department/department.css">
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
     .department, .sub-department {
@@ -31,6 +32,11 @@
 <div class="button-container">
   <button class="btn btn-success" onclick="showForm()">부서등록</button>
 </div>
+<div class="Head office">
+  <img src="/images/logo.png" alt="Head Office Logo">
+</div>
+
+
 <div id="departmentTree">
   <!-- 부서 조직도 표시 -->
 </div>
@@ -123,47 +129,35 @@
   }
 
   // 부서 정보를 표시하는 함수
-  function displayDepartments(departments, parentElement) {
+function displayDepartments(departments, parentElement) {
+  console.log(departments, " << departments");
 
+  const dept = departments.dept;
+  console.log(dept, " << 부서");
 
+  departments.deptList.forEach(function(department, idx) {
+    // 부서의 이름과 멤버수를 표시
+    var departmentElement = $("<div>").addClass("department");
 
-
-
-
-   console.log(departments," << departments");
-   console.log(departments.deptList," << departments.deptList");
-   console.log(departments.dept," << 부서");
-
-    const dept=departments.dept;
-    console.log(dept," << 부서");
-
-    departments.deptList.forEach(function(department,idx) {
-
-    //부서의 이름과 멤버수를 표시한다.
-      var departmentElement = $("<div>").addClass("department");
-    // Map ->
-
-      dept.forEach(function(el,idx2){
-
-        if(idx==idx2){
-              console.log(el," << 부서2");
-            departmentElement.html(department.dptName + " (" + el + "명)" +
-        " <button onclick='showMemberList(\"" + department.dptName + "\")'>멤버보기</button>");
-              parentElement.append(departmentElement);
-        }
-
-       });
-
-      var memberListContainer = $("<div>").addClass("member-list").attr("id", "member-list-" + department.dptName);
-      departmentElement.append(memberListContainer);
-
-      if (department.childDepartments && department.childDepartments.length > 0) {
-        var childElement = $("<div>").addClass("sub-department");
-        departmentElement.append(childElement);
-        displayDepartments(department.childDepartments, childElement);
+    dept.forEach(function(el, idx2) {
+      if (idx == idx2) {
+        console.log(el, " << 부서2");
+        departmentElement.html(department.dptName + " (" + el + "명)" +
+          " <button onclick='showMemberList(\"" + department.dptName + "\")'>멤버보기</button>");
+        parentElement.append(departmentElement);
       }
     });
-  }
+
+    var memberListContainer = $("<div>").addClass("member-list").attr("id", "member-list-" + department.dptName);
+    departmentElement.append(memberListContainer);
+
+    if (department.childDepartments && department.childDepartments.length > 0) {
+      var childElement = $("<div>").addClass("sub-department");
+      departmentElement.append(childElement);
+      displayDepartments(department.childDepartments, childElement);
+    }
+  });
+}
 
   function showMemberList(departmentName) {
     var memberListContainer = $("#member-list-" + departmentName);
@@ -175,13 +169,41 @@
         url: "/department/members/" + encodeURIComponent(departmentName),
         success: function(response) {
           memberListContainer.empty();
-
           if (response && response.length > 0) {
+              //직급 과 숫자 간의 매핑
+              var rankMap={
+                "사장":1,
+                "지점장":2,
+                "팀장":3,
+                "사원":4
+              };
+              //직급에 따라 정렬
+              response.sort(function(a,b){
+                return rankMap[a.mrank] - rankMap[b.mrank];
+              });
+
+              var memberList = $("<ul>");
+              response.forEach(function(member){
+                //직급과 이름을 출력
+                memberList.append("<li>" + member.mrank + " " +member.name +"</li>");
+              });
+
+
+
+
+
             var memberList = $("<ul>");
+            response.forEach(function(member,idx) {
+              console.log(member,' << member')
+              console.log(member.id,' << id')
+              console.log(member.mrank,' << member')
+              console.log(idx,' << idx')
 
-            response.forEach(function(member) {
+              var mrank = member.mrank ? member.mrank : "No Rank"; //mRank가 존재하지 안흥면 NORNAK로처리
 
-              memberList.append("<li>" + member.name + "("+member.mRank+")</li>");
+
+              memberList.append("<li><a href='/member/memberInfo/" + member.id + "'>" + member.name + "(" + member.mrank + ")</a></li>");
+
             });
             memberListContainer.append(memberList);
           } else {
