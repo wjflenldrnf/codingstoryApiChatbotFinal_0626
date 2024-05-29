@@ -21,18 +21,14 @@ height:100px;
 display: flex;
 flex-direction: column;
 gap: 20px;
+
 }
 .down ul li{
-border:1px solid #ccc;
-border-radius:5px;
-width:300px;
-height:50px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-      padding: 5px;
-    box-sizing: border-box;
+height:100%;
+display:flex;
+align-items:center;
+padding-left:10px;
+
 }
 label{
 width:100px;
@@ -41,50 +37,59 @@ display:flex;
 align-items:center;
 font-size:20px;
 font-weight:bold;
+background-color: rgb(222 223 188);
+display:flex;
+justify-content:center;
 }
 
 .info{
-display:flex;
-align-items:center;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 580px;
+    height: 50px;
+    border-radius:5px;
+    background-color:#ffffff;
+}
+.info span{
+font-size:18px;
 }
 
-.back{
+.gogo{
 display:flex;
 justify-content:center;
 padding-top:40px;
 gap:20px;
 }
+
+.gogo button{
+width:200px;
+height:65px;
+background-color:dimgrey;
+border-radius:6px;
+cursor:pointer;
+border:0;
+font-size:20px;
+color:#fff;
+font-weight:bold;
+}
+
+.back{
+display:flex;
+justify-content:center;
+padding-top:20px;
+}
+
 .back a{
-width:100px;
-height:60px;
-background-color:#ccc;
+width:200px;
+height:65px;
+background-color:dimgrey;
 border-radius:6px;
 display:flex;
 align-items:center;
 text-align:center;
 justify-content:center;
-}
-.back button{
-width:100px;
-height:60px;
-background-color:#ccc;
-border-radius:6px;
-cursor:pointer;
-border:0;
-}
-.info p{
-border-radius: 5px;
-width: 50px;
-height: 30px;
-align-items: center;
-text-align: center;
-display: flex;
-justify-content: center;
-background-color:#dcdcdc;
-}
-
-.info p a{
-font-size: 14px;
-font-weight: 500;
-color: #7b8994;
+font-size:20px;
+color:#fff;
+font-weight:bold;
 }
