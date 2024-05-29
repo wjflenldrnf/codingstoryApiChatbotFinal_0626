@@ -104,7 +104,8 @@ public class AttendanceServiceImpl implements AttendanceService {
     public boolean hasAttendanceToday(Long memberId) {
         LocalDate today = LocalDate.now();
         LocalDateTime todayStart = today.atStartOfDay();
-        LocalDateTime todayEnd = today.atTime(23, 59, 59);
+//        LocalDateTime todayEnd = today.atTime(23, 59, 59);
+        LocalDateTime todayEnd = today.atStartOfDay();
         return attendanceRepository.existsByEmployeeIdAndStartTimeBetween(memberId, todayStart, todayEnd);
     }
 }

@@ -125,9 +125,9 @@ function ajaxAttendanceList(page) {
 function checkOutTimeBtnFn(id) {
     if (confirm("퇴근하시겠습니까?")) {
         const data = {
-            checkInTime: checkInTime.value,
-            checkOutTime: checkOutTime.value,
-            attendanceType: attendanceType.value
+            id: id,
+            attendanceType: "퇴근",
+            checkOutTime: new Date().toISOString()
         };
 
         $.ajax({
@@ -136,13 +136,17 @@ function checkOutTimeBtnFn(id) {
             contentType: "application/json",
             data: JSON.stringify(data),
             success: function(res) {
-                if (res == 1) {
+                if (res === 1) {
                     alert('퇴근 완료');
                     ajaxAttendanceList(0);
+                } else {
+                    alert('퇴근 실패: 올바르지 않은 응답');
+                    console.log(res);
                 }
             },
-            error: function() {
+            error: function(xhr, status, error) {
                 alert('퇴근 실패');
+                console.log(`Error: ${status}, ${error}`);
             }
         });
     }
