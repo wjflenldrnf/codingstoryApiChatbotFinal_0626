@@ -21,7 +21,7 @@ public class DepartmentEntity {
     @Column(name = "department_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String dptName;
 
     @Column(nullable = false)
@@ -30,6 +30,13 @@ public class DepartmentEntity {
 
     @Column(nullable = false)
     private int memberCount;
+
+    //멤버 수를 업데이트하는 메서드 추가
+
+
+    public void updateMemberCount(){
+        this.memberCount=countMembers();
+    }
 
 
     // 소속 인원 수를 반환하는 메서드
@@ -51,4 +58,6 @@ public class DepartmentEntity {
 
     @OneToMany(mappedBy = "parentDepartment", fetch = FetchType.LAZY)
     private List<DepartmentEntity> childDepartments;
+
+
 }

@@ -12,10 +12,22 @@
     .add-sub-department-form {
       display: none;
     }
+
+    #departmentForm {
+      position: relative;
+      margin: 0 auto;
+      width: 300px;
+      padding: 10px;
+      border: 1px solid;
+      box-sizing: border-box;
+    }
+    #departmentForm form {
+      width: 100%;
+    }
   </style>
 </head>
 <body>
-<h1>부서관리</h1>
+<h1>본사조직도</h1>
 <div class="button-container">
   <button class="btn btn-success" onclick="showForm()">부서등록</button>
 </div>
@@ -32,9 +44,8 @@
     <label for="deptLocation">부서 위치:</label>
     <input type="text" id="deptLocation" name="location"><br>
     <label for="parentDept">상위 부서:</label>
-    <select id="parentDept" name="parentDeptId">
+    <select id="parentDept" name="parentDept">
       <option value="">없음</option>
-      <!-- 상위 부서 선택 옵션 -->
     </select><br>
     <button type="submit" class="btn btn-success">등록</button>
   </form>
@@ -90,8 +101,12 @@
       departmentTree.empty();
       // 부서 정보를 표시하는 함수 호출
       displayDepartments(data, departmentTree);
+
     });
   }
+
+
+
 
   // 상위 부서 목록을 불러오는 함수
   function loadParentDepartments() {
@@ -109,22 +124,38 @@
 
   // 부서 정보를 표시하는 함수
   function displayDepartments(departments, parentElement) {
-    departments.forEach(function(department) {
-      var departmentElement = $("<div>").addClass("department");
-      departmentElement.html(department.dptName + " <button onclick='showSubDepartmentForm(" + department.id + ")'>+</button>");
-      parentElement.append(departmentElement);
 
-      var subDepartmentForm = $("<div>").addClass("add-sub-department-form").attr("id", "sub-department-form-" + department.id);
-      subDepartmentForm.html(`
-        <form onsubmit="addSubDepartment(event, ${department.id})">
-          <label for="subDeptName-${department.id}">하위 부서 이름:</label>
-          <input type="text" id="subDeptName-${department.id}" name="dptName" required>
-          <label for="subDeptLocation-${department.id}">위치:</label>
-          <input type="text" id="subDeptLocation-${department.id}" name="location" required>
-          <button type="submit">추가</button>
-        </form>
-      `);
-      departmentElement.append(subDepartmentForm);
+
+
+
+
+
+   console.log(departments," << departments");
+   console.log(departments.deptList," << departments.deptList");
+   console.log(departments.dept," << 부서");
+
+    const dept=departments.dept;
+    console.log(dept," << 부서");
+
+    departments.deptList.forEach(function(department,idx) {
+
+    //부서의 이름과 멤버수를 표시한다.
+      var departmentElement = $("<div>").addClass("department");
+    // Map ->
+
+      dept.forEach(function(el,idx2){
+
+        if(idx==idx2){
+              console.log(el," << 부서2");
+            departmentElement.html(department.dptName + " (" + el + "명)" +
+        " <button onclick='showMemberList(\"" + department.dptName + "\")'>멤버보기</button>");
+              parentElement.append(departmentElement);
+        }
+
+       });
+
+      var memberListContainer = $("<div>").addClass("member-list").attr("id", "member-list-" + department.dptName);
+      departmentElement.append(memberListContainer);
 
       if (department.childDepartments && department.childDepartments.length > 0) {
         var childElement = $("<div>").addClass("sub-department");
@@ -134,30 +165,56 @@
     });
   }
 
+  function showMemberList(departmentName) {
+    var memberListContainer = $("#member-list-" + departmentName);
+    memberListContainer.toggle();
 
-  function showSubDepartmentForm(departmentId) {
-    $("#sub-department-form-" + departmentId).toggle();
+    if (memberListContainer.is(':visible')) {
+      $.ajax({
+        type: "GET",
+        url: "/department/members/" + encodeURIComponent(departmentName),
+        success: function(response) {
+          memberListContainer.empty();
+
+          if (response && response.length > 0) {
+            var memberList = $("<ul>");
+
+            response.forEach(function(member) {
+
+              memberList.append("<li>" + member.name + "("+member.mRank+")</li>");
+            });
+            memberListContainer.append(memberList);
+          } else {
+            memberListContainer.append("<p>멤버가 없습니다.</p>");
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error(error);
+          alert("멤버를 불러오는데 실패했습니다.");
+        }
+      });
+    }
   }
 
-
-  function addSubDepartment(event, parentDeptId) {
-    event.preventDefault();
-    var form = $(event.target);
-    var data = form.serialize() + "&parentDeptId=" + parentDeptId;
-
-    $.ajax({
-      type: "POST",
-      url: "/department/add",
-      data: data,
-      success: function(response) {
-        loadDepartments();
-      },
-      error: function(xhr, status, error) {
-        console.error(error);
-        alert("하위 부서 등록에 실패했습니다.");
-      }
-    });
+  //각 부서의 멤버수를 업데이트하는 함수
+  function updateDepartmentMemberCounts(){
+      $(".department").each(function(){
+          var departmentName=$(this).text().split(" ")[0]; //부서 이름 추출
+          $.ajax({
+            type:"POST",
+            url: "/department/updateMemberCount/" + encodeURIComponent(departmentName),
+            success:function(response){
+                console.log(response);
+                loadDepartments(); //멤버수 업데이트 후 부서 목록 다시 로드
+            },
+              error:function(xhr,status,error){
+                  console.error(error);
+                  alert("부서 멤버수 업데이트에 실패 했습니다.");
+            }
+  });
+  });
   }
+
 </script>
 </body>
 </html>

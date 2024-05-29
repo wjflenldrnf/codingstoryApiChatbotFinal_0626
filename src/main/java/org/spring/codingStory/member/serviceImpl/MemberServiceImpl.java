@@ -1,6 +1,8 @@
 package org.spring.codingStory.member.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.codingStory.department.entity.DepartmentEntity;
+import org.spring.codingStory.department.repository.DepartmentRepository;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.dto.MemberFileDto;
 import org.spring.codingStory.member.entity.MemberEntity;
@@ -30,10 +32,12 @@ import java.util.UUID;
 @Transactional
 public class MemberServiceImpl implements MemberService {
 
+
   private final MemberRepository memberRepository;
   private final PasswordEncoder passwordEncoder;
   private final MemberFileRepository fileRepository;
   private final PaymentRepository paymentRepository;
+
 
   @Override
   public void memberJoin(MemberDto memberDto) throws IOException {
@@ -450,9 +454,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public int memberAppOk(MemberDto memberDto) {
+        //멤버 정보를 가져옵니다.
 
         MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("xx"));
+
+
+
 
         memberEntity.setRole(Role.MEMBER);
         memberEntity.setDepartment(memberDto.getDepartment());
@@ -478,4 +486,5 @@ public class MemberServiceImpl implements MemberService {
 
         return 1;
     }
+
 }

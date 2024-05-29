@@ -1,5 +1,8 @@
 @charset "UTF-8";
-@import url("/css/common/reset.css");
+@import url(/css/common/reset.css);
+@import url(/css/common/left.css);
+/*@import url("/css/common/header");
+@import url("/css/common/footer");*/
 
 .bot-con{
   width:100%;

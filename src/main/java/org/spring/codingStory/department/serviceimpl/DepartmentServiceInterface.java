@@ -23,4 +23,12 @@ public interface DepartmentServiceInterface {
 
   List<DepartmentDto> findDepart();
 
+
+
+  List<MemberDto> getMembersByDepartmentId(String dept);
+
+  void updateDepartmentMemberCount(String department);
+
+
+
 }
