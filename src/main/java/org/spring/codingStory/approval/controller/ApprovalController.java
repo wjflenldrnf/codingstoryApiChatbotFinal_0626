@@ -8,7 +8,9 @@ import org.spring.codingStory.approval.dto.ApprovalStatusDto;
 import org.spring.codingStory.approval.entity.ApprovalDivEntity;
 import org.spring.codingStory.approval.entity.ApprovalEntity;
 import org.spring.codingStory.approval.entity.ApprovalStatusEntity;
+import org.spring.codingStory.approval.repository.ApprovalStatusRepository;
 import org.spring.codingStory.approval.serviceImpl.ApprovalDivServiceImpl;
+import org.spring.codingStory.approval.serviceImpl.ApprovalFileServiceImpl;
 import org.spring.codingStory.approval.serviceImpl.ApprovalServiceImpl;
 import org.spring.codingStory.approval.serviceImpl.ApprovalStatusServiceImpl;
 import org.spring.codingStory.approval.serviceImpl.service.ApprovalDivService;
@@ -26,9 +28,17 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.naming.LinkLoopException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 
@@ -41,24 +51,24 @@ public class ApprovalController {
     private final ApprovalServiceImpl approvalService;
     private final ApprovalDivServiceImpl approvalDivService;
     private final ApprovalStatusServiceImpl approvalStatusService;
-//    먼저 리스트를 뽑아내야한다(대기문서,완료, 전체)
+    private final ApprovalStatusRepository approvalStatusRepository;
 
     @GetMapping("/write")
-    public String write(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model,ApprovalDto approvalDto ){
-        ApprovalEntity approvalEntity=new ApprovalEntity();
+    public String write(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model, ApprovalDto approvalDto) {
+        ApprovalEntity approvalEntity = new ApprovalEntity();
 
         List<MemberDto> memberDtoList = memberService.memberList();
         List<ApprovalDivDto> approvalDivDtoList = approvalDivService.apvDivList();
         List<ApprovalStatusDto> approvalStatusDtoList = approvalStatusService.apvStatusList();
 
 
-        model.addAttribute("myUserDetails",myUserDetails);
+        model.addAttribute("myUserDetails", myUserDetails);
         model.addAttribute("memberId", myUserDetails.getMemberEntity().getId());
-        model.addAttribute("memberName",myUserDetails.getMemberEntity().getName());
-        model.addAttribute("memberDtoList",memberDtoList);
-        model.addAttribute("approvalDivDtoList",approvalDivDtoList);
-        model.addAttribute("approvalStatusDtoList",approvalStatusDtoList);
-        model.addAttribute("approvalDto",approvalDto.getApvAttachFile());
+        model.addAttribute("memberName", myUserDetails.getMemberEntity().getName());
+        model.addAttribute("memberDtoList", memberDtoList);
+        model.addAttribute("approvalDivDtoList", approvalDivDtoList);
+        model.addAttribute("approvalStatusDtoList", approvalStatusDtoList);
+        model.addAttribute("approvalDto", approvalDto.getApvAttachFile());
 
         return "apv/write";
     }
@@ -71,20 +81,30 @@ public class ApprovalController {
         return "redirect:/apv/list";
     }
 
+    //코멘트 작성 폼
+//    @PostMapping("/write1")
+//    public String write1(ApprovalDto approvalDto) throws IOException {
+//
+//        approvalService.apvWriteCom(approvalDto);
+//
+//        return "apv/write";
+//    }
+
     //내가 결재자인 보고서
     @GetMapping("/list")
     public String apvList1(Model model,
-                          @AuthenticationPrincipal MyUserDetails myUserDetails,
-                          @RequestParam(name = "subject", required = false) String subject,
-                          @RequestParam(name = "search", required = false) String search,
-                          @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC)
-                          Pageable pageable){
-
-        System.out.println(">>>>>>>>>"+myUserDetails.getName());
-        model.addAttribute("myUserDetails",myUserDetails);
-        String name = myUserDetails.getName();
+                           @AuthenticationPrincipal MyUserDetails myUserDetails,
+                           @RequestParam(name = "subject", required = false) String subject,
+                           @RequestParam(name = "search", required = false) String search,
+                           @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC)
+                           Pageable pageable) {
         ApprovalEntity approvalEntity = new ApprovalEntity();
+        ApprovalDto approvalDto = new ApprovalDto();
+        System.out.println(">>>>>>>>>" + myUserDetails.getName());
+        model.addAttribute("myUserDetails", myUserDetails);
+        String name = myUserDetails.getName();
 
+//        Long id = approvalEntity.getApprovalStatusEntity().getId();
 
         Page<ApprovalDto> approvalDtoPage = approvalService.apvList(pageable, subject, search, name);
 
@@ -107,15 +127,15 @@ public class ApprovalController {
     ///내가 쓴  보고서
     @GetMapping("/myApvList")
     public String myApvList(Model model,
-                           @AuthenticationPrincipal MyUserDetails myUserDetails,
-                           @RequestParam(name = "subject", required = false) String subject,
-                           @RequestParam(name = "search", required = false) String search,
-                           @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC)
-                           Pageable pageable){
+                            @AuthenticationPrincipal MyUserDetails myUserDetails,
+                            @RequestParam(name = "subject", required = false) String subject,
+                            @RequestParam(name = "search", required = false) String search,
+                            @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC)
+                            Pageable pageable) {
 
-        System.out.println(">>>>>>>>>"+myUserDetails.getName());
-        model.addAttribute("myUserDetails",myUserDetails);
-        Long memberId= myUserDetails.getMemberEntity().getId();
+        System.out.println(">>>>>>>>>" + myUserDetails.getName());
+        model.addAttribute("myUserDetails", myUserDetails);
+        Long memberId = myUserDetails.getMemberEntity().getId();
         Page<ApprovalDto> approvalDtoPage = approvalService.myApvList(pageable, subject, search, memberId);
 
         int totalPages = approvalDtoPage.getTotalPages();
@@ -135,35 +155,122 @@ public class ApprovalController {
     }
 
 
-
     @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable("id") Long id,
-                         @AuthenticationPrincipal MyUserDetails myUserDetails){
+                         @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        ApprovalEntity approvalEntity = new ApprovalEntity();
+        List<ApprovalStatusDto> approvalStatusDtoList = approvalStatusService.apvStatusList();
         ApprovalDto approvalDto = approvalService.apvDetail(id);
+
         model.addAttribute("myUserDetails", myUserDetails);
-        model.addAttribute("approvalDto",approvalDto);// entity -> dto 로 변환한 것
+        model.addAttribute("apvEntity", approvalEntity);
+        model.addAttribute("approvalDto", approvalDto);// entity -> dto 로 변환한 것
+        model.addAttribute("apvFile", approvalDto.getApvFile());// entity -> dto 로 변환한 것
+        model.addAttribute("approvalStatusDtoList", approvalStatusDtoList);
         return "apv/detail";
     }
 
+
     @GetMapping("/apvDelete/{id}")
-    public String delete (@PathVariable("id") Long id){
+    public String delete(@PathVariable("id") Long id) {
 
         approvalService.apvDeleteById(id);
         return "redirect:/apv/list";
     }
 
+    //수정
+    @GetMapping("/apvUpdate/{id}")
+    public String update(@PathVariable("id") Long id, Model model,
+                         @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        ApprovalDto approvalDto = approvalService.apvDetail(id);
+        Long apvName = approvalDto.getMemberEntity().getId();
+        List<MemberDto> memberDtoList = memberService.memberList();
+        List<ApprovalDivDto> approvalDivDtoList = approvalDivService.apvDivList();
+        List<ApprovalStatusDto> approvalStatusDtoList = approvalStatusService.apvStatusList();
 
-    @PostMapping("/apvOK")
-    public String apvOk(@ModelAttribute ApprovalDto approvalDto,Model model, @PathVariable("id") Long id ){
+        model.addAttribute("myUserDetails", myUserDetails);
+        model.addAttribute("memberId", myUserDetails.getMemberEntity().getId());
+        model.addAttribute("memberName", myUserDetails.getMemberEntity().getName());
+        model.addAttribute("memberDtoList", memberDtoList);
+        model.addAttribute("approvalDivDtoList", approvalDivDtoList);
+        model.addAttribute("approvalStatusDtoList", approvalStatusDtoList);
+        model.addAttribute("approvalDto", approvalDto.getApvAttachFile());
+        model.addAttribute("myUserDetails", myUserDetails);
+        model.addAttribute("apvName", apvName);
+        model.addAttribute("approvalDto", approvalDto);// entity -> dto 로 변환한 것
+
+        return "apv/apvUpdate";
+    }
+
+
+
+    @PostMapping("/apvUpdate")
+    public String updateOk(Model model,
+                           @ModelAttribute ApprovalDto approvalDto) throws IOException {
+
+        ApprovalEntity approvalEntity = ApprovalEntity.builder()
+            .id(approvalDto.getId()).build();
+        approvalDto.setId(approvalEntity.getId());
+
+        approvalService.apvUpdate(approvalDto);
+
+        return "redirect:/apv/detail/" + approvalDto.getId();
+    }
+
+    //update 시 파일 유지 연습해보기
+//    @PostMapping("/apvUpdate")
+//    public String updateOk(@RequestParam("postId") Long id,
+//                           @RequestParam("title") String apvTitle,
+//                           @RequestParam("newFile") MultipartFile newFile,
+//                           @RequestParam("existingFile") String existingFile,
+//                           @ModelAttribute ApprovalDto approvalDto) throws IOException {
+//
+//        ApprovalEntity approvalEntity = ApprovalEntity.builder()
+//            .id(approvalDto.getId()).build();
+//        approvalDto.setId(approvalEntity.getId());
+//
+//        ApprovalEntity approvalEntity1 = approvalService.findById(id);
+//        approvalEntity1.setTitle(apvTitle);
+//
+//        if (!newFile.isEmpty()) {
+//            // 새 파일이 업로드된 경우
+//            String newFilePath = approvalFileService.saveFile(newFile);
+//            post.setFilePath(newFilePath);
+//        } else {
+//            // 새 파일이 업로드되지 않은 경우
+//            post.setFilePath(existingFile);
+//        }
+//
+//        approvalService.save(post);
+//
+//        approvalService.apvUpdate(approvalDto);
+//
+//        return "redirect:/apv/detail/" + approvalDto.getId();
+//    }
+
+
+    @PostMapping("/apvOk")
+    public String apvOk(@ModelAttribute ApprovalDto approvalDto, Model model, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ApprovalEntity approvalEntity = new ApprovalEntity();
 
+        System.out.println("================");
+        List<MemberDto> memberDtoList = memberService.memberList();
+        List<ApprovalDivDto> approvalDivDtoList = approvalDivService.apvDivList();
+        List<ApprovalStatusDto> approvalStatusDtoList = approvalStatusService.apvStatusList();
+
+        model.addAttribute("memberName", myUserDetails.getMemberEntity().getName());
+        model.addAttribute("memberDtoList", memberDtoList);
+        model.addAttribute("approvalDivDtoList", approvalDivDtoList);
+        model.addAttribute("approvalStatusDtoList", approvalStatusDtoList);
+        model.addAttribute("approvalAttach", approvalDto.getApvAttachFile());
+        model.addAttribute("myUserDetails", myUserDetails);
+        model.addAttribute("approvalDto", approvalDto);// entity -> dto 로 변환한 것
+        System.out.println("---------------------");
+        ApprovalEntity approvalEntity1 = ApprovalEntity.builder()
+            .id(approvalDto.getId()).build();
+        approvalDto.setId(approvalEntity1.getId());
         approvalService.apvOk(approvalDto);
-        model.addAttribute("approvalDto",approvalDto);
-
         return "redirect:/apv/list";
-
-
-
     }
 
 

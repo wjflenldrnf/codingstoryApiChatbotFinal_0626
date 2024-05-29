@@ -22,124 +22,65 @@
                         <div class="write-con">
                             <form th:action="@{/apv/write}" method="POST" enctype="multipart/form-data">
                                 <h1>보고서 작성</h1>
-                                <ul>
-<!--                                                                        <form th:action="@{/apv/write1}" method="POST">-->
-
-<!--                                                                        결재자 지정 팝업창-->
-<!--                                                                        <div id="modal1" class="modal">-->
-<!--                                                                            <p>결재자 선택</p>-->
-<!--                                                                            <table>-->
-<!--                                                                                <thead>-->
-<!--                                                                                <tr>-->
-<!--                                                                                    <th>부서</th>-->
-<!--                                                                                    <th></th>-->
-<!--                                                                                    <th>직급</th>-->
-<!--                                                                                </tr>-->
-<!--                                                                                </thead>-->
-<!--                                                                                <tbody>-->
-<!--                                                                                <tr th:each="member : ${memberDtoList}">-->
-
-<!--                                                                                        <td th:text="${member.name}"></td>-->
-<!--                                                                                        <td th:text="${member.department}"></td>-->
-<!--                                                                                        <td><input type="checkbox" name="check" id="check"></td>-->
-
-
-<!--                                                                                </tr>-->
-<!--                                                                                </tbody>-->
-<!--                                                                            </table>-->
-<!--                                                                            <a href="#" rel="modal:close">닫기</a>-->
-<!--                                                                        </div>-->
-<!--                                                                            <input type="submit" value="123">-->
-<!--                                                                        </form>-->
-
-<!--                                                                        <p><a href="#modal1" rel="modal:open">결재자</a></p>-->
-<!--                                    -->
-
-
-
-                                    <li>
-                                        <label for="apvFnl">결재자</label>
-
-<!--                                        <select class="dept" th:name="department" id="department">-->
-<!--                                            <option value="선택"> 선택</option> &lt;!&ndash;부서 작업을 받아야 한다&ndash;&gt;-->
-<!--                                            <option th:each="member : ${memberDtoList}"-->
-<!--                                                    th:value="${member?.name}"-->
-<!--                                                    th:utext="${member?.name}"></option>-->
-<!--                                        </select>-->
-
-                                    <select class="select_type01 w170" th:name="apvFnl" id="apvFnl">
-                                        <option value="선택"> 선택</option><!--해당 부서 사람만 선택-->
-                                        <option th:each="member : ${memberDtoList}"
-                                                th:value="${member?.name}"
-                                                th:utext="${member?.name}"></option>
-                                    </select>
-                                    </li>
-
-                                    <li>
-                                        <label for="approvalDivEntity">문서 종류</label>
-                                        <select class="select_type01 w170" th:name="approvalDivEntity" id="approvalDivEntity">
-                                            <option value="선택"> 선택</option>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th class="tg-0pky" rowspan="2">결재자</th>
+                                        <th class="tg-0pky">부서</th>
+                                        <th class="tg-0lax">부서 선택</th>
+                                        <th class="tg-0pky" rowspan="2">문서종류</th>
+                                        <th class="tg-0pky" rowspan="2">
+                                            <select class="select_type01 w170" th:name="approvalDivEntity" id="approvalDivEntity">
                                             <option th:each="apvDiv : ${approvalDivDtoList}"
                                                     th:value="${apvDiv?.id}"
                                                     th:utext="${apvDiv?.apvDivName}"></option>
-                                        </select>
-                                    </li>
+                                        </select></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-0lax">이름</th>
+                                        <th class="tg-0lax"> <select class="select_type01 w170" th:name="apvFnl" id="apvFnl">
 
-<!--                                    <li>-->
-<!--                                        <label for="approvalStatusEntity">진행 상태</label>-->
-<!--                                        <select class="select_type01 w170" th:name="approvalStatusEntity" id="approvalStatusEntity">-->
-<!--                                            <option value="선택"> 선택</option>-->
-<!--                                            <option th:each="apvStatus : ${approvalStatusDtoList}"-->
-<!--                                                    th:value="${apvStatus?.id}"-->
-<!--                                                    th:utext="${apvStatus?.apvStatus}"></option>-->
-<!--                                        </select>-->
+                                            <option th:each="member : ${memberDtoList}"
+                                                    th:value="${member?.name}"
+                                                    th:utext="${member?.name}">
+                                            </option>
+                                        </select></th>
                                         <input type="hidden" value="1" id="approvalStatusEntity" name="approvalStatusEntity">
-<!--                                    </li>-->
-
-                                    <li>
-                                        <label for="memberName">보고서 작성자</label><!--결재자 선택하는 것 처럼 본인 선택하도록?-->
-                                        <input type="text" name="memberName" id="memberName" th:value="${memberName}"
-                                               readonly>
-                                    </li>
-
-                                    <li>
                                         <input type="hidden" name="memberId" id="memberId" th:value="${memberId}">
-                                    </li>
-
-                                    <li>
-                                        결재자(창 띄워서 선택 할 수 있도록)
-                                    </li>
-
-                                    <li>
-                                        결재 기한(날짜 선택)
-                                    </li>
-
-                                    <li>
-                                        <label for="apvTitle">기안서 제목</label>
-                                        <input type="text" name="apvTitle" id="apvTitle" placeholder="제목을 입력하세요.">
-                                    </li>
-
-                                    <li>
-                                        <label for="apvContent">기안서 내용</label>
-                                        <textarea name="apvContent" id="apvContent" cols="50" rows="30"
-                                                  placeholder="내용을 입력하세요"></textarea>
-                                    </li>
-
-
-
-
-                                    <li class="file">
-                                        <label for="apvFile">파일</label>
-                                        <input type="file" name="apvFile" id="apvFile">
-                                    </li>
-
-                                    <li>
-                                        <input type="button" value="취소" onclick="history.back();"/>
-                                        <input type="submit" value="작성">
-                                    </li>
-
-
-                                </ul>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="tg-0pky">작성자</td>
+                                        <td class="tg-0pky" colspan="2"><input type="text" name="memberName" id="memberName" th:value="${memberName}" readonly></td>
+                                        <td class="tg-0pky">결재 기한</td>
+                                        <td class="tg-0pky"><input type="date" name="date" id="date" max="2099-12-31" min="2020-01-01" value="2024-05-31"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0pky">제목</td>
+                                        <td class="tg-0pky" colspan="4"><input type="text" name="apvTitle" id="apvTitle" placeholder="제목을 입력하세요."></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0lax" colspan="5" rowspan="2">내용
+                                            <textarea name="apvContent" id="apvContent" cols="50" rows="30"
+                                                      placeholder="내용을 입력하세요"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0pky">파일</td>
+                                        <td class="tg-0pky" colspan="4">
+                                            <input type="file" name="apvFile" id="apvFile">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0pky" colspan="3"></td>
+                                        <td class="tg-0pky"><input type="button" value="취소" onclick="history.back();"/></td>
+                                        <td class="tg-0pky"><input type="submit" value="작성"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </form>
 
                         </div>

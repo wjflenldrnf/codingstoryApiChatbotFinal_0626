@@ -44,7 +44,7 @@ public class MemberEntity extends BaseTimeEntity {
   @Column(nullable = true)
   private String department;
 
-  @Column(nullable = true)
+  @Column(nullable = true ,unique = true)
   private String mRank;
 
   @Column(nullable = true) // 기본이 널 허용
@@ -61,6 +61,8 @@ public class MemberEntity extends BaseTimeEntity {
 
   @Column(nullable = false)
   private int memberAttachFile;
+
+
 
   //  1:N
   @JsonIgnore // ajax시 순환참조 방지
@@ -184,4 +186,23 @@ public class MemberEntity extends BaseTimeEntity {
 
   }
 
+  public static MemberEntity toUpdateProfile(MemberDto memberDto) {
+
+    MemberEntity memberEntity= new MemberEntity();
+    memberEntity.setId(memberDto.getId());
+    memberEntity.setMemberAttachFile(0);
+    memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+
+    return memberEntity;
+  }
+
+  public static MemberEntity toUpdateProfileYes(MemberDto memberDto) {
+
+    MemberEntity memberEntity= new MemberEntity();
+    memberEntity.setId(memberDto.getId());
+    memberEntity.setMemberAttachFile(1);
+    memberEntity.setMemberFileEntityList(memberDto.getMemberFileEntityList());
+
+    return memberEntity;
+  }
 }

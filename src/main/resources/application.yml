@@ -1,6 +1,9 @@
 server:
   port: 8095
 
+navar.api.client-id:  bkkWFCLHCqDi68L8xRI8
+navar.api.client-secret:  wMYmrGYOYR
+
 #Spring ??
 spring:
   datasource:

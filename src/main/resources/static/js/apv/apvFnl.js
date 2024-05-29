@@ -1,13 +1,6 @@
-function memberDeleteFn(){
-const id=$('#name').text()
- $.ajax({
-    type: 'POST',
-    url: `/apv/write`,
-    success: function () {
-
-      },
-    error: function () {
-    alert('실패')
-    }
-  });
+function testFn(){
+const test1=$('#test1').val()
+$('#test2').value(test1)
 }
+
+
