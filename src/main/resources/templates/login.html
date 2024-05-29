@@ -37,32 +37,29 @@
           </div>
         </ul>
       </form>
-          <div class="sns">
-            <div class="sns-con">
-            <a th:href="@{/oauth2/authorization/kakao}"><img th:src="@{/images/kakao.png}" alt="kakao"></a> <br>
-            <a th:href="@{/oauth2/authorization/naver}"><img th:src="@{/images/naver.png}" alt="naver"></a>
-            <div class="google2" th:onClick="|location.href='@{/oauth2/authorization/google}'|">
-              <ul>
-                <li>
-                  <img th:src="@{/images/google.png}" alt="google">
-                </li>
-                <li>
-                  <p>구글 로그인</p>
-                </li>
-              </ul>
-            </div>
-            </div>
-          </div>
-
         <li>
           <th:block th:if="error">
             <p style="color:#ff0000; font-size:12px;" th:text="${exception}"></p>
           </th:block>
         </li>
-
-
-
     </div>
+    <div class="sns">
+      <div class="sns-con">
+        <a th:href="@{/oauth2/authorization/kakao}" class="kakao"><img th:src="@{/images/kakao.png}" alt="kakao"></a> <br>
+        <a th:href="@{/oauth2/authorization/naver}" class="naver"><img th:src="@{/images/naver.png}" alt="naver"></a>
+        <div class="google2" th:onClick="|location.href='@{/oauth2/authorization/google}'|">
+          <ul>
+            <li>
+              <img th:src="@{/images/google.png}" alt="google">
+            </li>
+            <li>
+              <p>구글 로그인</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 

@@ -392,6 +392,54 @@ public class MemberServiceImpl implements MemberService {
     }
   }
 
+  @Override
+  public int memberJoin2(MemberDto memberDto) throws IOException {
+    if (memberDto.getMemberFile().isEmpty()) {
+      MemberEntity memberEntity = MemberEntity.toJoinMember(memberDto, passwordEncoder);
+      memberRepository.save(memberEntity);
+      return 1;
+    } else {
+      MultipartFile memberFile = memberDto.getMemberFile();
+
+      String oldFileName = memberFile.getOriginalFilename();
+      UUID uuid = UUID.randomUUID();
+      String newFileName = uuid + "_" + oldFileName;
+      String fileSavePath = "C:/codingStory_file/" + newFileName;
+      memberFile.transferTo(new File(fileSavePath));
+
+      MemberEntity memberEntity = MemberEntity.toJoinFileMember(memberDto, passwordEncoder);
+      Long id = memberRepository.save(memberEntity).getId();
+
+      Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+      if (optionalMemberEntity.isPresent()) {
+        MemberEntity memberEntity1 = optionalMemberEntity.get();
+
+        MemberFileDto fileDto = MemberFileDto.builder().memberOldFileName(oldFileName)
+                .memberNewFileName(newFileName)
+                .memberEntity(memberEntity1)
+                .build();
+
+        MemberFileEntity fileEntity = MemberFileEntity.toInsertFile(fileDto);
+        fileRepository.save(fileEntity);
+        return 1;
+      } else {
+        throw new IllegalArgumentException("xxxx");
+      }
+    }
+  }
+
+  @Override
+  public int memberMD(MemberDto memberDto) {
+
+    MemberEntity memberEntity=memberRepository.findById(memberDto.getId()).orElseThrow(IllegalArgumentException::new);
+
+    memberEntity.setDepartment(memberDto.getDepartment());
+    memberEntity.setMRank(memberDto.getMRank());
+
+    memberRepository.save(memberEntity);
+
+    return 1;
+  }
 
 
   @Override

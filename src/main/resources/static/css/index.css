@@ -12,22 +12,57 @@
 }
 
 
-.index .right .right-con .bottom{ 
+.index .right .right-con .bottom{
   padding: 10px ;
   box-sizing: border-box;
 }
 .index .right .right-con .bottom .index-data{
-  height: calc( 100vh - 100px );
-  box-sizing: border-box;
-  background-color: #ededea;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: calc(100vh - 400px);
+      box-sizing: border-box;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 140px 200px 30px 100px;
+      gap: 25px 40px;
 }
+.app{
+border: 3px solid #ffffff;
+border-radius: 30px;
+padding: 15px 20px 20px;
 
+}
+.cal{
+border: 3px solid #ffffff;
+border-radius: 30px;
+padding: 15px 20px 20px;
 
+}
+.dpt{
+border: 3px solid #ffffff;
+border-radius: 30px;
+padding: 15px 20px 20px;
 
+}
+.att{
+border: 3px solid #ffffff;
+border-radius: 30px;
+padding: 15px 20px 20px;
+margin-top: 20px;
+
+}
+.time{
+border: 3px solid #ffffff;
+border-radius: 30px;
+padding: 15px 20px 20px;
+margin-top: 20px;
+
+}
+.board{
+border: 3px solid #ffffff;
+border-radius: 30px;
+padding: 15px 20px 20px;
+margin-top: 20px;
+
+}
 
 
 

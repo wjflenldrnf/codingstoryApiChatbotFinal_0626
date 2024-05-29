@@ -22,22 +22,27 @@ function memberDeleteReady() {
         }
 }
 
-
-function memberNameUpdateFn(){
-  var name = $('#name').val();
-  var memberId = $('#memberId').val();
+function memberMDFn(){
+  var id = $('#id').val();
+  var department= $('#department').val()
+  var mRnak= $('#mRnak').val()
   $.ajax({
     type: 'POST',
-    url: '/member/nameUpdate',
-    data: { id: memberId, name: name },
+    url: '/member/memberMD',
+    data: { id: id,
+    department : department,
+    mRank: mRank
+    },
     success: function () {
-    location.href=`/member/myDetail/${memberId}`;
-
+    location.href=`/member/memberInfo/${id}`;
     },
     error: function () {
       alert('실패')
     }
   });
 }
+
+
+
 
 

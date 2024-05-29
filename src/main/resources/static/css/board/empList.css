@@ -150,3 +150,9 @@
        max-width: 200px;
  /* 요소의 최대 너비 지정 */
  }
+
+ .paging ul{
+     display: flex;
+     justify-content: center;
+     gap: 20px;
+ }

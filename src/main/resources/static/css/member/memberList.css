@@ -15,10 +15,12 @@ padding:10px;
 button{
 border:0;
 border-radius:5px;
-background-color:#ccc;
+background-color: rgb(62 104 136 / 58%);
 width:100px;
 height:40px;
 cursor:pointer;
+color:#ffffff;
+font-weight:bold;
 }
 
 
@@ -29,13 +31,14 @@ background-color:#ffffff;
 }
 
 table{
-width:100%;
+width:98%;
 border-collapse: collapse;
 table-layout:fixed;
 }
 table th{
 height:40px;
-background-color:#40464d;
+    background-color: rgb(62 104 136 / 58%);
+    color:#ffffff;
 }
 
 table tbody td{
@@ -47,9 +50,7 @@ table tbody td{
     vertical-align: top;
     line-height: 50px;
     table-layout:fixed;
-}
-table tbody th{
-height:50px;
+    padding:5px;
 }
 
 table tbody tr{
