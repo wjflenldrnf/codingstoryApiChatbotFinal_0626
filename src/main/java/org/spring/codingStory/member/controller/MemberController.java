@@ -271,5 +271,12 @@ public class MemberController {
 
     return "member/test";
   }
+  @PostMapping("/test")
+  public String test1(MemberDto memberDto) throws IOException {
+
+    memberService.memberJoin(memberDto);
+
+    return "/redirect:/index";
+  }
 
 }

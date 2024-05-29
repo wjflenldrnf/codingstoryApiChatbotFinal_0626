@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.spring.codingStory.member.entity.MemberEntity;
+import org.spring.codingStory.member.role.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -52,6 +53,11 @@ public class MyUserDetails implements UserDetails, OAuth2User {
             }
         });
         return collection;
+    }
+
+    public Role getRole(){
+
+        return memberEntity.getRole();
     }
 
 
