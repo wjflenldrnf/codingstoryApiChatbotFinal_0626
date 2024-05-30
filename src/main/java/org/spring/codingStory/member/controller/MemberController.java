@@ -281,14 +281,32 @@ public class MemberController {
     return ResponseEntity.status(HttpStatus.OK).body(result);
   }
 
-  @PostMapping("/member/memberMD")
-  public ResponseEntity<?> memberMD(MemberDto memberDto){
+  @PostMapping("/MDUpdate")
+  public String memberMDUpdate(MemberDto memberDto){
 
-    int result=memberService.memberMD(memberDto);
+    memberService.memberMDUdate(memberDto);
 
-    return ResponseEntity.status(HttpStatus.OK).body(result);
+
+    return "redirect:/member/memberInfo/"+memberDto.getId();
   }
 
+  @PostMapping("/MRankUpdate")
+  public String memberMRankUpdate(MemberDto memberDto){
+
+
+    memberService.memberMRankUpdate(memberDto);
+    return "member/memberInfo/"+memberDto.getId();
+  }
+
+  @PostMapping("/departUpdate")
+  public String memberDepartUpdate(MemberDto memberDto){
+
+
+    memberService.memberDepartUpdate(memberDto);
+
+    return "member/memberInfo/"+memberDto.getId();
+
+  }
 
 
 }

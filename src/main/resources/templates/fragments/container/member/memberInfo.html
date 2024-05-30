@@ -29,7 +29,6 @@
     </div>
     <div class="bottom">
       <div class="index-data">
-              <form th:action="@{/member/memberMD}" method="post" enctype="multipart/form-data">
         <div class="memberInfo">
           <div class="memberInfo-con">
             <div class="up">
@@ -74,6 +73,9 @@
                   </li>
                 </div>
 
+
+
+
                 <div class="info">
                   <label for="createTime">가입일</label>
                   <li>
@@ -81,29 +83,59 @@
                   </li>
                 </div>
 
+                  <input type="hidden" name="id" th:value="${member.id}">
                   <div class="info">
                     <label for="department">부서</label>
                 <li>
-                  <select id="department" name="department">
-                    <option th:each="de : ${depart}" th:value="${de.dptName}"
-                            th:text="${de.dptName}">
-                    </option>
-                  </select>
+                    <span th:text="${member.department}"></span>
+
+
+                  <button id="modalBtn1">모달 열기</button>
+                  <div id="myModal1" class="modal1">
+                    <div class="modal-content1">
+                      <span class="close1">&times;</span>
+                      <form id="departmentForm" method="post">
+                      <input type="hidden" th:value="${member.id}" id="memberId2">
+                      <select id="department" name="department">
+                        <option th:each="de : ${depart}" th:value="${de.dptName}"
+                                th:text="${de.dptName}">
+                        </option>
+                      </select>
+                      </form>
+                      <button type="button" onclick="memberDepartmentUpdateFn()">변경</button>
+                      <a class="close1" href="">닫기</a>
+                    </div>
+                  </div>
 
                   </div>
                 </li>
+
 
                   <div class="info">
                     <label for="mRank">직급</label>
                   <li>
-                    <select id="mRank" name="mRank">
-                      <option th:each="re : ${rank}" th:value="${re.rankName}"
-                              th:text="${re.rankName}">
-                      </option>
-                    </select>
+                    <span th:text="${member.mRank}"></span>
 
+                    <button id="modalBtn2">모달 열기</button>
+                    <div id="myModal2" class="modal2">
+                      <div class="modal-content2">
+                        <span class="close2">&times;</span>
+                        <form id="mRankForm" method="post">
+                        <input type="hidden" th:value="${member.id}" id="memberId3">
+                        <select id="mRank" name="mRank">
+                          <option th:each="re : ${rank}" th:value="${re.rankName}"
+                                  th:text="${re.rankName}">
+                          </option>
+                        </select>
+                        </form>
+                      <button type="button" onclick="memberMRankUpdateFn()">변경</button>
+                        <a class="close2" href="">닫기</a>
+                      </div>
+                    </div>
                   </div>
-                </li>
+                  </li>
+
+
               </ul>
 
             </div>
@@ -111,14 +143,11 @@
         </div>
 
         <div class="gogo">
-          <button onclick="memberMDFn()">저장</button>
           <button onClick="memberDeleteReady()">해고</button>
         </div>
-
         <div class="back">
           <a th:href="@{/member/memberList}">목록으로</a>
         </div>
-        </form>
       </div>
     </div>
   </div>

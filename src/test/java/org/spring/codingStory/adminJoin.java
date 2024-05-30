@@ -167,17 +167,7 @@ public class adminJoin {
                     .memberAttachFile(0)
                     .build());
 
-    for (int i = 7; i < 20; i++) {
-      MemberEntity memberEntity1 = memberRepository.save(
-              MemberEntity.builder()
-                      .userEmail("m" + i + "@naver.com")
-                      .userPw(passwordEncoder.encode("1234"))
-                      .name("사원" + i)
-                      .address("서울")
-                      .phoneNumber("010" + i)
-                      .role(Role.GEUST)
-                      .memberAttachFile(0)
-                      .build());
+
 
     //보고서 진행 상태
     ApprovalStatusEntity approvalStatusEntity1 = approvalStatusRepository.save(
@@ -240,10 +230,7 @@ public class adminJoin {
     }
   }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
-}
+
 
 

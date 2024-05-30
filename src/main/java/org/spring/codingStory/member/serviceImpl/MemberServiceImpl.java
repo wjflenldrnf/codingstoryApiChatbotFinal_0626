@@ -1,6 +1,7 @@
 package org.spring.codingStory.member.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.codingStory.department.dto.DepartmentDto;
 import org.spring.codingStory.department.entity.DepartmentEntity;
 import org.spring.codingStory.department.repository.DepartmentRepository;
 import org.spring.codingStory.member.dto.MemberDto;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -428,17 +430,35 @@ public class MemberServiceImpl implements MemberService {
     }
   }
 
+
   @Override
-  public int memberMD(MemberDto memberDto) {
+  public void memberMDUdate(MemberDto memberDto) {
 
     MemberEntity memberEntity=memberRepository.findById(memberDto.getId()).orElseThrow(IllegalArgumentException::new);
 
-    memberEntity.setDepartment(memberDto.getDepartment());
+    memberEntity=MemberEntity.MDUpdate(memberDto);
+
+    memberRepository.save(memberEntity);
+  }
+
+  @Override
+  public void memberMRankUpdate(MemberDto memberDto) {
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("xx"));
+
     memberEntity.setMRank(memberDto.getMRank());
 
     memberRepository.save(memberEntity);
+  }
 
-    return 1;
+  @Override
+  public void memberDepartUpdate(MemberDto memberDto) {
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("xx"));
+
+    memberEntity.setDepartment(memberDto.getDepartment());
+
+    memberRepository.save(memberEntity);
   }
 
 
