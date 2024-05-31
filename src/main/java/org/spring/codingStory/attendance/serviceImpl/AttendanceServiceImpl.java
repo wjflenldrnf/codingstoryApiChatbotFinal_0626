@@ -39,8 +39,23 @@ public class AttendanceServiceImpl implements AttendanceService {
         return attendanceEntities.map(AttendanceDto::toSelectAllAttendanceDto);
     }
 
+
+
+    public boolean canCheckIn(Long memberId) {
+        // 가장 최근의 attendance 기록을 가져옵니다.
+        Optional<AttendanceEntity> latestAttendance = attendanceRepository.findTopByMemberEntityIdOrderByCheckInTimeDesc(memberId);
+        return latestAttendance.map(attendance -> !"출근".equals(attendance.getAttendanceType())).orElse(true);
+    }
+
+
+
     @Override
     public Integer insertCheckInAttendance(AttendanceDto attendanceDto) {
+
+        if (!canCheckIn(attendanceDto.getMemberId())) {
+            throw new IllegalStateException("이미 출근 기록이 있습니다.");
+        }
+
         attendanceDto.setMemberEntity(MemberEntity.builder().id(attendanceDto.getMemberId()).build());
         AttendanceEntity attendanceEntity = AttendanceEntity.toInsertCheckInAttendanceEntity(attendanceDto);
         attendanceRepository.save(attendanceEntity);
@@ -49,6 +64,11 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public Integer insertCheckInAttendance2(AttendanceDto attendanceDto) {
+
+        if (!canCheckIn(attendanceDto.getMemberId())) {
+            throw new IllegalStateException("이미 출근 기록이 있습니다.");
+        }
+
         attendanceDto.setMemberEntity(MemberEntity.builder().id(attendanceDto.getMemberId()).build());
         AttendanceEntity attendanceEntity = AttendanceEntity.toInsertCheckInAttendanceEntity(attendanceDto);
         AttendanceEntity savedEntity = attendanceRepository.save(attendanceEntity);
@@ -75,7 +95,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         Optional<AttendanceEntity> optionalAttendanceEntity = attendanceRepository.findById(id);
         if (optionalAttendanceEntity.isPresent()) {
             AttendanceEntity attendanceEntity = optionalAttendanceEntity.get();
-            LocalDateTime checkOutTime = LocalDateTime.now();
+            LocalDateTime checkOutTime = LocalDateTime.now().withNano(0);
             attendanceEntity.setCheckOutTime(checkOutTime);
             attendanceEntity.setAttendanceType("퇴근");
             attendanceEntity.setWorkTime(

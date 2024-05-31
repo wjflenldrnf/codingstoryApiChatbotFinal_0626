@@ -16,37 +16,21 @@
                 </ul>
             </div>
         </div>
-        <div class="bottom">
-            <div class="admin-data">
-                <div class="container">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>급여ID</th>
-                            <th>사번</th>
-                            <th>이름</th>
-                            <th>지점</th>
-                            <th>직급</th>
-                            <th>시급</th>
-                            <th>Edit</th>
-                            <th>보기</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="payment : ${paymentList}">
-                            <td th:text="${payment.id}"></td>
-                            <td th:text="${payment.memberEntity.id}"></td>
-                            <td th:text="${payment.memberEntity.name}"></td>
-                            <td th:text="${payment.memberEntity.department}"></td>
-                            <td th:text="${payment.memberEntity.mRank}"></td>
-                            <td th:text="${payment.hourlyWage}"></td>
-                            <td><a th:href="@{/pay/payWrite/{id}(id=${payment.memberEntity.id})}">급여작성</a></td>
-                            <td><a th:href="@{/pay/payDetail/{id}(id=${payment.id})}">보기</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <div class="right-bottom">
+
+            <div class="right-container"><h1 style="font-style: bold; color: #fff;">급여정보</h1>
+
+<!--                    <th:block th:if="${userEmail== #authentication.principal.username}">
+                        <div th:replace="~{/fragments/container/pay_container/pay_fragment/payIndexFragment1 :: payIndexFragment1}"></div>
+                    </th:block>
+                    <th:block th:unless="${userEmail== #authentication.principal.username}">
+                        <div th:replace="~{/fragments/container/pay_container/pay_fragment/payIndexFragment2 :: payIndexFragment2}"></div>
+                    </th:block>-->
+
+                <div th:replace="~{/fragments/container/pay_container/pay_fragment/payIndexFragment1 :: payIndexFragment1}"></div>
+
             </div>
+
         </div>
     </div>
 </div>
