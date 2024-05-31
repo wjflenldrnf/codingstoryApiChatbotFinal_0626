@@ -3,8 +3,6 @@ package org.spring.codingStory.attendance.controller.api;
 import lombok.RequiredArgsConstructor;
 import org.spring.codingStory.attendance.dto.AttendanceDto;
 import org.spring.codingStory.attendance.serviceImpl.AttendanceServiceImpl;
-import org.spring.codingStory.config.MyUserDetails;
-import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.serviceImpl.MemberServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,13 +10,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
-import java.util.List;
 @Transactional
 @RestController
 @RequiredArgsConstructor

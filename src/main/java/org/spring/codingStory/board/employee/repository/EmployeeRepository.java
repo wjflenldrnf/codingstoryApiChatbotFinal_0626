@@ -1,6 +1,7 @@
 package org.spring.codingStory.board.employee.repository;
 
 import org.spring.codingStory.board.employee.entity.EmployeeEntity;
+import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +22,6 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity,Long> {
     Page<EmployeeEntity> findByCategoryInAndEmpTitleContains(List<String> categories, String search, Pageable pageable);
 
     Page<EmployeeEntity> findByCategoryInAndEmpContentContains(List<String> categories, String search, Pageable pageable);
+
+    List<EmployeeEntity> findTop5ByOrderByEmpHitDesc();
 }

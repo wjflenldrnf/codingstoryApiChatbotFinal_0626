@@ -27,7 +27,7 @@ public class FreeReplyController {
         model.addAttribute("memberName", myUserDetails.getMemberEntity().getName());
         freeReplyService.insertFreeReply(freeReplyDto);
 
-        return "redirect:/free/freeDetail/" + freeReplyDto.getFreeId();
+        return "redirect:/board/freeDetail/" + freeReplyDto.getFreeId();
     }
     @GetMapping("/freeReplyDelete/{id}")
     public String freeReplyDelete(@PathVariable("id") Long id) {
@@ -35,7 +35,7 @@ public class FreeReplyController {
 
         Long FreeId = freeReplyService.freeReplyDeleteById(id);
 
-        return "redirect:/free/freeDetail/" + FreeId;
+        return "redirect:/board/freeDetail/" + FreeId;
     }
 
 }

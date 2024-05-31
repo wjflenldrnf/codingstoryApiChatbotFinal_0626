@@ -1,5 +1,6 @@
 package org.spring.codingStory.board.notice.repository;
 
+import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
 import org.spring.codingStory.board.notice.entity.NoticeEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,4 +22,6 @@ public interface NoticeRepository extends JpaRepository<NoticeEntity,Long> {
     Page<NoticeEntity> findByCategoryInAndNoticeTitleContains(List<String> categories, String search, Pageable pageable);
 
     Page<NoticeEntity> findByCategoryInAndNoticeContentContains(List<String> categories, String search, Pageable pageable);
+
+    List<NoticeEntity> findTop5ByOrderByNoticeHitDesc();
 }

@@ -8,6 +8,8 @@ import org.spring.codingStory.board.employee.entity.EmployeeFileEntity;
 import org.spring.codingStory.board.employee.repository.EmpFileRepository;
 import org.spring.codingStory.board.employee.repository.EmployeeRepository;
 import org.spring.codingStory.board.employee.serviceImpl.service.EmployeeService;
+import org.spring.codingStory.board.freeBoard.dto.FreeDto;
+import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,8 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -197,6 +201,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity= employeeRepository.findById(id).orElseThrow(()->{
             throw new IllegalArgumentException("삭제할 게시물 없음");});
         employeeRepository.delete(employeeEntity);
+    }
+
+
+    @Override
+    public List<EmployeeDto> empHit() {
+        List<EmployeeEntity> hit = employeeRepository.findTop5ByOrderByEmpHitDesc();
+
+        List<EmployeeDto> employeeDtoList = hit.stream().map(
+                EmployeeDto::toEmpDto).collect(Collectors.toList());
+
+
+        return employeeDtoList;
     }
 }
 

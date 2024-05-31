@@ -107,7 +107,7 @@
 
                             <th:block sec:authorize="isAuthenticated()">
                                 <form th:action="@{/reply/empReplyWrite}" method="post">
-                                    <input type="hidden" id="empId" name="empId" th:value="${emp.id}" readonly>
+                                    <input type="hidden" id="employeeId" name="employeeId" th:value="${emp.id}" readonly>
                                     <input type="hidden" name="empReplyId">
                                     <input type="text" name="empReplyWriter" id="empReplyWriter"
                                            th:value="${myUserDetails.name}" class="writer" readonly>
@@ -131,7 +131,7 @@
                                 </tr>
                                 </thead>
                                 <tbody class="tData">
-                                <tr th:each="empReply : ${empReplyDtoList}">
+                                <tr th:each="empReply : ${employeeReplyDtoList}">
                                     <td th:text="${empReply.empReplyWriter}"></td>
                                     <td th:text="${empReply.empReplyContent}"></td>
                                     <td th:text="${#temporals.format(empReply.createTime, 'yyyy-MM-dd HH:mm')}"></td>

@@ -45,7 +45,8 @@ public class MemberEntity extends BaseTimeEntity {
   @Column(nullable = true)
   private String department;
 
-  @Column(nullable = true)
+
+  @Column(nullable = true )
   private String mRank;
 
   @Column(nullable = true) // 기본이 널 허용

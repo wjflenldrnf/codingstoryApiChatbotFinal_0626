@@ -17,10 +17,9 @@ body {
 }
 
 .detail .detail-con {
-    width: 1200px;
-
-    padding: 20px;
-    box-sizing: border-box;
+   width: 1500px;
+   padding: 20px;
+   box-sizing: border-box
 }
 
 .top {
@@ -66,9 +65,10 @@ justify-content: space-between;
     display: inline-block;
     font-size: 14px;
     padding: 5px 10px;
-    border: 1px solid #fa922b;
+    border: 1px solid rgb(222 223 188);
     border-radius: 5px;
-    background-color: #ffd2a6;
+   background-color: rgb(62 104 136 / 58%);
+   color:white;
 }
 
 .category-right {
@@ -111,7 +111,13 @@ textarea {
 
 /* 댓글 */
 .bottom2 {
-    margin-top: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.reply{
+width: 1460px;
 }
 
 .reply-con h1 {
@@ -121,6 +127,7 @@ textarea {
 
 .reply-con form {
     margin-bottom: 20px;
+    display:flex;
 }
 
 .reply-con form input[type="text"] {
@@ -145,6 +152,8 @@ textarea {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    margin-bottom: 100px;
+    color:white;
 }
 
 .reply-con th,

@@ -3,14 +3,9 @@ package org.spring.codingStory.attendance.dto;
 import lombok.*;
 import org.spring.codingStory.attendance.entity.AttendanceEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import java.math.BigDecimal;
 import java.sql.Time;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @ToString
 @AllArgsConstructor
