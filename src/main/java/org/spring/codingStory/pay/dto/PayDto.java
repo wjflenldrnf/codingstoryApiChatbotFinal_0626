@@ -38,7 +38,10 @@ public class PayDto {
 
     private Time calcTime;
     private Double payInDur;
+
+    @Builder.Default
     private Double payBns = 0.0;
+
     private Double totalPay;
     private LocalDate payingDate;
     private PaymentEntity paymentEntity;
