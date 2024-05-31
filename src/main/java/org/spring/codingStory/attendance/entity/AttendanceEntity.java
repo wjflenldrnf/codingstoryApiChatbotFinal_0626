@@ -95,8 +95,9 @@ public class AttendanceEntity {
 
     public static AttendanceEntity toInsertCheckInAttendanceEntity(AttendanceDto attendanceDto) {
 
-        LocalDateTime checkInTime = LocalDateTime.now();
-        LocalDateTime checkOutTime = LocalDateTime.now();
+//        LocalDateTime checkInTime = LocalDateTime.now();
+        LocalDateTime checkInTime = LocalDateTime.now().withNano(0);
+        LocalDateTime checkOutTime = LocalDateTime.now().withNano(0);
 
         AttendanceEntity attendanceEntity=new AttendanceEntity();
         attendanceEntity.setMemberEntity(attendanceDto.getMemberEntity());
