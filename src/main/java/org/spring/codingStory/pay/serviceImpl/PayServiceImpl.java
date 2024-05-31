@@ -103,6 +103,7 @@ public class PayServiceImpl implements PayService {
 
         // totalPay 계산
         Double totalPay = payInDur + payBns;
+//        Double totalPay = (double) Math.round(payInDur + payBns);
 
         payDto.setMemberEntity(MemberEntity.builder()
                 .id(payDto.getMemberId())

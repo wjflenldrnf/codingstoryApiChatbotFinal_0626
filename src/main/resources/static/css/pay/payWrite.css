@@ -1,14 +1,14 @@
 @import url(/css/common/reset.css);
 @import url(/css/common/left.css);
 
-.bottom {
+.right-bottom {
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
     background-color: #f1f1f100;
-    margin-top: 200px; /* 위에서 200px 떨어뜨림 */
+    margin-top: 150px; /* ìœ„ì—ì„œ 200px ë–¨ì–´ëœ¨ë¦¼ */
 }
 
 .admin-data {
@@ -25,44 +25,48 @@
     max-width: 800px;
 }
 
-table {
+.form-list {
     width: 100%;
-    border-collapse: collapse;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.form-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-top: 1px solid #000;
+    width: 500px;
+}
+
+.form-list li label {
+    padding: 5px 5px 5px 10px;
+    flex: 1;
+    text-align: left;
+    margin-right: 10px;
+    font-weight: bold;
+    background-color: #3e688894;
+    border: 1px solid #607D8B;
+    border-radius: 5px;
+}
+
+.form-list li input {
+    flex: 2;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     box-sizing: border-box;
-    background-color: #fff; /* 테이블 배경색 */
 }
 
-table th, table td {
-    padding: 12px 15px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #fff; /* 테이블 경계색 */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.submit-cell {
     text-align: center;
-}
-
-table thead tr {
-    background-color: #f1f1f1; /* 테이블 헤더 배경색 */
-    color: #000;
-}
-
-table tbody tr:nth-of-type(even) {
-    background-color: #f1f1f1; /* 짝수 행 배경색 */
-}
-
-table tbody tr:hover {
-    background-color: #f1f1f1; /* 마우스 오버 행 배경색 */
-}
-
-table tbody tr:last-of-type {
-    border-bottom: 2px solid #f1f1f1;
+    border: none;
 }
 
 input[type="submit"] {
-    background-color: #009879;
-    color: white;
+    background-color: #dedfbc;
+    color: #000;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -72,12 +76,6 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #007b5e;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
 }
 
 .right-top .gnb ul li a {

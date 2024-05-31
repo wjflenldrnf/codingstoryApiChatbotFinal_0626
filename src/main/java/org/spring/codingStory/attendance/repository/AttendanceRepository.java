@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AttendanceRepository extends JpaRepository<AttendanceEntity, Long> {
@@ -35,4 +36,5 @@ public interface AttendanceRepository extends JpaRepository<AttendanceEntity, Lo
                                                           @Param("start") LocalDateTime start,
                                                           @Param("end") LocalDateTime end);
 
+    Optional<AttendanceEntity> findTopByMemberEntityIdOrderByCheckInTimeDesc(Long memberId);
 }

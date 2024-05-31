@@ -20,7 +20,7 @@ public class FullCalenderEntity {
   @GeneratedValue(strategy =GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(nullable = false)
+  @Column(nullable = true)
   private String username;
 
   @Column(nullable = false)

@@ -2,14 +2,14 @@
 @import url(/css/common/left.css);
 
 
-.bottom {
+.right-bottom {
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
     background-color: #f1f1f100;
-    margin-top: 150px; /* 위에서 200px 떨어뜨림 */
+    margin-top: 50px; /* ìœ„ì—ì„œ 200px ë–¨ì–´ëœ¨ë¦¼ */
 }
 
 .admin-data {
@@ -37,22 +37,29 @@
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
-    border-bottom: 1px solid #f1f1f1;
+    border-top: 1px solid #000;
+    width: 500px;
 }
 
 .form-list li label {
+    padding: 5px 5px 5px 10px;
     flex: 1;
-    text-align: right;
+    text-align: left;
     margin-right: 10px;
     font-weight: bold;
+    background-color: #3e688894;
+    border: 1px solid #607D8B;
+    border-radius: 5px;
 }
 
 .form-list li input {
-    flex: 2;
+    flex: 1;
     padding: 5px;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
+
+    background-color:#f1f1f100;
 }
 
 .submit-cell {
@@ -60,9 +67,9 @@
     border: none;
 }
 
-input[type="submit"] {
-    background-color: #009879;
-    color: white;
+.form-list li input[type="submit"] {
+    background-color: #dedfbc !important;
+    color: #000;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;

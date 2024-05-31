@@ -44,9 +44,13 @@ function checkInTimeWrite() {
 
             ajaxAttendanceList(0);
         },
-        error: function() {
-            alert("이미 출근하셨습니다.");
-        }
+        error: function(xhr, status, error) {
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        alert(xhr.responseJSON.message);
+                    } else {
+                        alert("이미 출근하셨습니다.");
+                    }
+                }
     });
 }
 
@@ -69,7 +73,7 @@ function attendanceDeleteBtnFn(event, id) {
 }
 
 function ajaxAttendanceList(page) {
-    const url = `/api/admin/attendance/attList?page=${page}&size=5&sort=id,DESC`;
+    const url = `/api/admin/attendance/attList?page=${page}&size=10&sort=id,DESC`;
     fetch(url, {
         method: "GET",
         headers: {
