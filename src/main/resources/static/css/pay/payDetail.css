@@ -43,7 +43,7 @@
 
 .form-list li label {
     padding: 5px 5px 5px 10px;
-    flex: 5;
+    flex: 1;
     text-align: left;
     margin-right: 10px;
     font-weight: bold;
@@ -53,11 +53,13 @@
 }
 
 .form-list li input {
-    flex: 4;
+    flex: 1;
     padding: 5px;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
+
+    background-color:#f1f1f100;
 }
 
 .submit-cell {
@@ -65,8 +67,8 @@
     border: none;
 }
 
-input[type="submit"] {
-    background-color: #dedfbc;
+.form-list li input[type="submit"] {
+    background-color: #dedfbc !important;
     color: #000;
     border: none;
     padding: 10px 20px;

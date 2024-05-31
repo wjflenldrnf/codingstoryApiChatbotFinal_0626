@@ -8,7 +8,7 @@
     padding: 20px;
     box-sizing: border-box;
     background-color: #f1f1f100;
-    margin-top: 50px; /* 위에서 50px 떨어뜨림 */
+    margin-top: 100px; /* 위에서 50px 떨어뜨림 */
 }
 
 .admin-data {

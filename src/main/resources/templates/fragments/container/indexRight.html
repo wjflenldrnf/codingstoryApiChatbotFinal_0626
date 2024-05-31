@@ -55,6 +55,18 @@
                                     <!-- 추가된 정보 표시 영역 -->
                                 </div>
                             </li>
+
+                            <li>
+                                <label for="totalPay">산정 기간 내 총 급여</label>
+                                <input type="text" name="totalPay" id="totalPay" th:value="${pay.totalPay}+' 원'"
+
+                                       style="background-color: #f1f1f100;
+                                       text-align: center;
+                                       color: #dedfbc;
+                                       font-weight:bold; "
+                                       readonly>
+
+                            </li>
                         </ul>
                     </div>
                 </div>

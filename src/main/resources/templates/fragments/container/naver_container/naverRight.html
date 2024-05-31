@@ -46,7 +46,9 @@
                                  기획2부   parentOrgUnitId "asdfg"
                                   -->
                                 <li class="node" th:each="dto1:${list}" th:if="${#strings.isEmpty(dto1.parentOrgUnitId)}">
-                                    <a th:text="${dto1.orgUnitName}"></a>
+
+                                    <!--<div class="pagination" id="pagination" style="margin-top: 20px; text-align: center;">-->
+                                    <a th:text="${dto1.orgUnitName}" style="font-size: 36px; font-weight: bold; margin-bottom: 10px;" ></a>
                                     <ul class="group">
                                         <li class="tree-node node" th:each="dto2:${list}" th:if="${dto1.orgUnitId eq dto2.parentOrgUnitId}">
                                             <a th:text="${dto2.orgUnitName}"></a>

@@ -1,16 +1,30 @@
 let attendanceId; // 출근 시 생성된 attendance ID를 저장할 변수
 
 
-
 // 출근 버튼 이벤트 핸들러
 const checkInTimeBtn = $('#checkInTimeBtn');
-checkInTimeBtn.on('click', handleCheckIn);
+checkInTimeBtn.on('click', checkInTimeBtnFn);
 
 // 퇴근 버튼 이벤트 핸들러
 const checkOutTimeBtn = $('#checkOutTimeBtn');
-checkOutTimeBtn.on('click', handleCheckOut);
+checkOutTimeBtn.on('click', checkOutTimeBtnFn);
 
-function handleCheckIn() {
+
+function loadAttendanceInfo() {
+    const savedInfo = localStorage.getItem('attendanceInfo');
+    if (savedInfo) {
+        const res = JSON.parse(savedInfo);
+        attendanceId = res.id; // 저장된 출근 정보의 attendanceId 설정
+        updateAttendanceInfo(res);
+
+    }
+}
+
+$(document).ready(function() {
+    loadAttendanceInfo(); // 페이지 로드 시 출근 정보 불러오기
+});
+
+function checkInTimeBtnFn() {
     if (!confirm("출근하시겠습니까?")) {
         return;
     }
@@ -60,7 +74,7 @@ function checkInTimeWrite() {
     });
 }
 
-function handleCheckOut() {
+function checkOutTimeBtnFn() {
     if (!confirm("퇴근하시겠습니까?")) {
         return;
     }
@@ -125,19 +139,7 @@ function updateAttendanceInfo(res) {
 }
 
 
-function loadAttendanceInfo() {
-    const savedInfo = localStorage.getItem('attendanceInfo');
-    if (savedInfo) {
-        const res = JSON.parse(savedInfo);
-        attendanceId = res.id; // 저장된 출근 정보의 attendanceId 설정
-        updateAttendanceInfo(res);
 
-    }
-}
-
-$(document).ready(function() {
-    loadAttendanceInfo(); // 페이지 로드 시 출근 정보 불러오기
-});
 
 
 
