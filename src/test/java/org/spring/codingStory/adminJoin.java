@@ -51,7 +51,7 @@ public class adminJoin {
   @Autowired
   private ApprovalStatusRepository approvalStatusRepository;
 
-  //////////////////////////////////////////////////////////
+
 
   @Autowired
   private PaymentRepository paymentRepository;
