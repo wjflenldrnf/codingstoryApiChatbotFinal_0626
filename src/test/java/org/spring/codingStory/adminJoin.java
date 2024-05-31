@@ -167,17 +167,7 @@ public class adminJoin {
                     .memberAttachFile(0)
                     .build());
 
-    for (int i = 7; i < 20; i++) {
-      MemberEntity memberEntity1 = memberRepository.save(
-              MemberEntity.builder()
-                      .userEmail("m" + i + "@naver.com")
-                      .userPw(passwordEncoder.encode("1234"))
-                      .name("사원" + i)
-                      .address("서울")
-                      .phoneNumber("010" + i)
-                      .role(Role.GEUST)
-                      .memberAttachFile(0)
-                      .build());
+
 
     //보고서 진행 상태
     ApprovalStatusEntity approvalStatusEntity1 = approvalStatusRepository.save(
@@ -238,12 +228,37 @@ public class adminJoin {
 
 
     }
+
+
+    @Test
+    void test1(){
+
+    for(int i=1; i<=30 ; i++){
+      MemberEntity memberEntity = memberRepository.save(
+              MemberEntity.builder()
+                      .userEmail("memb"+i+"@naver.com")
+                      .userPw(passwordEncoder.encode("1234"))
+                      .name("사원"+i)
+                      .department("자동차관")
+                      .mRank("사원")
+                      .address("서울")
+                      .phoneNumber("0101234")
+                      .role(Role.MEMBER)
+                      .memberAttachFile(0)
+                      .build());
+
+
+
+    }
+
+
+
   }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
-}
+  }
+
+
+
 
 

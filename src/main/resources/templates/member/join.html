@@ -77,6 +77,12 @@
           <div class="phone" id="phone">
             <img th:src="@{/images/phoneNumber.png}" alt="phoneNumber">
             <input type="text" id="phoneNumber" name="phoneNumber" placeholder="번호" maxlength="15" oninput="phoneNumberCheck()" >
+            <select name="zz" id="zz">
+              <option value="zz">통신사</option>
+              <option value="ZZ">SKT</option>
+              <option value="ZZ">KT</option>
+              <option value="ZZ">LG U+</option>
+            </select>
           </div>
             <span id="phoneNumberConfirm"></span>
           </ul>

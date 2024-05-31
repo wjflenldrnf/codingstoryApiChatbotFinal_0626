@@ -73,7 +73,7 @@ function memberPasswordUpdateFn(){
 
 
 // 모달 버튼과 모달창 가져오기
-var modalBtn = document.getElementById("modalBtn");
+
 var modalBtn3 = document.getElementById("modalBtn3");
 var modalBtn4 = document.getElementById("modalBtn4");
 var modalBtn5 = document.getElementById("modalBtn5");

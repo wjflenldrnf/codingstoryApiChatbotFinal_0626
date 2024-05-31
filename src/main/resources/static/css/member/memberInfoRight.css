@@ -1,8 +1,10 @@
 @import url(/css/common/reset.css);
 @import url(/css/common/left.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 /*index*/
 .container{
   width:100%;
+  font-family: "Noto Sans KR", sans-serif;
 }
 .index{
   width: 100%;

@@ -1,6 +1,8 @@
 @import url(/css/common/reset.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 .container {
   width: 100%;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 img{
@@ -63,6 +65,7 @@ flex-direction:column;
 padding-top: 60px;
 }
 .next button{
+font-family: "Noto Sans KR", sans-serif;
 width:100%;
 height: 50px;
 padding: 0;
@@ -80,5 +83,6 @@ border-bottom: 2px solid #ccc;
 font-size: 18px;
 color: #191919;
 box-sizing: border-box;
+font-family: "Noto Sans KR", sans-serif;
 }
 
