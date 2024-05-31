@@ -34,7 +34,7 @@ function memberDepartmentUpdateFn(){
     alert('성공')
     },
     error: function () {
-      alert('실패')
+    location.href=`/member/memberInfo/${memberId}`;
     }
   });
 }
@@ -50,7 +50,7 @@ function memberMRankUpdateFn(){
     alert('성공')
     },
     error: function () {
-      alert('실패')
+    location.href=`/member/memberInfo/${memberId}`;
     }
   });
 }

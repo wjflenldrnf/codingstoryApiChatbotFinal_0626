@@ -26,11 +26,8 @@ import java.util.List;
 @RequestMapping("/pay")
 @Controller
 public class PayController {
-
     private final PayServiceImpl payServiceImpl;
     private final PaymentServiceImpl paymentServiceImpl;
-
-
 
     //////////////////////////////////////////////////////////
 
@@ -64,7 +61,6 @@ public class PayController {
         if (bindingResult.hasErrors()) {
             return "pay/payDetail"; // 오류가 있을 경우 적절한 뷰로 이동
         }
-
         if (payDto.getId() == null) {
             throw new IllegalArgumentException("The given id must not be null!");
         }

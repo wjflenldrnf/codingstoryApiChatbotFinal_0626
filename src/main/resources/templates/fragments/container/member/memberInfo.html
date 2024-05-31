@@ -5,25 +5,25 @@
     <div class="right-top">
       <div class="gnb">
         <ul>
-          <th:block sec:authorize="isAnonymous()">
-            <li><a th:href="@{/login}">로그인</a></li>
-            <li><a th:href="@{/member/join}">회원가입</a></li>
-          </th:block>
           <th:block sec:authorize="isAuthenticated()">
             <div class="myInfo"
                  th:onClick="|location.href='@{/member/myDetail/{id}(id=${#authentication.principal.memberEntity.id})}'|">
               <li>
-                <p th:text="${#authentication.principal.memberEntity.department}"></p>부
-              </li>
-              <li>
-                <p th:text="${#authentication.principal.memberEntity.mRank}"></p>
-              </li>
-              <li>
-                <p th:text="${#authentication.principal.memberEntity.name}"></p>님
+                <a th:text="${#authentication.principal.department}"></a>
+                <a th:text="${#authentication.principal.mRank}"></a>
+                <a th:text="${#authentication.principal.name}"></a>
+                <p>님</p>
               </li>
             </div>
+            <li>
+
+            </li>
             <li><a th:href="@{/logout}">로그아웃</a></li>
           </th:block>
+          <li th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <a th:href="@{/my/schedule}">Fullcalendar</a>
+          </li>
+          <li>
         </ul>
       </div>
     </div>
@@ -87,13 +87,16 @@
                   <div class="info">
                     <label for="department">부서</label>
                 <li>
+                  <div class="modalgogo">
                     <span th:text="${member.department}"></span>
+                  <button id="modalBtn1">변경</button>
+                  </div>
 
-
-                  <button id="modalBtn1">모달 열기</button>
                   <div id="myModal1" class="modal1">
                     <div class="modal-content1">
                       <span class="close1">&times;</span>
+
+                      <div class="departModal">
                       <form id="departmentForm" method="post">
                       <input type="hidden" th:value="${member.id}" id="memberId2">
                       <select id="department" name="department">
@@ -103,23 +106,25 @@
                       </select>
                       </form>
                       <button type="button" onclick="memberDepartmentUpdateFn()">변경</button>
-                      <a class="close1" href="">닫기</a>
+                      </div>
                     </div>
                   </div>
-
                   </div>
                 </li>
-
 
                   <div class="info">
                     <label for="mRank">직급</label>
                   <li>
+                  <div class="modalgogo">
                     <span th:text="${member.mRank}"></span>
+                    <button id="modalBtn2">변경</button>
+                  </div>
 
-                    <button id="modalBtn2">모달 열기</button>
                     <div id="myModal2" class="modal2">
                       <div class="modal-content2">
                         <span class="close2">&times;</span>
+                        <div class="mRankModal">
+
                         <form id="mRankForm" method="post">
                         <input type="hidden" th:value="${member.id}" id="memberId3">
                         <select id="mRank" name="mRank">
@@ -129,7 +134,7 @@
                         </select>
                         </form>
                       <button type="button" onclick="memberMRankUpdateFn()">변경</button>
-                        <a class="close2" href="">닫기</a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -142,12 +147,17 @@
           </div>
         </div>
 
+        <div class="gb">
+
         <div class="gogo">
           <button onClick="memberDeleteReady()">해고</button>
         </div>
         <div class="back">
           <a th:href="@{/member/memberList}">목록으로</a>
         </div>
+
+        </div>
+
       </div>
     </div>
   </div>

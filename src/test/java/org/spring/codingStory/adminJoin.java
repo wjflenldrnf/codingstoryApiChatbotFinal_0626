@@ -228,6 +228,34 @@ public class adminJoin {
 
 
     }
+
+
+    @Test
+    void test1(){
+
+    for(int i=1; i<=30 ; i++){
+      MemberEntity memberEntity = memberRepository.save(
+              MemberEntity.builder()
+                      .userEmail("memb"+i+"@naver.com")
+                      .userPw(passwordEncoder.encode("1234"))
+                      .name("사원"+i)
+                      .department("자동차관")
+                      .mRank("사원")
+                      .address("서울")
+                      .phoneNumber("0101234")
+                      .role(Role.MEMBER)
+                      .memberAttachFile(0)
+                      .build());
+
+
+
+    }
+
+
+
+  }
+
+
   }
 
 

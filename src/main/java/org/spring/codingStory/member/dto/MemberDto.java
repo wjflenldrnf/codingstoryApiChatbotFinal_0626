@@ -90,5 +90,30 @@ public class MemberDto {
     }
 
 
+    public static MemberDto toSelectMemberTest(MemberEntity memberEntity) {
+        MemberDto memberDto=new MemberDto();
+        memberDto.setId(memberEntity.getId());
+        memberDto.setUserEmail(memberEntity.getUserEmail());
+        memberDto.setName(memberEntity.getName());
+        memberDto.setDepartment(memberEntity.getDepartment());
+        memberDto.setMRank(memberEntity.getMRank());
+        memberDto.setAddress(memberEntity.getAddress());
+        memberDto.setPhoneNumber(memberEntity.getPhoneNumber());
+        memberDto.setRole(memberEntity.getRole());
+        memberDto.setCreateTime(memberEntity.getCreateTime());
+        memberDto.setUpdateTime(memberEntity.getUpdateTime());
+        memberDto.setPayEntityList(memberEntity.getPayEntityList());
+        memberDto.setPaymentEntity(memberEntity.getPaymentEntity());
 
+        if (memberEntity.getMemberAttachFile() == 0) {
+            memberDto.setMemberAttachFile(memberEntity.getMemberAttachFile());
+        } else {
+            memberDto.setMemberAttachFile(memberEntity.getMemberAttachFile());
+            memberDto.setMemberNewFileName(memberEntity.getMemberFileEntityList().get(0).getMemberNewFileName());
+            memberDto.setMemberOldFileName(memberEntity.getMemberFileEntityList().get(0).getMemberOldFileName());
+        }
+
+        return memberDto;
+
+    }
 }

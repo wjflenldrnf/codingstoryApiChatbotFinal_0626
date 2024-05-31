@@ -45,4 +45,6 @@ public interface MemberService {
   void memberMRankUpdate(MemberDto memberDto);
 
   void memberDepartUpdate(MemberDto memberDto);
+
+  MemberDto memberTest(Long id);
 }

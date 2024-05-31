@@ -24,8 +24,10 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Transactional
 @RequiredArgsConstructor
@@ -202,6 +204,18 @@ public class FreeServiceImpl implements FreeService {
         FreeEntity freeEntity= freeRepository.findById(id).orElseThrow(()->{
             throw new IllegalArgumentException("삭제할 게시물 없음");});
         freeRepository.delete(freeEntity);
+    }
+
+    @Override
+    public List<FreeDto> freeHit() {
+
+        List<FreeEntity> hit = freeRepository.findTop3ByOrderByFreeHitDesc();
+
+        List<FreeDto> freeDtoList = hit.stream().map(
+                FreeDto::toFreeDto).collect(Collectors.toList());
+
+
+        return freeDtoList;
     }
 }
 

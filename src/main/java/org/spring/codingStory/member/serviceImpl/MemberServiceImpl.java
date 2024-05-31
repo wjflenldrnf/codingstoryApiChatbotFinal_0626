@@ -1,9 +1,6 @@
 package org.spring.codingStory.member.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.codingStory.department.dto.DepartmentDto;
-import org.spring.codingStory.department.entity.DepartmentEntity;
-import org.spring.codingStory.department.repository.DepartmentRepository;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.dto.MemberFileDto;
 import org.spring.codingStory.member.entity.MemberEntity;
@@ -23,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -461,6 +457,21 @@ public class MemberServiceImpl implements MemberService {
     memberRepository.save(memberEntity);
   }
 
+  @Override
+  public MemberDto memberTest(Long id) {
+    Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+
+    if (optionalMemberEntity.isPresent()) {
+
+      MemberEntity memberEntity = optionalMemberEntity.get();
+
+      MemberDto memberDto = MemberDto.toSelectMemberTest(memberEntity);
+
+      return memberDto;
+    }
+    return null;
+  }
+
 
   @Override
   public int memberDelete(Long id) {
@@ -554,5 +565,6 @@ public class MemberServiceImpl implements MemberService {
 
         return 1;
     }
+
 
 }

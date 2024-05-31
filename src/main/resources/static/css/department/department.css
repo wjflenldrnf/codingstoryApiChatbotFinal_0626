@@ -1,83 +1,107 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
+@import url(/css/common/reset.css);
+@import url(/css/common/left.css);
+
+.Head office{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
 }
 
-h1 {
-  text-align: center;
-  color: #333;
-}
-
-.button-container {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.btn {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background-color: #45a049;
+.department-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; 
 }
 
 .department {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin: 10px;
-  padding: 10px;
-  margin-bottom: 20px;
-  cursor: pointer; /* 수정된 부분: 커서를 포인터로 변경하여 클릭 가능한 상태로 표시 */
+  width: 300px;
+  margin: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
 }
 
-.sub-department {
-  display: none; /* 수정된 부분: 초기에는 하위 부서를 숨깁니다. */
-  margin-left: 20px;
-  margin-bottom: 10px;
-  border-left: 1px dashed #ddd;
-  padding-left: 10px;
+#departmentTree{
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: flex-start;
 }
 
-.department.open > .sub-department {
-  display: block; /* 수정된 부분: open 클래스가 있는 경우에만 하위 부서를 보여줍니다. */
+.department h3 {
+  margin-top: 0;
+  font-size: 20px;
+  color: #000000;
 }
 
-.add-sub-department-form {
-  display: none;
+.member-list {
   margin-top: 10px;
+  font-size: 16px;
+  color: #080808;
+}
+element.style {
+
+a {
+    text-decoration: none;
+    color: #222222;
+}
+}
+.member-list ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
 
-input[type="text"] {
-  width: 200px;
-  padding: 5px;
-  margin-bottom: 10px;
+.member-list ul li {
+  margin-bottom: 5px;
 }
 
-select {
-  width: 210px;
-  padding: 5px;
-  margin-bottom: 10px;
+.btn {
+  display: block;
+  margin: 0 auto;
+  padding: 8px 16px;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  color: #080808;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
 }
 
-form label {
+.btn:hover {
+  background-color: #ff6262;
+}
+
+#departmentForm {
+  margin-top: 20px;
+}
+
+#departmentForm label {
   display: block;
   margin-bottom: 5px;
 }
 
-form button[type="submit"] {
-  padding: 5px 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
+#departmentForm input[type="text"],
+#departmentForm select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #575aff;
   border-radius: 4px;
-  cursor: pointer;
 }
 
-form button[type="submit"]:hover {
-  background-color: #76ffbf;
+#departmentForm button[type="submit"] {
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+.button-container {
+  text-align: center;
 }

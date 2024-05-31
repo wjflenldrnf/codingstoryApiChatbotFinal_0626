@@ -5,21 +5,25 @@
     <div class="right-top">
       <div class="gnb">
         <ul>
-          <th:block sec:authorize="isAnonymous()">
-            <li><a th:href="@{/login}">로그인</a></li>
-            <li><a th:href="@{/member/join}">회원가입</a></li>
-          </th:block>
           <th:block sec:authorize="isAuthenticated()">
             <div class="myInfo"
                  th:onClick="|location.href='@{/member/myDetail/{id}(id=${#authentication.principal.memberEntity.id})}'|">
               <li>
-                <p th:text="${#authentication.principal.memberEntity.department}"></p>부
-                <p th:text="${#authentication.principal.memberEntity.mRank}"></p>
-                <p th:text="${#authentication.principal.memberEntity.name}"></p>님
+                <a th:text="${#authentication.principal.department}"></a>
+                <a th:text="${#authentication.principal.mRank}"></a>
+                <a th:text="${#authentication.principal.name}"></a>
+                <p>님</p>
               </li>
             </div>
+            <li>
+
+            </li>
             <li><a th:href="@{/logout}">로그아웃</a></li>
           </th:block>
+          <li th:block th:if="${#authorization.expression('isAuthenticated()')}">
+            <a th:href="@{/my/schedule}">Fullcalendar</a>
+          </li>
+          <li>
         </ul>
       </div>
     </div>

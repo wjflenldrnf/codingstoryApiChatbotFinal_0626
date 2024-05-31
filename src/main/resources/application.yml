@@ -24,7 +24,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: update # update, create, update
+      ddl-auto: update # update, create, drop
     properties:
       hibernate:
         show_sql: true #SQL ???? ???

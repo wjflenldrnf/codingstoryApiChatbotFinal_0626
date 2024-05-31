@@ -108,7 +108,7 @@ public class MemberController {
 
     int size = memberDto.getSize(); // 페이지당 보이는 갯수
 
-    int blockNum = 3; // 브라우저에 보이는 페이지 번호
+    int blockNum = 5; // 브라우저에 보이는 페이지 번호
 
     int startPage = (int) ((Math.floor(newPage / blockNum) * blockNum) + 1 <= totalPages
             ? (Math.floor(newPage / blockNum)* blockNum ) + 1
@@ -267,19 +267,17 @@ public class MemberController {
  }
 
 
-  @GetMapping("/test")
-  public String test(){
+  @GetMapping("/test/{id}")
+  public String test(MemberDto memberDto,Model model,@PathVariable("id")Long id){
+
+
+    MemberDto member=memberService.memberTest(id);
+    model.addAttribute("member",member);
+
 
     return "member/test";
   }
 
-  @PostMapping("/test")
-  public ResponseEntity<?> test1(MemberDto memberDto) throws IOException {
-
-    int result=memberService.memberJoin2(memberDto);
-
-    return ResponseEntity.status(HttpStatus.OK).body(result);
-  }
 
   @PostMapping("/MDUpdate")
   public String memberMDUpdate(MemberDto memberDto){

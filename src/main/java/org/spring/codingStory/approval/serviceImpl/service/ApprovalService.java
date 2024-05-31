@@ -28,7 +28,7 @@ public interface ApprovalService {
     @Transactional
     Page<ApprovalDto> myApvList(Pageable pageable, String subject, String search, Long memberId);
 
-    int apvWaitCount2(String name, Long approvalStatusEntity_Id);
+//    int apvWaitCount2(String name, Long approvalStatusEntity_Id);
 
     ApprovalDto apvDetail(Long id);
 
