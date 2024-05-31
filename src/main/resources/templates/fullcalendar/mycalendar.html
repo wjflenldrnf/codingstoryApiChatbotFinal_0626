@@ -17,8 +17,6 @@
     #calendar .fc-sat { color: blue; } /* 토요일 */
   </style>
 
-
-
 </head>
 <body data-member-id="[[${memberId}]]">
 <main>
@@ -28,6 +26,7 @@
     </h1>
     <div class="img"> </div>
     <div id='calendar-container'>
+      <div class="cal">일정</div>
       <div id='calendar'></div>
     </div>
   </div>
@@ -53,6 +52,7 @@
             <input type="datetime-local" class="form-control" id="calendar_end_date" name="end">
 
             <input type="hidden" id="memberId" name="memberId" th:value="${memberId}">
+
           </div>
         </div>
         <div class="modal-footer">
