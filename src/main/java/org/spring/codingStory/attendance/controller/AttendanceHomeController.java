@@ -18,11 +18,5 @@ public class AttendanceHomeController {
         return "attendance/attIndex";
     }
 
-    @GetMapping("/attendance2")
-    public String attIndexOrigin(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model){
-        model.addAttribute("name" ,myUserDetails.getMemberEntity().getName());
-        model.addAttribute("memberId",myUserDetails.getMemberEntity().getId());
-        return "attendance/attIndexOrigin";
-    }
 
 }

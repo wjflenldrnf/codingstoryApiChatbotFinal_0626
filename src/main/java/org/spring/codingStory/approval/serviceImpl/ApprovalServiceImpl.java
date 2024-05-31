@@ -255,15 +255,16 @@ public class ApprovalServiceImpl implements ApprovalService {
         return apvMyCount;
     }
 
-    @Override
-    public int apvWaitCount2(String name, Long approvalStatusEntity_Id) {
-        ApprovalStatusEntity approvalStatusEntity
-            = ApprovalStatusEntity.builder().id(approvalStatusEntity_Id).build();
-
-       int approvalEntityCount = approvalRepository.findByApvFnlAndApprovalStatusEntityCount(name, approvalStatusEntity);
-        return approvalEntityCount;
-
-    }
+//    @Override
+//    public int apvWaitCount2(String name, Long approvalStatusEntity_Id) {
+//        ApprovalStatusEntity approvalStatusEntity
+//            = ApprovalStatusEntity.builder().id(approvalStatusEntity_Id).build();
+//
+////       int approvalEntityCount = approvalRepository.findByApvFnlAndApprovalStatusEntityCount(name, approvalStatusEntity);
+////        return approvalEntityCount;
+//        return 0;
+//
+//    }
 
     @Override
     public ApprovalDto apvDetail(Long id) {

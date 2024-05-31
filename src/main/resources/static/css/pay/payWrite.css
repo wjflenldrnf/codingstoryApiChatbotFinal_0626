@@ -8,7 +8,7 @@
     padding: 20px;
     box-sizing: border-box;
     background-color: #f1f1f100;
-    margin-top: 50px; /* 위에서 50px 떨어뜨림 */
+    margin-top: 150px; /* ìœ„ì—ì„œ 200px ë–¨ì–´ëœ¨ë¦¼ */
 }
 
 .admin-data {
@@ -25,33 +25,38 @@
     max-width: 800px;
 }
 
-table {
+.form-list {
     width: 100%;
-    border-collapse: collapse;
-    background-color: #ffffff00;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-table th, table td {
-    padding: 12px 15px;
-    border: 1px solid #f1f1f100;
-    text-align: center;
+.form-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-top: 1px solid #000;
+    width: 500px;
 }
 
-table thead tr {
+.form-list li label {
+    padding: 5px 5px 5px 10px;
+    flex: 1;
+    text-align: left;
+    margin-right: 10px;
+    font-weight: bold;
     background-color: #3e688894;
-    color: #000;
+    border: 1px solid #607D8B;
+    border-radius: 5px;
 }
 
-table tbody tr:nth-of-type(even) {
-    background-color: #f1f1f100;
-}
-
-table tbody tr:hover {
-    background-color: #f1f1f100;
-}
-
-table tbody tr:last-of-type {
-    border-bottom: 2px solid #f1f1f100;
+.form-list li input {
+    flex: 2;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .submit-cell {
@@ -82,13 +87,4 @@ input[type="submit"]:hover {
 .right-top .gnb ul li a:hover {
     color: #555;
     text-decoration: underline;
-}
-
-.right-container{
-width: auto;
-background-color: #f1f1f100;
-}
-
-.right-container td{
-border-bottom: 1px solid #000;
 }

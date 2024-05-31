@@ -12,59 +12,70 @@
                     <th:block sec:authorize="isAuthenticated()">
                         로그인중
                     </th:block>
-
                     <li><a th:href="@{/member/detail/}" th:text="${ #authentication.principal.username }"></a></li>
-
-
                 </ul>
             </div>
         </div>
-        <div class="bottom">
-            <div class="admin-data">
-                            <li><a th:href="@{/pay/payWrite/}"> payWrite </a></li>
-                            <li><a th:href="@{/pay/payList/}"> payList </a></li>
+        <div class="right-bottom">
 
+            <div class="right-container"><h1 style="font-style: bold; color: #fff;">급여정보</h1>
 
                 <table>
+
+
                     <thead>
                     <tr>
-                        <th>id</th>
-                        <th>memberEntity.id</th>
-                        <th>hourlyWage</th>
+                        <th>급여ID</th>
+                        <th>사번</th>
+                        <th>이름</th>
+                        <th>지점</th>
+                        <th>직급</th>
 
-                        <th>보기1</th> <!-- 게시글 상세보기 -->
+                        <th:block sec:authorize="hasRole('ADMIN')">
 
+                            <th>시급</th>
+                            <th>작성</th>
 
+                        </th:block>
+
+                        <th>보기</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="payment : ${paymentList}">
                         <td th:text="${payment.id}"></td>
                         <td th:text="${payment.memberEntity.id}"></td>
-                        <td th:text="${payment.hourlyWage}"></td>
+                        <td th:text="${payment.memberEntity.name}"></td>
+                        <td th:text="${payment.memberEntity.department}"></td>
+                        <td th:text="${payment.memberEntity.mRank}"></td>
 
-                        <td><a th:href="@{/pay/payWrite/{id}(id=${payment.memberEntity.id})}">쓰기</a></td><!-- 게시글 상세보기 -->
+                        <th:block sec:authorize="hasRole('ADMIN')">
 
-                        <td><a th:href="@{/pay/payDetail/{id}(id=${payment.id})}">보기</a></td><!-- 게시글 상세보기 -->
+                            <td th:text="${payment.hourlyWage}"></td>
+                            <td><a th:href="@{/pay/payWrite/{id}(id=${payment.memberEntity.id})}">급여작성</a></td>
 
-
-                        <!--<td th:text="${#temporals.format(board.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td th:text="${#temporals.format(board.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td><a th:href="@{/board/detail1/{id}(id=${board.id})}">보기</a></td>&lt;!&ndash; 게시글 상세보기 &ndash;&gt;
-                        <td><a th:href="@{/board/detail2/{id}(id=${board.id})}">보기</a></td>&lt;!&ndash; 게시글 상세보기(ajax) &ndash;&gt;
-                        <th:block th:if="${board.attachFile==1}">
-                            <td>O</td>
                         </th:block>
-                        <th:block th:unless="${board.attachFile==1}">
-                            <td>X</td>
-                        </th:block>-->
+
+
+                        <!-- '보기' 링크 표시 조건 -->
+                        <td>
+                            <th:block sec:authorize="hasRole('ADMIN')">
+                                <a th:href="@{/pay/payDetail/{id}(id=${payment.id})}">보기</a>
+                            </th:block>
+                            <th:block sec:authorize="!hasRole('ADMIN')" th:if="${payment.memberEntity.userEmail == #authentication.principal.username}">
+                                <a th:href="@{/pay/payDetail/{id}(id=${payment.id})}">보기</a>
+                            </th:block>
+                            <th:block sec:authorize="!hasRole('ADMIN')" th:unless="${payment.memberEntity.userEmail == #authentication.principal.username}">
+                                --
+                            </th:block>
+                        </td>
+
+
                     </tr>
                     </tbody>
                 </table>
-
-
-
             </div>
+
         </div>
     </div>
 </div>

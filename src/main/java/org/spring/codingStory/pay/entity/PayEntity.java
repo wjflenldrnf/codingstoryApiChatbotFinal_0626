@@ -44,8 +44,6 @@ public class PayEntity extends BaseTimeEntity {
     private Date endDate;
     //산정종료일
 
-
-
     //페이엔티티 연관관계
     // 페이엔티티 n:1 페이먼트엔티티
     @JsonIgnore //ajax 시 순환 참조 방지
@@ -81,30 +79,11 @@ public class PayEntity extends BaseTimeEntity {
         payEntity.setCalcTime(calcTime);
         payEntity.setPayInDur(payDto.getPayInDur());
         payEntity.setPayBns(payDto.getPayBns());
-        Double totalPay = (payDto.getPayBns() != null ? payDto.getPayBns() : 0) + (payDto.getPayInDur() != null ? payDto.getPayInDur() : 0);
+
+        Double totalPay = (double) Math.round( (payDto.getPayBns() != null ? payDto.getPayBns() : 0) + (payDto.getPayInDur() != null ? payDto.getPayInDur() : 0) );
         payEntity.setTotalPay(totalPay);
         payEntity.setPayingDate(payDto.getPayingDate());
         return payEntity;
     }
-
-    public static PayEntity toUpdatePayEntity(PayDto payDto) {
-        PayEntity payEntity = new PayEntity();
-        payEntity.setId(payDto.getId());
-//        payEntity.setMemberEntity(payDto.getMemberEntity());
-//        payEntity.setPaymentEntity(paymentEntity); // 추가된 부분
-//        payEntity.setStartDate(payDto.getStartDate());
-//        payEntity.setEndDate(payDto.getEndDate());
-//        payEntity.setCalcTime(calcTime);
-//        payEntity.setPayInDur(payDto.getPayInDur());
-        payEntity.setPayBns(payDto.getPayBns());
-//        Double totalPay = (payDto.getPayBns() != null ? payDto.getPayBns() : 0) + (payDto.getPayInDur() != null ? payDto.getPayInDur() : 0);
-//        payEntity.setTotalPay(totalPay);
-//        payEntity.setPayingDate(payDto.getPayingDate());
-        return payEntity;
-    }
-
-
-
-
 
 }
