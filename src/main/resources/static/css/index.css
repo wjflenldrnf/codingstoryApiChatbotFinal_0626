@@ -17,37 +17,39 @@
   box-sizing: border-box;
 }
 .index .right .right-con .bottom .index-data{
-  height: calc(100vh - 400px);
-      box-sizing: border-box;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      margin: 140px 200px 30px 100px;
-      gap: 25px 40px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 90%;
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-bottom: 30px;
+    gap: 30px;
+    color:white;
 }
 .app{
-border: 3px solid #ffffff;
+border: 3px solid #022f5d;
 border-radius: 30px;
 padding: 15px 20px 20px;
 width:400px;
 height:300px;
-
 }
-.cal{
-border: 3px solid #ffffff;
+.movie{
+border: 3px solid #022f5d;
 border-radius: 30px;
 padding: 15px 20px 20px;
 width:400px;
 height:300px;
 }
 .dpt{
-border: 3px solid #ffffff;
+border: 3px solid #022f5d;
 border-radius: 30px;
 padding: 15px 20px 20px;
 width:400px;
 height:300px;
 }
 .att{
-border: 3px solid #ffffff;
+border: 3px solid #022f5d;
 border-radius: 30px;
 padding: 15px 20px 20px;
 margin-top: 20px;
@@ -55,7 +57,7 @@ width:400px;
 height:300px;
 }
 .time{
-border: 3px solid #ffffff;
+border: 3px solid #022f5d;
 border-radius: 30px;
 padding: 15px 20px 20px;
 margin-top: 20px;
@@ -63,7 +65,23 @@ width:400px;
 height:300px;
 }
 .board{
-border: 3px solid #ffffff;
+border: 3px solid #022f5d;
+border-radius: 30px;
+padding: 15px 20px 20px;
+margin-top: 20px;
+width:400px;
+height:300px;
+}
+.notice{
+border: 3px solid #022f5d;
+border-radius: 30px;
+padding: 15px 20px 20px;
+margin-top: 20px;
+width:400px;
+height:300px;
+}
+.emp{
+border: 3px solid #022f5d;
 border-radius: 30px;
 padding: 15px 20px 20px;
 margin-top: 20px;
@@ -71,7 +89,14 @@ width:400px;
 height:300px;
 }
 
-
+.cal{
+border: 3px solid #022f5d;
+border-radius: 30px;
+padding: 15px 20px 20px;
+margin-top: 20px;
+width:400px;
+height:300px;
+}
 
 
 

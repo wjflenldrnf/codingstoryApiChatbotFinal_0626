@@ -1,11 +1,13 @@
 package org.spring.codingStory.board.notice.serviceImpl.service;
 
 
+import org.spring.codingStory.board.freeBoard.dto.FreeDto;
 import org.spring.codingStory.board.notice.dto.NoticeDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface NoticeService {
 
@@ -20,4 +22,6 @@ public interface NoticeService {
     void noticeUpdateOk(NoticeDto noticeDto);
 
     void noticeDelete(Long id);
+
+    List<NoticeDto> noticeHit();
 }

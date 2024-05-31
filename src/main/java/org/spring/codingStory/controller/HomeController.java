@@ -1,8 +1,12 @@
 package org.spring.codingStory.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.codingStory.board.employee.dto.EmployeeDto;
+import org.spring.codingStory.board.employee.serviceImpl.EmployeeServiceImpl;
 import org.spring.codingStory.board.freeBoard.dto.FreeDto;
 import org.spring.codingStory.board.freeBoard.serviceImpl.FreeServiceImpl;
+import org.spring.codingStory.board.notice.dto.NoticeDto;
+import org.spring.codingStory.board.notice.serviceImpl.NoticeServiceImpl;
 import org.spring.codingStory.config.MyUserDetails;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,8 @@ import java.util.List;
 public class HomeController {
 
     private final FreeServiceImpl freeService;
+    private final EmployeeServiceImpl employeeService;
+    private final NoticeServiceImpl noticeService;
 
 
     @GetMapping({"","/login"})
@@ -43,9 +49,14 @@ public class HomeController {
     public String index(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
 
         List<FreeDto> freeHit=freeService.freeHit();
+        List<EmployeeDto> empHit=employeeService.empHit();
+        List<NoticeDto> noticeHit=noticeService.noticeHit();
+
 
         model.addAttribute("myUserDetails", myUserDetails);
         model.addAttribute("freeHit",freeHit);
+        model.addAttribute("empHit",empHit);
+        model.addAttribute("noticeHit",noticeHit);
 
         model.addAttribute("name" ,myUserDetails.getMemberEntity().getName());
         model.addAttribute("memberId",myUserDetails.getMemberEntity().getId());

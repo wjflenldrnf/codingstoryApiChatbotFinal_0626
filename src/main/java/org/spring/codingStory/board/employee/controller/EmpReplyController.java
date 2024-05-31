@@ -27,7 +27,7 @@ public class EmpReplyController {
         model.addAttribute("memberName", myUserDetails.getMemberEntity().getName());
         employeeReplyService.insertEmployeeReply(empReplyDto);
 
-        return "redirect:/emp/empDetail/" + empReplyDto.getEmployeeId();
+        return "redirect:/board/empDetail/" + empReplyDto.getEmployeeId();
     }
     @GetMapping("/empReplyDelete/{id}")
     public String empReplyDelete(@PathVariable("id") Long id) {
@@ -35,6 +35,6 @@ public class EmpReplyController {
 
         Long empId = employeeReplyService.employeeReplyDeleteById(id);
 
-        return "redirect:/emp/empDetail/" + empId;
+        return "redirect:/board/empDetail/" + empId;
     }
 }

@@ -209,7 +209,7 @@ public class FreeServiceImpl implements FreeService {
     @Override
     public List<FreeDto> freeHit() {
 
-        List<FreeEntity> hit = freeRepository.findTop3ByOrderByFreeHitDesc();
+        List<FreeEntity> hit = freeRepository.findTop5ByOrderByFreeHitDesc();
 
         List<FreeDto> freeDtoList = hit.stream().map(
                 FreeDto::toFreeDto).collect(Collectors.toList());

@@ -27,7 +27,7 @@ public class NoticeReplyController {
         model.addAttribute("memberName", myUserDetails.getMemberEntity().getName());
         noticeReplyService.insertNoticeReply(noticeReplyDto);
 
-        return "redirect:/notice/noticeDetail/" + noticeReplyDto.getNoticeId();
+        return "redirect:/board/noticeDetail/" + noticeReplyDto.getNoticeId();
     }
     @GetMapping("/noticeReplyDelete/{id}")
     public String noticeReplyDelete(@PathVariable("id") Long id) {
@@ -35,7 +35,7 @@ public class NoticeReplyController {
 
         Long noticeId = noticeReplyService.noticeReplyDeleteById(id);
 
-        return "redirect:/notice/noticeDetail/" + noticeId;
+        return "redirect:/board/noticeDetail/" + noticeId;
     }
 
 }
