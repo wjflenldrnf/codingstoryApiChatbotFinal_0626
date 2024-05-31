@@ -45,6 +45,7 @@ public class MemberEntity extends BaseTimeEntity {
   @Column(nullable = true)
   private String department;
 
+
   @Column(nullable = true )
   private String mRank;
 
@@ -220,6 +221,16 @@ public class MemberEntity extends BaseTimeEntity {
   @JsonIgnore
   @OneToOne(mappedBy = "memberEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private PaymentEntity paymentEntity;
+
+  public static MemberEntity MDUpdate(MemberDto memberDto) {
+
+    MemberEntity memberEntity=new MemberEntity();
+    memberEntity.setId(memberDto.getId());
+    memberEntity.setMRank(memberDto.getMRank());
+    memberEntity.setDepartment(memberDto.getDepartment());
+
+    return memberEntity;
+  }
 
   /////////////////////////////////////////////////////////////////
 }

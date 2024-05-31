@@ -1,8 +1,6 @@
 package org.spring.codingStory.member.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.codingStory.department.entity.DepartmentEntity;
-import org.spring.codingStory.department.repository.DepartmentRepository;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.dto.MemberFileDto;
 import org.spring.codingStory.member.entity.MemberEntity;
@@ -428,17 +426,50 @@ public class MemberServiceImpl implements MemberService {
     }
   }
 
+
   @Override
-  public int memberMD(MemberDto memberDto) {
+  public void memberMDUdate(MemberDto memberDto) {
 
     MemberEntity memberEntity=memberRepository.findById(memberDto.getId()).orElseThrow(IllegalArgumentException::new);
 
-    memberEntity.setDepartment(memberDto.getDepartment());
+    memberEntity=MemberEntity.MDUpdate(memberDto);
+
+    memberRepository.save(memberEntity);
+  }
+
+  @Override
+  public void memberMRankUpdate(MemberDto memberDto) {
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("xx"));
+
     memberEntity.setMRank(memberDto.getMRank());
 
     memberRepository.save(memberEntity);
+  }
 
-    return 1;
+  @Override
+  public void memberDepartUpdate(MemberDto memberDto) {
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("xx"));
+
+    memberEntity.setDepartment(memberDto.getDepartment());
+
+    memberRepository.save(memberEntity);
+  }
+
+  @Override
+  public MemberDto memberTest(Long id) {
+    Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+
+    if (optionalMemberEntity.isPresent()) {
+
+      MemberEntity memberEntity = optionalMemberEntity.get();
+
+      MemberDto memberDto = MemberDto.toSelectMemberTest(memberEntity);
+
+      return memberDto;
+    }
+    return null;
   }
 
 
@@ -534,5 +565,6 @@ public class MemberServiceImpl implements MemberService {
 
         return 1;
     }
+
 
 }

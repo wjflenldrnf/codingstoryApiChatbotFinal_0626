@@ -1,6 +1,7 @@
 package org.spring.codingStory.fullcalender.serviceImpl.service;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.codingStory.config.MyUserDetails;
 import org.spring.codingStory.fullcalender.dto.FullCalenderDto;
 import org.spring.codingStory.fullcalender.entity.FullCalenderEntity;
 import org.spring.codingStory.fullcalender.reposiory.FullCalenderRepository;
@@ -8,9 +9,12 @@ import org.spring.codingStory.fullcalender.serviceImpl.FullCalenderServiceInterf
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -50,8 +54,8 @@ public class FullCalenderService implements FullCalenderServiceInterface {
 
 
   public void setCalendar(FullCalenderDto dto) {
-//    try {
-      //사용자 정보를 가져오기
+
+    //사용자가 인증이 되어있는지 확인
       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
       String currentUsername= authentication.getName();
 
@@ -67,15 +71,13 @@ public class FullCalenderService implements FullCalenderServiceInterface {
           .end(dto.getEnd())
           .build();
       FullCalenderEntity fullCalenderEntity = fullCalenderRepository.save(entity);
-      //저장이 성공 했을 때 추가적인 작업 수행을 가능하게 하기 위해서 추가
-//    } catch (Exception e) {
-//      //DB 저장 작업이 실패한 경우 처리
-//      //예를 들어. 로깅하거나 사용자에게 메세지를 표시할 수 있음
-//      logger.log(Level.SEVERE, "DB저장 작업 중 오류 발생: " + e.getMessage());
-//      //또는 에외를 다시 던져서 상위 호출자에게 예외를 전파 할 수도 있음
-//      throw new RuntimeException("DB저장 작업 중 오류 발생", e);
-//    }
+
   }
+
+
+
+
+
 
   public List<FullCalenderDto> myFullCallerListAll(Long id) {
     MemberEntity memberEntity=memberRepository.findById(id).orElseThrow(IllegalArgumentException::new);
@@ -94,8 +96,40 @@ public class FullCalenderService implements FullCalenderServiceInterface {
   }
 
 
-  public void deleteCalendarEvent(Long eventId, String username) {
+  @Override
+  public void deleteCalendarEvent(Integer eventId) {
 
     fullCalenderRepository.deleteById(eventId);
+
   }
+
+  //사용자 개인 일정을 가져오는 매서드
+  public List<FullCalenderDto> getUserEvents(Long userId){
+    MemberEntity memberEntity= memberRepository.findById(userId).orElseThrow(()->new IllegalArgumentException("User not found"));
+    List<FullCalenderEntity> userEvents=fullCalenderRepository.findByMemberEntity(memberEntity);
+
+    return userEvents.stream().map(event->FullCalenderDto.builder()
+        .id(event.getId())
+        .start(event.getStart())
+        .content(event.getContent())
+        .end(event.getEnd())
+        .build())
+        .collect(Collectors.toList());
+
+  }
+  //모든 일정을 가져오는 메서드
+  public List<FullCalenderDto> getAllEvents(){
+    List<FullCalenderEntity> allEvents= fullCalenderRepository.findAll();
+
+    return allEvents.stream().map(event -> FullCalenderDto.builder()
+        .id(event.getId())
+        .start(event.getStart())
+        .content(event.getContent())
+        .end(event.getEnd())
+        .build())
+        .collect(Collectors.toList());
+  }
+
+
+
 }

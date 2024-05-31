@@ -8,8 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface FullCalenderRepository extends JpaRepository<FullCalenderEntity,Long> {
+public interface FullCalenderRepository extends JpaRepository<FullCalenderEntity,Integer> {
   List<FullCalenderEntity> findByMemberEntity(MemberEntity memberEntity);
 
 
+  List<FullCalenderEntity> findAll();
 }

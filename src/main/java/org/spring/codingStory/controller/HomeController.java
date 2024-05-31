@@ -8,6 +8,8 @@ import org.spring.codingStory.board.freeBoard.serviceImpl.FreeServiceImpl;
 import org.spring.codingStory.board.notice.dto.NoticeDto;
 import org.spring.codingStory.board.notice.serviceImpl.NoticeServiceImpl;
 import org.spring.codingStory.config.MyUserDetails;
+import org.spring.codingStory.pay.dto.PayDto;
+import org.spring.codingStory.pay.serviceImpl.PayServiceImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,8 @@ public class HomeController {
     private final FreeServiceImpl freeService;
     private final EmployeeServiceImpl employeeService;
     private final NoticeServiceImpl noticeService;
+    private final PayServiceImpl payServiceImpl;
+
 
 
     @GetMapping({"","/login"})
@@ -36,14 +40,6 @@ public class HomeController {
 
         return "login";
     }
-
-//    @GetMapping("/index")
-//    public String index(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
-//
-//        model.addAttribute("myUserDetails", myUserDetails);
-//
-//        return "index";
-//    }
 
     @GetMapping("/index")
     public String index(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
@@ -60,6 +56,9 @@ public class HomeController {
 
         model.addAttribute("name" ,myUserDetails.getMemberEntity().getName());
         model.addAttribute("memberId",myUserDetails.getMemberEntity().getId());
+
+        List<PayDto> payList = payServiceImpl.findByMemberId(myUserDetails.getMemberEntity().getId());
+       /* model.addAttribute("pay", payList.get(payList.size() - 1));*/
 
         return "index";
     }
