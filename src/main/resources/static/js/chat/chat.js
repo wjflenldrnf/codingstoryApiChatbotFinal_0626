@@ -36,7 +36,7 @@ function connect() {
 
 function sendMessage(message){
 	$.ajax({
-		url:"/botController",
+		url:"/chatbot/botController",
 		type:"post",
 		data:{message: message},
 		success:function(responsedHtml){
@@ -61,7 +61,7 @@ function inputTagString(text){
 	`;
 	return message;
 }
-//메뉴클릭시 메뉴 텍스트 화면에 표현 
+//메뉴클릭시 메뉴 텍스트 화면에 표현
 function menuclicked(el){
 	var text=$(el).text().trim();
 	var fToken=$(el).siblings(".f-token").val();
@@ -72,7 +72,7 @@ function menuclicked(el){
 
 //엔터가 입력이되면 질문을 텍스트 화면에 표현 
 function questionKeyuped(event){
-	if(event.keyCode!=13)return;
+	if(event.keyCode!=13) return;
 	btnMsgSendClicked() // Enter 키가 눌리면 btnMsgSendClicked 함수 호출
 }
 
@@ -87,3 +87,5 @@ function btnMsgSendClicked(){
 	showMessage(message);//사용자가 입력한 메세지 채팅창에 출력
 	$("#question").val("");//질문 input 리셋
 }
+
+

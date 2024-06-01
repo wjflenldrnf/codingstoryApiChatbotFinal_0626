@@ -30,21 +30,26 @@
 
         <div class="bottom">
             <div class="index-data">
-                <h1>
-                    <a th:href="@{/apv/myApvList}">보낸문서 <span th:text="${apvMyCount}"></span> </a>
-                </h1>
-                <h1>
-                    <a th:href="@{/apv/waitList}">대기문서 <span th:text="${apvWaitCount}"></span> </a>
-                </h1>
-                <h1>
-                    <a th:href="@{/apv/denyList}">반려 문서 <span th:text="${apvDenyCount}"></span> </a>
-                </h1>
-                <h1>
-                    <a th:href="@{/apv/list}">전체문서 <span th:text="${apvCount}"></span> </a>
-                </h1>
-                <h1>
-                    <a th:href="@{/apv/write}">문서작성 </a>
-                </h1>
+                <div class="head">
+                    <h1>
+                        <a th:href="@{/apv/myApvList}">보낸문서 <span th:text="${apvMyCount}"></span> </a>
+                    </h1>
+                    <h1>
+                        <a th:href="@{/apv/myApvDenyList}">반려된 문서 <span th:text="${apvMyDenyCount}"></span> </a>
+                    </h1>
+                    <h1>
+                        <a th:href="@{/apv/waitList}">결재 대기 문서 <span th:text="${apvWaitCount}"></span> </a>
+                    </h1>
+                    <h1>
+                        <a th:href="@{/apv/denyList}">반려한 문서 <span th:text="${apvDenyCount}"></span> </a>
+                    </h1>
+                    <h1>
+                        <a th:href="@{/apv/list}">받은 전체 문서 <span th:text="${apvCount}"></span> </a>
+                    </h1>
+                    <h1>
+                        <a th:href="@{/apv/write}">문서작성 </a>
+                    </h1>
+                </div>
                 <h1>대기 중인 문서 <span th:text="${apvWaitCount}"></span> </h1>
                 <table>
                     <thead>

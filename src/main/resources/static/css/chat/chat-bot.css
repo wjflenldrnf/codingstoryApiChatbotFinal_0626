@@ -1,8 +1,7 @@
 @charset "UTF-8";
 @import url(/css/common/reset.css);
 @import url(/css/common/left.css);
-/*@import url("/css/common/header");
-@import url("/css/common/footer");*/
+
 
 .bot-con{
   width:100%;
@@ -11,6 +10,22 @@
   justify-content: center;
   align-items: center;
 }
+
+.bot-con .faq ul>li .active .sub .subFaq  {
+height: 0;
+overflow: hidden;
+}
+
+.bot-con .faq ul>li .active .sub:hover .subFaq {
+height: 50px;
+display:block;
+transition-duration: 0.1s;
+}
+
+
+
+
+
 #chat-bot{
   border-radius:20px;
 }
@@ -52,7 +67,7 @@
 #chat-header{
 	position:relative;
 	text-align: center;
-	background-color: #4368ef;
+  background-color: rgb(62 104 136 / 58%);
 	color: #fff;
 	height: 60px;
 	line-height: 60px;
@@ -103,6 +118,22 @@
 	border-radius: 5px;
 	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
 }
+#chat-disp .user .part{
+text-align:right;
+}
+
+#chat-disp .part .answer{
+background-color: #fff;
+	color: #222;
+	max-width:270px;
+	padding: 6px 20px 6px 10px;
+	text-align: left;
+	letter-spacing: -0.5px;
+	margin-bottom: 5px;
+/*	border-radius: 5px;
+	box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);*/
+}
+
 #chat-disp .menu .menu-item{
 	width: 100%;
 	padding: 10px 0;
@@ -146,6 +177,7 @@
 }
 #chat-content{
 	min-height: 670px;
+
 }
 #chat-content .bot .message{
 	width: 100%;

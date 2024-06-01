@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div class="right" th:fragment="apvDenyListRightFragment">
+<div class="right" th:fragment="myApvDenyListRightFragment">
     <div class="right-con">
         <div class="right-top">
             <div class="gnb">
@@ -9,7 +9,6 @@
                         <li><a th:href="@{/member/login}">로그인</a></li>
                         <li><a th:href="@{/member/join}">회원가입</a></li>
                     </th:block>
-
                     <th:block sec:authorize="isAuthenticated()">
                         <div class="myInfo"
                              th:onClick="|location.href='@{/member/myDetail/{id}(id=${#authentication.principal.memberEntity.id})}'|">
@@ -51,7 +50,7 @@
                         <a th:href="@{/apv/write}">문서작성 </a>
                     </h1>
                 </div>
-                <h1>반려한 문서 <span th:text="${apvDenyCount}"></span></h1>
+                <h1>반려된 문서 <span th:text="${apvMyDenyCount}"></span></h1>
                 <table>
                     <thead>
                     <!--  검색 -->

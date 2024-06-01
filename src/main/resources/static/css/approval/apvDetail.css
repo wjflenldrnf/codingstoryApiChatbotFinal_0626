@@ -1,4 +1,4 @@
-@import url(/css/common/reset.css);
+/*@import url(/css/common/reset.css);
 @import url(/css/common/left.css);
 
 
@@ -13,14 +13,14 @@
     width: 1600px;
     box-sizing: border-box;
     align-items:center;
-    background-color:  rgb(255, 251, 247);
+
 
 }
 
 .write  .write-con  {
     width:100%;
     height:800px;
-    background-color: rgb(255 251 247);
+
     flex-basis: 400px;
     padding: 20px;
     box-sizing: border-box;
@@ -56,8 +56,92 @@ th {
     background-color: #f2f2f2;
 }
 
+table tr td .content{
+resize:none;
+}
+
 .content {
     height: 200px;
+    resize:none;
+}
+
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}*/
+
+
+
+/* /css/common/style.css */
+
+@import url(/css/common/reset.css);
+@import url(/css/common/left.css);
+
+.container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.write {
+    width: 1600px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.write .write-con {
+    width: 100%;
+    height: 800px;
+    flex-basis: 400px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+.write .write-form {
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    flex-basis: 400px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 7px 7px;
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+table tr td .content {
+    resize: none;
+}
+
+.content {
+    height: 200px;
+    resize: none;
 }
 
 button {
@@ -73,9 +157,6 @@ button {
 button:hover {
     background-color: #45a049;
 }
-
-
-
 
 
 

@@ -29,27 +29,27 @@
         </div>
         <div class="bottom">
             <div class="apv-data">
-                <div class="container">
+
                     <div class="write">
                         <div class="write-con">
                             <form th:action="@{/apv/apvUpdate}" method="POST" enctype="multipart/form-data">
                                 <h1>보고서 수정하기</h1>
                                 <table>
-                                    <thead>
+
                                     <input type="hidden" name="id" id="id" th:value="${approvalDto.id}">
                                     <input type="hidden" name="memberId" id="memberId"
                                            th:value="${approvalDto.memberEntity.id}">
                                     <tr>
-                                        <th class="tg-0pky" rowspan="2">결재자</th>
-                                        <th class="tg-0pky">이름</th><!--결재자 정보-->
-                                        <th class="tg-0pky"><select class="apvFnl" th:name="apvFnl" id="apvFnl">
+                                        <td class="tg-0pky" rowspan="2">결재자</td>
+                                        <td class="tg-0pky">이름</td><!--결재자 정보-->
+                                        <td class="tg-0pky"><select class="apvFnl" th:name="apvFnl" id="apvFnl">
                                             <option th:each="member : ${memberDtoList}"
                                                     th:value="${member?.name}"
                                                     th:utext="${member?.mRank +' '+ member?.name +'-'+member?.department}"
                                                     th:selected="${member.name eq approvalDto.apvFnl}"></option>
-                                        </select></th>
-                                        <th class="tg-0pky" rowspan="2">문서종류</th>
-                                        <th class="tg-0pky" rowspan="2">
+                                        </select></td>
+                                        <td class="tg-0pky" rowspan="2">문서종류</td>
+                                        <td class="tg-0pky" rowspan="2">
                                             <select class="select_type01 w170" th:name="approvalDivEntity"
                                                     id="approvalDivEntity">
                                                 <option th:each="apvDiv : ${approvalDivDtoList}"
@@ -58,19 +58,19 @@
                                                         th:selected="${apvDiv.apvDivName eq approvalDto.approvalDivEntity.apvDivName}"></option>
                                             </select>
                                             <input type="hidden" id="approvalDivEntityId" name="approvalDivEntity"
-                                                   th:value="${approvalDto.approvalDivEntity.id}"></th>
+                                                   th:value="${approvalDto.approvalDivEntity.id}"></td>
                                     </tr>
                                     <tr>
 
                                     </tr>
-                                    </thead>
+
                                     <tbody>
                                     <tr>
                                         <td class="tg-0pky">작성자</td><!--작성자 정보-->
-                                        <td class="tg-0pky"><input type="text" name="department" id="department"  th:value="${myUserDetails.memberEntity.department}" readonly></td>
-                                        <td class="tg-0pky"><input type="text" name="memberName" id="memberName"
-                                                                          th:value="${mRank + ' ' + approvalDto.memberEntity.name}"
-                                                                          readonly></td>
+                                        <td class="tg-0pky"><span type="text" name="department" id="department"  th:text="${'부서 : ' + myUserDetails.memberEntity.department}"></span></td>
+                                        <td class="tg-0pky"><span type="text" name="memberName" id="memberName"
+                                                                          th:text="${mRank + ' ' + approvalDto.memberEntity.name}"
+                                        ></span></td>
                                         <td class="tg-0pky">결재 기한</td>
                                         <td class="tg-0pky"><input type="date" name="date" id="date" max="2099-12-31"
                                                                    min="2020-01-01" value="2024-05-31" th:value="${approvalDto.date}"></td>
@@ -81,7 +81,7 @@
                                                                                th:value="${approvalDto.apvTitle}"></td>
                                     </tr>
                                     <tr>
-                                        <td class="tg-0pky" colspan="5">내용
+                                        <td class="tg-0pky" colspan="5">
                                             <textarea name="apvContent" id="apvContent"
                                                       cols="50" rows="30">[[${approvalDto.apvContent}]]</textarea>
                                         </td>
@@ -100,7 +100,7 @@
                                     <!--↓자기가 결재자가 아닐 때-->
                                     <th:block th:unless="${approvalDto.apvFnl==myUserDetails.name}">
                                         <tr>
-                                            <td class="tg-0pky" colspan="5">코멘트 내용
+                                            <td class="comContent" colspan="5">코멘트 내용
                                                 <textarea name="apvCom" cols="40" rows="10"
                                                           placeholder="내용이 없습니다." readonly>[[${approvalDto.apvCom}]]</textarea></td>
                                         </tr>
@@ -135,7 +135,7 @@
 
 
     </div>
-</div>
+
 
 </html>
 

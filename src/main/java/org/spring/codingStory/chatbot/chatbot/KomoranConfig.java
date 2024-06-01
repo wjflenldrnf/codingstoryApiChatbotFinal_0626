@@ -12,7 +12,7 @@ import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
 
-//  사용자 사전
+//  사용자 사전 -> user.dic 에 값을 자동으로 저장하는 클래스
 //  구문 내에서 사용자 사전에 포함된 단어가 출현하면 사용자 사전에 정의된 품사를 우선 적용
 //  주로 사람이름, 영화제목, 부서 등과 같이 고유명사를 인식하는데 활용
 

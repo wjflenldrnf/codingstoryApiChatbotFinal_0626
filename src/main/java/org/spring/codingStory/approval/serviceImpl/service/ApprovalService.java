@@ -1,6 +1,7 @@
 package org.spring.codingStory.approval.serviceImpl.service;
 
 import org.spring.codingStory.approval.dto.ApprovalDto;
+import org.spring.codingStory.approval.entity.ApprovalStatusEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -28,8 +29,6 @@ public interface ApprovalService {
     @Transactional
     Page<ApprovalDto> myApvList(Pageable pageable, String subject, String search, Long memberId);
 
-    int apvWaitCount2(String name, Long approvalStatusEntity_Id);
-
     ApprovalDto apvDetail(Long id);
 
     void apvDeleteById(Long id);
@@ -46,4 +45,8 @@ public interface ApprovalService {
     Long apvMyCount(Long memberId);
 
     Long apvDenyCount(String name, Long approvalStatusEntityId);
+
+    Page<ApprovalDto> myApvDenyList(Pageable pageable, String subject, String search, Long memberId, Long approvalStatusEntity_Id);
+
+    Long apvMyDenyCount(Long memberId,  Long approvalStatusEntity_Id);
 }

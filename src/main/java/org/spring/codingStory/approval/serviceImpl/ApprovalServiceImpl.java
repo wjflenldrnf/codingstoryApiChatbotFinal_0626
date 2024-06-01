@@ -231,6 +231,32 @@ public class ApprovalServiceImpl implements ApprovalService {
     }
 
     @Override
+    public Page<ApprovalDto> myApvDenyList(Pageable pageable, String subject, String search, Long memberId, Long approvalStatusEntity_Id) {
+        Page<ApprovalEntity> approvalEntityPage=null;
+        ApprovalStatusEntity approvalStatusEntity
+            = ApprovalStatusEntity.builder().id(approvalStatusEntity_Id).build();
+
+        if (subject!=null && subject.equals("")){
+            subject=null;
+        }
+        if(subject!=null && search.equals("")){
+            subject=null;
+        }
+        if (subject == null || search == null) { // 둘다 null이면 다 뽑아라 approvalDivEntity  ApprovalStatusEntity
+            approvalEntityPage = approvalRepository.findByMemberEntity_IdAndApprovalStatusEntity(pageable, memberId, approvalStatusEntity);
+        } else {
+            if (subject.equals("apvTitle")) {
+                approvalEntityPage = approvalRepository.findByMemberEntity_IdAndApprovalStatusEntityAndApvTitleContaining(pageable, memberId, approvalStatusEntity, search);
+            } else if (subject.equals("apvContent")) {
+                approvalEntityPage = approvalRepository.findByMemberEntity_IdAndApprovalStatusEntityAndApvContentContaining(pageable, memberId, approvalStatusEntity, search);
+            }
+        }
+
+        Page<ApprovalDto> approvalDtoPage = approvalEntityPage.map(ApprovalDto::toApvDtoList);
+        return approvalDtoPage;
+    }
+
+    @Override
     public Long apvCount(String name) {
         Long apvCount = approvalRepository.countByApvFnl(name);
         return apvCount;
@@ -256,13 +282,9 @@ public class ApprovalServiceImpl implements ApprovalService {
     }
 
     @Override
-    public int apvWaitCount2(String name, Long approvalStatusEntity_Id) {
-        ApprovalStatusEntity approvalStatusEntity
-            = ApprovalStatusEntity.builder().id(approvalStatusEntity_Id).build();
-
-       int approvalEntityCount = approvalRepository.findByApvFnlAndApprovalStatusEntityCount(name, approvalStatusEntity);
-        return approvalEntityCount;
-
+    public Long apvMyDenyCount(Long memberId, Long approvalStatusEntity_Id) {
+        Long apvMyDenyCount = approvalRepository.countByMemberEntity_IdAndApprovalStatusEntity_Id(memberId,approvalStatusEntity_Id);
+        return apvMyDenyCount;
     }
 
     @Override

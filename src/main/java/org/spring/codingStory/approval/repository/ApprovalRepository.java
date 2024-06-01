@@ -27,10 +27,13 @@ public interface ApprovalRepository extends JpaRepository<ApprovalEntity,Long> {
 
     // 내가 작성한 보고서들
     Page<ApprovalEntity> findByMemberEntity_Id(Pageable pageable, Long memberId);
+    Page<ApprovalEntity> findByMemberEntity_IdAndApprovalStatusEntity(Pageable pageable, Long memberId,ApprovalStatusEntity approvalStatusEntity);
 
     Page<ApprovalEntity> findByMemberEntity_IdAndApvTitleContaining(Pageable pageable, Long memberId, String search);
+    Page<ApprovalEntity> findByMemberEntity_IdAndApprovalStatusEntityAndApvTitleContaining(Pageable pageable, Long memberId,ApprovalStatusEntity approvalStatusEntity, String search);
 
     Page<ApprovalEntity> findByMemberEntity_IdAndApvContentContaining(Pageable pageable, Long memberId, String search);
+    Page<ApprovalEntity> findByMemberEntity_IdAndApprovalStatusEntityAndApvContentContaining(Pageable pageable, Long memberId,ApprovalStatusEntity approvalStatusEntity, String search);
 
 
     // 특정 상태인 보고서들
@@ -40,13 +43,11 @@ public interface ApprovalRepository extends JpaRepository<ApprovalEntity,Long> {
 
     Page<ApprovalEntity> findByApvFnlAndApprovalStatusEntityAndApvContentContaining(Pageable pageable, String name, ApprovalStatusEntity approvalStatusEntity, String search);
 
-
-    @Query(value = "select count(*) from apv_tb where apv_Fnl = :name and ApprovalStatusEntity = 1",nativeQuery = true)
-    int findByApvFnlAndApprovalStatusEntityCount(String name, ApprovalStatusEntity approvalStatusEntity);
-
     Long countByApvFnl(String name);
 
     Long countByApvFnlAndApprovalStatusEntity_Id(String name, Long approvalStatusEntityId);
 
     Long countByMemberEntity_Id(Long memberId);
+
+    Long countByMemberEntity_IdAndApprovalStatusEntity_Id(Long memberId, Long approvalStatusEntityId);
 }
