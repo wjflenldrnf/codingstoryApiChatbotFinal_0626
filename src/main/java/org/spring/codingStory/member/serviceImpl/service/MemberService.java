@@ -38,8 +38,13 @@ public interface MemberService {
 
   void profileUpdate(MemberDto memberDto) throws IOException;
 
-
   int memberJoin2(MemberDto memberDto) throws IOException;
 
-  int memberMD(MemberDto memberDto);
+  void memberMDUdate(MemberDto memberDto);
+
+  void memberMRankUpdate(MemberDto memberDto);
+
+  void memberDepartUpdate(MemberDto memberDto);
+
+  MemberDto memberTest(Long id);
 }

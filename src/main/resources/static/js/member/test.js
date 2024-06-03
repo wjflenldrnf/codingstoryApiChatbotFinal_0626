@@ -35,6 +35,7 @@ const userPw=$('#userPw').val()
 const address=$('#address').val()
 const phoneNumber=$('#phoneNumber').val()
 const name=$('#name').val()
+var memberFile= $('#memberFile').val()
 var selectedDomain = document.getElementById("emailDomain").value;
 var email = document.getElementById("userEmail").value;
 var userEmail = email + selectedDomain;
@@ -42,12 +43,14 @@ var userEmail = email + selectedDomain;
   $.ajax({
     type: 'POST',
     url: '/member/test',
+    dataType: 'json',
     data: {
     userEmail : userEmail,
     userPw : userPw,
     address : address,
     phoneNumber : phoneNumber,
-    name : name
+    name : name,
+    memberFile : memberFile
     },
     success: function (res) {
 

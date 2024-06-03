@@ -285,18 +285,18 @@ class AnalogClock {
       transform-origin: bottom;
       transform: translate(-50%, 0) rotate(0);
       z-index: 1;
-      background: #181818;
+      background: #fff;
     `});
     const hoursHand = createElement('div', {className: 'hours', style: `
       width: 5px;
-      height: ${(this.size/2.5) - this.fontSize}px; /*시침 길이*/
+      height: ${(this.size/3) - this.fontSize}px; /*시침 길이*/
       position: absolute;
       left: 50%;
       bottom: 50%;
       transform-origin: bottom;
       transform: translate(-50%, 0) rotate(0);
       z-index: 1;
-      background: #181818;
+      background: #fff;
     `});
     this.clockFrame.appendChild(secondsHand);
     this.clockFrame.appendChild(minutesHand);
@@ -310,7 +310,7 @@ class AnalogClock {
       const s = now.getSeconds();
       const ms = now.getMilliseconds();
 
-      const hDeg = (h % 12) * 30 + (m / 60) * 30;
+      const hDeg = ((h % 12) + m / 60) * 30; // 시침 각도 계산 수정
       const mDeg = m * 6;
       const sDeg = s * 6;
       const msDeg = ms * (6 / 1000);

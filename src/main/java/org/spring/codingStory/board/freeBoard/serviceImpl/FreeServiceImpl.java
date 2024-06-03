@@ -2,9 +2,6 @@ package org.spring.codingStory.board.freeBoard.serviceImpl;
 
 
 import lombok.RequiredArgsConstructor;
-import org.spring.codingStory.board.employee.dto.EmployeeDto;
-import org.spring.codingStory.board.employee.entity.EmployeeEntity;
-import org.spring.codingStory.board.employee.entity.EmployeeFileEntity;
 import org.spring.codingStory.board.freeBoard.dto.FreeDto;
 import org.spring.codingStory.board.freeBoard.dto.FreeFileDto;
 import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
@@ -12,8 +9,6 @@ import org.spring.codingStory.board.freeBoard.entity.FreeFileEntity;
 import org.spring.codingStory.board.freeBoard.repository.FreeFileRepository;
 import org.spring.codingStory.board.freeBoard.repository.FreeRepository;
 import org.spring.codingStory.board.freeBoard.serviceImpl.service.FreeService;
-import org.spring.codingStory.board.notice.dto.NoticeDto;
-import org.spring.codingStory.board.notice.entity.NoticeEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -100,7 +95,9 @@ public class FreeServiceImpl implements FreeService {
 
         if (subject1 != null && subject2 != null && search != null) {
             if ("freeTitle".equals(subject2)) {
-                if ("노원점".equals(subject1)) {
+                if ("본사".equals(subject1)) {
+                    freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("본사"), search, pageable);
+                } else if ("노원점".equals(subject1)) {
                     freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("노원점"), search, pageable);
                 } else if ("자동차관".equals(subject1)) {
                     freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("자동차관"), search, pageable);
@@ -110,7 +107,9 @@ public class FreeServiceImpl implements FreeService {
                     freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("커플관"), search, pageable);
                 }
             } else if ("freeContent".equals(subject2)) {
-                if ("노원점".equals(subject1)) {
+                if ("본사".equals(subject1)) {
+                    freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("본사"), search, pageable);
+                } else if ("노원점".equals(subject1)) {
                     freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("노원점"), search, pageable);
                 } else if ("자동차관".equals(subject1)) {
                     freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("자동차관"), search, pageable);
@@ -209,7 +208,7 @@ public class FreeServiceImpl implements FreeService {
     @Override
     public List<FreeDto> freeHit() {
 
-        List<FreeEntity> hit = freeRepository.findTop3ByOrderByFreeHitDesc();
+        List<FreeEntity> hit = freeRepository.findTop5ByOrderByFreeHitDesc();
 
         List<FreeDto> freeDtoList = hit.stream().map(
                 FreeDto::toFreeDto).collect(Collectors.toList());

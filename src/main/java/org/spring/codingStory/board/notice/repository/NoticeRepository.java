@@ -21,4 +21,6 @@ public interface NoticeRepository extends JpaRepository<NoticeEntity,Long> {
     Page<NoticeEntity> findByCategoryInAndNoticeTitleContains(List<String> categories, String search, Pageable pageable);
 
     Page<NoticeEntity> findByCategoryInAndNoticeContentContains(List<String> categories, String search, Pageable pageable);
+
+    List<NoticeEntity> findTop5ByOrderByNoticeHitDesc();
 }

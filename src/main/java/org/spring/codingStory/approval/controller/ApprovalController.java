@@ -1,46 +1,29 @@
 package org.spring.codingStory.approval.controller;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.spring.codingStory.approval.dto.ApprovalDivDto;
 import org.spring.codingStory.approval.dto.ApprovalDto;
 import org.spring.codingStory.approval.dto.ApprovalStatusDto;
-import org.spring.codingStory.approval.entity.ApprovalDivEntity;
 import org.spring.codingStory.approval.entity.ApprovalEntity;
-import org.spring.codingStory.approval.entity.ApprovalStatusEntity;
 import org.spring.codingStory.approval.repository.ApprovalStatusRepository;
 import org.spring.codingStory.approval.serviceImpl.ApprovalDivServiceImpl;
-import org.spring.codingStory.approval.serviceImpl.ApprovalFileServiceImpl;
 import org.spring.codingStory.approval.serviceImpl.ApprovalServiceImpl;
 import org.spring.codingStory.approval.serviceImpl.ApprovalStatusServiceImpl;
-import org.spring.codingStory.approval.serviceImpl.service.ApprovalDivService;
-import org.spring.codingStory.approval.serviceImpl.service.ApprovalService;
 import org.spring.codingStory.config.MyUserDetails;
-import org.spring.codingStory.department.entity.DepartmentEntity;
 import org.spring.codingStory.department.serviceimpl.service.DepartmentService;
 import org.spring.codingStory.mRank.serviceImpl.MRankServiceImpl;
 import org.spring.codingStory.member.dto.MemberDto;
-import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.serviceImpl.MemberServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.naming.LinkLoopException;
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 
