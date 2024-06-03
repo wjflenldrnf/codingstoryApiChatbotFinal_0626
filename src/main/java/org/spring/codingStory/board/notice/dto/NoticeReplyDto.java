@@ -1,7 +1,6 @@
 package org.spring.codingStory.board.notice.dto;
 
 import lombok.*;
-import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
 import org.spring.codingStory.board.notice.entity.NoticeEntity;
 import org.spring.codingStory.board.notice.entity.NoticeReplyEntity;
 

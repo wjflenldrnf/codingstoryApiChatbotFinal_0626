@@ -43,7 +43,6 @@ box-sizing: border-box;
 /* 얘가 left 랑 아닌거랑 space-between 걸기 */
 .boardDetail .boardDetail-con .boardDetail-form form{
 display: flex;
-justify-content: space-between;
 gap: 10px;
 border-radius: 15px;
 padding: 10px;

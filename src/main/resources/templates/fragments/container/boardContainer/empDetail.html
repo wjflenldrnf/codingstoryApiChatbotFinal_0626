@@ -9,13 +9,25 @@
         <div class="right-top">
             <div class="gnb">
                 <ul>
-                    <th:block sec:authorize="isAnonymous()">
-                        <li><a th:href="@{/member/login}">로그인</a></li>
-                        <li><a th:href="@{/member/join}">회원가입</a></li>
-                    </th:block>
                     <th:block sec:authorize="isAuthenticated()">
-                        <li>로그인 중</li>
+                        <div class="myInfo"
+                             th:onClick="|location.href='@{/member/myDetail/{id}(id=${#authentication.principal.memberEntity.id})}'|">
+                            <li>
+                                <a th:text="${#authentication.principal.department}"></a>
+                                <a th:text="${#authentication.principal.mRank}"></a>
+                                <a th:text="${#authentication.principal.name}"></a>
+                                <p>님</p>
+                            </li>
+                        </div>
+                        <li>
+
+                        </li>
+                        <li><a th:href="@{/logout}">로그아웃</a></li>
                     </th:block>
+                    <li th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a th:href="@{/my/schedule}">Fullcalendar</a>
+                    </li>
+                    <li>
                 </ul>
             </div>
         </div>
@@ -50,6 +62,7 @@
                                         <span name="empHit" id="empHit" th:text="${emp.empHit}"></span>
                                     </div>
                                     <div class="category">
+                                        <span th:if="${emp.category == '본사'}">본사</span>
                                         <span th:if="${emp.category == '노원점'}">노원점</span>
                                         <span th:if="${emp.category == '자동차관'}">자동차관</span>
                                         <span th:if="${emp.category == '야외관'}">야외관</span>

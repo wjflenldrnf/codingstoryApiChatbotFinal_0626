@@ -1,7 +1,6 @@
 package org.spring.codingStory.board.notice.serviceImpl.service;
 
 
-import org.spring.codingStory.board.freeBoard.dto.FreeDto;
 import org.spring.codingStory.board.notice.dto.NoticeDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
