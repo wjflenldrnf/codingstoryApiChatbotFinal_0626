@@ -27,10 +27,12 @@ membe16@naver.com	NNP
 member8@naver.com	NNP
 3	NNP
 4	NNP
+=======	NNP
 member5@naver.com	NNP
 memb28@naver.com	NNP
 memb18@naver.com	NNP
 ㅂ	NNP
+<<<<<<< HEAD	NNP
 memb7@naver.com	NNP
 memb26@naver.com	NNP
 membe30@naver.com	NNP
@@ -81,6 +83,7 @@ memb16@naver.com	NNP
 사원21	NNP
 사원20	NNP
 membe20@naver.com	NNP
+>>>>>>> dev	NNP
 memb25@naver.com	NNP
 member2@naver.com	NNP
 membe29@naver.com	NNP

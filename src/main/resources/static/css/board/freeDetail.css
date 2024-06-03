@@ -128,14 +128,19 @@ width: 1460px;
 .reply-con form {
     margin-bottom: 20px;
     display:flex;
+    justify-content:center;
 }
 
 .reply-con form input[type="text"] {
-    width: calc(100% - 120px);
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
+    background-color: #28578000;
+        border: none;
+        text-align: end;
+        width: 100px;
+        color: white;
 }
 
 .reply-con form input[type="submit"] {
