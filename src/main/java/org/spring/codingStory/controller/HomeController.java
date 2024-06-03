@@ -10,7 +10,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -55,7 +54,13 @@ public class HomeController {
         model.addAttribute("memberId",myUserDetails.getMemberEntity().getId());
 
         List<PayDto> payList = payServiceImpl.findByMemberId(myUserDetails.getMemberEntity().getId());
-        model.addAttribute("pay", payList.get(payList.size() - 1));
+        if (payList.isEmpty()) {
+            PayDto defaultPay = new PayDto();
+            defaultPay.setTotalPay(Double.valueOf(0));
+            model.addAttribute("pay", defaultPay);
+        } else {
+            model.addAttribute("pay", payList.get(payList.size() - 1));
+        }
 
         return "index";
     }

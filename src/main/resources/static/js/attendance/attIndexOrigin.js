@@ -1,4 +1,4 @@
-let attendanceId; // 출근 시 생성된 attendance ID를 저장할 변수
+
 
 
 // 출근 버튼 이벤트 핸들러
@@ -30,6 +30,9 @@ function checkInTimeBtnFn() {
     }
     checkInTimeWrite();
 }
+
+
+let attendanceId; // 출근 시 생성된 attendance ID를 저장할 변수
 
 function checkInTimeWrite() {
     const memberId = $('#memberId').val();
@@ -200,7 +203,7 @@ class AnalogClock {
   themeLight = 'light';
   themeDark = 'dark';
   clockFrame = null;
-  constructor({size = 200, theme = 'light', fontSize = 15, padding = 0, wrapper} = {}){
+  constructor({size = 185, theme = 'light', fontSize = 15, padding = 0, wrapper} = {}){
     Object.assign(this, {size, theme, fontSize, padding, wrapper});
   }
   get _targetTheme(){
