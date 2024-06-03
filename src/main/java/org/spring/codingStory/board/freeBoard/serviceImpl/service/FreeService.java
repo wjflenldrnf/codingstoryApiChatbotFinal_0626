@@ -2,7 +2,6 @@ package org.spring.codingStory.board.freeBoard.serviceImpl.service;
 
 
 import org.spring.codingStory.board.freeBoard.dto.FreeDto;
-import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

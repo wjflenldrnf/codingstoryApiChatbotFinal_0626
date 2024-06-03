@@ -2,9 +2,6 @@ package org.spring.codingStory.board.notice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
-import org.spring.codingStory.board.employee.dto.EmployeeDto;
-import org.spring.codingStory.board.employee.entity.EmployeeEntity;
 import org.spring.codingStory.board.notice.dto.NoticeDto;
 import org.spring.codingStory.contraint.BaseTimeEntity;
 import org.spring.codingStory.member.entity.MemberEntity;

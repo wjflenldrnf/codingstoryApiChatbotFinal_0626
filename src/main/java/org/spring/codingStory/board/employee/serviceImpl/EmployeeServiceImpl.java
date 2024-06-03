@@ -8,8 +8,6 @@ import org.spring.codingStory.board.employee.entity.EmployeeFileEntity;
 import org.spring.codingStory.board.employee.repository.EmpFileRepository;
 import org.spring.codingStory.board.employee.repository.EmployeeRepository;
 import org.spring.codingStory.board.employee.serviceImpl.service.EmployeeService;
-import org.spring.codingStory.board.freeBoard.dto.FreeDto;
-import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -95,7 +93,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         if (subject1 != null && subject2 != null && search != null) {
             if ("empTitle".equals(subject2)) {
-                if ("노원점".equals(subject1)) {
+                if ("본사".equals(subject1)) {
+                    employeeEntityPage = employeeRepository.findByCategoryInAndEmpTitleContains(Collections.singletonList("본사"), search, pageable);
+                } else if ("노원점".equals(subject1)) {
                     employeeEntityPage = employeeRepository.findByCategoryInAndEmpTitleContains(Collections.singletonList("노원점"), search, pageable);
                 } else if ("자동차관".equals(subject1)) {
                     employeeEntityPage = employeeRepository.findByCategoryInAndEmpTitleContains(Collections.singletonList("자동차관"), search, pageable);
@@ -105,7 +105,9 @@ public class EmployeeServiceImpl implements EmployeeService {
                     employeeEntityPage = employeeRepository.findByCategoryInAndEmpTitleContains(Collections.singletonList("커플관"), search, pageable);
                 }
             } else if ("empContent".equals(subject2)) {
-                if ("노원점".equals(subject1)) {
+                if ("본사".equals(subject1)) {
+                    employeeEntityPage = employeeRepository.findByCategoryInAndEmpContentContains(Collections.singletonList("본사"), search, pageable);
+                } else if ("노원점".equals(subject1)) {
                     employeeEntityPage = employeeRepository.findByCategoryInAndEmpContentContains(Collections.singletonList("노원점"), search, pageable);
                 } else if ("자동차관".equals(subject1)) {
                     employeeEntityPage = employeeRepository.findByCategoryInAndEmpContentContains(Collections.singletonList("자동차관"), search, pageable);

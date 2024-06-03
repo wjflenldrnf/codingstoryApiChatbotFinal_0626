@@ -1,6 +1,5 @@
 package org.spring.codingStory.board.notice.repository;
 
-import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
 import org.spring.codingStory.board.notice.entity.NoticeEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

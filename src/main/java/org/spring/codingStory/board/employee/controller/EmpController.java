@@ -7,7 +7,6 @@ import org.spring.codingStory.board.employee.serviceImpl.EmployeeReplyServiceImp
 import org.spring.codingStory.board.employee.serviceImpl.EmployeeServiceImpl;
 import org.spring.codingStory.config.MyUserDetails;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;

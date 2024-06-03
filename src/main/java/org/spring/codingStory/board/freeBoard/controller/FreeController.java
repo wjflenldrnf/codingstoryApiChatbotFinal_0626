@@ -1,9 +1,6 @@
 package org.spring.codingStory.board.freeBoard.controller;
 
 import lombok.RequiredArgsConstructor;
-
-import org.spring.codingStory.board.employee.dto.EmployeeDto;
-import org.spring.codingStory.board.employee.dto.EmployeeReplyDto;
 import org.spring.codingStory.board.freeBoard.dto.FreeDto;
 import org.spring.codingStory.board.freeBoard.dto.FreeReplyDto;
 import org.spring.codingStory.board.freeBoard.serviceImpl.FreeReplyServiceImpl;
