@@ -1,8 +1,6 @@
 package org.spring.codingStory.member.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.codingStory.department.entity.DepartmentEntity;
-import org.spring.codingStory.department.repository.DepartmentRepository;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.dto.MemberFileDto;
 import org.spring.codingStory.member.entity.MemberEntity;
@@ -430,17 +428,50 @@ public class MemberServiceImpl implements MemberService {
     }
   }
 
+
   @Override
-  public int memberMD(MemberDto memberDto) {
+  public void memberMDUdate(MemberDto memberDto) {
 
     MemberEntity memberEntity=memberRepository.findById(memberDto.getId()).orElseThrow(IllegalArgumentException::new);
 
-    memberEntity.setDepartment(memberDto.getDepartment());
+    memberEntity=MemberEntity.MDUpdate(memberDto);
+
+    memberRepository.save(memberEntity);
+  }
+
+  @Override
+  public void memberMRankUpdate(MemberDto memberDto) {
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("xx"));
+
     memberEntity.setMRank(memberDto.getMRank());
 
     memberRepository.save(memberEntity);
+  }
 
-    return 1;
+  @Override
+  public void memberDepartUpdate(MemberDto memberDto) {
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("xx"));
+
+    memberEntity.setDepartment(memberDto.getDepartment());
+
+    memberRepository.save(memberEntity);
+  }
+
+  @Override
+  public MemberDto memberTest(Long id) {
+    Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+
+    if (optionalMemberEntity.isPresent()) {
+
+      MemberEntity memberEntity = optionalMemberEntity.get();
+
+      MemberDto memberDto = MemberDto.toSelectMemberTest(memberEntity);
+
+      return memberDto;
+    }
+    return null;
   }
 
   @Override
@@ -465,60 +496,12 @@ public class MemberServiceImpl implements MemberService {
     return 0;
   }
 
-
-    /////////////////////////////////////////////////////
-
-
-
-
-
-
-
-//    @Override
-//    public void memberJoin(MemberDto memberDto) throws IOException {
-//        MemberEntity memberEntity;
-//
-//        if (memberDto.getMemberFile().isEmpty()) {
-//            memberEntity = MemberEntity.toJoinMember(memberDto, passwordEncoder);
-//        } else {
-//            MultipartFile memberFile = memberDto.getMemberFile();
-//
-//            String oldFileName = memberFile.getOriginalFilename();
-//            UUID uuid = UUID.randomUUID();
-//            String newFileName = uuid + "_" + oldFileName;
-//            String fileSavePath = "C:/codingStory_file/" + newFileName;
-//            memberFile.transferTo(new File(fileSavePath));
-//
-//            memberEntity = MemberEntity.toJoinFileMember(memberDto, passwordEncoder);
-//        }
-//
-//        // PaymentEntity 생성
-//        PaymentEntity paymentEntity = new PaymentEntity();
-//        paymentEntity.setMemberEntity(memberEntity);
-//
-//        // mRank가 "사장"일 때 hourWage를 500원으로 설정
-//        if ("사원".equals(memberDto.getMRank())) {
-//            paymentEntity.setHourlyWage("500");
-//        } else {
-//            paymentEntity.setHourlyWage("1000"); // 기본 값 설정
-//        }
-//
-//        // 관계 설정
-//        memberEntity.setPaymentEntity(paymentEntity);
-//
-//        memberRepository.save(memberEntity);
-//        paymentRepository.save(paymentEntity);
-//    }
-
     @Override
     public int memberAppOk(MemberDto memberDto) {
         //멤버 정보를 가져옵니다.
 
         MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("xx"));
-
-
-
 
         memberEntity.setRole(Role.MEMBER);
         memberEntity.setDepartment(memberDto.getDepartment());
@@ -544,5 +527,6 @@ public class MemberServiceImpl implements MemberService {
 
         return 1;
     }
+
 
 }

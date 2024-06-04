@@ -6,6 +6,7 @@ import org.spring.codingStory.approval.entity.ApprovalStatusEntity;
 import org.spring.codingStory.approval.repository.ApprovalStatusRepository;
 import org.spring.codingStory.approval.serviceImpl.service.ApprovalStatusService;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

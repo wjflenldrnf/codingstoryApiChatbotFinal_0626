@@ -37,36 +37,36 @@ public class WebSecurityConfig {
 
 
         http.authorizeRequests()
-                .antMatchers("member/login","member/join","/member/findCheck","/member/findPasswordOk").permitAll()
-                .antMatchers("/js/**","/css/**", "/images/***").permitAll()
-                .antMatchers("/my/mycalendar2/calendar").permitAll()
-                .antMatchers("/index").authenticated()
-                .antMatchers("/member/memberList","/member/memberAppList","/member/memberInfo/**","/department/**").hasAnyRole("ADMIN")
-                .antMatchers().hasAnyRole()
-                .anyRequest().permitAll();
-
+            .antMatchers("member/login","member/join","/member/findCheck","/member/findPasswordOk").permitAll()
+            .antMatchers("/js/**","/css/**", "/images/***").permitAll()
+            .antMatchers("/my/mycalendar2/calendar").permitAll()
+            .antMatchers("/index").authenticated()
+            .antMatchers("/member/memberList","/member/memberAppList","/member/memberInfo/**","/department/**").hasAnyRole("ADMIN")
+            .antMatchers().hasAnyRole()
+            .anyRequest().permitAll();
 
         http.formLogin()
-                .loginPage("/login")
-                .usernameParameter("userEmail")
-                .passwordParameter("userPw")
-                .loginProcessingUrl("/login")
-                .successHandler(customAuthenticationSuccessHandler())
-                .failureHandler(authenticationFailureHandler())
+            .loginPage("/login")
+            .usernameParameter("userEmail")
+            .passwordParameter("userPw")
+            .loginProcessingUrl("/login")
+            .successHandler(customAuthenticationSuccessHandler())
+            .failureHandler(authenticationFailureHandler())
 //                .defaultSuccessUrl("/index")
 //                .failureForwardUrl("/login")
-                .and()
-                .oauth2Login()
-                .loginPage("/login")
-                .userInfoEndpoint()
-                .userService(myOAuth2Service());
+            .and()
+            .oauth2Login()
+            .loginPage("/login")
+            .userInfoEndpoint()
+            .userService(myOAuth2Service());
 
         http.logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/");
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/");
 
         return http.build();
     }
+
 
 
     @Bean

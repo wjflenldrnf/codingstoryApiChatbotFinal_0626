@@ -2,18 +2,15 @@ package org.spring.codingStory.pay.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.spring.codingStory.attendance.entity.AttendanceEntity;
 import org.spring.codingStory.contraint.BaseTimeEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.pay.dto.PayDto;
 import org.spring.codingStory.payment.entity.PaymentEntity;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 
 @ToString
 @AllArgsConstructor

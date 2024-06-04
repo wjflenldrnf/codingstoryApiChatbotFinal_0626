@@ -13,56 +13,55 @@
             <div class="left-menu">
                 <ul>
                     <!-- 사원관리 메뉴 -->
-
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                    <li class="sub">
-                        <img th:src="@{/images/emp.png}" alt="icon">
-                        <div class="right">
-                            <a href="#">사원관리</a>
-                            <ul class="submenu">
-                                <li>
-                                    <a th:href="@{/member/memberList}">사원목록</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/member/memberAppList}">가입승인</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                        <li class="sub">
+                            <img th:src="@{/images/emp.png}" alt="icon">
+                            <div class="right">
+                                <h3>사원관리</h3>
+                                <ul class="submenu">
+                                    <li th:onClick="|location.href='@{/member/memberList}'|">
+                                        <a>사원목록</a>
+                                    </li>
+                                    <li th:onClick="|location.href='@{/member/memberAppList}'|">
+                                        <a>가입승인</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                     </th:block>
                     <!-- 기타 메뉴들 -->
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                    <li><img th:src="@{/images/depart.png}" alt="icon"><a th:href="@{/department/department}">부서관리</a></li>
+                        <li class="menuGo" th:onClick="|location.href='@{/department/department}'|"><img th:src="@{/images/depart.png}" alt="icon"><a>부서관리</a></li>
                     </th:block>
-                    <li><img th:src="@{/images/pay.png}" alt="icon"><a th:href="@{/pay}">급여관리</a></li>
-                    <li><img th:src="@{/images/add.png}" alt="icon"><a th:href="@{/attendance}">근태관리</a></li>
+                    <li class="menuGo" th:onClick="|location.href='@{/pay}'|"><img th:src="@{/images/pay.png}" alt="icon"><a>급여관리</a></li>
+                    <li class="menuGo" th:onClick="|location.href='@{/attendance}'|"><img th:src="@{/images/add.png}" alt="icon"><a>근태관리</a></li>
                     <!-- 게시판 메뉴 -->
                     <li class="sub">
                         <img th:src="@{/images/board.png}" alt="icon">
                         <div class="right">
-                            <a th:href="@{/board/reviewBoardList}">게시판</a>
+                            <h3>게시판</h3>
                             <ul class="submenu">
-                                <li>
-                                    <img th:src="@{/images/notice.png}" alt="icon"><a th:href="@{/board/noticeList}">공지사항</a>
+                                <li th:onClick="|location.href='@{/board/noticeList}'|">
+                                    <a>공지사항</a>
                                 </li>
-                                <li>
-                                    <img th:src="@{/images/free.png}" alt="icon"><a th:href="@{/board/freeList}">자유게시판</a>
+                                <li th:onClick="|location.href='@{/board/freeList}'|">
+                                    <a>자유게시판</a>
                                 </li>
-                                <li>
-                                    <img th:src="@{/images/bestemp.png}" alt="icon"><a th:href="@{/board/empList}">이달의사원</a>
+                                <li th:onClick="|location.href='@{/board/empList}'|">
+                                    <a>이달의사원</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li><img th:src="@{/images/app.png}" alt="icon"><a th:href="@{/apv/list}">결재관리</a></li>
-                    <li><img th:src="@{/images/sch.Epng}" alt="icon"><a th:href="@{/my/mycalendar2}">전체일정</a></li>
-                    <li><img th:src="@{/images/chat-bot.png}" alt="icon"><a th:href="@{/chatbot/chatIndex}">상담</a></li>
-                    <li><img th:src="@{/images/place.png}" alt="icon"><a th:href="@{/map}">오시는길</a></li>
+                    <li class="menuGo"th:onClick="|location.href='@{/apy/list}'|"><img th:src="@{/images/app.png}" alt="icon"><a>결재관리</a></li>
+                    <li><img th:src="@{/images/sch.png}" alt="icon"><a href="#">전체일정</a></li>
+                    <li class="menuGo" th:onClick="|location.href='@{/chatbot/chatIndex}'|"><img th:src="@{/images/chat-bot.png}" alt="icon"><a>상담</a></li>
+                    <li class="menuGo" th:onClick="|location.href='@{/map}'|"><img th:src="@{/images/place.png}" alt="icon"><a>오시는길</a></li>
                     <!-- 네이버 API 연동 메뉴 -->
                     <li class="sub">
                         <img th:src="@{/images/naver.png}" alt="icon">
                         <div class="right">
-                            <a href="#">네이버</a>
+                            <h3>네이버</h3>
                             <ul class="submenu">
                                 <li>
                                     <form action="https://auth.worksmobile.com/oauth2/v2.0/authorize" method="get">

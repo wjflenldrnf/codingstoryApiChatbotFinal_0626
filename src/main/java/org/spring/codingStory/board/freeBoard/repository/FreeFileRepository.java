@@ -1,6 +1,5 @@
 package org.spring.codingStory.board.freeBoard.repository;
 
-import org.spring.codingStory.board.employee.entity.EmployeeFileEntity;
 import org.spring.codingStory.board.freeBoard.entity.FreeFileEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

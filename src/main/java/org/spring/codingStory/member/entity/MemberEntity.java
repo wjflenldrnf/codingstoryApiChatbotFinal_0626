@@ -45,6 +45,7 @@ public class MemberEntity extends BaseTimeEntity {
   @Column(nullable = true)
   private String department;
 
+
   @Column(nullable = true )
   private String mRank;
 
@@ -68,38 +69,38 @@ public class MemberEntity extends BaseTimeEntity {
   //  1:N
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"
-          , fetch = FetchType.LAZY
-          , cascade = CascadeType.REMOVE)
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
   private List<MemberFileEntity> memberFileEntityList;
 
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"
-          , fetch = FetchType.LAZY
-          , cascade = CascadeType.REMOVE)
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
   private List<PayEntity> payEntityList;
 
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"
-          , fetch = FetchType.LAZY
-          , cascade = CascadeType.REMOVE)
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
   private List<ApprovalEntity> approvalEntityList;
 
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"
-          , fetch = FetchType.LAZY
-          , cascade = CascadeType.REMOVE)
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
   private List<EmployeeEntity> employeeEntityList;
 
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"
-          , fetch = FetchType.LAZY
-          , cascade = CascadeType.REMOVE)
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
   private List<NoticeEntity> noticeEntityList;
 
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"
-          , fetch = FetchType.LAZY
-          , cascade = CascadeType.REMOVE)
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
   private List<FreeEntity> freeEntityList;
 
   //  N:1
@@ -212,7 +213,7 @@ public class MemberEntity extends BaseTimeEntity {
 
   /////////////////////////////////////////////////////////////////
 
-//  @JsonIgnore // ajax시 순환참조 방지
+  //  @JsonIgnore // ajax시 순환참조 방지
 //  @OneToMany(mappedBy = "memberEntity"
 //          , fetch = FetchType.LAZY
 //          , cascade = CascadeType.REMOVE)
@@ -220,6 +221,16 @@ public class MemberEntity extends BaseTimeEntity {
   @JsonIgnore
   @OneToOne(mappedBy = "memberEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private PaymentEntity paymentEntity;
+
+  public static MemberEntity MDUpdate(MemberDto memberDto) {
+
+    MemberEntity memberEntity=new MemberEntity();
+    memberEntity.setId(memberDto.getId());
+    memberEntity.setMRank(memberDto.getMRank());
+    memberEntity.setDepartment(memberDto.getDepartment());
+
+    return memberEntity;
+  }
 
   /////////////////////////////////////////////////////////////////
 }

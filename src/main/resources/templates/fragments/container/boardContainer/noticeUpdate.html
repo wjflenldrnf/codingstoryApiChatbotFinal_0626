@@ -9,13 +9,25 @@
         <div class="right-top">
             <div class="gnb">
                 <ul>
-                    <th:block sec:authorize="isAnonymous()">
-                        <li><a th:href="@{/member/login}">로그인</a></li>
-                        <li><a th:href="@{/member/join}">회원가입</a></li>
-                    </th:block>
                     <th:block sec:authorize="isAuthenticated()">
-                        로그인 중
+                        <div class="myInfo"
+                             th:onClick="|location.href='@{/member/myDetail/{id}(id=${#authentication.principal.memberEntity.id})}'|">
+                            <li>
+                                <a th:text="${#authentication.principal.department}"></a>
+                                <a th:text="${#authentication.principal.mRank}"></a>
+                                <a th:text="${#authentication.principal.name}"></a>
+                                <p>님</p>
+                            </li>
+                        </div>
+                        <li>
+
+                        </li>
+                        <li><a th:href="@{/logout}">로그아웃</a></li>
                     </th:block>
+                    <li th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a th:href="@{/my/schedule}">Fullcalendar</a>
+                    </li>
+                    <li>
                 </ul>
             </div>
         </div>
@@ -26,8 +38,8 @@
                             <div class="top">
                                 <div class="boardDetail-form">
                                     <form th:action="@{/board/noticeUpdate}" method="post" enctype="multipart/form-data">
-                                        <div class="left">
-                                            <div class="left-con">
+                                        <div class="left-board">
+                                            <div class="left-board-con">
                                                 <th:block th:if="${notice.noticeAttachFile==1}"> <!--  이미지 표시 -->
                                                     <img th:src="@{|/upload/${notice.newFileName}|}" alt="이미지대체문구">
                                                 </th:block>
@@ -45,10 +57,11 @@
                                             </li>
                                             <li>
                                                 <select name="category" id="category">
+                                                    <option value="본사">본사</option>
                                                     <option value="노원점">노원점</option>
-                                                    <option value="자동차극장">자동차극장</option>
-                                                    <option value="야외극장">야외극장</option>
-                                                    <option value="VIP극장">VIP극장</option>
+                                                    <option value="자동차관">자동차관</option>
+                                                    <option value="야외관">야외관</option>
+                                                    <option value="커플관">커플관</option>
                                                 </select>
                                             </li>
                                             <li>

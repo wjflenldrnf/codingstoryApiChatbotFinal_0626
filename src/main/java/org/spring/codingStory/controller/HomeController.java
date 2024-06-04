@@ -1,16 +1,18 @@
 package org.spring.codingStory.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.codingStory.board.employee.dto.EmployeeDto;
+import org.spring.codingStory.board.employee.serviceImpl.EmployeeServiceImpl;
 import org.spring.codingStory.board.freeBoard.dto.FreeDto;
 import org.spring.codingStory.board.freeBoard.serviceImpl.FreeServiceImpl;
+import org.spring.codingStory.board.notice.dto.NoticeDto;
+import org.spring.codingStory.board.notice.serviceImpl.NoticeServiceImpl;
 import org.spring.codingStory.config.MyUserDetails;
-import org.spring.codingStory.department.dto.DepartmentDto;
 import org.spring.codingStory.department.entity.DepartmentEntity;
 import org.spring.codingStory.department.serviceimpl.service.DepartmentService;
 import org.spring.codingStory.fullcalender.dto.FullCalenderDto;
 import org.spring.codingStory.fullcalender.serviceImpl.service.FullCalenderService;
 import org.spring.codingStory.member.dto.MemberDto;
-import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.serviceImpl.service.MemberService;
 import org.spring.codingStory.pay.dto.PayDto;
 import org.spring.codingStory.pay.serviceImpl.PayServiceImpl;
@@ -18,11 +20,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.lang.reflect.Member;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +31,13 @@ import java.util.Map;
 public class HomeController {
 
     private final FreeServiceImpl freeService;
+    private final EmployeeServiceImpl employeeService;
+    private final NoticeServiceImpl noticeService;
     private final PayServiceImpl payServiceImpl;
     private final FullCalenderService fullCalenderService;
     private final DepartmentService departmentService;
     private final MemberService memberService;
+
 
 
     @GetMapping({"","/login"})
@@ -50,24 +52,13 @@ public class HomeController {
         return "login";
     }
 
-//    @GetMapping("/index")
-//    public String index(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
-//
-//        model.addAttribute("myUserDetails", myUserDetails);
-//
-//        return "index";
-//    }
-
     @GetMapping("/index")
     public String index(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
-
         //개인일정 가져오기
         List<FullCalenderDto> personalEvents=fullCalenderService.getUserEvents(myUserDetails.getMemberEntity().getId());
 
         //전체일정 가져오기
         List<FullCalenderDto> allEvents= fullCalenderService.getAllEvents();
-
-        List<FreeDto> freeHit=freeService.freeHit();
 
         //부서명
         List<DepartmentEntity> departments = departmentService.getAllDepartments();
@@ -79,15 +70,15 @@ public class HomeController {
             members.put(departmentEntity.getDptName(),memberList);
         }
 
-
-
-        model.addAttribute("departments",departments);
-        model.addAttribute("members",members);
-
+        List<FreeDto> freeHit=freeService.freeHit();
+        List<EmployeeDto> empHit=employeeService.empHit();
+        List<NoticeDto> noticeHit=noticeService.noticeHit();
 
 
         model.addAttribute("myUserDetails", myUserDetails);
         model.addAttribute("freeHit",freeHit);
+        model.addAttribute("empHit",empHit);
+        model.addAttribute("noticeHit",noticeHit);
 
         model.addAttribute("name" ,myUserDetails.getMemberEntity().getName());
         model.addAttribute("memberId",myUserDetails.getMemberEntity().getId());
@@ -95,11 +86,18 @@ public class HomeController {
         model.addAttribute("personalEvents", personalEvents);
         model.addAttribute("allEvents", allEvents);
 
-
+        model.addAttribute("departments",departments);
+        model.addAttribute("members",members);
 
         List<PayDto> payList = payServiceImpl.findByMemberId(myUserDetails.getMemberEntity().getId());
-        /*model.addAttribute("pay", payList.get(payList.size() - 1));*/
 
+        if (payList.isEmpty()) {
+            PayDto defaultPay = new PayDto();
+            defaultPay.setTotalPay(Double.valueOf(0));
+            model.addAttribute("pay", defaultPay);
+        } else {
+            model.addAttribute("pay", payList.get(payList.size() - 1));
+        }
 
 
         return "index";

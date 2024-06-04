@@ -4,7 +4,6 @@ import lombok.*;
 import org.spring.codingStory.approval.entity.ApprovalEntity;
 import org.spring.codingStory.approval.entity.ApprovalStatusEntity;
 
-
 import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor

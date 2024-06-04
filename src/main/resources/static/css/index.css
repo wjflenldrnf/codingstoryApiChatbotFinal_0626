@@ -17,25 +17,100 @@
   box-sizing: border-box;
 }
 .index .right .right-con .bottom .index-data{
-  height: calc(100vh - 400px);
-      box-sizing: border-box;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      margin: 140px 200px 30px 100px;
-      gap: 25px 40px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 90%;
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-bottom: 30px;
+    gap: 30px;
+    color:white;
 }
 .app{
-border: 3px solid #ffffff;
+border: 3px solid #022f5d;
 border-radius: 30px;
 padding: 15px 20px 20px;
 width:400px;
 height:300px;
-
 }
-.cal{
-border: 3px solid #ffffff;
+.movie{
+border: 3px solid #022f5d;
 border-radius: 30px;
 padding: 15px 20px 20px;
+width:400px;
+height:300px;
+}
+.dpt{
+border: 3px solid #022f5d;
+border-radius: 30px;
+padding: 15px 20px 20px;
+width:400px;
+height:300px;
+}
+.dpt ul {
+ list-style-type: none;
+ padding-left: 0;
+}
+.dpt ul li {
+ margin-bottom: 10px;
+}
+.dpt ul li ul {
+ padding-left: 20px;
+ }
+.dpt ul li ul li {
+ margin-bottom: 5px;
+}
+
+.time{
+border: 3px solid #022f5d;
+border-radius: 30px;
+padding: 15px 20px 20px;
+margin-top: 20px;
+width:400px;
+height:300px;
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 가능하게 설정 */
+
+}
+.board{
+border: 3px solid #022f5d;
+border-radius: 30px;
+padding: 15px 20px 20px;
+margin-top: 20px;
+width:400px;
+height:300px;
+}
+.freeHit{
+border-top: 1px solid #ccc;
+}
+.notice{
+border: 3px solid #022f5d;
+border-radius: 30px;
+padding: 15px 20px 20px;
+margin-top: 20px;
+width:400px;
+height:300px;
+}
+.noticeHit{
+border-top: 1px solid #ccc;
+}
+.emp{
+border: 3px solid #022f5d;
+border-radius: 30px;
+padding: 15px 20px 20px;
+margin-top: 20px;
+width:400px;
+height:300px;
+}
+.empHit{
+border-top: 1px solid #ccc;
+}
+
+.cal{
+border: 3px solid #022f5d;
+border-radius: 30px;
+padding: 15px 20px 20px;
+margin-top: 20px;
 width:400px;
 height:300px;
 }
@@ -70,7 +145,6 @@ height:300px;
   padding: 5px;
 
 }
-
 #personalCalendar ul li:last-child, #allCalendar ul li:last-child {
   border-bottom: none;
 }
@@ -81,77 +155,14 @@ height:300px;
   font-weight: bold;
 }
 
-
-
-.dpt{
-  border: 3px solid #ffffff;
-  border-radius: 30px;
-padding: 15px 20px 20px;
-width:400px;
-height:300px;
-}
-
-.dpt ul {
- list-style-type: none;
- padding-left: 0;
-}
-.dpt ul li {
- margin-bottom: 10px;
-}
-.dpt ul li ul {
- padding-left: 20px;
- }
-.dpt ul li ul li {
- margin-bottom: 5px;
-}
-
-.att{
-border: 3px solid #ffffff;
-border-radius: 30px;
-padding: 15px 20px 20px;
-margin-top: 20px;
-width:400px;
-height:300px;
-}
-.time{
-border: 3px solid #ffffff;
-border-radius: 30px;
-padding: 15px 20px 20px;
-margin-top: 20px;
-width:400px;
-height:300px;
-}
-.board{
-border: 3px solid #ffffff;
-border-radius: 30px;
-padding: 15px 20px 20px;
-margin-top: 20px;
-width:400px;
-height:300px;
-}
-
-
-
-
-
-
-
-
 .att {
-
-border: 3px solid #ffffff;
+border: 3px solid #022f5d;
 border-radius: 30px;
 padding: 15px 20px 20px;
 margin-top: 20px;
-
-
     background: #f1f1f100;
-
-
-
-
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    text-align: center;
+
 
         overflow-y: auto; /* 내용이 넘칠 경우 스크롤 가능하게 설정 */
 
@@ -159,36 +170,15 @@ margin-top: 20px;
         height: 300px;
 
 }
-
-
-.date-time {
-border: 3px solid #ffffff;
-border-radius: 30px;
-padding: 15px 20px 20px;
-margin-top: 20px;
-
-    text-align: center;
-
-    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 가능하게 설정 */
-
-            width: 400px;
-            height: 300px;
-
-}
-
-
-
-
-
-
-
-
 .currentDate {
+text-align: center;
+    margin-top: 20px;
     font-size: 18px;
     margin-bottom: 10px;
 }
 
 .currentTime {
+text-align: center;
     font-size: 24px;
     font-weight: bold;
 }
@@ -240,7 +230,6 @@ margin-top: 20px;
     background-color: #0056b3;
 }
 
-
 .attendance-info {
     margin-top: 10px;
     color: white;
@@ -261,8 +250,6 @@ margin-top: 20px;
     text-align: right;
 }
 
-
-
 label {
     display: block;
     font-size: 14px;
@@ -278,12 +265,6 @@ font-size: 24px;
 color: white;
 
 }
-
-
-
-
-
-
 
 .clock-wrapper {
     width: 200px;
