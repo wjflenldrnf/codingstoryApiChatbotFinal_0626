@@ -1,6 +1,7 @@
 package org.spring.codingStory.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.spring.codingStory.approval.serviceImpl.ApprovalServiceImpl;
 import org.spring.codingStory.board.employee.dto.EmployeeDto;
 import org.spring.codingStory.board.employee.serviceImpl.EmployeeServiceImpl;
 import org.spring.codingStory.board.freeBoard.dto.FreeDto;
@@ -34,11 +35,10 @@ public class HomeController {
     private final EmployeeServiceImpl employeeService;
     private final NoticeServiceImpl noticeService;
     private final PayServiceImpl payServiceImpl;
+    private final ApprovalServiceImpl approvalService;
     private final FullCalenderService fullCalenderService;
     private final DepartmentService departmentService;
     private final MemberService memberService;
-
-
 
     @GetMapping({"","/login"})
     public String login(@RequestParam(value="error", required = false) String error,
@@ -99,6 +99,20 @@ public class HomeController {
             model.addAttribute("pay", payList.get(payList.size() - 1));
         }
 
+
+        String name= myUserDetails.getName();
+        Long memberId = myUserDetails.getMemberEntity().getId();
+        Long apvWaitCount = approvalService.apvWaitCount(name,1L);// 대기중인 문서 수
+        Long apvDenyCount = approvalService.apvDenyCount(name,3L);// 내가 반려한 문서 수
+        Long apvMyCount = approvalService.apvMyCount(memberId);// 내가 보낸 문서 수
+        Long apvMyDenyCount = approvalService.apvMyDenyCount(memberId,3L); // 내가 보낸 문서 중 반려된 문서 수
+        Long apvCount=approvalService.apvCount(name);
+
+        model.addAttribute("apvWaitCount",apvWaitCount);
+        model.addAttribute("apvDenyCount",apvDenyCount);
+        model.addAttribute("apvMyCount",apvMyCount);
+        model.addAttribute("apvMyDenyCount",apvMyDenyCount);
+        model.addAttribute("apvCount",apvCount);
 
         return "index";
     }

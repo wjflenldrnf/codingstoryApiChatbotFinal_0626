@@ -2,11 +2,9 @@ package org.spring.codingStory;
 
 
 import org.junit.jupiter.api.Test;
-import org.spring.codingStory.mRank.dto.RankDto;
 import org.spring.codingStory.mRank.entity.RankEntity;
 import org.spring.codingStory.mRank.repository.MRankRepository;
 import org.spring.codingStory.mRank.serviceImpl.service.MRankService;
-import org.spring.codingStory.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;

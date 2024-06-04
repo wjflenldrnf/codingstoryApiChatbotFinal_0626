@@ -1,26 +1,20 @@
 package org.spring.codingStory.fullcalender.serviceImpl.service;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.codingStory.config.MyUserDetails;
 import org.spring.codingStory.fullcalender.dto.FullCalenderDto;
 import org.spring.codingStory.fullcalender.entity.FullCalenderEntity;
 import org.spring.codingStory.fullcalender.reposiory.FullCalenderRepository;
 import org.spring.codingStory.fullcalender.serviceImpl.FullCalenderServiceInterface;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 

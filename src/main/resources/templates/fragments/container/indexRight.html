@@ -35,7 +35,12 @@
         <div class="bottom">
             <div class="index-data">
                 <div class="app">
-                    <h3>결재문서</h3>
+                    <div class="apv">
+                        <a th:href="@{/apv/waitList}"> 결재 대기 문서 <br> <span th:text="${apvWaitCount}"></span> </a>
+                        <a th:href="@{/apv/myApvDenyList}"> 반려된 문서 <br> <span th:text="${apvMyDenyCount}"></span> </a>
+                        <a th:href="@{/apv/list}"> 받은 전체 문서 <br> <span th:text="${apvCount}"></span> </a>
+                        <a th:href="@{/apv/write}">문서작성 </a>
+                    </div>
 
                 </div>
                 <div class="movie">
@@ -131,6 +136,7 @@
                                 </div>
                             </li>
 
+
                             <li>
                                 <label for="totalPay">산정 기간 내 총 급여</label>
                                 <input type="text" name="totalPay" id="totalPay" th:value="${pay.totalPay}+' 원'"
@@ -142,6 +148,7 @@
                                        readonly>
 
                             </li>
+
                         </ul>
                     </div>
                 </div>
@@ -163,7 +170,8 @@
                             <li>
                                 <span class="freeName" th:text="${freeHit.memberEntity.name}"></span>
                                 <span class="dot">&#8226;</span>
-                                <span class="freeTime" th:text="${#temporals.format(freeHit.createTime, 'yyyy-MM-dd')}"></span>
+                                <span class="freeTime"
+                                      th:text="${#temporals.format(freeHit.createTime, 'yyyy-MM-dd')}"></span>
 
                                 조회수<span class="freeHit" th:text="${freeHit.freeHit}"></span>
                             </li>
