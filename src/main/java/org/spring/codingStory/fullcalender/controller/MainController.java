@@ -33,4 +33,19 @@ public class MainController {
     return "fullcalendar/mycalendar";
   }
 
+
+
+
+  @GetMapping("/mycalendar2")
+  public String showCalendar() {
+    return "fullcalendar/mycalendar2";
+  }
+
+
+
+
+
 }
+
+
+

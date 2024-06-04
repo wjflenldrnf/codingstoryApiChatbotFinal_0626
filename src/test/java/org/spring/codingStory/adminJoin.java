@@ -63,16 +63,16 @@ public class adminJoin {
     String adminFile = "admin.jpg";
 
     MemberEntity memberEntity = MemberEntity.builder()
-            .userEmail("admin@naver.com")
-            .userPw(passwordEncoder.encode("1234"))
-            .name("관리자")
-            .department("노원점")
-            .mRank("사장")
-            .address("서울")
-            .phoneNumber("0101234")
-            .role(Role.ADMIN)
-            .memberAttachFile(0)
-            .build();
+        .userEmail("admin@naver.com")
+        .userPw(passwordEncoder.encode("1234"))
+        .name("관리자")
+        .department("노원점")
+        .mRank("사장")
+        .address("서울")
+        .phoneNumber("0101234")
+        .role(Role.ADMIN)
+        .memberAttachFile(0)
+        .build();
 
     memberEntity = memberRepository.save(memberEntity);
 
@@ -89,17 +89,17 @@ public class adminJoin {
     paymentRepository.save(paymentEntity);
 
     RankEntity rankEntity = RankEntity.builder()
-            .rankName("사원")
-            .build();
+        .rankName("사원")
+        .build();
     RankEntity rankEntity1 = RankEntity.builder()
-            .rankName("팀장")
-            .build();
+        .rankName("팀장")
+        .build();
     RankEntity rankEntity2 = RankEntity.builder()
-            .rankName("지점장")
-            .build();
+        .rankName("지점장")
+        .build();
     RankEntity rankEntity3 = RankEntity.builder()
-            .rankName("사장")
-            .build();
+        .rankName("사장")
+        .build();
 
     mRankRepository.save(rankEntity);
     mRankRepository.save(rankEntity1);
@@ -108,41 +108,41 @@ public class adminJoin {
 
     //보고서 진행 상태
     ApprovalStatusEntity approvalStatusEntity1 = approvalStatusRepository.save(
-            ApprovalStatusEntity.builder()
-                    .apvStatus("진행중")
-                    .build()
+        ApprovalStatusEntity.builder()
+            .apvStatus("진행중")
+            .build()
     );
     ApprovalStatusEntity approvalStatusEntity2 = approvalStatusRepository.save(
-            ApprovalStatusEntity.builder()
-                    .apvStatus("승인")
-                    .build()
+        ApprovalStatusEntity.builder()
+            .apvStatus("승인")
+            .build()
     );
     ApprovalStatusEntity approvalStatusEntity3 = approvalStatusRepository.save(
-            ApprovalStatusEntity.builder()
-                    .apvStatus("반려")
-                    .build()
+        ApprovalStatusEntity.builder()
+            .apvStatus("반려")
+            .build()
     );
 
     //보고서 종류
     ApprovalDivEntity approvalDivEntity1 = approvalDivRepository.save(
-            ApprovalDivEntity.builder()
-                    .apvDivName("업무 보고서")
-                    .build()
+        ApprovalDivEntity.builder()
+            .apvDivName("업무 보고서")
+            .build()
     );
     ApprovalDivEntity approvalDivEntity2 = approvalDivRepository.save(
-            ApprovalDivEntity.builder()
-                    .apvDivName("회의결과 보고서")
-                    .build()
+        ApprovalDivEntity.builder()
+            .apvDivName("회의결과 보고서")
+            .build()
     );
     ApprovalDivEntity approvalDivEntity3 = approvalDivRepository.save(
-            ApprovalDivEntity.builder()
-                    .apvDivName("휴가 보고서")
-                    .build()
+        ApprovalDivEntity.builder()
+            .apvDivName("휴가 보고서")
+            .build()
     );
     ApprovalDivEntity approvalDivEntity4 = approvalDivRepository.save(
-            ApprovalDivEntity.builder()
-                    .apvDivName("결제 청구서")
-                    .build()
+        ApprovalDivEntity.builder()
+            .apvDivName("결제 청구서")
+            .build()
     );
   }
 
@@ -155,17 +155,17 @@ public class adminJoin {
     String adminFile = "admin.jpg";
 
     MemberEntity memberEntity = memberRepository.save(
-            MemberEntity.builder()
-                    .userEmail("admin@naver.com")
-                    .userPw(passwordEncoder.encode("1234"))
-                    .name("관리자")
-                    .department("노원점")
-                    .mRank("사장")
-                    .address("서울")
-                    .phoneNumber("0101234")
-                    .role(Role.ADMIN)
-                    .memberAttachFile(0)
-                    .build());
+        MemberEntity.builder()
+            .userEmail("admin@naver.com")
+            .userPw(passwordEncoder.encode("1234"))
+            .name("관리자")
+            .department("노원점")
+            .mRank("사장")
+            .address("서울")
+            .phoneNumber("0101234")
+            .role(Role.ADMIN)
+            .memberAttachFile(0)
+            .build());
 
 
 
@@ -186,7 +186,7 @@ public class adminJoin {
             .build()
     );
 
-  //보고서 종류
+    //보고서 종류
     ApprovalDivEntity approvalDivEntity1 = approvalDivRepository.save(
         ApprovalDivEntity.builder()
             .apvDivName("업무 보고서")
@@ -208,44 +208,44 @@ public class adminJoin {
     );
 
 
-      RankEntity rankEntity = RankEntity.builder()
-              .rankName("사원")
-              .build();
-      RankEntity rankEntity1 = RankEntity.builder()
-              .rankName("팀장")
-              .build();
-      RankEntity rankEntity2 = RankEntity.builder()
-              .rankName("지점장")
-              .build();
-      RankEntity rankEntity3 = RankEntity.builder()
-              .rankName("사장")
-              .build();
+    RankEntity rankEntity = RankEntity.builder()
+        .rankName("사원")
+        .build();
+    RankEntity rankEntity1 = RankEntity.builder()
+        .rankName("팀장")
+        .build();
+    RankEntity rankEntity2 = RankEntity.builder()
+        .rankName("지점장")
+        .build();
+    RankEntity rankEntity3 = RankEntity.builder()
+        .rankName("사장")
+        .build();
 
-      mRankRepository.save(rankEntity);
-      mRankRepository.save(rankEntity1);
-      mRankRepository.save(rankEntity2);
-      mRankRepository.save(rankEntity3);
-
-
-    }
+    mRankRepository.save(rankEntity);
+    mRankRepository.save(rankEntity1);
+    mRankRepository.save(rankEntity2);
+    mRankRepository.save(rankEntity3);
 
 
-    @Test
-    void test1(){
+  }
+
+
+  @Test
+  void test1(){
 
     for(int i=1; i<=30 ; i++){
       MemberEntity memberEntity = memberRepository.save(
-              MemberEntity.builder()
-                      .userEmail("memb"+i+"@naver.com")
-                      .userPw(passwordEncoder.encode("1234"))
-                      .name("사원"+i)
-                      .department("자동차관")
-                      .mRank("사원")
-                      .address("서울")
-                      .phoneNumber("0101234")
-                      .role(Role.MEMBER)
-                      .memberAttachFile(0)
-                      .build());
+          MemberEntity.builder()
+              .userEmail("memb"+i+"@naver.com")
+              .userPw(passwordEncoder.encode("1234"))
+              .name("사원"+i)
+              .department("자동차관")
+              .mRank("사원")
+              .address("서울")
+              .phoneNumber("0101234")
+              .role(Role.MEMBER)
+              .memberAttachFile(0)
+              .build());
 
 
 
@@ -256,12 +256,6 @@ public class adminJoin {
   }
 
 
-  }
-
-<<<<<<< HEAD
 }
-=======
-
->>>>>>> dev
 
 

@@ -20,10 +20,12 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -472,6 +474,14 @@ public class MemberServiceImpl implements MemberService {
     return null;
   }
 
+  @Override
+  public List<MemberDto> findByDepartment(String dptName) {
+
+    List<MemberEntity> memberEntities=memberRepository.findByDepartment(dptName);
+
+    return memberEntities.stream().map(MemberDto::toSelectMemberDto).collect(Collectors.toList());
+  }
+
 
   @Override
   public int memberDelete(Long id) {
@@ -486,60 +496,12 @@ public class MemberServiceImpl implements MemberService {
     return 0;
   }
 
-
-    /////////////////////////////////////////////////////
-
-
-
-
-
-
-
-//    @Override
-//    public void memberJoin(MemberDto memberDto) throws IOException {
-//        MemberEntity memberEntity;
-//
-//        if (memberDto.getMemberFile().isEmpty()) {
-//            memberEntity = MemberEntity.toJoinMember(memberDto, passwordEncoder);
-//        } else {
-//            MultipartFile memberFile = memberDto.getMemberFile();
-//
-//            String oldFileName = memberFile.getOriginalFilename();
-//            UUID uuid = UUID.randomUUID();
-//            String newFileName = uuid + "_" + oldFileName;
-//            String fileSavePath = "C:/codingStory_file/" + newFileName;
-//            memberFile.transferTo(new File(fileSavePath));
-//
-//            memberEntity = MemberEntity.toJoinFileMember(memberDto, passwordEncoder);
-//        }
-//
-//        // PaymentEntity 생성
-//        PaymentEntity paymentEntity = new PaymentEntity();
-//        paymentEntity.setMemberEntity(memberEntity);
-//
-//        // mRank가 "사장"일 때 hourWage를 500원으로 설정
-//        if ("사원".equals(memberDto.getMRank())) {
-//            paymentEntity.setHourlyWage("500");
-//        } else {
-//            paymentEntity.setHourlyWage("1000"); // 기본 값 설정
-//        }
-//
-//        // 관계 설정
-//        memberEntity.setPaymentEntity(paymentEntity);
-//
-//        memberRepository.save(memberEntity);
-//        paymentRepository.save(paymentEntity);
-//    }
-
     @Override
     public int memberAppOk(MemberDto memberDto) {
         //멤버 정보를 가져옵니다.
 
         MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("xx"));
-
-
-
 
         memberEntity.setRole(Role.MEMBER);
         memberEntity.setDepartment(memberDto.getDepartment());

@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // ajax  DB 데이터 set
     function setCalendar(content, start, end) {
         $.ajax({
-            url: "/api/calendar",
+            url: "/my/mycalendar2/calendar",
             method: "POST",
             dataType: "json",
             async: false,
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
             month = "0" + month
         }
         $.ajax({
-            url: "/api/calendar",
+            url: "/my/mycalendar2/calendar",
             dataType: "json",
             async: false
         })
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         start: element.start,
                         end: element.end,
                     })
-                });
+                }); //이거 방금넣음
 
                 //개인 일정 캘린더 초기화 및 데이터 추가
                 $('#personalCalendar').fullCalendar({
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
           eventId: eventId
       };
       $.ajax({
-          url: "/api/calendar/delete",
+          url: "/my/mycalendar2/delete",
           method: "POST",
           contentType: "application/json", // 데이터 타입을 JSON으로 설정
           dataType: "text",

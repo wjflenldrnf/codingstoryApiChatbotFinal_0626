@@ -93,6 +93,20 @@
                 </div>
                 <div class="dpt">
                     <h3>조직도</h3>
+                    <ul>
+                        <th:block th:each="department : ${departments}">
+                            <li>
+                                <span th:text="${department.dptName}"></span>
+                                <ul>
+                                    <th:block th:if="${members!=null}">
+                                        <th:block th:each="member : ${members.get(department.dptName)}">
+                                            <li><span th:text="${member.name}"></span></li>
+                                        </th:block>
+                                    </th:block>
+                                </ul>
+                            </li>
+                        </th:block>
+                    </ul>
                 </div>
                 <div class="att">
                     <h3>출퇴근</h3>
@@ -117,17 +131,17 @@
                                 </div>
                             </li>
 
-                                 <li>
-                                     <label for="totalPay">산정 기간 내 총 급여</label>
-                                     <input type="text" name="totalPay" id="totalPay" th:value="${pay.totalPay}+' 원'"
+                            <li>
+                                <label for="totalPay">산정 기간 내 총 급여</label>
+                                <input type="text" name="totalPay" id="totalPay" th:value="${pay.totalPay}+' 원'"
 
-                                            style="background-color: #f1f1f100;
+                                       style="background-color: #f1f1f100;
                                             text-align: center;
                                             color: #dedfbc;
                                             font-weight:bold; "
-                                            readonly>
+                                       readonly>
 
-                                 </li>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -145,7 +159,7 @@
                     <div class="freeHit" th:each="freeHit :${freeHit}">
                         <ul>
                             <li><a th:href="@{/board/freeDetail/{id}(id=${freeHit.id})}"><span
-                                    th:text="${freeHit.freeTitle}"></span></a></li>
+                                th:text="${freeHit.freeTitle}"></span></a></li>
                             <li>
                                 <span class="freeName" th:text="${freeHit.memberEntity.name}"></span>
                                 <span class="dot">&#8226;</span>
@@ -161,7 +175,7 @@
                     <div class="noticeHit" th:each="noticeHit :${noticeHit}">
                         <ul>
                             <li><a th:href="@{/board/noticeDetail/{id}(id=${noticeHit.id})}"><span
-                                    th:text="${noticeHit.noticeTitle}"></span></a></li>
+                                th:text="${noticeHit.noticeTitle}"></span></a></li>
                             <li>
                                 <span class="noticeName" th:text="${noticeHit.memberEntity.name}"></span>
                                 <span class="dot">&#8226;</span>
@@ -176,7 +190,7 @@
                     <div class="empHit" th:each="empHit :${empHit}">
                         <ul>
                             <li><a th:href="@{/board/empDetail/{id}(id=${empHit.id})}"><span
-                                    th:text="${empHit.empTitle}"></span></a></li>
+                                th:text="${empHit.empTitle}"></span></a></li>
                             <li>
                                 <span class="empName" th:text="${empHit.memberEntity.name}"></span>
                                 <span class="dot">&#8226;</span>
@@ -188,6 +202,30 @@
                 </div>
                 <div class="cal">
                     <h3>일정</h3>
+                    <ul>
+                        <li>개인 일정:
+                            <div id="personalCalendar">
+                                <!-- 여기에 개인 일정을 표시할 코드를 추가합니다 -->
+                                <ul>
+                                    <!-- personalEvents에 있는 각 일정을 순회하며 표시합니다 -->
+                                    <th:block th:each="event : ${personalEvents}">
+                                        <li th:text="${event.content} + ' - ' + ${event.start} + ' 부터 ' + ${event.end}"></li>
+                                    </th:block>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>전체 일정:
+                            <div id="allCalendar">
+                                <!-- 여기에 전체 일정을 표시할 코드를 추가합니다 -->
+                                <ul>
+                                    <!-- allEvents에 있는 각 일정을 순회하며 표시합니다 -->
+                                    <th:block th:each="event : ${allEvents}">
+                                        <li th:text="${event.content} + ' - ' + ${event.start} + ' 부터 ' + ${event.end}"></li>
+                                    </th:block>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
