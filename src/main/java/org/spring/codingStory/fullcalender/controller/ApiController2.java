@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/api",produces = "application/json")
+@RequestMapping(value = "/my/mycalendar2", produces = "application/json")
 @RequiredArgsConstructor
-public class ApiController {
+public class ApiController2 {
 
 
 
@@ -31,29 +31,23 @@ public class ApiController {
     return fullCalenderDtoList;
   }
 
+
+
+
   @PostMapping("/calendar")
-  public List<FullCalenderDto> setCalendar(@ModelAttribute FullCalenderDto dto){
-    Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-    String username= authentication.getName();
-    System.out.println(dto.getStart()+" start1");
+  public  List<FullCalenderDto>  setCalendar(@ModelAttribute FullCalenderDto dto) {
     fullCalenderService.setCalendar(dto);
     return fullCalenderService.fullCalenderListAll();
   }
 
-
   @GetMapping("/calendar")
-  @ResponseBody
-  public List<FullCalenderDto> myCalendar(@ModelAttribute FullCalenderDto dto,
-                                          @AuthenticationPrincipal MyUserDetails myUserDetails){
-
-    return fullCalenderService.myFullCallerListAll(myUserDetails.getMemberEntity().getId());
+  public  List<FullCalenderDto>  getCalendar() {
+    return fullCalenderService.fullCalenderListAll();
   }
 
 
-
   @PostMapping("/calendar/delete")
-  public ResponseEntity<Object> deleteCalendarEvent(@RequestBody Map<String,Integer> data,
-                                                    @AuthenticationPrincipal MyUserDetails myUserDetails){
+  public ResponseEntity<Object> deleteCalendarEvent(@RequestBody Map<String,Integer> data, @AuthenticationPrincipal MyUserDetails myUserDetails){
     String  username= myUserDetails.getUsername();
     Integer eventId=data.get("eventId");
 
@@ -64,6 +58,7 @@ public class ApiController {
     return ResponseEntity.ok("일정이 성공적으로 삭제 되었습니다.");
 
   }
+
 
 
 }

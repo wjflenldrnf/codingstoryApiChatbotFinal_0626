@@ -1,7 +1,7 @@
 @import url(/css/common/reset.css);
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 
-p{
+.index-data p{
 padding:10px;
 font-size:28px;
 font-weight:bold;
@@ -60,11 +60,12 @@ display: flex;
     border: 1px solid #ccc;
     border-radius:50px;
         width: 250px;
-        height:70px;
+        height:50px;
         text-align:center;
         overflow:hidden;
          text-overflow: ellipsis;
             white-space: nowrap;
+            padding:5px;
 }
 .info label{
 font-size:18px;

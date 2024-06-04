@@ -64,34 +64,7 @@ public class DepartmentController {
 
 
 
-//모든 부서를 목록을 반환하는 컨트롤러
-//  @GetMapping("/list")
-//  @ResponseBody
-//  public ResponseEntity<Map<String, Object>>departmentList(){
-//
-//    Map<String,Object> deptList=new HashMap<>();
-//
-//    List<DepartmentEntity> departments=departmentService.getAllDepartments();
-//
-//    List<String> depts=new ArrayList<>();
-//
-//    //1.부서를 추출해서 조회
-//    for(DepartmentEntity departmentEntity: departments){
-//      System.out.println(departmentEntity.getDptName()+".. 부서");
-//      depts.add(departmentEntity.getDptName());
-//    }
-//    //2. 부서별 명수
-//    List<Integer> mapDept=new ArrayList<>();
-//    for(String a11: depts){
-//      List<MemberDto> members=departmentService.getMembersByDepartmentId(a11);
-//      mapDept.add(members.size());
-//    }
-//    deptList.put("dept",mapDept);
-//    deptList.put("deptList",departments);
-//
-//    return ResponseEntity.ok().body(deptList);
-//
-//  }
+
 @GetMapping("/list")
 @ResponseBody
 public ResponseEntity<Map<String, Object>>departmentList() {

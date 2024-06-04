@@ -97,6 +97,7 @@ public class FullCalenderService implements FullCalenderServiceInterface {
 
   }
 
+
   //사용자 개인 일정을 가져오는 매서드
   public List<FullCalenderDto> getUserEvents(Long userId){
     MemberEntity memberEntity= memberRepository.findById(userId).orElseThrow(()->new IllegalArgumentException("User not found"));

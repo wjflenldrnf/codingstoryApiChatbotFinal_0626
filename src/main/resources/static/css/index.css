@@ -48,14 +48,20 @@ padding: 15px 20px 20px;
 width:400px;
 height:300px;
 }
-.att{
-border: 3px solid #022f5d;
-border-radius: 30px;
-padding: 15px 20px 20px;
-margin-top: 20px;
-width:400px;
-height:300px;
+.dpt ul {
+ list-style-type: none;
+ padding-left: 0;
 }
+.dpt ul li {
+ margin-bottom: 10px;
+}
+.dpt ul li ul {
+ padding-left: 20px;
+ }
+.dpt ul li ul li {
+ margin-bottom: 5px;
+}
+
 .time{
 border: 3px solid #022f5d;
 border-radius: 30px;
@@ -74,6 +80,9 @@ margin-top: 20px;
 width:400px;
 height:300px;
 }
+.freeHit{
+border-top: 1px solid #ccc;
+}
 .notice{
 border: 3px solid #022f5d;
 border-radius: 30px;
@@ -82,6 +91,9 @@ margin-top: 20px;
 width:400px;
 height:300px;
 }
+.noticeHit{
+border-top: 1px solid #ccc;
+}
 .emp{
 border: 3px solid #022f5d;
 border-radius: 30px;
@@ -89,6 +101,9 @@ padding: 15px 20px 20px;
 margin-top: 20px;
 width:400px;
 height:300px;
+}
+.empHit{
+border-top: 1px solid #ccc;
 }
 
 .cal{
@@ -100,6 +115,46 @@ width:400px;
 height:300px;
 }
 
+.cal ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cal li {
+  margin-bottom: 10px;
+}
+
+.cal li:first-child {
+  font-weight: bold;
+}
+
+#personalCalendar, #allCalendar {
+  padding: 10px;
+
+  border-radius: 5px;
+
+}
+
+#personalCalendar ul, #allCalendar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#personalCalendar ul li, #allCalendar ul li {
+  margin-bottom: 5px;
+  padding: 5px;
+
+}
+#personalCalendar ul li:last-child, #allCalendar ul li:last-child {
+  border-bottom: none;
+}
+
+#personalCalendar ul li:before, #allCalendar ul li:before {
+  content: "• ";
+  color: #007bff;
+  font-weight: bold;
+}
+
 .att {
 border: 3px solid #022f5d;
 border-radius: 30px;
@@ -107,7 +162,7 @@ padding: 15px 20px 20px;
 margin-top: 20px;
     background: #f1f1f100;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    text-align: center;
+
 
         overflow-y: auto; /* 내용이 넘칠 경우 스크롤 가능하게 설정 */
 
@@ -116,11 +171,14 @@ margin-top: 20px;
 
 }
 .currentDate {
+text-align: center;
+    margin-top: 20px;
     font-size: 18px;
     margin-bottom: 10px;
 }
 
 .currentTime {
+text-align: center;
     font-size: 24px;
     font-weight: bold;
 }
@@ -291,6 +349,7 @@ color: white;
     transform: translate(-50%, -50%);
     box-shadow: 0 2px 4px -1px black;
     z-index: 10;
+
 }
 
 /*인덱스 결재 숫자 카운팅*/
@@ -314,4 +373,6 @@ text-decoration:underline;
   justify-content: center;
   align-items: center;
 }
+
+
 

@@ -95,7 +95,9 @@ public class FreeServiceImpl implements FreeService {
 
         if (subject1 != null && subject2 != null && search != null) {
             if ("freeTitle".equals(subject2)) {
-                if ("노원점".equals(subject1)) {
+                if ("본사".equals(subject1)) {
+                    freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("본사"), search, pageable);
+                } else if ("노원점".equals(subject1)) {
                     freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("노원점"), search, pageable);
                 } else if ("자동차관".equals(subject1)) {
                     freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("자동차관"), search, pageable);
@@ -105,7 +107,9 @@ public class FreeServiceImpl implements FreeService {
                     freeEntityPage = freeRepository.findByCategoryInAndFreeTitleContains(Collections.singletonList("커플관"), search, pageable);
                 }
             } else if ("freeContent".equals(subject2)) {
-                if ("노원점".equals(subject1)) {
+                if ("본사".equals(subject1)) {
+                    freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("본사"), search, pageable);
+                } else if ("노원점".equals(subject1)) {
                     freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("노원점"), search, pageable);
                 } else if ("자동차관".equals(subject1)) {
                     freeEntityPage = freeRepository.findByCategoryInAndFreeContentContains(Collections.singletonList("자동차관"), search, pageable);

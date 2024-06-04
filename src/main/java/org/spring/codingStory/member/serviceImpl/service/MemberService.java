@@ -3,7 +3,6 @@ package org.spring.codingStory.member.serviceImpl.service;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public interface MemberService {
 
   void memberAddressUpdate(MemberDto memberDto);
 
-    int findCheck(MemberDto memberDto);
+  int findCheck(MemberDto memberDto);
 
   void findPasswordFin(MemberDto memberDto);
 
@@ -49,4 +48,5 @@ public interface MemberService {
 
   MemberDto memberTest(Long id);
 
+  List<MemberDto> findByDepartment(String dptName);
 }

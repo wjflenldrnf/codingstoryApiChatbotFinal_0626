@@ -96,7 +96,9 @@ public class NoticeServiceImpl implements NoticeService {
 
         if (subject1 != null && subject2 != null && search != null) {
             if ("noticeTitle".equals(subject2)) {
-                if ("노원점".equals(subject1)) {
+                if ("본사".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("본사"), search, pageable);
+                } else if ("노원점".equals(subject1)) {
                     noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("노원점"), search, pageable);
                 } else if ("자동차관".equals(subject1)) {
                     noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("자동차관"), search, pageable);
@@ -106,7 +108,9 @@ public class NoticeServiceImpl implements NoticeService {
                     noticeEntityPage = noticeRepository.findByCategoryInAndNoticeTitleContains(Collections.singletonList("커플관"), search, pageable);
                 }
             } else if ("noticeContent".equals(subject2)) {
-                if ("노원점".equals(subject1)) {
+                if ("본사".equals(subject1)) {
+                    noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("본사"), search, pageable);
+                } else if ("노원점".equals(subject1)) {
                     noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("노원점"), search, pageable);
                 } else if ("자동차관".equals(subject1)) {
                     noticeEntityPage = noticeRepository.findByCategoryInAndNoticeContentContains(Collections.singletonList("자동차관"), search, pageable);
