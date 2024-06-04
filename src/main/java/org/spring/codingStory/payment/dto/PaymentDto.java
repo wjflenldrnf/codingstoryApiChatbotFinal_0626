@@ -3,10 +3,6 @@ package org.spring.codingStory.payment.dto;
 import lombok.*;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.payment.entity.PaymentEntity;
-import org.springframework.security.core.parameters.P;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 //@Transactional
 //@Service

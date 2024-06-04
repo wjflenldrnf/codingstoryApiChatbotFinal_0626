@@ -117,27 +117,27 @@
                                 </div>
                             </li>
 
-                       <!--     <li>
-                                <label for="totalPay">산정 기간 내 총 급여</label>
-                                <input type="text" name="totalPay" id="totalPay" th:value="${pay.totalPay}+' 원'"
+                                 <li>
+                                     <label for="totalPay">산정 기간 내 총 급여</label>
+                                     <input type="text" name="totalPay" id="totalPay" th:value="${pay.totalPay}+' 원'"
 
-                                       style="background-color: #f1f1f100;
-                                       text-align: center;
-                                       color: #dedfbc;
-                                       font-weight:bold; "
-                                       readonly>
+                                            style="background-color: #f1f1f100;
+                                            text-align: center;
+                                            color: #dedfbc;
+                                            font-weight:bold; "
+                                            readonly>
 
-                            </li>-->
+                                 </li>
                         </ul>
                     </div>
                 </div>
-                    <div class="time">
-                        <div class="clock-wrapper">
-                            <img th:src="@{/images/ROLEX.png}" alt="ROLEX" class="ROLEX">
-                        </div>
-                        <div class="currentDate" id="currentDate"></div>
-                        <div class="currentTime" id="currentTime"></div>
+                <div class="time">
+                    <div class="clock-wrapper">
+                        <img th:src="@{/images/ROLEX.png}" alt="ROLEX" class="ROLEX">
                     </div>
+                    <div class="currentDate" id="currentDate"></div>
+                    <div class="currentTime" id="currentTime"></div>
+                </div>
 
 
                 <div class="board">
@@ -151,7 +151,7 @@
                                 <span class="dot">&#8226;</span>
                                 <span class="freeTime" th:text="${#temporals.format(freeHit.createTime, 'yyyy-MM-dd')}"></span>
 
-                            조회수<span class="freeHit" th:text="${freeHit.freeHit}"></span>
+                                조회수<span class="freeHit" th:text="${freeHit.freeHit}"></span>
                             </li>
                         </ul>
                     </div>
@@ -159,39 +159,39 @@
                 <div class="notice">
                     <h3>공지사항</h3>
                     <div class="noticeHit" th:each="noticeHit :${noticeHit}">
-                    <ul>
-                        <li><a th:href="@{/board/noticeDetail/{id}(id=${noticeHit.id})}"><span
-                                th:text="${noticeHit.noticeTitle}"></span></a></li>
-                        <li>
-                            <span class="noticeName" th:text="${noticeHit.memberEntity.name}"></span>
-                            <span class="dot">&#8226;</span>
-                            <span class="noticeTime" th:text="${#temporals.format(noticeHit.createTime, 'yyyy-MM-dd')}"></span>
-                        조회수<span class="noticeHit" th:text="${noticeHit.noticeHit}"></span>
-                        </li>
-                    </ul>
-                </div>
+                        <ul>
+                            <li><a th:href="@{/board/noticeDetail/{id}(id=${noticeHit.id})}"><span
+                                    th:text="${noticeHit.noticeTitle}"></span></a></li>
+                            <li>
+                                <span class="noticeName" th:text="${noticeHit.memberEntity.name}"></span>
+                                <span class="dot">&#8226;</span>
+                                <span class="noticeTime" th:text="${#temporals.format(noticeHit.createTime, 'yyyy-MM-dd')}"></span>
+                                조회수<span class="noticeHit" th:text="${noticeHit.noticeHit}"></span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="emp">
                     <h3>이달의 우수사원</h3>
                     <div class="empHit" th:each="empHit :${empHit}">
-                    <ul>
-                        <li><a th:href="@{/board/empDetail/{id}(id=${empHit.id})}"><span
-                                th:text="${empHit.empTitle}"></span></a></li>
-                        <li>
-                            <span class="empName" th:text="${empHit.memberEntity.name}"></span>
-                            <span class="dot">&#8226;</span>
-                            <span class="empTime" th:text="${#temporals.format(empHit.createTime, 'yyyy-MM-dd')}"></span>
-                            조회수<span class="empHit" th:text="${empHit.empHit}"></span>
-                        </li>
-                    </ul>
-                </div>
+                        <ul>
+                            <li><a th:href="@{/board/empDetail/{id}(id=${empHit.id})}"><span
+                                    th:text="${empHit.empTitle}"></span></a></li>
+                            <li>
+                                <span class="empName" th:text="${empHit.memberEntity.name}"></span>
+                                <span class="dot">&#8226;</span>
+                                <span class="empTime" th:text="${#temporals.format(empHit.createTime, 'yyyy-MM-dd')}"></span>
+                                조회수<span class="empHit" th:text="${empHit.empHit}"></span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="cal">
                     <h3>일정</h3>
                 </div>
             </div>
-            </div>
         </div>
     </div>
+</div>
 </body>
 </html>

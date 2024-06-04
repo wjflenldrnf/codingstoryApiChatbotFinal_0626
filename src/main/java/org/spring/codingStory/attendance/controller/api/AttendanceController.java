@@ -55,9 +55,6 @@ public class AttendanceController {
 
     @PostMapping("/attendance/test/checkInTime")
     public ResponseEntity<?> checkInTimeInsert2(@RequestBody AttendanceDto attendanceDto) {
-        if (attendanceServiceImpl.hasAttendanceToday(attendanceDto.getMemberId())) {
-            throw new IllegalArgumentException("already checked");
-        }
         attendanceServiceImpl.insertCheckInAttendance2(attendanceDto);
         return new ResponseEntity<>(attendanceDto, HttpStatus.OK);
     }

@@ -58,7 +58,15 @@ public class HomeController {
         model.addAttribute("memberId",myUserDetails.getMemberEntity().getId());
 
         List<PayDto> payList = payServiceImpl.findByMemberId(myUserDetails.getMemberEntity().getId());
-       /* model.addAttribute("pay", payList.get(payList.size() - 1));*/
+
+        if (payList.isEmpty()) {
+            PayDto defaultPay = new PayDto();
+            defaultPay.setTotalPay(Double.valueOf(0));
+            model.addAttribute("pay", defaultPay);
+        } else {
+            model.addAttribute("pay", payList.get(payList.size() - 1));
+        }
+
 
         return "index";
     }
