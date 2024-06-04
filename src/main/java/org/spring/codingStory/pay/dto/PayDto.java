@@ -6,12 +6,8 @@ import org.spring.codingStory.pay.entity.PayEntity;
 import org.spring.codingStory.payment.entity.PaymentEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 

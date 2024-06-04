@@ -8,10 +8,10 @@ import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
 import org.spring.codingStory.board.notice.entity.NoticeEntity;
 import org.spring.codingStory.contraint.BaseTimeEntity;
 import org.spring.codingStory.department.entity.DepartmentEntity;
+import org.spring.codingStory.mRank.entity.RankEntity;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
-import org.spring.codingStory.mRank.entity.RankEntity;
 import org.spring.codingStory.payment.entity.PaymentEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -69,38 +69,38 @@ public class MemberEntity extends BaseTimeEntity {
   //  1:N
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"
-          , fetch = FetchType.LAZY
-          , cascade = CascadeType.REMOVE)
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
   private List<MemberFileEntity> memberFileEntityList;
 
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"
-          , fetch = FetchType.LAZY
-          , cascade = CascadeType.REMOVE)
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
   private List<PayEntity> payEntityList;
 
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"
-          , fetch = FetchType.LAZY
-          , cascade = CascadeType.REMOVE)
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
   private List<ApprovalEntity> approvalEntityList;
 
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"
-          , fetch = FetchType.LAZY
-          , cascade = CascadeType.REMOVE)
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
   private List<EmployeeEntity> employeeEntityList;
 
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"
-          , fetch = FetchType.LAZY
-          , cascade = CascadeType.REMOVE)
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
   private List<NoticeEntity> noticeEntityList;
 
   @JsonIgnore // ajax시 순환참조 방지
   @OneToMany(mappedBy = "memberEntity"
-          , fetch = FetchType.LAZY
-          , cascade = CascadeType.REMOVE)
+      , fetch = FetchType.LAZY
+      , cascade = CascadeType.REMOVE)
   private List<FreeEntity> freeEntityList;
 
   //  N:1
@@ -213,7 +213,7 @@ public class MemberEntity extends BaseTimeEntity {
 
   /////////////////////////////////////////////////////////////////
 
-//  @JsonIgnore // ajax시 순환참조 방지
+  //  @JsonIgnore // ajax시 순환참조 방지
 //  @OneToMany(mappedBy = "memberEntity"
 //          , fetch = FetchType.LAZY
 //          , cascade = CascadeType.REMOVE)

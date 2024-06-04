@@ -4,9 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -37,35 +34,36 @@ public class WebSecurityConfig {
 
 
         http.authorizeRequests()
-                .antMatchers("member/login","member/join","/member/findCheck","/member/findPasswordOk").permitAll()
-                .antMatchers("/js/**","/css/**", "/images/***").permitAll()
-                .antMatchers("/index","/member/myDetail/**","/member/memberInfo/**").authenticated()
-                .antMatchers("/member/memberList","/member/memberAppList","/member/memberInfo/**","/department/**").hasAnyRole("ADMIN")
-                .antMatchers().hasAnyRole()
-                .anyRequest().permitAll();
-
+            .antMatchers("member/login","member/join","/member/findCheck","/member/findPasswordOk").permitAll()
+            .antMatchers("/js/**","/css/**", "/images/***").permitAll()
+            .antMatchers("/my/mycalendar2/calendar").permitAll()
+            .antMatchers("/index").authenticated()
+            .antMatchers("/member/memberList","/member/memberAppList","/member/memberInfo/**","/department/**").hasAnyRole("ADMIN")
+            .antMatchers().hasAnyRole()
+            .anyRequest().permitAll();
 
         http.formLogin()
-                .loginPage("/login")
-                .usernameParameter("userEmail")
-                .passwordParameter("userPw")
-                .loginProcessingUrl("/login")
-                .successHandler(customAuthenticationSuccessHandler())
-                .failureHandler(authenticationFailureHandler())
+            .loginPage("/login")
+            .usernameParameter("userEmail")
+            .passwordParameter("userPw")
+            .loginProcessingUrl("/login")
+            .successHandler(customAuthenticationSuccessHandler())
+            .failureHandler(authenticationFailureHandler())
 //                .defaultSuccessUrl("/index")
 //                .failureForwardUrl("/login")
-                .and()
-                .oauth2Login()
-                .loginPage("/login")
-                .userInfoEndpoint()
-                .userService(myOAuth2Service());
+            .and()
+            .oauth2Login()
+            .loginPage("/login")
+            .userInfoEndpoint()
+            .userService(myOAuth2Service());
 
         http.logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/");
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/");
 
         return http.build();
     }
+
 
 
     @Bean

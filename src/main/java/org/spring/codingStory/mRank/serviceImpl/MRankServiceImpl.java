@@ -1,8 +1,6 @@
 package org.spring.codingStory.mRank.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.codingStory.department.dto.DepartmentDto;
-import org.spring.codingStory.department.entity.DepartmentEntity;
 import org.spring.codingStory.mRank.dto.RankDto;
 import org.spring.codingStory.mRank.entity.RankEntity;
 import org.spring.codingStory.mRank.repository.MRankRepository;

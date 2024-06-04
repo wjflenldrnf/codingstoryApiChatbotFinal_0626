@@ -5,16 +5,11 @@ import org.spring.codingStory.config.MyUserDetails;
 import org.spring.codingStory.department.dto.DepartmentDto;
 import org.spring.codingStory.department.serviceimpl.service.DepartmentService;
 import org.spring.codingStory.mRank.dto.RankDto;
-import org.spring.codingStory.mRank.entity.RankEntity;
-import org.spring.codingStory.mRank.repository.MRankRepository;
 import org.spring.codingStory.mRank.serviceImpl.service.MRankService;
 import org.spring.codingStory.member.dto.MemberDto;
-import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.repository.MemberRepository;
-import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.member.serviceImpl.service.MemberService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -26,11 +21,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.PushBuilder;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller

@@ -48,6 +48,19 @@ padding: 15px 20px 20px;
 width:400px;
 height:300px;
 }
+.dpt ul {
+ list-style-type: none;
+ padding-left: 0;
+}
+.dpt ul li {
+ margin-bottom: 10px;
+}
+.dpt ul li ul {
+ padding-left: 20px;
+ }
+.dpt ul li ul li {
+ margin-bottom: 5px;
+}
 
 .time{
 border: 3px solid #022f5d;
@@ -100,6 +113,46 @@ padding: 15px 20px 20px;
 margin-top: 20px;
 width:400px;
 height:300px;
+}
+
+.cal ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cal li {
+  margin-bottom: 10px;
+}
+
+.cal li:first-child {
+  font-weight: bold;
+}
+
+#personalCalendar, #allCalendar {
+  padding: 10px;
+
+  border-radius: 5px;
+
+}
+
+#personalCalendar ul, #allCalendar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#personalCalendar ul li, #allCalendar ul li {
+  margin-bottom: 5px;
+  padding: 5px;
+
+}
+#personalCalendar ul li:last-child, #allCalendar ul li:last-child {
+  border-bottom: none;
+}
+
+#personalCalendar ul li:before, #allCalendar ul li:before {
+  content: "• ";
+  color: #007bff;
+  font-weight: bold;
 }
 
 .att {
@@ -296,5 +349,30 @@ color: white;
     transform: translate(-50%, -50%);
     box-shadow: 0 2px 4px -1px black;
     z-index: 10;
+
 }
+
+/*인덱스 결재 숫자 카운팅*/
+.bottom .index-data .app .apv{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    height:310px;
+    font-size:30px;
+    text-align:center;
+    margin-top:15px;
+}
+.bottom .index-data .app .apv a:hover{
+    color:rgb(182 93 247);
+}
+.bottom .index-data .app .apv a span{
+font-size:40px;
+text-decoration:underline;
+}
+.bottom .index-data .app .apv a:last-child{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 

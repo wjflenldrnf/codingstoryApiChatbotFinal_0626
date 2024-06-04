@@ -38,7 +38,6 @@ public class AttendanceServiceImpl implements AttendanceService {
 
 
     public boolean canCheckIn(Long memberId) {
-        // 가장 최근의 attendance 기록을 가져옵니다.
         Optional<AttendanceEntity> latestAttendance = attendanceRepository.findTopByMemberEntityIdOrderByCheckInTimeDesc(memberId);
         return latestAttendance.map(attendance -> !"출근".equals(attendance.getAttendanceType())).orElse(true);
     }

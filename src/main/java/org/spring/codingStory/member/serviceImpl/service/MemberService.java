@@ -26,7 +26,7 @@ public interface MemberService {
 
   void memberAddressUpdate(MemberDto memberDto);
 
-    int findCheck(MemberDto memberDto);
+  int findCheck(MemberDto memberDto);
 
   void findPasswordFin(MemberDto memberDto);
 
@@ -47,4 +47,6 @@ public interface MemberService {
   void memberDepartUpdate(MemberDto memberDto);
 
   MemberDto memberTest(Long id);
+
+  List<MemberDto> findByDepartment(String dptName);
 }

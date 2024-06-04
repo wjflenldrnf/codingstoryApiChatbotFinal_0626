@@ -1,7 +1,6 @@
 package org.spring.codingStory.pay.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.codingStory.attendance.entity.AttendanceEntity;
 import org.spring.codingStory.attendance.repository.AttendanceRepository;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.pay.dto.PayDto;
@@ -11,8 +10,6 @@ import org.spring.codingStory.pay.serviceImpl.service.PayService;
 import org.spring.codingStory.payment.entity.PaymentEntity;
 import org.spring.codingStory.payment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,7 +19,6 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Transactional

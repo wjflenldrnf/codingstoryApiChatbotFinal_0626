@@ -28,7 +28,6 @@ public interface ApprovalService {
     @Transactional
     Page<ApprovalDto> myApvList(Pageable pageable, String subject, String search, Long memberId);
 
-//    int apvWaitCount2(String name, Long approvalStatusEntity_Id);
 
     ApprovalDto apvDetail(Long id);
 
@@ -46,4 +45,12 @@ public interface ApprovalService {
     Long apvMyCount(Long memberId);
 
     Long apvDenyCount(String name, Long approvalStatusEntityId);
+
+    Page<ApprovalDto> myApvDenyList(Pageable pageable, String subject, String search, Long memberId, Long approvalStatusEntity_Id);
+
+    Long apvMyDenyCount(Long memberId,  Long approvalStatusEntity_Id);
+
+    String getDepartmentByApvFnlName(Long id);
+
+    String getRankByApvFnlName(Long id);
 }
