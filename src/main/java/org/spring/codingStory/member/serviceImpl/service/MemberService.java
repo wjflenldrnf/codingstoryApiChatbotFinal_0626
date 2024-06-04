@@ -42,4 +42,6 @@ public interface MemberService {
   int memberJoin2(MemberDto memberDto) throws IOException;
 
   int memberMD(MemberDto memberDto);
+
+  List<MemberDto> findByDepartment(String dptName);
 }

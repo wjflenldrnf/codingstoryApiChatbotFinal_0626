@@ -39,6 +39,7 @@ public class WebSecurityConfig {
         http.authorizeRequests()
                 .antMatchers("member/login","member/join","/member/findCheck","/member/findPasswordOk").permitAll()
                 .antMatchers("/js/**","/css/**", "/images/***").permitAll()
+                .antMatchers("/my/mycalendar2/calendar").permitAll()
                 .antMatchers("/index").authenticated()
                 .antMatchers("/member/memberList","/member/memberAppList","/member/memberInfo/**","/department/**").hasAnyRole("ADMIN")
                 .antMatchers().hasAnyRole()

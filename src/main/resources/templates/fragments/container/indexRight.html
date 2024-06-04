@@ -21,7 +21,7 @@
                     </th:block>
                     <li th:block th:if="${#authorization.expression('isAuthenticated()')}">
                         <!--사용자가 인증 되어 있으면 보이는 메뉴 -->
-                        <a th:href="@{/my/schedule}">Fullcalendar</a>
+                        <a th:href="@{/my/schedule}">개인일정</a>
                     </li>
                     <li>
                 </ul>
@@ -30,9 +30,48 @@
         <div class="bottom">
             <div class="index-data">
                 <div class="app">결제문서</div>
-                <div class="cal">일정</div>
-                <div class="dpt">조직도</div>
-
+                <div class="cal">일정
+                <ul>
+                    <li>개인 일정:
+                        <div id="personalCalendar">
+                            <!-- 여기에 개인 일정을 표시할 코드를 추가합니다 -->
+                            <ul>
+                                <!-- personalEvents에 있는 각 일정을 순회하며 표시합니다 -->
+                                <th:block th:each="event : ${personalEvents}">
+                                    <li th:text="${event.content} + ' - ' + ${event.start} + ' 부터 ' + ${event.end}"></li>
+                                </th:block>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>전체 일정:
+                        <div id="allCalendar">
+                            <!-- 여기에 전체 일정을 표시할 코드를 추가합니다 -->
+                            <ul>
+                                <!-- allEvents에 있는 각 일정을 순회하며 표시합니다 -->
+                                <th:block th:each="event : ${allEvents}">
+                                    <li th:text="${event.content} + ' - ' + ${event.start} + ' 부터 ' + ${event.end}"></li>
+                                </th:block>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+                <div class="dpt">조직도
+                    <ul>
+                        <th:block th:each="department : ${departments}">
+                            <li>
+                                <span th:text="${department.dptName}"></span>
+                                <ul>
+                                  <th:block th:if="${members!=null}">
+                                      <th:block th:each="member : ${members.get(department.dptName)}">
+                                          <li><span th:text="${member.name}"></span></li>
+                                      </th:block>
+                                  </th:block>
+                                </ul>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
 
                 <div class="att">출퇴근
                     <div class="attendanceWrite-form">
@@ -56,7 +95,7 @@
                                 </div>
                             </li>
 
-                            <li>
+                        <!--    <li>
                                 <label for="totalPay">산정 기간 내 총 급여</label>
                                 <input type="text" name="totalPay" id="totalPay" th:value="${pay.totalPay}+' 원'"
 
@@ -66,7 +105,7 @@
                                        font-weight:bold; "
                                        readonly>
 
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </div>

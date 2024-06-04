@@ -26,6 +26,7 @@ public class DepartmentService implements DepartmentServiceInterface {
   private final MemberRepository memberRepository;
 
 
+  //새로운 부서 추가
   @Override
   public DepartmentEntity addDepartment(DepartmentDto departmentDto) {
     //DepartmentDto로부터 DepartmentEntity 생성
@@ -38,11 +39,14 @@ public class DepartmentService implements DepartmentServiceInterface {
     return departmentRepository.save(departmentEntity);
   }
 
+  //모든 부서 조회
   @Override
   public List<DepartmentEntity> getAllDepartments() {
     return departmentRepository.findAll();
   }
 
+
+  //특정 부서 ID를 사용하여 해당 부서에 속한 멤버 목록을 포함한 부서목록 조회
   @Override
   public DepartmentDto getDepartmentByIdWithMembers(Long deptId) {
    /* DepartmentEntity department = departmentRepository.findById(deptId)
@@ -77,23 +81,9 @@ public class DepartmentService implements DepartmentServiceInterface {
    return dto;
   }
 
-  @Override
-  public void adddMemberToDepartment(Long deptId, MemberDto memberDto) {
-    DepartmentEntity department =departmentRepository.findById(deptId)
-        .orElseThrow(()-> new RuntimeException("Department not found"));
 
-    MemberEntity memberEntity = MemberEntity.builder()
-        .departmentEntity(department)
-        .name(memberDto.getName())
-        .role(memberDto.getRole())
-        .build();
 
-    memberRepository.save(memberEntity);
-
-    /*department.setMemberCount(department.getMemberEntityList().size());*/
-    departmentRepository.save(department);
-  }
-
+  //모든 부서조회
   @Override
   public List<DepartmentEntity> getParentDepartments() {
     List<DepartmentEntity> parentDepartments=new ArrayList<>();
@@ -113,19 +103,10 @@ public class DepartmentService implements DepartmentServiceInterface {
     return parentDepartments;
   }
 
-  @Override
-  public void addSubDepartment(Long parentDeptId, DepartmentDto departmentDto) {
-      DepartmentEntity parentDepartment = departmentRepository.findById(parentDeptId)
-          .orElseThrow(()-> new RuntimeException("Parent department not found"));
 
-      DepartmentEntity subDepartment= DepartmentEntity.builder()
-          .dptName(departmentDto.getDptName())
-          .location(departmentDto.getLocation())
-          .parentDepartment(parentDepartment)
-          .build();
-      departmentRepository.save(subDepartment);
-  }
 
+
+  //모든 부서를 조회하여 선택 목록에 표시할 수 있는 형태로 반환.
   @Override
   public List<DepartmentDto> findDepart() {
 
@@ -142,11 +123,11 @@ public class DepartmentService implements DepartmentServiceInterface {
 
 
 
-
+  //특정 부서에 속한 멤버 목록을 조회
   @Override
   public List<MemberDto> getMembersByDepartmentId(String dept) {
     List<MemberEntity> memberEntities=memberRepository.findByDepartment(dept);
-    //MemberDto 리스트를 새엇ㅇ함
+    //MemberDto 리스트를 생성함
     List<MemberDto> memberDtoList= new ArrayList<>();
     //각 멤버에 대한 MemberDto를 생성하여 리스트에 추가합니다.
     for(MemberEntity memberEntity: memberEntities){
@@ -156,6 +137,7 @@ public class DepartmentService implements DepartmentServiceInterface {
       return memberDtoList;
   }
 
+  //멤버수 업데이트
   @Override
   public void updateDepartmentMemberCount(String departmentName) {
   int memberCount =memberRepository.countMembersByDepartment(departmentName);

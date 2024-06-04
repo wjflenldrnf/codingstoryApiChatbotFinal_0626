@@ -22,10 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -439,6 +441,14 @@ public class MemberServiceImpl implements MemberService {
     memberRepository.save(memberEntity);
 
     return 1;
+  }
+
+  @Override
+  public List<MemberDto> findByDepartment(String dptName) {
+
+    List<MemberEntity> memberEntities=memberRepository.findByDepartment(dptName);
+
+    return memberEntities.stream().map(MemberDto::toSelectMemberDto).collect(Collectors.toList());
   }
 
 
