@@ -48,7 +48,7 @@ function checkInTimeWrite() {
         data: JSON.stringify(dataVal),
         success: function(res) {
             alert('출근완료');
-            
+
             // 반환된 attendance ID 저장
             attendanceId = res.id;
 
@@ -203,7 +203,7 @@ class AnalogClock {
   themeLight = 'light';
   themeDark = 'dark';
   clockFrame = null;
-  constructor({size = 185, theme = 'light', fontSize = 15, padding = 0, wrapper} = {}){
+  constructor({size = 240, theme = 'light', fontSize = 15, padding = 0, wrapper} = {}){
     Object.assign(this, {size, theme, fontSize, padding, wrapper});
   }
   get _targetTheme(){
@@ -278,7 +278,7 @@ class AnalogClock {
     `});
     const minutesHand = createElement('div', {className: 'minutes', style: `
       width: 5px;
-      height: ${(this.size/2) - this.fontSize - 30}px;
+      height: ${(this.size/2) - this.fontSize - 20}px;
       position: absolute;
       left: 50%;
       bottom: 50%;
@@ -288,16 +288,16 @@ class AnalogClock {
       background: #fff;
     `});
     const hoursHand = createElement('div', {className: 'hours', style: `
-      width: 5px;
-      height: ${(this.size/3) - this.fontSize}px; /*시침 길이*/
-      position: absolute;
-      left: 50%;
-      bottom: 50%;
-      transform-origin: bottom;
-      transform: translate(-50%, 0) rotate(0);
-      z-index: 1;
-      background: #fff;
-    `});
+          width: 5px;
+          height: ${(this.size/2) - this.fontSize - 40 }px;
+          position: absolute;
+          left: 50%;
+          bottom: 50%;
+          transform-origin: bottom;
+          transform: translate(-50%, 0) rotate(0);
+          z-index: 1;
+          background: #fff;
+        `})
     this.clockFrame.appendChild(secondsHand);
     this.clockFrame.appendChild(minutesHand);
     this.clockFrame.appendChild(hoursHand);
@@ -310,10 +310,10 @@ class AnalogClock {
       const s = now.getSeconds();
       const ms = now.getMilliseconds();
 
-      const hDeg = ((h % 12) + m / 60) * 30; // 시침 각도 계산 수정
-      const mDeg = m * 6;
-      const sDeg = s * 6;
-      const msDeg = ms * (6 / 1000);
+      const hDeg = h*30 // (h%12) * (360/12)
+      const mDeg = m*6 // (m%60) * (360/60)
+      const sDeg = s*6 // (s%60) * (360/60)
+      const msDeg = ms*(6/1000)
 
       secondsHand.style.transform = `translate(-50%, 0) rotate(${msDeg + sDeg}deg)`;
       minutesHand.style.transform = `translate(-50%, 0) rotate(${mDeg + (sDeg / 360) * (360 / 60)}deg)`;
