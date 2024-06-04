@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.spring.codingStory.approval.dto.ApprovalDto;
-import org.spring.codingStory.approval.dto.ApprovalStatusDto;
 import org.spring.codingStory.contraint.BaseTimeEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -120,7 +118,7 @@ public class ApprovalEntity extends BaseTimeEntity {
         approvalEntity.setId(approvalDto.getId());
         approvalEntity.setApvTitle(approvalDto.getApvTitle());
         approvalEntity.setApvContent(approvalDto.getApvContent());
-        if (approvalDto.getApvFile().isEmpty()){
+        if (approvalEntity.getApvAttachFile()==0){
         approvalEntity.setApvAttachFile(0);
         }else{
             approvalEntity.setApvAttachFile(1);

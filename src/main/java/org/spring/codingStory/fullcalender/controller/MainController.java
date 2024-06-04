@@ -1,6 +1,7 @@
 package org.spring.codingStory.fullcalender.controller;
 
 import org.spring.codingStory.config.MyUserDetails;
+import org.spring.codingStory.fullcalender.dto.FullCalenderDto;
 import org.spring.codingStory.fullcalender.serviceImpl.service.FullCalenderService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ public class MainController {
 
   private final FullCalenderService fullCalenderService;
 
+
   public MainController(FullCalenderService fullCalenderService){
     this.fullCalenderService=fullCalenderService;
   }
@@ -22,7 +24,7 @@ public class MainController {
 
 
   @GetMapping("/schedule")
-  public String schedule(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model){
+  public String schedule(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model , FullCalenderDto dto,Long id){
 
     model.addAttribute("memberId",myUserDetails.getMemberEntity().getId());
 

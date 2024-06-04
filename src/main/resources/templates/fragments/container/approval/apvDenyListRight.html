@@ -5,26 +5,25 @@
         <div class="right-top">
             <div class="gnb">
                 <ul>
-                    <th:block sec:authorize="isAnonymous()">
-                        <li><a th:href="@{/member/login}">로그인</a></li>
-                        <li><a th:href="@{/member/join}">회원가입</a></li>
-                    </th:block>
-
                     <th:block sec:authorize="isAuthenticated()">
                         <div class="myInfo"
                              th:onClick="|location.href='@{/member/myDetail/{id}(id=${#authentication.principal.memberEntity.id})}'|">
                             <li>
-                                <p th:text="${#authentication.principal.department}"></p>부
-                            </li>
-                            <li>
-                                <p th:text="${#authentication.principal.mRank}"></p>
-                            </li>
-                            <li>
-                                <p th:text="${#authentication.principal.name}"></p>님
+                                <a th:text="${#authentication.principal.department}"></a>
+                                <a th:text="${#authentication.principal.mRank}"></a>
+                                <a th:text="${#authentication.principal.name}"></a>
+                                <p>님</p>
                             </li>
                         </div>
+                        <li>
+
+                        </li>
                         <li><a th:href="@{/logout}">로그아웃</a></li>
                     </th:block>
+                    <li th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a th:href="@{/my/schedule}">Fullcalendar</a>
+                    </li>
+                    <li>
                 </ul>
             </div>
         </div>
@@ -92,7 +91,9 @@
                     <tr th:each="apvDto : ${approvalDtoPage}"
                         th:onclick="|location.href='@{/apv/detail/{id}(id=${apvDto.id})}'|">
                         <td th:text="${apvDto.id}"></td>
-                        <td th:text="${apvDto.apvTitle}"></td>
+                        <td  class="atitle">
+                            <a th:href="@{/apv/detail/{id}(id=${apvDto.id})}"><label th:text="${apvDto.apvTitle}"> </label></a>
+                        </td>
                         <td th:text="${apvDto.approvalDivEntity.apvDivName}"></td>
                         <td th:text="${apvDto.memberEntity.name}"></td>
                         <td th:text="${#temporals.format(apvDto.createTime, 'yyyy-MM-dd HH:mm')}"></td>

@@ -11,8 +11,10 @@ import org.spring.codingStory.approval.repository.ApprovalRepository;
 import org.spring.codingStory.approval.repository.ApprovalStatusRepository;
 import org.spring.codingStory.approval.serviceImpl.service.ApprovalService;
 import org.spring.codingStory.member.entity.MemberEntity;
+import org.spring.codingStory.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +33,8 @@ public class ApprovalServiceImpl implements ApprovalService {
     private final ApprovalFileRepository approvalFileRepository;
 
     private final ApprovalStatusRepository approvalStatusRepository;
+
+    private final MemberRepository memberRepository;
 
     @Override
     public void apvWrite(ApprovalDto approvalDto) throws IOException {
@@ -151,11 +155,9 @@ public class ApprovalServiceImpl implements ApprovalService {
     @Override
     public Page<ApprovalDto> apvWaitList(Pageable pageable, String subject
         , Long approvalStatusEntity_Id, String search, String name) {
-
         Page<ApprovalEntity> approvalEntityPage=null;
         ApprovalStatusEntity approvalStatusEntity
             = ApprovalStatusEntity.builder().id(approvalStatusEntity_Id).build();
-
         if (subject!=null && subject.equals("")){
             subject=null;
         }
@@ -281,6 +283,7 @@ public class ApprovalServiceImpl implements ApprovalService {
         return apvMyCount;
     }
 
+
     @Override
     public Long apvMyDenyCount(Long memberId, Long approvalStatusEntity_Id) {
         Long apvMyDenyCount = approvalRepository.countByMemberEntity_IdAndApprovalStatusEntity_Id(memberId,approvalStatusEntity_Id);
@@ -405,6 +408,35 @@ public class ApprovalServiceImpl implements ApprovalService {
         approvalRepository.save(approvalEntity);
     }
 
-
+    @Override
+    public String getDepartmentByApvFnlName(Long id) {
+        // 보고서의 id 찾기
+        ApprovalEntity approvalEntity = approvalRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("보고서 없음"));
+        // 결재자의 이름찾기
+        String apvFnlName = approvalEntity.getApvFnl();
+        // MemberEntity에서 이름값을 통해 불러오기
+        MemberEntity memberEntity = memberRepository.findByName(apvFnlName)
+            .orElseThrow(() -> new RuntimeException("회원 없음"));
+        // 부서정보 가져오기
+        return memberEntity.getDepartment();
+    }
+    @Override
+    public String getRankByApvFnlName(Long id) {
+        // 보고서의 id 찾기
+        ApprovalEntity approvalEntity = approvalRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("보고서 없음"));
+        // 결재자의 이름찾기
+        String apvFnlName = approvalEntity.getApvFnl();
+        // MemberEntity에서 이름값을 통해 불러오기
+        MemberEntity memberEntity = memberRepository.findByName(apvFnlName)
+            .orElseThrow(() -> new RuntimeException("회원 없음"));
+        // 직급 정보가져오기
+        return memberEntity.getMRank();
+    }
 }
+
+//@Query(value = "SELECT department FROM memberEntity WHERE name = (SELECT apv_Fnl FROM approvalDto WHERE id = :id")
+//String apvFnlDept();
+
 

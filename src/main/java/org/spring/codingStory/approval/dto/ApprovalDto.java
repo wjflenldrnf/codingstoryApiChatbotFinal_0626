@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 @AllArgsConstructor
@@ -44,7 +43,7 @@ public class ApprovalDto {
     //dto만 따로 추가
     private String apvDiv;
 
-    //dto만 따로 추가
+    //DTO 추가
     private String apvOldFileName;
 
     private MemberEntity memberEntity;

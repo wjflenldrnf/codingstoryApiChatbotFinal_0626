@@ -3,6 +3,7 @@ package org.spring.codingStory.member.serviceImpl.service;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -38,5 +39,14 @@ public interface MemberService {
 
   void profileUpdate(MemberDto memberDto) throws IOException;
 
+  int memberJoin2(MemberDto memberDto) throws IOException;
+
+  void memberMDUdate(MemberDto memberDto);
+
+  void memberMRankUpdate(MemberDto memberDto);
+
+  void memberDepartUpdate(MemberDto memberDto);
+
+  MemberDto memberTest(Long id);
 
 }

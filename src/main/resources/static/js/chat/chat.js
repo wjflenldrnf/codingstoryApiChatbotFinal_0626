@@ -45,22 +45,45 @@ function sendMessage(message){
 	});
 }
 
-function inputTagString(text){
-	var now=new Date();
-	var ampm=(now.getHours()>11)?"오후":"오전";
-	var time= ampm + now.getHours()%12+":"+now.getMinutes();
-	var message=`
-		<div class="msg user flex end">
-			<div class="message">
-				<div class="part">
-					<p>${text}</p>
-				</div>
-				<div class="time">${time}</div>
-			</div>
-		</div>
-	`;
-	return message;
+//function inputTagString(text){
+//	var now=new Date();
+//	var ampm=(now.getHours()>11)?"오후":"오전";
+//	var time= ampm + now.getHours()%12+":"+now.getMinutes();
+//	var message=`
+//		<div class="msg user flex end">
+//			<div class="message">
+//				<div class="part">
+//					<p>${text}</p>
+//				</div>
+//				<div class="time">${time}</div>
+//			</div>
+//		</div>
+//	`;
+//	return message;
+//}
+function inputTagString(text) {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes().toString().padStart(2, '0');
+//    var ampm = (hours >= 12) ? "오후" : "오전";
+//    var displayHours = (hours % 12) || 12;  // 0이면 12로 변경
+    var time = `${hours}:${minutes}`;
+
+    var message = `
+        <div class="msg user flex end">
+            <div class="message">
+                <div class="part">
+                    <p>${text}</p>
+                </div>
+                <div class="time">${time}</div>
+            </div>
+        </div>
+    `;
+    return message;
 }
+
+
+
 //메뉴클릭시 메뉴 텍스트 화면에 표현
 function menuclicked(el){
 	var text=$(el).text().trim();
@@ -70,7 +93,7 @@ function menuclicked(el){
 	showMessage(message);
 }
 
-//엔터가 입력이되면 질문을 텍스트 화면에 표현 
+//엔터가 입력이되면 질문을 텍스트 화면에 표현
 function questionKeyuped(event){
 	if(event.keyCode!=13) return;
 	btnMsgSendClicked() // Enter 키가 눌리면 btnMsgSendClicked 함수 호출

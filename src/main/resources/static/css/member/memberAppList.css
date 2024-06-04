@@ -1,4 +1,5 @@
 @import url(/css/common/reset.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 
 p{
 padding:10px;
@@ -14,7 +15,10 @@ display: flex;
     gap: 20px;
 }
 
-
+img{
+width:260px;
+height:260px;
+}
 
 .list{
 display:flex;
@@ -38,7 +42,8 @@ display: flex;
     padding-top: 20px;
     gap:20px;
     border: 1px solid;
-        width: 800px;
+        width: 700px;
+        border-radius:10%;
 }
 .center-bottom{
     display: flex;
@@ -53,15 +58,22 @@ display: flex;
     align-items: center;
     gap:5px;
     border: 1px solid #ccc;
+    border-radius:50px;
         width: 250px;
-        height:60px;
+        height:70px;
+        text-align:center;
+        overflow:hidden;
+         text-overflow: ellipsis;
+            white-space: nowrap;
 }
 .info label{
-font-size:20px;
+font-size:18px;
 font-weight:bold;
+color:#000;
 }
 .info span{
-color:#7b8994;
+color:#fff;
+font-weight:bold;
 }
 
 
@@ -69,15 +81,17 @@ color:#7b8994;
 
 #pageNextBtn{
 border:0;
-background-color:#ffffff;
 font-size:50px;
-color:#6e6e6e;
+color:#c5c1e0;
+width:0;
+cursor:pointer;
 }
 #pageBeforeBtn{
 border:0;
-background-color:#ffffff;
+color:#c5c1e0;
 font-size:50px;
-color:#6e6e6e;
+width:0;
+cursor:pointer;
 }
 
 .down{
@@ -91,17 +105,28 @@ justify-content:center;
 align-items:center;
 }
 
+.down span{
+color:#ffffff;
+}
+.down a{
+color: #fff;
+}
 
 .gogo{
 display:flex;
-gap:30px;
+gap:100px;
 }
 .gogo button{
+font-family: "Noto Sans KR", sans-serif;
 width:200px;
 height:50px;
 border-radius:6px;
 border:0;
-background-color:#ccc;
+background-color:#40464d;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    cursor:pointer;
 }
 
 
@@ -123,6 +148,18 @@ padding:10px;
 
 select{
 width:50%;
-text-align:center;
-padding:5px;
+height:30px;
+padding:0 20px;
+font-family: "Noto Sans KR", sans-serif;
+border-radius:5px;
+font-size:15px;
+box-sizing:border-box;
+font-weight:bold;
+    background-color: #2e5b82;
+    border: 1px solid #fff;
+    color: #fff;
 }
+select option{
+font-weight:bold;
+}
+

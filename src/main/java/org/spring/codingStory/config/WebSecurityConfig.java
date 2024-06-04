@@ -4,9 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -37,9 +34,10 @@ public class WebSecurityConfig {
 
 
         http.authorizeRequests()
-                .antMatchers("/js/**","/css/**").permitAll()
-                .antMatchers().authenticated()
-                .antMatchers().hasAnyRole()
+                .antMatchers("member/login","member/join","/member/findCheck","/member/findPasswordOk").permitAll()
+                .antMatchers("/js/**","/css/**", "/images/***").permitAll()
+                .antMatchers("/index","/member/myDetail/**","/member/memberInfo/**").authenticated()
+                .antMatchers("/member/memberList","/member/memberAppList","/member/memberInfo/**","/department/**").hasAnyRole("ADMIN")
                 .antMatchers().hasAnyRole()
                 .anyRequest().permitAll();
 

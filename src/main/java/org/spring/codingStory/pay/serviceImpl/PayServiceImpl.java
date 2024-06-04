@@ -1,7 +1,6 @@
 package org.spring.codingStory.pay.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.codingStory.attendance.entity.AttendanceEntity;
 import org.spring.codingStory.attendance.repository.AttendanceRepository;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.pay.dto.PayDto;
@@ -11,8 +10,6 @@ import org.spring.codingStory.pay.serviceImpl.service.PayService;
 import org.spring.codingStory.payment.entity.PaymentEntity;
 import org.spring.codingStory.payment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,13 +19,23 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Transactional
 @Service
 @RequiredArgsConstructor
 public class PayServiceImpl implements PayService {
+
+    @Autowired
+    private final AttendanceRepository attendanceRepository;
+
+    @Autowired
+    private PayRepository payRepository;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
+
+    ////////////////////////////////////////////////////////////////////////////////
 
     @Override
     public int updateOk(PayDto payDto) {
@@ -61,30 +68,8 @@ public class PayServiceImpl implements PayService {
         System.out.println("회원수정실패");
         throw new IllegalArgumentException("조회할 아이디가 없습니다.");
     }
-//    @Override
-//    public int updateOk(PayDto payDto) {
-//        PayEntity payEntity = PayEntity.toUpdatePayEntity(payDto);
-//        Long id = payRepository.save(payEntity).getId();
-//
-//        Optional<PayEntity> optionalPayEntity=payRepository.findById(id);
-//
-//        if(optionalPayEntity.isPresent()){
-//            System.out.println("수정 ok");
-//            return 0;
-//        }
-//        System.out.println("회원수정실패");
-//        throw new IllegalArgumentException("조회할 아이디가 없습니다.");
-//    }
 
-    @Autowired
-    private final AttendanceRepository attendanceRepository;
-
-    @Autowired
-    private PayRepository payRepository;
-
-    @Autowired
-    private PaymentRepository paymentRepository;
-
+    ////////////////////////////////////////////////////////////////////////////////
 
 
     @Transactional
@@ -114,6 +99,7 @@ public class PayServiceImpl implements PayService {
 
         // totalPay 계산
         Double totalPay = payInDur + payBns;
+//        Double totalPay = (double) Math.round(payInDur + payBns);
 
         payDto.setMemberEntity(MemberEntity.builder()
                 .id(payDto.getMemberId())

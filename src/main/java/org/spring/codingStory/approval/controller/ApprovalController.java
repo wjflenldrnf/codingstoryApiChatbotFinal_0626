@@ -1,23 +1,16 @@
 package org.spring.codingStory.approval.controller;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.spring.codingStory.approval.dto.ApprovalDivDto;
 import org.spring.codingStory.approval.dto.ApprovalDto;
 import org.spring.codingStory.approval.dto.ApprovalStatusDto;
-import org.spring.codingStory.approval.entity.ApprovalDivEntity;
 import org.spring.codingStory.approval.entity.ApprovalEntity;
-import org.spring.codingStory.approval.entity.ApprovalStatusEntity;
 import org.spring.codingStory.approval.repository.ApprovalStatusRepository;
 import org.spring.codingStory.approval.serviceImpl.ApprovalDivServiceImpl;
-import org.spring.codingStory.approval.serviceImpl.ApprovalFileServiceImpl;
 import org.spring.codingStory.approval.serviceImpl.ApprovalServiceImpl;
 import org.spring.codingStory.approval.serviceImpl.ApprovalStatusServiceImpl;
-import org.spring.codingStory.approval.serviceImpl.service.ApprovalDivService;
-import org.spring.codingStory.approval.serviceImpl.service.ApprovalService;
 import org.spring.codingStory.config.MyUserDetails;
 import org.spring.codingStory.department.dto.DepartmentDto;
-import org.spring.codingStory.department.entity.DepartmentEntity;
 import org.spring.codingStory.department.serviceimpl.service.DepartmentService;
 import org.spring.codingStory.mRank.serviceImpl.MRankServiceImpl;
 import org.spring.codingStory.member.dto.MemberDto;
@@ -26,22 +19,13 @@ import org.spring.codingStory.member.serviceImpl.MemberServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.naming.LinkLoopException;
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 
@@ -72,10 +56,10 @@ public class ApprovalController {
         model.addAttribute("memberName", myUserDetails.getMemberEntity().getName());
         model.addAttribute("mRank", myUserDetails.getMemberEntity().getMRank());
         model.addAttribute("department", myUserDetails.getMemberEntity().getDepartment());
+        model.addAttribute("approvalDto", approvalDto.getApvAttachFile());
+        model.addAttribute("approvalStatusDtoList", approvalStatusDtoList);
         model.addAttribute("memberDtoList", memberDtoList);
         model.addAttribute("approvalDivDtoList", approvalDivDtoList);
-        model.addAttribute("approvalStatusDtoList", approvalStatusDtoList);
-        model.addAttribute("approvalDto", approvalDto.getApvAttachFile());
         model.addAttribute("departmentDtoList", departmentDtoList);
 
         return "apv/write";
@@ -98,11 +82,9 @@ public class ApprovalController {
                            @RequestParam(name = "search", required = false) String search,
                            @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC)
                            Pageable pageable) {
-        System.out.println(">>>>>>>>>" + myUserDetails.getName());
         model.addAttribute("myUserDetails", myUserDetails);
         String name = myUserDetails.getName();
         Long memberId=myUserDetails.getMemberEntity().getId();
-
         Page<ApprovalDto> approvalDtoPage = approvalService.apvList(pageable, subject, search, name);
 
         Long apvCount=approvalService.apvCount(name);
@@ -147,7 +129,8 @@ public class ApprovalController {
         Long approvalStatusEntity_Id = 1L;
         Long memberId=myUserDetails.getMemberEntity().getId();
 
-        Page<ApprovalDto> approvalDtoPage = approvalService.apvWaitList(pageable, subject, approvalStatusEntity_Id, search, name);
+        Page<ApprovalDto> approvalDtoPage = approvalService.
+                apvWaitList(pageable, subject, approvalStatusEntity_Id, search, name);
         Long apvCount=approvalService.apvCount(name);
         Long apvWaitCount = approvalService.apvWaitCount(name,1L);
         Long apvDenyCount = approvalService.apvDenyCount(name,3L);
@@ -175,7 +158,7 @@ public class ApprovalController {
         return "/apv/waitList";
     }
 
-    // 반려된 보고서
+    // 반려한 보고서
     @GetMapping("/denyList")
     public String apvDenyList(Model model,
                               @AuthenticationPrincipal MyUserDetails myUserDetails,
@@ -225,8 +208,6 @@ public class ApprovalController {
                             @RequestParam(name = "search", required = false) String search,
                             @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC)
                             Pageable pageable) {
-
-        System.out.println(">>>>>>>>>" + myUserDetails.getName());
         model.addAttribute("myUserDetails", myUserDetails);
         Long memberId = myUserDetails.getMemberEntity().getId();
         String name = myUserDetails.getName();
@@ -266,14 +247,13 @@ public class ApprovalController {
                             @RequestParam(name = "search", required = false) String search,
                             @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.DESC)
                             Pageable pageable) {
-
-        System.out.println(">>>>>>>>>" + myUserDetails.getName());
         model.addAttribute("myUserDetails", myUserDetails);
         Long memberId = myUserDetails.getMemberEntity().getId();
         String name = myUserDetails.getName();
         Long approvalStatusEntity_Id = 3L;
 
-        Page<ApprovalDto> approvalDtoPage = approvalService.myApvDenyList(pageable, subject, search, memberId, approvalStatusEntity_Id);
+        Page<ApprovalDto> approvalDtoPage = approvalService
+                .myApvDenyList(pageable, subject, search, memberId, approvalStatusEntity_Id);
         Long apvCount=approvalService.apvCount(name);
         Long apvWaitCount = approvalService.apvWaitCount(name,1L);
         Long apvDenyCount = approvalService.apvDenyCount(name,3L);
@@ -320,7 +300,12 @@ public class ApprovalController {
         List<ApprovalStatusDto> approvalStatusDtoList = approvalStatusService.apvStatusList();
         ApprovalDto approvalDto = approvalService.apvDetail(id);
         List<MemberDto> memberDto= memberService.memberList();
+        String apvFnlDept= approvalService.getDepartmentByApvFnlName(id);
+        String apvFnlRank= approvalService.getRankByApvFnlName(id);
 
+        model.addAttribute("apvFnlName",approvalDto.getApvFnl()); //결재자의 이름
+        model.addAttribute("apvFnlDept",apvFnlDept); //결재자의 부서
+        model.addAttribute("apvFnlRank",apvFnlRank); //결재자의 직급
         model.addAttribute("memberDto",memberDto);
         model.addAttribute("mRank", approvalDto.getMemberEntity().getMRank());
         model.addAttribute("department", approvalDto.getMemberEntity().getDepartment());

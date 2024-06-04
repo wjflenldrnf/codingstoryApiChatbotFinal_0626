@@ -19,8 +19,10 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Transactional
 @RequiredArgsConstructor
@@ -200,5 +202,17 @@ public class NoticeServiceImpl implements NoticeService {
         NoticeEntity noticeEntity= noticeRepository.findById(id).orElseThrow(()->{
             throw new IllegalArgumentException("삭제할 게시물 없음");});
         noticeRepository.delete(noticeEntity);
+    }
+
+
+    @Override
+    public List<NoticeDto> noticeHit() {
+        List<NoticeEntity> hit = noticeRepository.findTop5ByOrderByNoticeHitDesc();
+
+        List<NoticeDto> noticeDtoList = hit.stream().map(
+                NoticeDto::toNoticeDto).collect(Collectors.toList());
+
+
+        return noticeDtoList;
     }
 }

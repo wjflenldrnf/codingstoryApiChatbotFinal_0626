@@ -7,10 +7,6 @@ import org.spring.codingStory.pay.dto.PayDto;
 import org.spring.codingStory.pay.serviceImpl.PayServiceImpl;
 import org.spring.codingStory.payment.dto.PaymentDto;
 import org.spring.codingStory.payment.serviceImpl.PaymentServiceImpl;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,11 +22,8 @@ import java.util.List;
 @RequestMapping("/pay")
 @Controller
 public class PayController {
-
     private final PayServiceImpl payServiceImpl;
     private final PaymentServiceImpl paymentServiceImpl;
-
-
 
     //////////////////////////////////////////////////////////
 
@@ -42,10 +35,8 @@ public class PayController {
 
         List<PaymentDto> paymentList = new ArrayList<>();
         if (subject == null || search == null) {
-
             paymentList = paymentServiceImpl.paymentList();
         } else {
-//            paymentDtoList=paymentServiceImpl.paymentDtoSearchList(subject,search);
             paymentList = paymentServiceImpl.paymentList();
         }
 
@@ -53,6 +44,9 @@ public class PayController {
 
         model.addAttribute("name", myUserDetails.getMemberEntity().getName());
         model.addAttribute("memberId", myUserDetails.getMemberEntity().getId());
+
+        model.addAttribute("userEmail",myUserDetails.getMemberEntity().getUserEmail());
+
         return "pay/payIndex";
     }
 
@@ -62,9 +56,8 @@ public class PayController {
     public String payUpdate(@ModelAttribute PayDto payDto,
                             BindingResult bindingResult) throws IOException {
         if (bindingResult.hasErrors()) {
-            return "pay/payDetail"; // 오류가 있을 경우 적절한 뷰로 이동
+            return "pay/payDetail";
         }
-
         if (payDto.getId() == null) {
             throw new IllegalArgumentException("The given id must not be null!");
         }

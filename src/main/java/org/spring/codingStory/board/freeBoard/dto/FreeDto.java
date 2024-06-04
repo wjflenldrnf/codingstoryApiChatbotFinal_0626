@@ -1,7 +1,6 @@
 package org.spring.codingStory.board.freeBoard.dto;
 
 import lombok.*;
-
 import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
 import org.spring.codingStory.board.freeBoard.entity.FreeFileEntity;
 import org.spring.codingStory.board.freeBoard.entity.FreeReplyEntity;

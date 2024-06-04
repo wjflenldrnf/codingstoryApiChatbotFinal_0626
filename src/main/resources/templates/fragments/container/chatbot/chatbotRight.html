@@ -5,25 +5,25 @@
         <div class="right-top">
             <div class="gnb">
                 <ul>
-                    <th:block sec:authorize="isAnonymous()">
-                        <li><a th:href="@{/member/login}">로그인</a></li>
-                        <li><a th:href="@{/member/join}">회원가입</a></li>
-                    </th:block>
                     <th:block sec:authorize="isAuthenticated()">
                         <div class="myInfo"
                              th:onClick="|location.href='@{/member/myDetail/{id}(id=${#authentication.principal.memberEntity.id})}'|">
                             <li>
-                                <p th:text="${#authentication.principal.department}"></p>부
-                            </li>
-                            <li>
-                                <p th:text="${#authentication.principal.mRank}"></p>
-                            </li>
-                            <li>
-                                <p th:text="${#authentication.principal.name}"></p>님
+                                <a th:text="${#authentication.principal.department}"></a>
+                                <a th:text="${#authentication.principal.mRank}"></a>
+                                <a th:text="${#authentication.principal.name}"></a>
+                                <p>님</p>
                             </li>
                         </div>
+                        <li>
+
+                        </li>
                         <li><a th:href="@{/logout}">로그아웃</a></li>
                     </th:block>
+                    <li th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a th:href="@{/my/schedule}">Fullcalendar</a>
+                    </li>
+                    <li>
                 </ul>
             </div>
         </div>
@@ -39,43 +39,33 @@
                                     <h1>자주하는 질문</h1>
                                     <ul>
                                         <li class="active">지각처리 방법 ▼
-                                            <div class="sub">
-                                                <ul class="subFaq">
-                                                    <li>지각을 3번 하게 되면 결석 1회로 취급됩니다.</li>
-                                                </ul>
-                                            </div>
+                                            <ul class="subFaq">
+                                                <li>지각을 3번 하게 되면 결석 1회로 취급됩니다.</li>
+                                            </ul>
                                         </li>
 
                                         <li class="active">산재처리 방법 ▼
-                                            <div class="sub">
-                                                <ul class="subFaq">
-                                                    <li class="sub">영수증과 진단서를 첨부하여 보고서를 작성하시면 됩니다.</li>
-                                                </ul>
-                                            </div>
+                                            <ul class="subFaq">
+                                                <li>영수증과 진단서를 첨부하여 보고서를 작성하시면 됩니다.</li>
+                                            </ul>
                                         </li>
 
                                         <li class="active">급여 계산 방법 ▼
-                                            <div class="sub">
-                                                <ul class="subFaq">
-                                                    <li class="sub">기본급에 추가 근무시에는 1분을 기준으로 계산하여 추가로 지급됩니다.</li>
-                                                </ul>
-                                            </div>
+                                            <ul class="subFaq">
+                                                <li>기본급에 추가 근무시에는 1분을 기준으로 계산하여 추가로 지급됩니다.</li>
+                                            </ul>
                                         </li>
 
                                         <li class="active">휴가 신청방법 ▼
-                                            <div class="sub">
-                                                <ul class="subFaq" style="display: block;">
-                                                    <li class="sub">각 부서의 부서장에게 휴가보고서 양식을 통해 결재받으면 됩니다.</li>
-                                                </ul>
-                                            </div>
+                                            <ul class="subFaq" >
+                                                <li>각 부서의 부서장에게 휴가보고서 양식을 통해 결재받으면 됩니다.</li>
+                                            </ul>
                                         </li>
 
                                         <li class="active">퇴사 시 절차 ▼
-                                            <div class="sub">
-                                                <ul class="subFaq" style="display: block;">
-                                                    <li class="sub">각 부서의 부서장에게 사직서를 작성한 뒤 인수인계를 해주시면 됩니다.</li>
-                                                </ul>
-                                            </div>
+                                            <ul class="subFaq">
+                                                <li>각 부서의 부서장에게 사직서를 작성한 뒤 인수인계를 해주시면 됩니다.</li>
+                                            </ul>
                                         </li>
 
                                     </ul>
@@ -94,7 +84,6 @@
                                           </span>
                                             </h3>
                                             <div id="chat-content">
-
                                             </div>
                                             <div id="chat-question" class="flex between">
                                                 <span class="flex column center"><i></i></span>

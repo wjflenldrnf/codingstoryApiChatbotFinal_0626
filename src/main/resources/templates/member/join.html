@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
 <head>
   <meta charset="UTF-8">
@@ -59,7 +58,7 @@
           </ul>
 
           <div class="address-one">
-            <input type="text" id="postcode" placeholder="우편번호">
+            <input type="text" id="postcode" placeholder="우편번호" readonly>
             <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
           </div>
           <div class="address-two">
@@ -70,13 +69,19 @@
 
           <div>
             <img th:src="@{/images/home.png}" alt="home">
-            <input type="text" id="address" name="address" placeholder="주소">
+            <input type="text" id="address" name="address" placeholder="주소" readonly>
           </div>
 
           <ul class="big phone">
           <div class="phone" id="phone">
             <img th:src="@{/images/phoneNumber.png}" alt="phoneNumber">
             <input type="text" id="phoneNumber" name="phoneNumber" placeholder="번호" maxlength="15" oninput="phoneNumberCheck()" >
+            <select name="zz" id="zz">
+              <option value="zz">통신사</option>
+              <option value="ZZ">SKT</option>
+              <option value="ZZ">KT</option>
+              <option value="ZZ">LG U+</option>
+            </select>
           </div>
             <span id="phoneNumberConfirm"></span>
           </ul>

@@ -1,63 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
 <head>
   <meta charset="UTF-8">
   <title>index</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
   <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />-->
   <link rel="stylesheet" th:href="@{/css/member/test.css}">
   <script th:src="@{/js/member/test.js}" defer></script>
 </head>
 <body>
-<div class="container">
-  <form th:action="@{/member/test}" method="post" enctype="multipart/form-data">
 
-  <input type="text" id="userEmail" name="userEmail">
-  <select name="userEmail2" id="userEmail2">
-    <option value="@story.com">story.com</option>
-    <option value="@naver.com">naver.com</option>
-    <option value="@nate.com">nate.com</option>
-    <option value="@gmail.com">gmail.com</option>
-    <option value="@kakao.com">kakao.com</option>
-  </select>
-  <input type="text" id="userPw" name="userPw" placeholder="비밀번호" maxlength="20">
-  <input type="text" id="name" name="name" placeholder="이름" maxlength="15">
-  <input type="text" id="address" name="address" placeholder="주소">
-  <input type="text" id="phoneNumber" name="phoneNumber" placeholder="번호" maxlength="15">
-  <label for="memberFile" class="btn">파일업로드</label>
-  <input id="memberFile" name="memberFile" style="display:none;" type="file">
-  </form>
+<div>
+  <input type="text" th:value="${member.id}">
+  <input type="text" th:value="${member.payEntityList?.totalPay}">
+  <input type="text" th:value="${member.paymentEntity.hourlyWage}">
 </div>
-<button onclick="memberJoinFn()">회원강빙비</button>
-
-<div class="sns">
-  <a th:href="@{/oauth2/authorization/google}"><img th:src="@{/images/google.png}" alt="google">구글로그인</a><br>
-  <a th:href="@{/oauth2/authorization/kakao}"><img th:src="@{/images/kakao.png}" alt="kakao"></a> <br>
-  <a th:href="@{/oauth2/authorization/naver}"><img th:src="@{/images/naver.png}" alt="naver"></a>
-</div>
-
-<div class="google">
-  <a th:href="@{/oauth2/authorization/google}"><img th:src="@{/images/google.png}" alt="google">구글로그인</a>
-</div>
-
-<div class="google2">
-  <ul>
-    <li>
-  <img th:src="@{/images/google.png}" alt="google">
-    </li>
-    <li>
-      <p>구글로그인</p>
-    </li>
-
-  </ul>
-</div>
-
-
-
 
 </body>
 </html>

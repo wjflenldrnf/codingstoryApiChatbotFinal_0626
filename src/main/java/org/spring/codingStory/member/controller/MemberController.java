@@ -5,16 +5,11 @@ import org.spring.codingStory.config.MyUserDetails;
 import org.spring.codingStory.department.dto.DepartmentDto;
 import org.spring.codingStory.department.serviceimpl.service.DepartmentService;
 import org.spring.codingStory.mRank.dto.RankDto;
-import org.spring.codingStory.mRank.entity.RankEntity;
-import org.spring.codingStory.mRank.repository.MRankRepository;
 import org.spring.codingStory.mRank.serviceImpl.service.MRankService;
 import org.spring.codingStory.member.dto.MemberDto;
-import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.repository.MemberRepository;
-import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.member.serviceImpl.service.MemberService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -29,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
@@ -107,7 +101,7 @@ public class MemberController {
 
     int size = memberDto.getSize(); // 페이지당 보이는 갯수
 
-    int blockNum = 3; // 브라우저에 보이는 페이지 번호
+    int blockNum = 5; // 브라우저에 보이는 페이지 번호
 
     int startPage = (int) ((Math.floor(newPage / blockNum) * blockNum) + 1 <= totalPages
             ? (Math.floor(newPage / blockNum)* blockNum ) + 1
@@ -266,10 +260,44 @@ public class MemberController {
  }
 
 
-  @GetMapping("/test")
-  public String test(){
+  @GetMapping("/test/{id}")
+  public String test(MemberDto memberDto,Model model,@PathVariable("id")Long id){
+
+
+    MemberDto member=memberService.memberTest(id);
+    model.addAttribute("member",member);
+
 
     return "member/test";
   }
+
+
+  @PostMapping("/MDUpdate")
+  public String memberMDUpdate(MemberDto memberDto){
+
+    memberService.memberMDUdate(memberDto);
+
+
+    return "redirect:/member/memberInfo/"+memberDto.getId();
+  }
+
+  @PostMapping("/MRankUpdate")
+  public String memberMRankUpdate(MemberDto memberDto){
+
+
+    memberService.memberMRankUpdate(memberDto);
+    return "member/memberInfo/"+memberDto.getId();
+  }
+
+  @PostMapping("/departUpdate")
+  public String memberDepartUpdate(MemberDto memberDto){
+
+
+    memberService.memberDepartUpdate(memberDto);
+
+    return "member/memberInfo/"+memberDto.getId();
+
+  }
+
 
 }

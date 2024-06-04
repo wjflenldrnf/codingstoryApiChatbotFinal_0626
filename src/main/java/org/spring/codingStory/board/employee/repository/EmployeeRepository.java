@@ -21,4 +21,6 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity,Long> {
     Page<EmployeeEntity> findByCategoryInAndEmpTitleContains(List<String> categories, String search, Pageable pageable);
 
     Page<EmployeeEntity> findByCategoryInAndEmpContentContains(List<String> categories, String search, Pageable pageable);
+
+    List<EmployeeEntity> findTop5ByOrderByEmpHitDesc();
 }

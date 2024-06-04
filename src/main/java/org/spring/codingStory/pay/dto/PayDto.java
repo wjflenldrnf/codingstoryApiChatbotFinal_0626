@@ -6,12 +6,8 @@ import org.spring.codingStory.pay.entity.PayEntity;
 import org.spring.codingStory.payment.entity.PaymentEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -34,30 +30,26 @@ public class PayDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date endDate;
 
-
     /////////////////////////////////////
 
-
     private Time calcTime;
-
     private Double payInDur;
 
+    @Builder.Default
     private Double payBns = 0.0;
 
     private Double totalPay;
-
     private LocalDate payingDate;
-
     private PaymentEntity paymentEntity;
     private Long paymentId;
+
+    /////////////////////////////////////
 
     public static PayDto toSelectOnePayDtoList(PayEntity payEntity) {
         PayDto payDto = new PayDto();
         payDto.setId(payEntity.getId());
         payDto.setMemberEntity(payEntity.getMemberEntity());
-
-        payDto.setMemberId(payEntity.getMemberEntity().getId()); // 추가된 부분
-
+        payDto.setMemberId(payEntity.getMemberEntity().getId());
         payDto.setPaymentEntity(payEntity.getPaymentEntity());
         payDto.setStartDate(payEntity.getStartDate());
         payDto.setEndDate(payEntity.getEndDate());

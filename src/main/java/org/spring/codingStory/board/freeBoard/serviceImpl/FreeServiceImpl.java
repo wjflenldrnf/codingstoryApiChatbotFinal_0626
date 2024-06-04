@@ -2,9 +2,6 @@ package org.spring.codingStory.board.freeBoard.serviceImpl;
 
 
 import lombok.RequiredArgsConstructor;
-import org.spring.codingStory.board.employee.dto.EmployeeDto;
-import org.spring.codingStory.board.employee.entity.EmployeeEntity;
-import org.spring.codingStory.board.employee.entity.EmployeeFileEntity;
 import org.spring.codingStory.board.freeBoard.dto.FreeDto;
 import org.spring.codingStory.board.freeBoard.dto.FreeFileDto;
 import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
@@ -12,8 +9,6 @@ import org.spring.codingStory.board.freeBoard.entity.FreeFileEntity;
 import org.spring.codingStory.board.freeBoard.repository.FreeFileRepository;
 import org.spring.codingStory.board.freeBoard.repository.FreeRepository;
 import org.spring.codingStory.board.freeBoard.serviceImpl.service.FreeService;
-import org.spring.codingStory.board.notice.dto.NoticeDto;
-import org.spring.codingStory.board.notice.entity.NoticeEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,8 +19,10 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Transactional
 @RequiredArgsConstructor
@@ -202,6 +199,18 @@ public class FreeServiceImpl implements FreeService {
         FreeEntity freeEntity= freeRepository.findById(id).orElseThrow(()->{
             throw new IllegalArgumentException("삭제할 게시물 없음");});
         freeRepository.delete(freeEntity);
+    }
+
+    @Override
+    public List<FreeDto> freeHit() {
+
+        List<FreeEntity> hit = freeRepository.findTop5ByOrderByFreeHitDesc();
+
+        List<FreeDto> freeDtoList = hit.stream().map(
+                FreeDto::toFreeDto).collect(Collectors.toList());
+
+
+        return freeDtoList;
     }
 }
 

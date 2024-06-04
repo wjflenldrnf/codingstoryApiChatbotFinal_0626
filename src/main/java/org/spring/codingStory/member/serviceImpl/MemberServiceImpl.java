@@ -1,8 +1,6 @@
 package org.spring.codingStory.member.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.codingStory.department.entity.DepartmentEntity;
-import org.spring.codingStory.department.repository.DepartmentRepository;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.dto.MemberFileDto;
 import org.spring.codingStory.member.entity.MemberEntity;
@@ -392,6 +390,87 @@ public class MemberServiceImpl implements MemberService {
     }
   }
 
+  @Override
+  public int memberJoin2(MemberDto memberDto) throws IOException {
+    if (memberDto.getMemberFile().isEmpty()) {
+      MemberEntity memberEntity = MemberEntity.toJoinMember(memberDto, passwordEncoder);
+      memberRepository.save(memberEntity);
+      return 1;
+    } else {
+      MultipartFile memberFile = memberDto.getMemberFile();
+
+      String oldFileName = memberFile.getOriginalFilename();
+      UUID uuid = UUID.randomUUID();
+      String newFileName = uuid + "_" + oldFileName;
+      String fileSavePath = "C:/codingStory_file/" + newFileName;
+      memberFile.transferTo(new File(fileSavePath));
+
+      MemberEntity memberEntity = MemberEntity.toJoinFileMember(memberDto, passwordEncoder);
+      Long id = memberRepository.save(memberEntity).getId();
+
+      Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+      if (optionalMemberEntity.isPresent()) {
+        MemberEntity memberEntity1 = optionalMemberEntity.get();
+
+        MemberFileDto fileDto = MemberFileDto.builder().memberOldFileName(oldFileName)
+                .memberNewFileName(newFileName)
+                .memberEntity(memberEntity1)
+                .build();
+
+        MemberFileEntity fileEntity = MemberFileEntity.toInsertFile(fileDto);
+        fileRepository.save(fileEntity);
+        return 1;
+      } else {
+        throw new IllegalArgumentException("xxxx");
+      }
+    }
+  }
+
+
+  @Override
+  public void memberMDUdate(MemberDto memberDto) {
+
+    MemberEntity memberEntity=memberRepository.findById(memberDto.getId()).orElseThrow(IllegalArgumentException::new);
+
+    memberEntity=MemberEntity.MDUpdate(memberDto);
+
+    memberRepository.save(memberEntity);
+  }
+
+  @Override
+  public void memberMRankUpdate(MemberDto memberDto) {
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("xx"));
+
+    memberEntity.setMRank(memberDto.getMRank());
+
+    memberRepository.save(memberEntity);
+  }
+
+  @Override
+  public void memberDepartUpdate(MemberDto memberDto) {
+    MemberEntity memberEntity = memberRepository.findById(memberDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("xx"));
+
+    memberEntity.setDepartment(memberDto.getDepartment());
+
+    memberRepository.save(memberEntity);
+  }
+
+  @Override
+  public MemberDto memberTest(Long id) {
+    Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+
+    if (optionalMemberEntity.isPresent()) {
+
+      MemberEntity memberEntity = optionalMemberEntity.get();
+
+      MemberDto memberDto = MemberDto.toSelectMemberTest(memberEntity);
+
+      return memberDto;
+    }
+    return null;
+  }
 
 
   @Override

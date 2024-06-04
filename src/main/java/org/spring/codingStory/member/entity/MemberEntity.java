@@ -8,10 +8,10 @@ import org.spring.codingStory.board.freeBoard.entity.FreeEntity;
 import org.spring.codingStory.board.notice.entity.NoticeEntity;
 import org.spring.codingStory.contraint.BaseTimeEntity;
 import org.spring.codingStory.department.entity.DepartmentEntity;
+import org.spring.codingStory.mRank.entity.RankEntity;
 import org.spring.codingStory.member.dto.MemberDto;
 import org.spring.codingStory.member.role.Role;
 import org.spring.codingStory.pay.entity.PayEntity;
-import org.spring.codingStory.mRank.entity.RankEntity;
 import org.spring.codingStory.payment.entity.PaymentEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -45,7 +45,8 @@ public class MemberEntity extends BaseTimeEntity {
   @Column(nullable = true)
   private String department;
 
-  @Column(nullable = true ,unique = true)
+
+  @Column(nullable = true )
   private String mRank;
 
   @Column(nullable = true) // 기본이 널 허용
@@ -220,6 +221,16 @@ public class MemberEntity extends BaseTimeEntity {
   @JsonIgnore
   @OneToOne(mappedBy = "memberEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private PaymentEntity paymentEntity;
+
+  public static MemberEntity MDUpdate(MemberDto memberDto) {
+
+    MemberEntity memberEntity=new MemberEntity();
+    memberEntity.setId(memberDto.getId());
+    memberEntity.setMRank(memberDto.getMRank());
+    memberEntity.setDepartment(memberDto.getDepartment());
+
+    return memberEntity;
+  }
 
   /////////////////////////////////////////////////////////////////
 }
