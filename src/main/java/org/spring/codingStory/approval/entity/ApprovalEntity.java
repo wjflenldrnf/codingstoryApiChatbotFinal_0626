@@ -118,7 +118,7 @@ public class ApprovalEntity extends BaseTimeEntity {
         approvalEntity.setId(approvalDto.getId());
         approvalEntity.setApvTitle(approvalDto.getApvTitle());
         approvalEntity.setApvContent(approvalDto.getApvContent());
-        if (approvalDto.getApvFile().isEmpty()){
+        if (approvalEntity.getApvAttachFile()==0){
         approvalEntity.setApvAttachFile(0);
         }else{
             approvalEntity.setApvAttachFile(1);

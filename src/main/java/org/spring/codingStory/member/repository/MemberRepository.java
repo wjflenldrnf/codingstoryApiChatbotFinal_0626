@@ -1,6 +1,5 @@
 package org.spring.codingStory.member.repository;
 
-import org.spring.codingStory.department.entity.DepartmentEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.role.Role;
 import org.springframework.data.domain.Page;

@@ -3,20 +3,15 @@ package org.spring.codingStory.fullcalender.controller;
 import lombok.RequiredArgsConstructor;
 import org.spring.codingStory.config.MyUserDetails;
 import org.spring.codingStory.fullcalender.dto.FullCalenderDto;
-import org.spring.codingStory.fullcalender.entity.FullCalenderEntity;
 import org.spring.codingStory.fullcalender.serviceImpl.service.FullCalenderService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value = "/api",produces = "application/json")
@@ -46,21 +41,10 @@ public class ApiController {
   }
 
 
-  @GetMapping("/user")
-  public List<FullCalenderDto> getUserEvents(@AuthenticationPrincipal MyUserDetails myUserDetails){
-    Long userId= myUserDetails.getMemberEntity().getId();
-    return fullCalenderService.getUserEvents(userId);
-  }
-  @GetMapping("/all")
-  public List<FullCalenderDto> getAllEvents(){
-    return fullCalenderService.getAllEvents();
-  }
-
-
-
   @GetMapping("/calendar")
   @ResponseBody
-  public List<FullCalenderDto> myCalendar(@ModelAttribute FullCalenderDto dto,@AuthenticationPrincipal MyUserDetails myUserDetails){
+  public List<FullCalenderDto> myCalendar(@ModelAttribute FullCalenderDto dto,
+                                          @AuthenticationPrincipal MyUserDetails myUserDetails){
 
     return fullCalenderService.myFullCallerListAll(myUserDetails.getMemberEntity().getId());
   }
@@ -68,7 +52,8 @@ public class ApiController {
 
 
   @PostMapping("/calendar/delete")
-  public ResponseEntity<Object> deleteCalendarEvent(@RequestBody Map<String,Integer> data, @AuthenticationPrincipal MyUserDetails myUserDetails){
+  public ResponseEntity<Object> deleteCalendarEvent(@RequestBody Map<String,Integer> data,
+                                                    @AuthenticationPrincipal MyUserDetails myUserDetails){
     String  username= myUserDetails.getUsername();
     Integer eventId=data.get("eventId");
 

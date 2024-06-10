@@ -13,23 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/chatbot")
 public class ChatBotController {
 
-	@Autowired
-	private KomoranService komoranService;
+    @Autowired
+    private KomoranService komoranService;
 
-	@GetMapping("/chatIndex")
-	public String message(MessageDTO messageDTO){
+    @GetMapping("/chatIndex")
+    public String message(MessageDTO messageDTO) {
 
-	return "chatbot/chatIndex";
-	}
+        return "chatbot/chatIndex";
+    }
 
 
-	@PostMapping("/botController")
-	public String message(String message,Model model) throws Exception {
-		
-		MessageDTO messageDTO = (MessageDTO) model.addAttribute("msg", komoranService.nlpAnalyze(message));
+    @PostMapping("/botController")
+    public String message(String message, Model model) throws Exception {
 
-		System.out.println(messageDTO.getToday());
-		
-		return "chatbot/bot-message";
-	}
+        model.addAttribute("msg", komoranService.nlpAnalyze(message));
+
+        return "chatbot/bot-message";
+    }
 }

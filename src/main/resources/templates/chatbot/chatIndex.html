@@ -13,8 +13,9 @@
 </th:block>
 
 <th:block layout:fragment="script">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js" defer></script>
     <script th:src="@{/js/chat/chat.js}" defer> </script>
+    <script th:src="@{/js/chat/faq.js}" defer> </script>
 </th:block>
 
 </html>

@@ -14,24 +14,24 @@
                 <ul>
                     <!-- 사원관리 메뉴 -->
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                    <li class="sub">
-                        <img th:src="@{/images/emp.png}" alt="icon">
-                        <div class="right">
-                            <h3>사원관리</h3>
-                            <ul class="submenu">
-                                <li th:onClick="|location.href='@{/member/memberList}'|">
-                                    <a>사원목록</a>
-                                </li>
-                                <li th:onClick="|location.href='@{/member/memberAppList}'|">
-                                    <a>가입승인</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                        <li class="sub">
+                            <img th:src="@{/images/emp.png}" alt="icon">
+                            <div class="right">
+                                <h3>사원관리</h3>
+                                <ul class="submenu">
+                                    <li th:onClick="|location.href='@{/member/memberList}'|">
+                                        <a>사원목록</a>
+                                    </li>
+                                    <li th:onClick="|location.href='@{/member/memberAppList}'|">
+                                        <a>가입승인</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                     </th:block>
                     <!-- 기타 메뉴들 -->
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                    <li class="menuGo" th:onClick="|location.href='@{/department/department}'|"><img th:src="@{/images/depart.png}" alt="icon"><a>부서관리</a></li>
+                        <li class="menuGo" th:onClick="|location.href='@{/department/department}'|"><img th:src="@{/images/depart.png}" alt="icon"><a>부서관리</a></li>
                     </th:block>
                     <li class="menuGo" th:onClick="|location.href='@{/pay}'|"><img th:src="@{/images/pay.png}" alt="icon"><a>급여관리</a></li>
                     <li class="menuGo" th:onClick="|location.href='@{/attendance}'|"><img th:src="@{/images/add.png}" alt="icon"><a>근태관리</a></li>

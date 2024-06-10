@@ -43,7 +43,7 @@ public class ApprovalDto {
     //dto만 따로 추가
     private String apvDiv;
 
-    //dto만 따로 추가
+    //DTO 추가
     private String apvOldFileName;
 
     private MemberEntity memberEntity;

@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             },
 
+
             // 이벤트 구현
             AddEventButton: {
                 // 오른쪽 텍스트
@@ -140,7 +141,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         start: element.start,
                         end: element.end,
                     })
-                })
+                });
+
+                //개인 일정 캘린더 초기화 및 데이터 추가
+                $('#personalCalendar').fullCalendar({
+                      events:data.personalEvents //개인일정 데이터추가
+                });
+
+
                 //calendar.render();
                 result = data
             })

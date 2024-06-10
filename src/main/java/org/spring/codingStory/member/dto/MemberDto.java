@@ -1,6 +1,7 @@
 package org.spring.codingStory.member.dto;
 
 import lombok.*;
+import org.spring.codingStory.approval.entity.ApprovalEntity;
 import org.spring.codingStory.department.entity.DepartmentEntity;
 import org.spring.codingStory.mRank.entity.RankEntity;
 import org.spring.codingStory.member.entity.MemberEntity;
@@ -111,6 +112,31 @@ public class MemberDto {
             memberDto.setMemberAttachFile(memberEntity.getMemberAttachFile());
             memberDto.setMemberNewFileName(memberEntity.getMemberFileEntityList().get(0).getMemberNewFileName());
             memberDto.setMemberOldFileName(memberEntity.getMemberFileEntityList().get(0).getMemberOldFileName());
+        }
+
+        return memberDto;
+
+    }
+
+    public static MemberDto toSelectMemberDto1(MemberEntity member) {
+        MemberDto memberDto=new MemberDto();
+        memberDto.setId(member.getId());
+        memberDto.setUserEmail(member.getUserEmail());
+        memberDto.setName(member.getName());
+        memberDto.setDepartment(member.getDepartment());
+        memberDto.setMRank(member.getMRank());
+        memberDto.setAddress(member.getAddress());
+        memberDto.setPhoneNumber(member.getPhoneNumber());
+        memberDto.setRole(member.getRole());
+        memberDto.setCreateTime(member.getCreateTime());
+        memberDto.setUpdateTime(member.getUpdateTime());
+
+        if (member.getMemberAttachFile() == 0) {
+            memberDto.setMemberAttachFile(member.getMemberAttachFile());
+        } else {
+            memberDto.setMemberAttachFile(member.getMemberAttachFile());
+            memberDto.setMemberNewFileName(member.getMemberFileEntityList().get(0).getMemberNewFileName());
+            memberDto.setMemberOldFileName(member.getMemberFileEntityList().get(0).getMemberOldFileName());
         }
 
         return memberDto;
