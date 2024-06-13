@@ -37,14 +37,11 @@ public class EmpController {
         return "board/empWrite";
     }
 
-
     @PostMapping("/empWrite")
     public String empWriteOK(EmployeeDto employeeDto,
                                @AuthenticationPrincipal MyUserDetails myUserDetails,
                                Model model) throws IOException {
-
         employeeService.empInsertFile(employeeDto);
-
         return "redirect:/board/empList";
         //글 작성후에 employeeList 페이지로 이동
     }
@@ -93,13 +90,11 @@ public class EmpController {
 
         return "board/empDetail";
     }
-
     @PostMapping("/empUpdate")
     public String empUpdate(EmployeeDto employeeDto) throws IOException {
         employeeService.empUpdateOk(employeeDto);
         return "redirect:/board/empDetail/" + employeeDto.getId();
     }
-
     @GetMapping("/empUpdate/{Id}")
     public String empUpdate(@PathVariable("Id") Long Id,
                              @AuthenticationPrincipal MyUserDetails myUserDetails,
@@ -107,13 +102,11 @@ public class EmpController {
 
         EmployeeDto employeeDto = employeeService.detail(Id);
 
-
         model.addAttribute("emp", employeeDto);
         model.addAttribute("myUserDetails", myUserDetails);
 
         return "board/empUpdate";
     }
-
 
     @GetMapping("/empDelete/{id}")
     public String empDelete(@PathVariable("id") Long id) {
