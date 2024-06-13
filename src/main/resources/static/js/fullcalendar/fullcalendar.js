@@ -142,13 +142,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         end: element.end,
                     })
                 });
-
                 //개인 일정 캘린더 초기화 및 데이터 추가
                 $('#personalCalendar').fullCalendar({
                       events:data.personalEvents //개인일정 데이터추가
                 });
-
-
                 //calendar.render();
                 result = data
             })

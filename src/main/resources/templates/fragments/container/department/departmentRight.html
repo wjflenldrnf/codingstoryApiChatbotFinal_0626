@@ -113,15 +113,8 @@
               departmentTree.empty();
               // 부서 정보를 표시하는 함수 호출
               displayDepartments(data, departmentTree);
-
             });
           }
-
-
-
-
-
-
           // 부서 정보를 표시하는 함수
         function displayDepartments(departments, parentElement) {
           console.log(departments, " << departments");
@@ -136,6 +129,7 @@
             dept.forEach(function(el, idx2) {
               if (idx == idx2) {
                 console.log(el, " << 부서2");
+                departmentElement.html(department.dptName + " (" + el + "명)" +
                 departmentElement.html(department.dptName + " (" + el + "명)" +
                   " <button onclick='showMemberList(\"" + department.dptName + "\")'>멤버보기</button>");
                 parentElement.append(departmentElement);
@@ -152,7 +146,6 @@
             }
           });
         }
-
           function showMemberList(departmentName) {
             var memberListContainer = $("#member-list-" + departmentName);
             memberListContainer.toggle();
@@ -175,17 +168,11 @@
                       response.sort(function(a,b){
                         return rankMap[a.mrank] - rankMap[b.mrank];
                       });
-
                       var memberList = $("<ul>");
                       response.forEach(function(member){
                         //직급과 이름을 출력
                         memberList.append("<li>" + member.mrank + " " +member.name +"</li>");
                       });
-
-
-
-
-
                     var memberList = $("<ul>");
                     response.forEach(function(member,idx) {
                       console.log(member,' << member')
