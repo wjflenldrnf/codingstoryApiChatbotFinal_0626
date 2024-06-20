@@ -31,6 +31,13 @@ import java.util.Map;
 @Controller
 public class HomeController {
 
+    //api/weather/index
+    @GetMapping("/weather/weatherApiIndex")
+    public String weatherapi(){
+
+        return "weather/weatherApiIndex";
+    }
+
     private final FreeServiceImpl freeService;
     private final EmployeeServiceImpl employeeService;
     private final NoticeServiceImpl noticeService;
