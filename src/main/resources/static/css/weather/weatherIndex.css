@@ -40,6 +40,7 @@ html, body {
 }
 
 .weather-map {
-  flex: 0 0 200px;
+  /*flex: 0 0 200px;*/
+  flex: 2;
   height: 200px;
 }
