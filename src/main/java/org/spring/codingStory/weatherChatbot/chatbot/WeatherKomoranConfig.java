@@ -31,7 +31,7 @@ public class WeatherKomoranConfig {
 	WeatherRepository weatherName;
 
 	@Bean
-	Komoran weatherkomoran() {
+	Komoran weatherKomoran() {
 		userDic();
 
 		Komoran komoran=new Komoran(DEFAULT_MODEL.LIGHT);
