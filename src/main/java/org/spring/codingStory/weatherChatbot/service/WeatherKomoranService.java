@@ -15,12 +15,26 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class WeatherKomoranService {
+
+
+  // 도시 이름 매핑
+  private static final Map<String, String> CITY_NAME_MAP = new HashMap<>();
+  static {
+    CITY_NAME_MAP.put("야외", "Seoul");
+    CITY_NAME_MAP.put("본점", "Samjeon-dong");
+    CITY_NAME_MAP.put("노원", "Guri-si");
+    CITY_NAME_MAP.put("자동차관", "Munsan");
+    CITY_NAME_MAP.put("커플", "Yongsan");
+    // 필요한 다른 도시 이름 매핑 추가
+  }
 
 
 
@@ -107,37 +121,35 @@ public class WeatherKomoranService {
   ////////////////////////////////////
 
 
-  //전화 문의인경우 DB에서 사원을 을 찾아서 처리
+  //날씨 문의인경우 DB에서 지역을 찾아서 처리
   private TempInfo analyzeTokenIsTemp(Set<String> next) {
 
 
     System.out.println("check3");
-
     for (String name : next) {
-      System.out.println(name+" <<2nd check 2");
-      Optional<WeatherEntity> weather = weatherRepository.findByName(name);
-      System.out.println(weather.get().getName()+" <<< 44");
+      // 입력된 name 값을 매핑된 영어 이름으로 변환
+      String englishName = CITY_NAME_MAP.getOrDefault(name, name).trim();
+      System.out.println(englishName + " <<2nd check 2");
 
-      if (!weather.isPresent()) continue;
-      //존재하면
-//      String deptName = member.get().getDept().getDname();
+      Optional<WeatherEntity> weather = weatherRepository.findByName(englishName);
+      if (!weather.isPresent()) {
+        System.out.println(englishName + " not found in the database");
+        continue;
+      }
+      // 존재하면
       String temp = weather.get().getTemp();
       String weatherName = weather.get().getName();
+      String tempMax=weather.get().getTemp_max();
 
+      System.out.println("Found weather info: " + weatherName + " with temp: " + temp + " with temp_max" + tempMax);
 
-      System.out.println(weather.get().getName());
-      System.out.println(weather.get().getName());
-      System.out.println("check4");
       return TempInfo.builder()
-              /*.deptName(deptName)*/
               .temp(temp)
-              .weatherName(name)
+              .weatherName(weatherName)
+              .tempMax(tempMax)
               .build();
-
     }
-
     System.out.println("check5");
-
     return null;
   }
 
