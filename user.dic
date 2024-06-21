@@ -1,14 +1,14 @@
 	NNP
 11	NNP
 22	NNP
+>>>>>>> dev	NNP
 m1@11.11	NNP
-�?리자	NNP
 관리자	NNP
-������	NNP
-<<<<<<< HEAD
-m2@22.22	NNP
+<<<<<<< HEAD	NNP
 �����	NNP
-=======
-�����?	NNP
->>>>>>> dev
 admin@naver.com	NNP
+�?리자	NNP
+������	NNP
+m2@22.22	NNP
+=======	NNP
+�����?	NNP
