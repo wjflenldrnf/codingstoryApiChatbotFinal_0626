@@ -135,7 +135,6 @@ function displayMovieInfo(movieTitle, posterPath, movieOverview, releaseDate, au
             <h2>일일 박스오피스</h2>
               <p  class="showRange">단위 기간: ${DayShowRange}<p>
         </div>`;
-
     const movieHtml = `
         <div class="movie">
             <img src="${posterUrl}" alt="Movie Poster">
@@ -146,7 +145,6 @@ function displayMovieInfo(movieTitle, posterPath, movieOverview, releaseDate, au
             <p>누적관객수: ${audiAcc}명</p>
         </div>
     `;
-
     // 현재 추가하는 영화의 순위와 비교하여 적절한 위치에 추가 -> 순위 정렬
     let inserted = false;
     $('.movie').each(function() {
@@ -157,7 +155,6 @@ function displayMovieInfo(movieTitle, posterPath, movieOverview, releaseDate, au
             return false; // break each loop
         }
     });
-
     if (!inserted) {
         $('#movie-container').append(movieHtml); // 맨 마지막에 추가
     }
@@ -165,7 +162,6 @@ function displayMovieInfo(movieTitle, posterPath, movieOverview, releaseDate, au
            if (!$('.title').length) {
                $('#title').append(showRangeData); // 맨 마지막에 추가
            }
-
     console.log("movieCode displayed: " + movieCode);
 
     // 영화 제목을 클릭했을 때 실행될 함수를 설정합니다.
@@ -177,7 +173,6 @@ function displayMovieInfo(movieTitle, posterPath, movieOverview, releaseDate, au
         fetchMovieInfo(movieCodeClicked,clickedMovieTitle,clickedMovieOverview);
     });
 }
-
 
 // 영화 이름 클릭 시 영화 코드를 가져옴
 function fetchMovieInfo(movieCode,movieTitle,movieOverview) {
