@@ -13,4 +13,8 @@ public class TempInfo {
 	private String weatherName;
 	private String temp;
 
+
+	private String tempMax;
+	private String humidity;
+
 }

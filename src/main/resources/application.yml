@@ -46,3 +46,12 @@ logging:
 
 filePath: file:///c:/codingStory_file/
 
+
+tmdb:
+  api:
+    key: ba65bca7bd473078269aa9976068045a
+
+kofic:
+  api:
+    key: a00c456adf2ded3c39df93f44cf40503
+
