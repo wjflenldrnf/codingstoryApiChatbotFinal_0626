@@ -53,7 +53,7 @@ public class KomoranConfig {
 				while ((data = br.readLine()) != null) {
 					if (data.startsWith("#"))//주석이 있으면 주석 제거
 						continue;
-					String[] str = data.split("\\t"); // 탭영역 만큼 간격 설정 이이름	NNP  영업부	NNP
+					String[] str = data.split("\\t"); // 탭영역 만큼 간격 설정\	NNP  영업부	NNP
 					keys.add(str[0]); // set에 저장
 				}
 				br.close();
@@ -80,14 +80,13 @@ public class KomoranConfig {
 			keys.forEach(key -> {
 				try {
 					bw.write(key + "\tNNP\n");
-					//  이이름	NNP
+					//  김이름	NNP
 					//  영업부	NNP
 					System.out.println(key);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			});
-
 			bw.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
