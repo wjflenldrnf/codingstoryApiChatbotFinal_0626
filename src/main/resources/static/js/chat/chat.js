@@ -45,22 +45,6 @@ function sendMessage(message){
 	});
 }
 
-//function inputTagString(text){
-//	var now=new Date();
-//	var ampm=(now.getHours()>11)?"오후":"오전";
-//	var time= ampm + now.getHours()%12+":"+now.getMinutes();
-//	var message=`
-//		<div class="msg user flex end">
-//			<div class="message">
-//				<div class="part">
-//					<p>${text}</p>
-//				</div>
-//				<div class="time">${time}</div>
-//			</div>
-//		</div>
-//	`;
-//	return message;
-//}
 function inputTagString(text) {
     var now = new Date();
     var hours = now.getHours();

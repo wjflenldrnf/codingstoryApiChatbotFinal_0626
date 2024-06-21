@@ -5,7 +5,6 @@
             // 하위 메뉴의 a 태그 클릭 시 기본 동작 수행
             return;
         }
-
         e.stopPropagation(); //버블링 , 캡쳐링 방지
        // e.preventDefault(); // 상위 메뉴의 a 태그 클릭 시 기본 동작 방지
         if($(this).hasClass("active") == false){
