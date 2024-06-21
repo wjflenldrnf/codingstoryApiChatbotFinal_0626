@@ -51,7 +51,7 @@ public class MemberServiceImpl implements MemberService {
       String oldFileName = memberFile.getOriginalFilename();
       UUID uuid = UUID.randomUUID();
       String newFileName = uuid + "_" + oldFileName;
-      String fileSavePath = "C:/codingStory_file/" + newFileName;
+      String fileSavePath =  "C:/codingStory_file/" + newFileName;
       memberFile.transferTo(new File(fileSavePath));
 
       MemberEntity memberEntity = MemberEntity.toJoinFileMember(memberDto, passwordEncoder);
@@ -527,6 +527,5 @@ public class MemberServiceImpl implements MemberService {
 
         return 1;
     }
-
 
 }

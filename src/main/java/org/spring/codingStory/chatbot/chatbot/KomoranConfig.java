@@ -12,7 +12,7 @@ import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
 
-//  사용자 사전
+//  사용자 사전 -> user.dic 에 값을 자동으로 저장하는 클래스
 //  구문 내에서 사용자 사전에 포함된 단어가 출현하면 사용자 사전에 정의된 품사를 우선 적용
 //  주로 사람이름, 영화제목, 부서 등과 같이 고유명사를 인식하는데 활용
 
@@ -29,13 +29,10 @@ public class KomoranConfig {
 	//private String DEPT_DIC="dept.dic";
 	//private String DIC_DIR="static/files/";
 	private String USER_DIC="user.dic";
-
 	@Autowired
 	DepartmentRepository dept;//부서이름
-
 	@Autowired
 	MemberRepository member;//사원이름
-
 	@Bean
 	Komoran komoran() {
 		userDic();
@@ -43,12 +40,9 @@ public class KomoranConfig {
 		komoran.setUserDic(USER_DIC);
 		return komoran;
 	}
-
 	//부서테이블(부서명), 멤버테이블(이름) 
 	private void userDic() {
-
 		Set<String> keys = new HashSet<>();
-
 		//기존에 수동으로 등록된 파일에서 고유명사만 추출
 		try {
 			File file=new File(USER_DIC);
@@ -67,7 +61,6 @@ public class KomoranConfig {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		////////////////////////////////////////////////////
 		//부서명을 set 에 저장
 		dept.findAll().forEach(e -> {
 			keys.add(e.getDptName());

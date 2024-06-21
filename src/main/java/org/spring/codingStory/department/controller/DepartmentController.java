@@ -6,17 +6,16 @@ import org.spring.codingStory.department.dto.DepartmentDto;
 import org.spring.codingStory.department.entity.DepartmentEntity;
 import org.spring.codingStory.department.serviceimpl.service.DepartmentService;
 import org.spring.codingStory.member.dto.MemberDto;
-import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.serviceImpl.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @RequiredArgsConstructor

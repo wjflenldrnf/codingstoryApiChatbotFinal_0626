@@ -1,12 +1,8 @@
 package org.spring.codingStory.config;
 
-import org.spring.codingStory.member.dto.MemberDto;
-import org.spring.codingStory.member.entity.MemberEntity;
 import org.spring.codingStory.member.repository.MemberRepository;
-import org.spring.codingStory.member.role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 

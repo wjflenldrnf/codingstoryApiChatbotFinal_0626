@@ -2,8 +2,6 @@ package org.spring.codingStory.fullcalender.controller;
 
 import org.spring.codingStory.config.MyUserDetails;
 import org.spring.codingStory.fullcalender.dto.FullCalenderDto;
-import org.spring.codingStory.fullcalender.entity.FullCalenderEntity;
-import org.spring.codingStory.fullcalender.reposiory.FullCalenderRepository;
 import org.spring.codingStory.fullcalender.serviceImpl.service.FullCalenderService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

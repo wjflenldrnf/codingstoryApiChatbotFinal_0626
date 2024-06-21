@@ -349,4 +349,30 @@ color: white;
     transform: translate(-50%, -50%);
     box-shadow: 0 2px 4px -1px black;
     z-index: 10;
+
 }
+
+/*인덱스 결재 숫자 카운팅*/
+.bottom .index-data .app .apv{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    height:310px;
+    font-size:30px;
+    text-align:center;
+    margin-top:15px;
+}
+.bottom .index-data .app .apv a:hover{
+    color:rgb(182 93 247);
+}
+.bottom .index-data .app .apv a span{
+font-size:40px;
+text-decoration:underline;
+}
+.bottom .index-data .app .apv a:last-child{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
