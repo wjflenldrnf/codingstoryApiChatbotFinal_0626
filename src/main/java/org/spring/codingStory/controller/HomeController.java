@@ -143,6 +143,24 @@ public class HomeController {
         return "map4";
     }
 
+    @GetMapping("/movie/index1")
+    public String movieApi1(){
+        return "movie/index1";
+    }
+    @GetMapping("/movie/index2")
+    public String movieApi2(){
+        return "movie/index2";
+    }
+    @GetMapping("/movie/index3")
+    public String movieApi3(){
+        return "movie/index3";
+    }
+
+    @GetMapping("/movie/index")
+    public String movieApi0(){
+        return "movie/index";
+    }
+
 
 
 

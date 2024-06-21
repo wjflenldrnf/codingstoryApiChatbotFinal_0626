@@ -90,30 +90,22 @@ public class KomoranService {
     }
 
     //부서 문의
-    private PhoneInfo analyzeTokenIsDept(Set<String> next) {  // 아래의 3번과 종륨나 다르고 3번으로 시작
-
+    private PhoneInfo analyzeTokenIsDept(Set<String> next) {  // 3번
         for (String name : next) {
-
             System.out.println(name + " <<2차");
             Optional<MemberEntity> member = memberRepository.findByName(name);
             List<MemberEntity> memberEntityList = memberRepository.findAll();
             if (!member.isPresent()) continue;//member 가 비어있는지 확인한 후, 비어있다면 현재 반복을 건너뛰고 다음 반복으로 진행
-            //존재하면
             String deptName = member.get().getDepartment();
             String phone = member.get().getPhoneNumber();
             String memberName = member.get().getName();
             String email = member.get().getUserEmail();
-
-            System.out.println(member.get().getDepartment() + " << 부서 이름2");
-            System.out.println(member.get().getName() + " <<  이름2");
-
             return PhoneInfo.builder()
                 .deptName(deptName)
                 .email(email)
                 .memberName(memberName)
                 .phone(phone)
                 .build();
-
         }
         return null;
     }

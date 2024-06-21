@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OpenWeather Api</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script th:src="@{/js/movie/movie.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/movie/indexAll.css}">
+</head>
+<body>
+<!--영화 전체 검색-->
+    <a th:href="@{/index}"><img th:src="@{/images/logo.png}" alt="Maple Logo" id="logo"> </a>
+<h1 id="title">영화 검색</h1>
+<div class="button-container">
+    <a class="button" th:href="@{/movie/index}">전체 영화 검색</a>
+    <a class="button" th:href="@{/movie/index1}">일일 박스 오피스</a>
+    <a class="button" th:href="@{/movie/index2}">주말 박스오피스</a>
+    <a class="button" th:href="@{/movie/index3}">주중 박스오피스</a>
+</div>
+<div class="container">
+        <div class="search">
+        <input type="text" id="search-input" placeholder="영화명을 검색하세요.">
+        <button id="search-button">검색</button>
+    </div>
+    <div id="movie-container" class="movies"></div>
+</div>
+
+
+</body>
+</html>
