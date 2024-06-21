@@ -1,12 +1,11 @@
 	NNP
+자동차극장	NNP
 11	NNP
 m1@11.11	NNP
-�?리자	NNP
-관리자	NNP
-������	NNP
 �����?	NNP
+=======	NNP
+<<<<<<< HEAD	NNP
 admin@naver.com	NNP
-<<<<<<< HEAD
 member12@naver.com	NNP
 member0@naver.com	NNP
 membe15@naver.com	NNP
@@ -130,5 +129,3 @@ m7@naver.com	NNP
 사원9	NNP
 나루토	NNP
 사원8	NNP
-=======
->>>>>>> dev

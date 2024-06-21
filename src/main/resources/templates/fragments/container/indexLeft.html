@@ -109,6 +109,21 @@
                         </div>
                     </li>
 
+
+                    <li class="sub">
+                        <img th:src="@{/images/busicon.png}" alt="icon">
+                        <div class="right">
+                            <h3>버스</h3>
+                            <ul class="submenu">
+
+                                <li class="menuGo"th:onClick="|location.href='@{/busapi/bus/busIndex}'|"><img th:src="@{/images/bussub.png}" alt="icon"><a>버스API</a></li>
+                                <li class="menuGo"th:onClick="|location.href='@{/buschatbot/chat}'|"><img th:src="@{/images/bussub.png}" alt="icon"><a>버스챗봇</a></li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+
                 </ul>
             </div>
         </div>
