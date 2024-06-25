@@ -85,11 +85,9 @@ public class BusService {
   }
 
   public void busStationPostdo(String rs) {
-
     System.out.println(rs + " rs2");
     ObjectMapper objectMapper = new ObjectMapper();
     BusStationResponse response = null;
-
     try {
       // json 문자열데이터를 -> 클래스에 매핑
       response = objectMapper.readValue(rs, BusStationResponse.class);

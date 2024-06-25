@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
   <meta charset="UTF-8">
   <title>BUS API</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script type="text/javascript"
-          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=22926ba8f1c4fdf458cefa9d86fc8710&libraries=services,clusterer,drawing">
-  </script>
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=22926ba8f1c4fdf458cefa9d86fc8710&libraries=services,clusterer,drawing"></script>
   <script th:src="@{/js/busapi/busApi.js}" defer></script>
   <link rel="stylesheet" th:href="@{/css/busapi/bus.css}">
 </head>
-
 <body>
 <div id="wrap">
   <div class="right-con">
-
     <div class="bus">
       <div class="bus-box">
         <div class="bus-header">
@@ -50,28 +46,51 @@
           </table>
         </div>
 
-      <div class="bus-map">
-            <div class="left-bus">
-              <h1>버스 정거장역</h1>
-          <div class="bus-station" id="station-list">
-            <!-- 이 부분에 정류장 정보가 동적으로 추가될 예정 -->
+        <div class="bus-map">
+          <div class="left-bus">
+            <h1>버스 정거장역</h1>
+            <div class="bus-station" id="station-list">
+              <!-- 이 부분에 정류장 정보가 동적으로 추가될 예정 -->
+            </div>
+          </div>
+          <div class="right-map">
+            <section id="mymap" style="width: 100%;">
+              <div class="wrap" id="map" style="width:100%;height:400px;"></div>
+              <div id="rvWrapper" style="width:50%; height:400px; float:left">
+                <div id="roadview" style="width:100%; height:100%"></div>
+              </div>
+            </section>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="right-map">
-          <section id="mymap" style="width: 100%;">
-            <div class="wrap" id="map" style="width:100%;height:400px;"></div>
-            <div id="rvWrapper" style="width:50%; height:400px; float:left">
-              <div id="roadview" style="width:100%; height:100%"></div>
-            </div>
-
-          </section>
+    <div class="bus-info">
+      <h2>버스 정보(버스노선번호입력)</h2>
+      <div class="arrInfo" id="arrInfo">
+        <input type="text" id="search2" name="search2" value="100100025">
+        <button onclick="busArrInfo()">도착정보</button>
+        <div class="arr" id="arr">
+          <table class="bus-table1" border="1">
+            <thead>
+            <tr>
+              <th>첫차도착</th>
+              <th>두번째차도착</th>
+              <th>정류소번호</th>
+              <th>첫차인원</th>
+              <th>두번째차인원</th>
+              <th>정류소명</th>
+              <th>버스번호</th>
+              <th>노선번호</th>
+            </tr>
+            </thead>
+            <tbody id="bus2">
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 </body>
-
 </html>
