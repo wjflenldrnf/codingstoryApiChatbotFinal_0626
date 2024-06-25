@@ -73,7 +73,7 @@ function menuclicked(el){
 	showMessage(message);
 }
 
-//엔터가 입력이되면 질문을 텍스트 화면에 표현 
+//엔터가 입력이되면 질문을 텍스트 화면에 표현
 function questionKeyuped(event){
 	if(event.keyCode!=13)return;
 	btnMsgSendClicked()
@@ -81,14 +81,14 @@ function questionKeyuped(event){
 
 function btnMsgSendClicked(){
 
-  	var question1 = $("#question").val().trim();
-    var question2 = $("#question2").val().trim();
+  	var question1 = $("#question").val().replaceAll(' ','');
+  	var question2 = $("#question2").val().replaceAll(' ','');
     var question  = question1 + question2;
 
 	if(question=="" || question.length<2)return;
 
 	sendMessage(question);
-	 
+
 	var message=inputTagString(question1);
 	showMessage(message);
 	$("#question").val("");
@@ -147,9 +147,27 @@ function keySubway(){
 alert('개발중입니다')
 }
 
+function menu(){
+$('.chat-left').css('display','block');
+$('.ui-1-1').css('display','block');
+$('menu1').css('display','none')
+}
+function noMenu(){
+$('.chat-left').css('display','none');
+$('.ui-1-1').css('display','none');
+$('menu1').css('display','block');
+}
 
 
 
+
+function home(){
+location.href= '/index';
+}
+
+function undo(){
+window.history.back();
+}
 
 
 

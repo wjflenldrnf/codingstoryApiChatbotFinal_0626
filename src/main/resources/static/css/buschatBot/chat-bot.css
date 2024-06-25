@@ -49,12 +49,13 @@ height:inherit;
 	overflow: hidden;
 }
 #chat-content{
+
   background-color: #bacee0;
 	padding: 2vw;
 	line-height: 1em;
 	overflow-y: auto;
 	/*height: calc( 90vh - 60px - 60px  ) ;*/
-	max-height: 720px  ;
+	max-height: 600px  ;
 }
 #chat-header{
 	position:relative;
@@ -510,4 +511,217 @@ border:1px solid #ccc;
 .deleteChat{
 width:60px;
 border:1px solid #ccc;
+}
+
+.uiBtn{
+position:absolute;
+bottom:20px;
+width: inherit;
+}
+.ui-con{
+display:flex;
+width: inherit;
+height:50px;
+}
+.menu1{
+width:33%;
+background-color:black;
+display:flex;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+}
+.ui-2{
+width:33%;
+background-color:black;
+display:flex;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+}
+.ui-3{
+width:34%;
+background-color:black;
+display:flex;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+}
+
+.ui-con img{
+width:30px;
+height:30px;
+}
+
+.chat-left{
+position:absolute;
+left:0;
+display:none;
+}
+
+.index .left h3{
+display: flex;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    text-align: center;
+    font-weight:bold;
+    font-size: 18px;
+}
+.index .left-con{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* padding: 10px; */
+  box-sizing: border-box;
+}
+.index .left-con .left-top{
+
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.index .left-con .left-top .title{
+
+}
+
+.index .left-con .left-top .title h1.logo{
+  height: auto;
+  /* background-color: #e392ef; */
+}
+.index .left-con .left-top .title h1.logo img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.index .left-con .left-top .title .profile{
+  height: 100px;
+  background-color: #white;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.index .left-con .left-top .left-menu{
+  background-color: #white;
+  padding: 20px 0;
+}
+.index .left-con .left-top .left-menu>ul{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3px;
+}
+.index .left-con .left-top .left-menu>ul>li{
+  box-sizing: border-box;
+  background: radial-gradient(circle, #E5E5BE, rgba(0, 57, 115, 0.45));
+
+}
+
+.index .left-con .bottom{
+  height: 100px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.left-menu {
+ width: 250px;
+ overflow: hidden;
+ padding: 10px;
+ padding-top: 80px;
+ box-sizing: border-box;
+ box-shadow: 5px 20px 5px rgb(68 67 67 / 34%);
+/*position: fixed;*/
+/* margin: 150px auto; */
+}
+
+/*sub 가 아닌 li 태그에만 적용*/
+.left-menu li:not(.sub) {
+ width: 100%;
+ text-align: center;
+ line-height: 50px;
+ color: #000000;
+ display: flex;
+}
+
+/*sub인 li 태그에만 적용*/
+.left-menu li.sub {
+display: flex;
+justify-content: space-between;
+ background:white;
+}
+
+.left-menu li.sub img{
+display: inline-block;
+width: 30px;
+height: 30px;
+padding: 15px 10px;
+}
+
+.left-menu li.sub .right{
+flex:1;
+padding: 10px 0;
+box-sizing: border-box;
+}
+
+.left-menu li.sub .right > a{
+display: block;
+width: 80px;
+line-height: 30px;
+color:#000;
+font-weight:bold;
+}
+
+
+
+/*sub 가 아닌 li의 img 설정*/
+.left-menu li:not(.sub) img{
+width: 30px;
+height: 30px;
+padding: 15px 10px;
+}
+
+.left-menu a, .left-menu > label {
+padding: 8px;
+color: #000000;
+font-size: 18px;
+font-weight:bold;
+}
+
+
+/*위랑 같은거 */
+.left-menu ul > li.sub .right .submenu {
+height: 0;
+
+/* subleft-menu가 안보이게 하기 위해 */
+overflow: hidden;
+
+}
+
+.left-menu > li:hover {
+/* left-menu부터 subleft-menu01~5높이 생각해서 설정 */
+height: 300px;
+transition-duration: 0.1s;
+}
+
+
+/*위랑 같은 거*/
+.left-menu >ul>li.sub .right:hover .submenu{
+height: auto;
+display:block;/*수정수정수정11111*/
+/*서브메뉴 li 한개의 높이 50*5*/
+transition-duration: 0.1s;
+}
+
+.ui-1-1{
+position:absolute;
+left:51px;
+top:10px;
+cursor:pointer;
+display:none;
+}
+
+.logo img{
+display:none;
 }
