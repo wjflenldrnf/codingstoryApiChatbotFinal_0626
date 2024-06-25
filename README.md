@@ -10,8 +10,8 @@
 
 프레임워크 : Springboot 2.7.11
 
-라이브러리 DI : Spring WEB(MVC), Thymeleaf, Spring Data JPA, Lombok, SpringSecurity5 
-               , websocket, validation, OAuth2, security  
+라이브러리 DI : Spring WEB(MVC), Thymeleaf, Spring Data JPA, Lombok, SpringSecurity5
+, websocket, validation, OAuth2, security
 
 데이터베이스 : MySql8
 
@@ -48,7 +48,7 @@ ORM : Spring Data JPA (JAVA(SQL))
 
 </details>
 
-### approval  
+### approval
 <details>
 <summary>결재</summary>
 

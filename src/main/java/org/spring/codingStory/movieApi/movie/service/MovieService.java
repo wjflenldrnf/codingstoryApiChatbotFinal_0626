@@ -98,9 +98,7 @@ public class MovieService {
 
     public void insertResponseBody(String responseBody) {
         ObjectMapper objectMapper = new ObjectMapper();
-
         System.out.println( " <<< responseBody"+responseBody);
-
         MovieApiDayDto response = null;
         try {
             // JSON 문자열 데이터를 클래스에 매핑
@@ -110,15 +108,12 @@ public class MovieService {
             return; // 오류 발생 시 메서드 종료
         }
         System.out.println(" response>>>>"+response);
-
         if (response == null || response.getBoxOfficeResult() == null || response.getBoxOfficeResult().getDailyBoxOfficeList() == null) {
             System.out.println("Response or one of its components is null");
             return;
         }
-
         List<DailyBoxOfficeList> movieList = response.getBoxOfficeResult().getDailyBoxOfficeList();
         System.out.println(" movieList>>>>"+movieList  );
-
         // DB 테이블 필드에 맞추어 설정
         for (DailyBoxOfficeList el : movieList) {
             System.out.println("Processing movie: " + el.getMovieNm());
@@ -127,7 +122,6 @@ public class MovieService {
                 System.out.println("MovieCd is null for movie: " + el.getMovieNm());
                 continue;
             }
-
             Optional<MovieEntity> optionalMovieEntity = movieRepository.findByMovieCd(el.getMovieCd());
             System.out.println("MovieEntity search completed");
 
@@ -138,12 +132,7 @@ public class MovieService {
                     .openDt(el.getOpenDt())
                     .audiAcc(el.getAudiAcc())
                     .movieRank(el.getRank())
-
-//                    .rnum(el.getRnum())
-//                    .audiChange(el.getAudiChange())
-//                    .audiCnt(el.getAudiCnt())
-//                    .rankInten(el.getRankInten())
-                        .build();
+                    .build();
 
                 movieRepository.save(movieEntity);
             }
@@ -193,11 +182,6 @@ public class MovieService {
                     .openDt(el.getOpenDt())
                     .audiAcc(el.getAudiAcc())
                     .movieRank(el.getRank())
-
-//                    .rnum(el.getRnum())
-//                    .audiChange(el.getAudiChange())
-//                    .audiCnt(el.getAudiCnt())
-//                    .rankInten(el.getRankInten())
                     .build();
 
                 weeklyMovieRepository.save(weeklyMovieEntity);
@@ -248,10 +232,6 @@ public class MovieService {
                     .openDt(el.getOpenDt())
                     .audiAcc(el.getAudiAcc())
                     .movieRank(el.getRank())
-//                    .rnum(el.getRnum())
-//                    .audiChange(el.getAudiChange())
-//                    .audiCnt(el.getAudiCnt())
-//                    .rankInten(el.getRankInten())
                     .build();
 
                 weekDayMovieRepository.save(weekDayMovieEntity);
@@ -298,18 +278,15 @@ public class MovieService {
     //영화 상세 정보 저장하기
     public void movieInfoResultResonBody(String responseBody) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-
         System.out.println(responseBody+" responseBody2");// 2
         MovieInfoResultReson response = null;
         try {
             // json 문자열 데이터를 클래스에 매핑
             response = objectMapper.readValue(responseBody, MovieInfoResultReson.class);
-
         } catch (Exception e) {
             e.printStackTrace();
             return; // 오류 발생 시 메서드 종료
         }
-
         System.out.println( response+">>>>>response3"); //3
 
         List<MovieInfoResultReson.MovieInfoResult.MovieInfo.Actor> actors = response.getMovieInfoResult().getMovieInfo().getActors();
