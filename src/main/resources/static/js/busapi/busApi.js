@@ -301,6 +301,46 @@ function toggleView(viewType) {
     }
 }
 
+const arr=document.querySelector('arr');
+function busArrInfo() {
+    let html1 = "";
+    let search2 = document.querySelector('#search2');
+    let busRouteId = search2.value;
+
+    let apiUrl = `/api/busArrInfo?busRouteId=${busRouteId}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(function (msg) {
+            let jsonRs = JSON.parse(msg.rs);
+
+            jsonRs.msgBody.itemList.forEach(el => {
+                  html1 += "<tr>";
+                                html1 += `
+
+
+                                <td>${el.arrmsg1}</td>
+                                <td>${el.arrmsg2}</td>
+                                <td>${el.arsId}</td>
+                                <td>${el.brdrde_Num1}</td>
+                                <td>${el.brdrde_Num2}</td>
+                                <td>${el.stNm}</td>
+                                <td>${el.busRouteAbrv}</td>
+                                <td>${el.busRouteId}</td>
+
+                `;
+                 html1 += "</tr>";
+            });
+            $('#bus2').html(html1);
+
+            // 위치 표시
+            positionFn(jsonRs.msgBody.itemList);
+
+            //입력 필드의 값을 유지하다.
+            document.querySelector('#search2').value=busRouteId;
+        });
+}
+
 
 
 

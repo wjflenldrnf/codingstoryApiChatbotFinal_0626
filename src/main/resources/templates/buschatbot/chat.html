@@ -15,22 +15,55 @@
 <body>
 
 
-<div class="open-btn">
-<div class="open-btn-con">
-  <h3 class="open-header">
-    <span>챗봇</span>
-  </h3>
 
-  <div class="open-con">
-    <div class="busbus" id="btn-chat-open" onclick="openChat()">
-      <img th:src="@{/images/icon/chatbot.jpg}" alt="버스봇">
-      <li>
-      <p style="font-weight:bold;">버스 봇</p>
-        <p>무엇이든물어보세요</p>
-      </li>
-    </div>
+
+
+<div class="open-btn">
+  <div class="chat-left">
+    <div class="left" th:replace="~{fragments/container/indexLeft :: indexLeftFragment}"></div>
   </div>
-</div>
+  <div class="open-btn-con">
+    <h3 class="open-header">
+      <span>  챗봇</span>
+    </h3>
+
+    <div class="open-con">
+      <div class="busbus" id="btn-chat-open" onclick="openChat()">
+        <img th:src="@{/images/icon/chatbot.jpg}" alt="버스봇">
+        <li>
+          <p style="font-weight:bold;">버스 봇</p>
+          <p>무엇이든물어보세요</p>
+        </li>
+      </div>
+    </div>
+
+    <div class="uiBtn">
+      <div class="ui-con">
+        <div class="menu1" onclick="menu()">
+          <img th:src="@{/images/menu.png}" alt="menu">
+        </div>
+        <div class="ui-1-1" onClick="noMenu()">
+          <img th:src="@{/images/menu.png}" alt="menu">
+        </div>
+
+
+
+
+        <div class="ui-2" onclick="home()">
+          <img th:src="@{/images/home.png}" alt="home">
+
+        </div>
+        <div class="ui-3" onclick="undo()">
+          <img th:src="@{/images/undo.png}" alt="undo">
+
+        </div>
+
+
+      </div>
+    </div>
+
+
+  </div>
 </div>
 
 
@@ -76,9 +109,9 @@
             <button class="keyBtn4" onclick="keyBus()">버스</button>
             <button class="keyBtn5" onclick="keyStation()">정류장</button>
           </div>
-
           <input type="text" id="question" placeholder="" value="">
           <input type="text" id="question2" hidden="hidden">
+
           <button type="button" id="btn-msg-send" onclick="btnMsgSendClicked()" class="enterChat">
             <img th:src="@{/images/icon/enter.png}" alt="입력">
           </button>

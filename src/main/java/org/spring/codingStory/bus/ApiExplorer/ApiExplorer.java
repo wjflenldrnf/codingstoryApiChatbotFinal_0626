@@ -85,16 +85,8 @@ public class ApiExplorer {
 
   //버스 도착 정보
   public static String fetchBusArrivalInfo(String busRouteId) throws IOException {
-                                                //http://ws.bus.go.kr/api/rest/busRouteInfo/getStaionByRoute
-
     System.out.println(busRouteId+"   << busRouteId");
     log.info("==============="+busRouteId+"==========busRouteId============");
-
-    //SELECT bus_route_id FROM groupairteam.bus where st_station_nm='7단지영업소';
-    // 정류장 이름 -> 버스 아이디
-
-
-
     StringBuilder urlBuilder = new StringBuilder("http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRouteAll");
     urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8")+ "=" + serviceKey); // Service Key
     urlBuilder.append("&" + URLEncoder.encode("busRouteId", "UTF-8") + "=" + URLEncoder.encode(busRouteId, "UTF-8")); // 노선ID

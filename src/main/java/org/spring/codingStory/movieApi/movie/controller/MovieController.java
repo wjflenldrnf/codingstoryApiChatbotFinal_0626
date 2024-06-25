@@ -117,7 +117,6 @@ public class MovieController {
 
         // JSON -> DB
         movieService.insertResponseBody(responseBody);
-
         System.out.println(responseBody + " responseBody processed");
 
         Map<String, String> movie = new HashMap<>();
@@ -251,7 +250,8 @@ public class MovieController {
         // 영화
         String key = "a00c456adf2ded3c39df93f44cf40503"; //
         String movieSerchJSON = "movie/searchMovieInfo.json";
-        String apiURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/" + movieSerchJSON +"?key="+ key +"&movieCd=" + mCode;
+        String apiURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/"
+            + movieSerchJSON +"?key="+ key +"&movieCd=" + mCode;
 
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("Content-type", "application/json");

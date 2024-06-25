@@ -1,12 +1,12 @@
-@import url(/css/common/reset.css);
+/*@import url(/css/common/reset.css);*/
 
 /* 전체 페이지 스타일 */
-body {
+/*body {
 	font-family: 'Noto Sans KR', sans-serif;
-	background-color: #f8f9fa; /* 배경색 */
+	background-color: #f8f9fa; *//* 배경색 *//*
 	margin: 0;
 	padding: 0;
-}
+}*/
 
 /* 챗봇 컨테이너 스타일 */
 #chat-bot {
