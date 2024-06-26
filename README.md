@@ -19,6 +19,7 @@ https://github.com/wjflenldrnf/codingstoryApiChatbotFinal_0626.git
 ## 프로젝트 요약
 - 날씨, 영화, 버스 API를 통해 실시간 데이터 수집
 - 챗봇을 통해 수집한 정보 답변
+  
 ![프레젠테이션1_나눔(한글나눔고딕)_25](https://github.com/wjflenldrnf/codingstoryApiChatbotFinal_0626/assets/154856783/ec78227f-ed56-4eea-b594-a476179dd0af)
 
 
