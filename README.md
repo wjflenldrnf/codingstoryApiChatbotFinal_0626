@@ -29,8 +29,15 @@ https://github.com/wjflenldrnf/codingstoryApiChatbotFinal_0626.git
 ![프레젠테이션1_나눔(한글나눔고딕)_23](https://github.com/wjflenldrnf/codingstoryApiChatbotFinal_0626/assets/154856783/18c20508-275b-4d9e-808e-30146b958c6c)
 ![프레젠테이션1_나눔(한글나눔고딕)_24](https://github.com/wjflenldrnf/codingstoryApiChatbotFinal_0626/assets/154856783/91fac0bd-949e-4845-812a-e2c3c519b77d)
 
+
+## 시연 영상
+![1-ezgif com-video-to-gif-converter](https://github.com/wjflenldrnf/codingstoryApiChatbotFinal_0626/assets/154856783/9cb1de6d-0c04-483b-8ec4-d495c0855863)
+![2-ezgif com-video-to-gif-converter](https://github.com/wjflenldrnf/codingstoryApiChatbotFinal_0626/assets/154856783/a5c7fc19-f05b-4028-a45d-765ca06286e1)
+
+
 ## ERD
-![프레젠테이션1_나눔(한글나눔고딕)_26](https://github.com/wjflenldrnf/codingstoryApiChatbotFinal_0626/assets/154856783/30481178-5b06-49b8-808b-eba4a57e5e50)
+![image](https://github.com/wjflenldrnf/codingstoryApiChatbotFinal_0626/assets/154856783/2a587ba6-8b01-44ed-9962-19373a34c7cd)
+
 
 ## 개발 환경
 ![프레젠테이션1_나눔(한글나눔고딕)_27](https://github.com/wjflenldrnf/codingstoryApiChatbotFinal_0626/assets/154856783/d91e18f3-3d85-4bdf-bf9e-100e5611a1dd)
